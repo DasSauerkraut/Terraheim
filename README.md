@@ -1,5 +1,8 @@
 
 # Terraheim - Armor Overhaul
+[Nexus](https://www.nexusmods.com/valheim/mods/803)
+[Thunderstore](https://valheim.thunderstore.io/package/DasSauerkraut/Terraheim/)
+[GitHub](https://github.com/DasSauerkraut/Terraheim)
 **Terraheim** is an overhaul for Valheim's armor system with the goal of making each armor set viable all the way to the end of the game. 
 It does this by giving each piece of armor its own unique effect and each armor set its own set bonus while also allowing armor to be 'uptiered,' which increases all of the piece's stats to be usable in the next tier of gameplay.
 ## Classes
