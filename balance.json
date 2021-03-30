@@ -1,0 +1,28 @@
+{
+    "baseDodgeStaminaUse": 15,
+    "classes": {
+        "berserker": "berserkr",
+        "ranger": "bowman",
+        "tank": "Shieldbrother"
+    }
+    "leather": {
+        "name": "leather",
+        "baseArmor": 4,
+        "armorPerLevel": 1,
+        "setBonusVal": 0.1,
+        "headEffectVal": 0.07,
+        "chestEffectVal": 0.1,
+        "legsEffectVal": 0.03,
+        "capeEffectVal": 0.05
+    },
+    "trollLeather": {
+        "name": "trollLeather",
+        "baseArmor": 4,
+        "armorPerLevel": 1,
+        "setBonusVal": 0.1,
+        "headEffectVal": 0.07,
+        "chestEffectVal": 10,
+        "legsEffectVal": 0.07,
+        "capeEffectVal": 2
+    }
+}
