@@ -554,7 +554,6 @@ namespace Terraheim.Armor
                 //Add previous armor to requirements
                 if (i == (int)setBalance["upgrades"]["startingTier"])
                 {
-
                     helmetList.Add(MockRequirement.Create("HelmetIron", 1));
                     chestList.Add(MockRequirement.Create("ArmorIronChest", 1));
                     legsList.Add(MockRequirement.Create("ArmorIronLegs", 1));

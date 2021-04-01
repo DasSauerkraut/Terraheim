@@ -18,6 +18,9 @@ namespace Terraheim.Patches
         [HarmonyPatch(typeof(MineRock), "Damage")]
         static void Prefix(ref HitData hit)
         {
+            if (!hit.GetAttacker().IsPlayer())
+                return;
+
             if (hit.GetAttacker().GetSEMan().HaveStatusEffect("Mining Bonus"))
             {
                 SE_MiningBonus effect = hit.GetAttacker().GetSEMan().GetStatusEffect("Mining Bonus") as SE_MiningBonus;
@@ -29,6 +32,9 @@ namespace Terraheim.Patches
         [HarmonyPrefix]
         static void RockHitPrefix(ref HitData hit)
         {
+            if (!hit.GetAttacker().IsPlayer())
+                return;
+
             if (hit.GetAttacker().GetSEMan().HaveStatusEffect("Mining Bonus"))
             {
                 SE_MiningBonus effect = hit.GetAttacker().GetSEMan().GetStatusEffect("Mining Bonus") as SE_MiningBonus;
