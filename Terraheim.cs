@@ -15,7 +15,7 @@ namespace Terraheim
         public const string ModGuid = AuthorName + "." + ModName;
         private const string AuthorName = "DasSauerkraut";
         private const string ModName = "Terraheim";
-        private const string ModVer = "1.1.1";
+        private const string ModVer = "1.2.1";
 
         private readonly Harmony harmony = new Harmony(ModGuid);
 

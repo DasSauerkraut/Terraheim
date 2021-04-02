@@ -6,6 +6,7 @@ using Terraheim.Utility;
 using Terraheim;
 using Newtonsoft.Json.Linq;
 using System.Linq;
+using UnityEngine;
 
 namespace Terraheim.Armor
 {
@@ -254,10 +255,10 @@ namespace Terraheim.Armor
             var setBalance = balance["silver"];
 
             //Create Set effect
-            var sneakDamageBonus = Prefab.Cache.GetPrefab<SE_SneakDamageBonus>("Sneak Damage Bonus");
+            var sneakDamageBonus = ScriptableObject.CreateInstance<SE_SneakDamageBonus>();
             sneakDamageBonus.SetDamageBonus((float)setBalance["setBonusVal"]);
-            sneakDamageBonus.SetAOEChance((int)setBalance["setAOEChane"]);
-            sneakDamageBonus.SetIcon();
+            sneakDamageBonus.SetActivationHP((float)setBalance["setActivationHP"]);
+            //sneakDamageBonus.SetIcon();
 
             //Adjust Stats
             foreach (ItemDrop item in armorList)

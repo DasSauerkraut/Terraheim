@@ -45,6 +45,15 @@ namespace Terraheim.Patches
                 //Log.LogMessage($"Reflected Damage ${reflectedDamage.m_damage.GetTotalDamage()}");
                 attacker.ApplyDamage(reflectedDamage, true, false);            
             }
+
+            if (__instance.HaveStatusEffect("Wolftears"))
+            {
+                var effect = __instance.GetStatusEffect("Wolftears") as SE_SneakDamageBonus;
+                if(__instance.m_character.GetHealthPercentage() <= effect.GetActivationHP())
+                {
+                    effect.SetIcon();
+                }
+            }
         }
     }
 }

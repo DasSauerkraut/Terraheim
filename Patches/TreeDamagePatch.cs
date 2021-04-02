@@ -20,7 +20,7 @@ namespace Terraheim.Patches
         [HarmonyPatch(typeof(TreeBase), "Damage")]
         static void Prefix(ref HitData hit)
         {
-            if (!hit.GetAttacker().IsPlayer())
+            if (hit.GetAttacker() == null || !hit.GetAttacker().IsPlayer() || hit.GetAttacker().m_seman == null)
                 return;
 
             //Log.LogWarning("Hit Tree!");
@@ -39,7 +39,7 @@ namespace Terraheim.Patches
         [HarmonyPrefix]
         static void LogHitPrefix(ref HitData hit)
         {
-            if (!hit.GetAttacker().IsPlayer())
+            if (hit.GetAttacker() == null || !hit.GetAttacker().IsPlayer() || hit.GetAttacker().m_seman == null)
                 return;
 
             //Log.LogWarning("Hit Tree!");

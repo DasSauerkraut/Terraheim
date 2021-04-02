@@ -50,7 +50,7 @@ namespace Terraheim.Armor
                 List<ItemDrop> armorList = new List<ItemDrop>() { helmet.ItemDrop, chest.ItemDrop, legs.ItemDrop };
 
                 //Create Set effect
-                var hpOnHit = Prefab.Cache.GetPrefab<SE_HPOnHit>("Life Steal");
+                var hpOnHit = ScriptableObject.CreateInstance<SE_HPOnHit>();
                 hpOnHit.setHealAmount((float)tierBalance["setBonusVal"]);
                 hpOnHit.SetIcon();
 
@@ -345,7 +345,7 @@ namespace Terraheim.Armor
                 List<ItemDrop> armorList = new List<ItemDrop>() { helmet.ItemDrop, chest.ItemDrop, legs.ItemDrop };
 
                 //Create Set effect
-                var hpRegen = Prefab.Cache.GetPrefab<SE_HPRegen>("HP Regen");
+                var hpRegen = ScriptableObject.CreateInstance<SE_HPRegen>();
                 hpRegen.setHealPercent((float)tierBalance["setBonusVal"]);
                 hpRegen.SetIcon();
 
@@ -496,7 +496,7 @@ namespace Terraheim.Armor
                 List<ItemDrop> armorList = new List<ItemDrop>() { helmet.ItemDrop, chest.ItemDrop, legs.ItemDrop };
 
                 //Create Set effect
-                var critChance = Prefab.Cache.GetPrefab<SE_CritChance>("Crit Chance");
+                var critChance = ScriptableObject.CreateInstance<SE_CritChance>();
                 critChance.SetCritChance((float)tierBalance["setBonusVal"]);
                 critChance.SetCritBonus((float)tierBalance["setCritBonus"]);
                 critChance.SetIcon();
@@ -648,10 +648,10 @@ namespace Terraheim.Armor
                 List<ItemDrop> armorList = new List<ItemDrop>() { helmet.ItemDrop, chest.ItemDrop, legs.ItemDrop };
 
                 //Create Set effect
-                SE_SneakDamageBonus sneakDamageBonus = Prefab.Cache.GetPrefab<SE_SneakDamageBonus>("Sneak Damage Bonus");
+                var sneakDamageBonus = ScriptableObject.CreateInstance<SE_SneakDamageBonus>();
                 sneakDamageBonus.SetDamageBonus((float)tierBalance["setBonusVal"]);
-                //sneakDamageBonus.SetAOEChance((int)tierBalance["setAOEChance"]);
-                sneakDamageBonus.SetIcon();
+                sneakDamageBonus.SetActivationHP((float)tierBalance["setActivationHP"]);
+                //sneakDamageBonus.SetIcon();
 
                 //Adjust Stats
                 foreach (ItemDrop item in armorList)
@@ -785,19 +785,22 @@ namespace Terraheim.Armor
                 helmetList.Add(new Piece.Requirement()
                 {
                     m_resItem = ObjectDB.instance.GetItemPrefab($"HelmetLeatherT{i-1}_Terraheim_AddNewSets_AddLeatherArmor").GetComponent<ItemDrop>(),
-                    m_amount = 1
+                    m_amount = 1,
+                    m_amountPerLevel = 0
                 });
 
                 chestList.Add(new Piece.Requirement()
                 {
                     m_resItem = ObjectDB.instance.GetItemPrefab($"ArmorLeatherChestT{i-1}_Terraheim_AddNewSets_AddLeatherArmor").GetComponent<ItemDrop>(),
-                    m_amount = 1
+                    m_amount = 1,
+                    m_amountPerLevel = 0
                 });
 
                 legsList.Add(new Piece.Requirement()
                 {
                     m_resItem = ObjectDB.instance.GetItemPrefab($"ArmorLeatherLegsT{i-1}_Terraheim_AddNewSets_AddLeatherArmor").GetComponent<ItemDrop>(),
-                    m_amount = 1
+                    m_amount = 1,
+                    m_amountPerLevel = 0
                 });
 
                 helmetRecipe.m_resources = helmetList.ToArray();
@@ -825,21 +828,24 @@ namespace Terraheim.Armor
                 helmetList.Add(new Piece.Requirement()
                 {
                     m_resItem = ObjectDB.instance.GetItemPrefab($"HelmetTrollLeatherT{i - 1}_Terraheim_AddNewSets_AddTrollLeatherArmor").GetComponent<ItemDrop>(),
-                    m_amount = 1
+                    m_amount = 1,
+                    m_amountPerLevel = 0
                 });
 
                 //Log.LogWarning(5);
                 chestList.Add(new Piece.Requirement()
                 {
                     m_resItem = ObjectDB.instance.GetItemPrefab($"ArmorTrollLeatherChestT{i - 1}_Terraheim_AddNewSets_AddTrollLeatherArmor").GetComponent<ItemDrop>(),
-                    m_amount = 1
+                    m_amount = 1,
+                    m_amountPerLevel = 0
                 });
 
                 //Log.LogWarning(6);
                 legsList.Add(new Piece.Requirement()
                 {
                     m_resItem = ObjectDB.instance.GetItemPrefab($"ArmorTrollLeatherLegsT{i - 1}_Terraheim_AddNewSets_AddTrollLeatherArmor").GetComponent<ItemDrop>(),
-                    m_amount = 1
+                    m_amount = 1,
+                    m_amountPerLevel = 0
                 });
 
                 helmetRecipe.m_resources = helmetList.ToArray();
@@ -862,19 +868,22 @@ namespace Terraheim.Armor
                 helmetList.Add(new Piece.Requirement()
                 {
                     m_resItem = ObjectDB.instance.GetItemPrefab($"HelmetBronzeT{i - 1}_Terraheim_AddNewSets_AddBronzeArmor").GetComponent<ItemDrop>(),
-                    m_amount = 1
+                    m_amount = 1,
+                    m_amountPerLevel = 0
                 });
 
                 chestList.Add(new Piece.Requirement()
                 {
                     m_resItem = ObjectDB.instance.GetItemPrefab($"ArmorBronzeChestT{i - 1}_Terraheim_AddNewSets_AddBronzeArmor").GetComponent<ItemDrop>(),
-                    m_amount = 1
+                    m_amount = 1,
+                    m_amountPerLevel = 0
                 });
 
                 legsList.Add(new Piece.Requirement()
                 {
                     m_resItem = ObjectDB.instance.GetItemPrefab($"ArmorBronzeLegsT{i - 1}_Terraheim_AddNewSets_AddBronzeArmor").GetComponent<ItemDrop>(),
-                    m_amount = 1
+                    m_amount = 1,
+                    m_amountPerLevel = 0
                 });
 
                 helmetRecipe.m_resources = helmetList.ToArray();
@@ -896,19 +905,22 @@ namespace Terraheim.Armor
                 helmetList.Add(new Piece.Requirement()
                 {
                     m_resItem = ObjectDB.instance.GetItemPrefab($"HelmetIronT{i - 1}_Terraheim_AddNewSets_AddIronArmor").GetComponent<ItemDrop>(),
-                    m_amount = 1
+                    m_amount = 1,
+                    m_amountPerLevel = 0
                 });
 
                 chestList.Add(new Piece.Requirement()
                 {
                     m_resItem = ObjectDB.instance.GetItemPrefab($"ArmorIronChestT{i - 1}_Terraheim_AddNewSets_AddIronArmor").GetComponent<ItemDrop>(),
-                    m_amount = 1
+                    m_amount = 1,
+                    m_amountPerLevel = 0
                 });
 
                 legsList.Add(new Piece.Requirement()
                 {
                     m_resItem = ObjectDB.instance.GetItemPrefab($"ArmorIronLegsT{i - 1}_Terraheim_AddNewSets_AddIronArmor").GetComponent<ItemDrop>(),
-                    m_amount = 1
+                    m_amount = 1,
+                    m_amountPerLevel = 0
                 });
 
                 helmetRecipe.m_resources = helmetList.ToArray();

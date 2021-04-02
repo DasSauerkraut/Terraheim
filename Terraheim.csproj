@@ -69,6 +69,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="UniqueWeapons">
+      <HintPath>Libs\UniqueWeapons.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>Libs\UnityEngine.dll</HintPath>
     </Reference>
@@ -112,6 +115,7 @@
     <Compile Include="Patches\AttackPatch.cs" />
     <Compile Include="Patches\BlockPatch.cs" />
     <Compile Include="Patches\BlockPowerPatch.cs" />
+    <Compile Include="Patches\HealPatch.cs" />
     <Compile Include="Patches\DrawMoveSpeedPatch.cs" />
     <Compile Include="Patches\FoodUsagePatch.cs" />
     <Compile Include="Patches\HPRegenPatch.cs" />

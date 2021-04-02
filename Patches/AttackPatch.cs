@@ -197,13 +197,16 @@ namespace Terraheim.Patches
                 //Log.LogMessage("weapon spirit damage " + weapon.m_shared.m_damages.m_spirit);
             }
 
-            //Sneak damage bonus set effect
-            
-            if(character.IsCrouching() && character.GetSEMan().HaveStatusEffect("Sneak Damage Bonus"))
+            //Red Tearstone Ring
+            if(character.GetSEMan().HaveStatusEffect("Wolftears"))
             {
-                SE_SneakDamageBonus effect = character.GetSEMan().GetStatusEffect("Sneak Damage Bonus") as SE_SneakDamageBonus;
-                weapon.m_shared.m_attack.m_damageMultiplier += effect.GetDamageBonus();
-                //weapon.m_shared.m_attack.;
+                Log.LogWarning("Has Effect");
+                SE_SneakDamageBonus effect = character.GetSEMan().GetStatusEffect("Wolftears") as SE_SneakDamageBonus;
+                if(character.GetHealthPercentage() <= effect.GetActivationHP())
+                {
+                    Log.LogWarning("Active");
+                    weapon.m_shared.m_attack.m_damageMultiplier += effect.GetDamageBonus();
+                }
             }
             /*
             if(character.GetSEMan().HaveStatusEffect("Sneak Damage Bonus"))
