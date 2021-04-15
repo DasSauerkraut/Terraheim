@@ -50,9 +50,10 @@ namespace Terraheim.Armor
                 List<ItemDrop> armorList = new List<ItemDrop>() { helmet.ItemDrop, chest.ItemDrop, legs.ItemDrop };
 
                 //Create Set effect
-                var hpOnHit = ScriptableObject.CreateInstance<SE_HPOnHit>();
-                hpOnHit.setHealAmount((float)tierBalance["setBonusVal"]);
-                hpOnHit.SetIcon();
+                var wolftears = ScriptableObject.CreateInstance<SE_FullHPDamageBonus>();
+                wolftears.SetDamageBonus((float)tierBalance["setBonusVal"]);
+                wolftears.SetActivationHP((float)tierBalance["setActivationHP"]);
+                wolftears.InitIcon();
 
                 //Adjust Stats
                 foreach (ItemDrop item in armorList)
@@ -61,7 +62,7 @@ namespace Terraheim.Armor
                     {
                         item.m_itemData.m_shared.m_armor = (float)tierBalance["baseArmor"];
                         item.m_itemData.m_shared.m_armorPerLevel = (float)tierBalance["armorPerLevel"];
-                        item.m_itemData.m_shared.m_setStatusEffect = hpOnHit;
+                        item.m_itemData.m_shared.m_setStatusEffect = wolftears;
                         item.m_itemData.m_shared.m_setSize = 3;
                         item.m_itemData.m_shared.m_setName = (string)setBalance["name"];
                         if (!item.m_itemData.m_shared.m_name.Contains("helmet"))
@@ -71,22 +72,24 @@ namespace Terraheim.Armor
                 }
 
                 //Create Status Effects
-                var axeDamageBonus = Prefab.Cache.GetPrefab<SE_AxeDamageBonus>("Axe Damage Bonus");
-                var dodgeStamUse = Prefab.Cache.GetPrefab<SE_DodgeStamUse>("Dodge Stamina Use");
+                var axeDamageBonus = ScriptableObject.CreateInstance<SE_OneHandDamageBonus>();
+                var hpOnHit = ScriptableObject.CreateInstance<SE_HPOnHit>();
+                var dodgeStamUse = ScriptableObject.CreateInstance<SE_DodgeStamUse>();
 
                 //Configure Status Effects
                 axeDamageBonus.setDamageBonus((float)tierBalance["headEffectVal"]);
-                helmet.ItemDrop.m_itemData.m_shared.m_description += $"\nAxe Damage is increased by <color=yellow>{axeDamageBonus.getDamageBonus() * 100}%</color>.";
+                helmet.ItemDrop.m_itemData.m_shared.m_description += $"\nDamage with one handed weapons is increased by <color=cyan>{axeDamageBonus.getDamageBonus() * 100}%</color> when there is no item in the off hand.";
 
                 dodgeStamUse.setDodgeStaminaUse((float)tierBalance["chestEffectVal"]);
-                chest.ItemDrop.m_itemData.m_shared.m_description += $"\nDodge stamina cost is reduced by <color=yellow>{dodgeStamUse.getDodgeStaminaUse() * 100}%</color>.";
+                chest.ItemDrop.m_itemData.m_shared.m_description += $"\nDodge stamina cost is reduced by <color=cyan>{dodgeStamUse.getDodgeStaminaUse() * 100}%</color>.";
 
-                legs.ItemDrop.m_itemData.m_shared.m_description += $"\nMovement speed is increased by <color=yellow>" + (float)tierBalance["legsEffectVal"] * 100 + "%</color>.";
-
+                hpOnHit.setHealAmount((float)tierBalance["setBonusVal"]);
+                legs.ItemDrop.m_itemData.m_shared.m_description = legs.ItemDrop.m_itemData.m_shared.m_description + $"\n<color=cyan>Heal " + (hpOnHit.getHealAmount() * 100) + "%</color> of damage dealt as HP on hitting an enemy with a melee weapon.";
+                
                 //Apply Status Effects
                 helmet.ItemDrop.m_itemData.m_shared.m_equipStatusEffect = axeDamageBonus;
                 chest.ItemDrop.m_itemData.m_shared.m_equipStatusEffect = dodgeStamUse;
-                legs.ItemDrop.m_itemData.m_shared.m_movementModifier = (float)setBalance["legsEffectVal"];
+                legs.ItemDrop.m_itemData.m_shared.m_movementModifier = (float)tierBalance["legsEffectVal"];
                 
                 //Recipes
                 Recipe helmetRecipe = ScriptableObject.CreateInstance<Recipe>();
@@ -215,19 +218,19 @@ namespace Terraheim.Armor
                 }
 
                 //Create Status Effects
-                var rangedDamageBonus = Prefab.Cache.GetPrefab<SE_RangedDmgBonus>("Ranged Damage Bonus");
-                var daggerSpearDamageBonus = Prefab.Cache.GetPrefab<SE_DaggerSpearDmgBonus>("Dagger/Spear Damage Bonus");
-                var ammoConsumption = Prefab.Cache.GetPrefab<SE_AmmoConsumption>("Ammo Consumption");
+                var rangedDamageBonus = ScriptableObject.CreateInstance<SE_RangedDmgBonus>();
+                var daggerSpearDamageBonus = ScriptableObject.CreateInstance<SE_DaggerSpearDmgBonus>();
+                var ammoConsumption = ScriptableObject.CreateInstance<SE_AmmoConsumption>();
 
                 //Configure Status Effects
                 rangedDamageBonus.setDamageBonus((float)tierBalance["headEffectVal"]);
-                helmet.ItemDrop.m_itemData.m_shared.m_description = helmet.ItemDrop.m_itemData.m_shared.m_description + $"\nBow Damage is increased by <color=yellow>{System.Math.Round((rangedDamageBonus.getDamageBonus()) * 100)}%</color>.";
+                helmet.ItemDrop.m_itemData.m_shared.m_description = helmet.ItemDrop.m_itemData.m_shared.m_description + $"\nBow Damage is increased by <color=cyan>{System.Math.Round((rangedDamageBonus.getDamageBonus()) * 100)}%</color>.";
 
                 ammoConsumption.setAmmoConsumption((int)tierBalance["chestEffectVal"]);
-                chest.ItemDrop.m_itemData.m_shared.m_description = chest.ItemDrop.m_itemData.m_shared.m_description + $"\n<color=yellow>{ammoConsumption.getAmmoConsumption()}%</color> chance to not consume ammo.";
+                chest.ItemDrop.m_itemData.m_shared.m_description = chest.ItemDrop.m_itemData.m_shared.m_description + $"\n<color=cyan>{ammoConsumption.getAmmoConsumption()}%</color> chance to not consume ammo.";
 
                 daggerSpearDamageBonus.setDamageBonus((float)tierBalance["legsEffectVal"]);
-                legs.ItemDrop.m_itemData.m_shared.m_description = legs.ItemDrop.m_itemData.m_shared.m_description + $"\nDagger Damage is increased by <color=yellow>{System.Math.Round((daggerSpearDamageBonus.getDamageBonus()) * 100)}%</color>.\nSpear Damage is increased by <color=yellow>{System.Math.Round(daggerSpearDamageBonus.getDamageBonus() * 100)}%</color>.";
+                legs.ItemDrop.m_itemData.m_shared.m_description = legs.ItemDrop.m_itemData.m_shared.m_description + $"\nDagger Damage is increased by <color=cyan>{System.Math.Round((daggerSpearDamageBonus.getDamageBonus()) * 100)}%</color>.\nSpear Damage is increased by <color=cyan>{System.Math.Round(daggerSpearDamageBonus.getDamageBonus() * 100)}%</color>.";
 
                 //Apply Status Effects
                 helmet.ItemDrop.m_itemData.m_shared.m_equipStatusEffect = rangedDamageBonus;
@@ -366,19 +369,19 @@ namespace Terraheim.Armor
                 }
 
                 //Create Status Effects
-                var meleeDamageBonus = Prefab.Cache.GetPrefab<SE_MeleeDamageBonus>("Melee Damage Bonus");
-                var blockStamUse = Prefab.Cache.GetPrefab<SE_BlockStamUse>("Block Stamina Use");
-                var hpBonus = Prefab.Cache.GetPrefab<SE_HealthIncrease>("Health Increase");
+                var meleeDamageBonus = ScriptableObject.CreateInstance<SE_MeleeDamageBonus>();
+                var blockStamUse = ScriptableObject.CreateInstance<SE_BlockStamUse>();
+                var hpBonus = ScriptableObject.CreateInstance<SE_HealthIncrease>();
 
                 //Configure Status Effects
                 meleeDamageBonus.setDamageBonus((float)tierBalance["headEffectVal"]);
-                helmet.ItemDrop.m_itemData.m_shared.m_description += $"\nMelee Damage is increased by <color=yellow>{System.Math.Round((meleeDamageBonus.getDamageBonus()) * 100)}%</color>.";
+                helmet.ItemDrop.m_itemData.m_shared.m_description += $"\nMelee Damage is increased by <color=cyan>{System.Math.Round((meleeDamageBonus.getDamageBonus()) * 100)}%</color>.";
 
                 blockStamUse.setBlockStaminaUse((float)tierBalance["chestEffectVal"]);
-                chest.ItemDrop.m_itemData.m_shared.m_description += $"\nBase block stamina cost is reduced by <color=yellow>{System.Math.Round((blockStamUse.getBlockStaminaUse()) * 100)}%</color>.";
+                chest.ItemDrop.m_itemData.m_shared.m_description += $"\nBase block stamina cost is reduced by <color=cyan>{System.Math.Round((blockStamUse.getBlockStaminaUse()) * 100)}%</color>.";
 
                 hpBonus.setHealthBonus((float)tierBalance["legsEffectVal"]);
-                legs.ItemDrop.m_itemData.m_shared.m_description += $"\nHP is increased by <color=yellow>" + hpBonus.getHealthBonus() + "</color>.";
+                legs.ItemDrop.m_itemData.m_shared.m_description += $"\nHP is increased by <color=cyan>" + hpBonus.getHealthBonus() + "</color>.";
 
                 //Apply Status Effects
                 helmet.ItemDrop.m_itemData.m_shared.m_equipStatusEffect = meleeDamageBonus;
@@ -496,10 +499,10 @@ namespace Terraheim.Armor
                 List<ItemDrop> armorList = new List<ItemDrop>() { helmet.ItemDrop, chest.ItemDrop, legs.ItemDrop };
 
                 //Create Set effect
-                var critChance = ScriptableObject.CreateInstance<SE_CritChance>();
-                critChance.SetCritChance((float)tierBalance["setBonusVal"]);
-                critChance.SetCritBonus((float)tierBalance["setCritBonus"]);
-                critChance.SetIcon();
+                var critChance = ScriptableObject.CreateInstance<SE_Wolftears>();
+                critChance.SetDamageBonus((float)tierBalance["setBonusVal"]);
+                critChance.SetActivationHP((float)tierBalance["setActivationHP"]);
+                //critChance.SetIcon();
 
                 //Adjust Stats
                 foreach (ItemDrop item in armorList)
@@ -518,19 +521,19 @@ namespace Terraheim.Armor
                 }
 
                 //Create Status Effects
-                var meleeDamageBonus = Prefab.Cache.GetPrefab<SE_TwoHandedDmgBonus>("Two Handed Damage Bonus");
-                var extraStamina = Prefab.Cache.GetPrefab<SE_ExtraStamina>("Extra Stamina");
-                var stamRegen = Prefab.Cache.GetPrefab<SE_StaminaRegen>("Stamina Regen");
+                var meleeDamageBonus = ScriptableObject.CreateInstance<SE_TwoHandedDmgBonus>();
+                var extraStamina = ScriptableObject.CreateInstance<SE_ExtraStamina>();
+                var stamRegen = ScriptableObject.CreateInstance<SE_StaminaRegen>();
 
                 //Configure Status Effects
                 meleeDamageBonus.setDamageBonus((float)tierBalance["headEffectVal"]);
-                helmet.ItemDrop.m_itemData.m_shared.m_description += $"\nTwo-Handed weapons damage is increased by <color=yellow>{System.Math.Round((meleeDamageBonus.getDamageBonus()) * 100)}%</color>.";
+                helmet.ItemDrop.m_itemData.m_shared.m_description += $"\nTwo-Handed weapons damage is increased by <color=cyan>{System.Math.Round((meleeDamageBonus.getDamageBonus()) * 100)}%</color>.";
 
                 extraStamina.SetStaminaBonus((float)tierBalance["chestEffectVal"]);
-                chest.ItemDrop.m_itemData.m_shared.m_description += $"\nStamina is increased by <color=yellow>{extraStamina.GetStaminaBonus()}</color> points.";
+                chest.ItemDrop.m_itemData.m_shared.m_description += $"\nStamina is increased by <color=cyan>{extraStamina.GetStaminaBonus()}</color> points.";
 
                 stamRegen.SetRegenPercent((float)tierBalance["legsEffectVal"]);
-                legs.ItemDrop.m_itemData.m_shared.m_description += $"\nStamina regen is increased by <color=yellow>" + stamRegen.GetRegenPercent() * 100 + "%</color>.";
+                legs.ItemDrop.m_itemData.m_shared.m_description += $"\nStamina regen is increased by <color=cyan>" + stamRegen.GetRegenPercent() * 100 + "%</color>.";
 
                 //Apply Status Effects
                 helmet.ItemDrop.m_itemData.m_shared.m_equipStatusEffect = meleeDamageBonus;
@@ -648,10 +651,11 @@ namespace Terraheim.Armor
                 List<ItemDrop> armorList = new List<ItemDrop>() { helmet.ItemDrop, chest.ItemDrop, legs.ItemDrop };
 
                 //Create Set effect
-                var sneakDamageBonus = ScriptableObject.CreateInstance<SE_SneakDamageBonus>();
+                var sneakDamageBonus = ScriptableObject.CreateInstance<SE_AoECounter>();
                 sneakDamageBonus.SetDamageBonus((float)tierBalance["setBonusVal"]);
-                sneakDamageBonus.SetActivationHP((float)tierBalance["setActivationHP"]);
-                //sneakDamageBonus.SetIcon();
+                sneakDamageBonus.SetActivationCount((int)tierBalance["setActivationCount"]);
+                sneakDamageBonus.SetAoESize((float)tierBalance["setAoESize"]);
+                sneakDamageBonus.SetIcon();
 
                 //Adjust Stats
                 foreach (ItemDrop item in armorList)
@@ -675,13 +679,13 @@ namespace Terraheim.Armor
                 var drawMoveSpeed = Prefab.Cache.GetPrefab<SE_DrawMoveSpeed>("Draw Move Speed");
 
                 silverDamageBonus.SetDamageBonus((float)tierBalance["headEffectVal"]);
-                helmet.ItemDrop.m_itemData.m_shared.m_description += $"\nBows, daggers, and spears gain <color=yellow>{System.Math.Round((silverDamageBonus.GetDamageBonus()) * 100)}%</color> damage as spirit and frost damage.";
+                helmet.ItemDrop.m_itemData.m_shared.m_description += $"\nBows, daggers, and spears gain <color=cyan>{System.Math.Round((silverDamageBonus.GetDamageBonus()) * 100)}%</color> damage as spirit and frost damage.";
 
                 ammoConsumption.setAmmoConsumption((int)tierBalance["chestEffectVal"]);
-                chest.ItemDrop.m_itemData.m_shared.m_description += $"\n<color=yellow>{ammoConsumption.getAmmoConsumption()}%</color> chance to not consume ammo.";
+                chest.ItemDrop.m_itemData.m_shared.m_description += $"\n<color=cyan>{ammoConsumption.getAmmoConsumption()}%</color> chance to not consume ammo.";
 
                 drawMoveSpeed.SetDrawMoveSpeed((float)tierBalance["legsEffectVal"]);
-                legs.ItemDrop.m_itemData.m_shared.m_description += $"\nMove <color=yellow>" + drawMoveSpeed.GetDrawMoveSpeed() * 100 + "%</color> faster with a drawn bow.";
+                legs.ItemDrop.m_itemData.m_shared.m_description += $"\nMove <color=cyan>" + drawMoveSpeed.GetDrawMoveSpeed() * 100 + "%</color> faster with a drawn bow.";
 
                 //Apply Status Effects
                 helmet.ItemDrop.m_itemData.m_shared.m_equipStatusEffect = silverDamageBonus;
@@ -703,9 +707,9 @@ namespace Terraheim.Armor
                 List<Piece.Requirement> legsList = new List<Piece.Requirement>();
 
                 //Add previous armor to requirements
-                helmetList.Add(MockRequirement.Create("HelmetDrake", 1));
+                /*helmetList.Add(MockRequirement.Create("HelmetDrake", 1));
                 chestList.Add(MockRequirement.Create("ArmorWolfChest", 1));
-                legsList.Add(MockRequirement.Create("ArmorWolfLegs", 1));
+                legsList.Add(MockRequirement.Create("ArmorWolfLegs", 1));*/
 
                 //Get recipe reqs from json
                 var recipeReqs = balance["upgradePath"][$"t{i}"];
@@ -771,6 +775,7 @@ namespace Terraheim.Armor
 
         private static void ModExistingRecipes()
         {
+
             //Leather Loop
             for (int i = (int)balance["leather"]["upgrades"]["startingTier"] + 1; i <= 5; i++)
             {
@@ -928,6 +933,39 @@ namespace Terraheim.Armor
                 legsRecipe.m_resources = legsList.ToArray();    
 
             }
+            
+            Recipe helmetSilverRecipe = ObjectDB.instance.GetRecipe(ObjectDB.instance.GetItemPrefab($"HelmetDrakeT5_Terraheim_AddNewSets_AddSilverArmor").GetComponent<ItemDrop>().m_itemData);
+            Recipe chestSilverRecipe = ObjectDB.instance.GetRecipe(ObjectDB.instance.GetItemPrefab($"ArmorWolfChestT5_Terraheim_AddNewSets_AddSilverArmor").GetComponent<ItemDrop>().m_itemData);
+            Recipe legsSilverRecipe = ObjectDB.instance.GetRecipe(ObjectDB.instance.GetItemPrefab($"ArmorWolfLegsT5_Terraheim_AddNewSets_AddSilverArmor").GetComponent<ItemDrop>().m_itemData);
+
+            List<Piece.Requirement> helmetSilverList = helmetSilverRecipe.m_resources.ToList();
+            List<Piece.Requirement> chestSilverList = chestSilverRecipe.m_resources.ToList();
+            List<Piece.Requirement> legsSilverList = legsSilverRecipe.m_resources.ToList();
+
+            helmetSilverList.Add(new Piece.Requirement()
+            {
+                m_resItem = ObjectDB.instance.GetItemPrefab("HelmetDrake").GetComponent<ItemDrop>(),
+                m_amount = 1,
+                m_amountPerLevel = 0
+            });
+
+            chestSilverList.Add(new Piece.Requirement()
+            {
+                m_resItem = ObjectDB.instance.GetItemPrefab("ArmorWolfChest").GetComponent<ItemDrop>(),
+                m_amount = 1,
+                m_amountPerLevel = 0
+            });
+
+            legsSilverList.Add(new Piece.Requirement()
+            {
+                m_resItem = ObjectDB.instance.GetItemPrefab("ArmorWolfLegs").GetComponent<ItemDrop>(),
+                m_amount = 1,
+                m_amountPerLevel = 0
+            });
+
+            helmetSilverRecipe.m_resources = helmetSilverList.ToArray();
+            chestSilverRecipe.m_resources = chestSilverList.ToArray();
+            legsSilverRecipe.m_resources = legsSilverList.ToArray();
 
         }
     }

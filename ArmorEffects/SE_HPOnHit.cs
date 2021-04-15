@@ -6,7 +6,7 @@ namespace Terraheim.ArmorEffects
 {
     class SE_HPOnHit : StatusEffect
     {
-        public static float m_amount = 0f;
+        public float m_amount = 0f;
         public static bool m_lastHitMelee = false;
 
         public void Awake()

@@ -18,18 +18,16 @@ namespace Terraheim.Patches
 
         [HarmonyPatch(typeof(Player), "GetJogSpeedFactor")]
 
-        public static bool Prefix(Player __instance, ref float __result)
+        public static void Postfix(Player __instance, ref float __result)
         {
-            float moveSpeed = (float)balance["baseBowDrawMoveSpeeed"];
-
-            if (__instance.GetSEMan().HaveStatusEffect("Draw Move Speed"))
+            if (__instance.GetAttackDrawPercentage() > 0f)
             {
+                var moveSpeedMult = (float)balance["baseBowDrawMoveSpeeed"];
                 SE_DrawMoveSpeed effect = __instance.GetSEMan().GetStatusEffect("Draw Move Speed") as SE_DrawMoveSpeed;
-                moveSpeed += effect.GetDrawMoveSpeed();
+                if (effect != null) moveSpeedMult += effect.GetDrawMoveSpeed();
+                __result *= moveSpeedMult;
             }
             //Log.LogMessage(__instance.GetAttackDrawPercentage());
-            __result = (1f + __instance.GetEquipmentMovementModifier()) * ((__instance.GetAttackDrawPercentage() > 0f) ? moveSpeed : 1f);
-            return false;
         }
     }
 }

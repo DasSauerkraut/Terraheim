@@ -5,14 +5,14 @@ namespace Terraheim.ArmorEffects
 {
     class SE_CritChance : StatusEffect
     {
-        public static float m_chance = 0f;
-        public static float m_bonus = 0f;
+        public float m_chance = 0f;
+        public float m_bonus = 0f;
 
         public void Awake()
         {
             m_name = "Crit Chance";
             base.name = "Crit Chance";
-            m_tooltip = m_chance + "% chance to crit, increasing damage by " + m_bonus + "x.";
+            m_tooltip = m_chance + "% chance to crit with two handed weapons, increasing damage by " + m_bonus + "x.";
             m_icon = null;
         }
 
@@ -25,7 +25,7 @@ namespace Terraheim.ArmorEffects
         public void SetCritChance(float bonus)
         {
             m_chance = bonus;
-            m_tooltip = m_chance + "% chance to crit, increasing damage by " + m_bonus + "x.";
+            m_tooltip = m_chance + "% chance to crit with two handed weapons, increasing damage by " + m_bonus + "x.";
         }
 
         public float GetCritChance() { return m_chance; }
@@ -33,7 +33,7 @@ namespace Terraheim.ArmorEffects
         public void SetCritBonus(float bonus)
         {
             m_bonus = bonus;
-            m_tooltip = m_chance + "% chance to crit, increasing damage by " + m_bonus + "x.";
+            m_tooltip = m_chance + "% chance to crit with two handed weapons, increasing damage by " + m_bonus + "x.";
         }
 
         public float GetCritBonus() { return m_bonus; }

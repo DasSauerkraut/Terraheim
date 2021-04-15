@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace Terraheim.ArmorEffects
 {
-    class SE_AxeDamageBonus : StatusEffect
+    class SE_OneHandDamageBonus : StatusEffect
     {
         public static float m_damageBonus = 0.05f;
 
         public void Awake()
         {
-            m_name = "Axe Damage Bonus";
-            base.name = "Axe Damage Bonus";
+            m_name = "One Hand Damage Bonus";
+            base.name = "One Hand Damage Bonus";
             m_tooltip = "Axe Damage Increased by " + m_damageBonus * 10 + "%";
         }
 
