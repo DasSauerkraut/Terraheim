@@ -1,0 +1,10 @@
+{
+    "name": "Terraheim",
+    "version_number": "1.4.0",
+    "website_url": "",
+    "description": "Terraheim is an overhaul for Valheim's armor system. It also fills in gaps in the weapon roster.",
+    "dependencies": [
+        "denikson-BepInExPack_Valheim-5.4.901",
+		"ValheimModding-ValheimLib-0.0.15"
+    ]
+}

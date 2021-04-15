@@ -152,6 +152,13 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <EmbeddedResource Include="bundle_terraheimeffects" />
+    <None Include="manifest.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="README.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="terraheim.language" />
     <None Include="weaponBalance.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -161,6 +168,9 @@
     <PostBuildEvent>copy /Y "$(SolutionDir)bin\debug\$(TargetName).dll" "C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\$(TargetName).dll"
 copy /Y "$(SolutionDir)bin\debug\balance.json" "C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\balance.json"
 copy /Y "$(SolutionDir)bin\debug\weaponBalance.json" "C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\weaponBalance.json"
+copy /Y "$(SolutionDir)bin\debug\mainfest.json" "C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\manifest.json"
+copy /Y "$(SolutionDir)bin\debug\README.md" "C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\README.md"
+copy /Y "$(SolutionDir)bin\debug\terraheim.language" "C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\terraheim.language"
 </PostBuildEvent>
   </PropertyGroup>
 </Project>
