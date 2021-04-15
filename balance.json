@@ -1,28 +1,515 @@
 {
-    "baseDodgeStaminaUse": 15,
-    "classes": {
-        "berserker": "berserkr",
-        "ranger": "bowman",
-        "tank": "Shieldbrother"
-    }
-    "leather": {
-        "name": "leather",
-        "baseArmor": 4,
+  "baseDodgeStaminaUse": 15,
+  "baseBlockStaminaUse": 25,
+  "baseAttackStaminaUse": 20,
+  "baseBowDrawMoveSpeeed": 0.5,
+  "perfectBlockWindow": 0.15,
+  "loxEffectVal": 0.5,
+  "classes": {
+    "berserker": "Berserkr",
+    "ranger": "Bowman",
+    "tank": "Shieldbrother"
+  },
+  "leather": {
+    "name": "leather",
+    "baseArmor": 4,
+    "armorPerLevel": 1,
+    "globalMoveMod": 0,
+    "setBonusVal": 0.10,
+    "setActivationHP": 0.99,
+    "headEffectVal": 0.05,
+    "chestEffectVal": 0.1,
+    "legsEffectVal": 0.02,
+    "capeEffectVal": 0.05,
+    "upgrades": {
+      "startingTier": 1,
+      "t1": {
+        "baseArmor": 8,
         "armorPerLevel": 1,
+        "globalMoveMod": 0,
+        "setBonusVal": 0.10,
+        "setActivationHP": 0.99,
+        "headEffectVal": 0.08,
+        "chestEffectVal": 0.13,
+        "legsEffectVal": 0.023
+      },
+      "t2": {
+        "baseArmor": 12,
+        "armorPerLevel": 1,
+        "globalMoveMod": 0,
+        "setBonusVal": 0.10,
+        "setActivationHP": 0.99,
+        "headEffectVal": 0.11,
+        "chestEffectVal": 0.16,
+        "legsEffectVal": 0.025
+      },
+      "t3": {
+        "baseArmor": 16,
+        "armorPerLevel": 1,
+        "globalMoveMod": 0,
+        "setBonusVal": 0.10,
+        "setActivationHP": 0.99,
+        "headEffectVal": 0.14,
+        "chestEffectVal": 0.19,
+        "legsEffectVal": 0.027
+      },
+      "t4": {
+        "baseArmor": 20,
+        "armorPerLevel": 1,
+        "globalMoveMod": 0,
+        "setBonusVal": 0.10,
+        "setActivationHP": 0.99,
+        "headEffectVal": 0.17,
+        "chestEffectVal": 0.22,
+        "legsEffectVal": 0.035
+      },
+      "t5": {
+        "baseArmor": 24,
+        "armorPerLevel": 1,
+        "globalMoveMod": 0,
+        "setBonusVal": 0.10,
+        "setActivationHP": 0.99,
+        "headEffectVal": 0.2,
+        "chestEffectVal": 0.25,
+        "legsEffectVal": 0.04
+      }
+    }
+  },
+  "trollLeather": {
+    "name": "trollLeather",
+    "baseArmor": 3,
+    "armorPerLevel": 1,
+    "globalMoveMod": 0,
+    "setBonusVal": 0.1,
+    "headEffectVal": 0.06,
+    "chestEffectVal": 8,
+    "legsEffectVal": 0.06,
+    "capeEffectVal": 2,
+    "upgrades": {
+      "startingTier": 2,
+      "t2": {
+        "baseArmor": 7,
+        "armorPerLevel": 1,
+        "globalMoveMod": 0,
+        "setBonusVal": 0.05,
+        "headEffectVal": 0.08,
+        "chestEffectVal": 11,
+        "legsEffectVal": 0.08
+      },
+      "t3": {
+        "baseArmor": 11,
+        "armorPerLevel": 1,
+        "globalMoveMod": 0,
+        "setBonusVal": 0.07,
+        "headEffectVal": 0.11,
+        "chestEffectVal": 14,
+        "legsEffectVal": 0.11
+      },
+      "t4": {
+        "baseArmor": 15,
+        "armorPerLevel": 1,
+        "globalMoveMod": 0,
+        "setBonusVal": 0.08,
+        "headEffectVal": 0.13,
+        "chestEffectVal": 17,
+        "legsEffectVal": 0.13
+      },
+      "t5": {
+        "baseArmor": 19,
+        "armorPerLevel": 1,
+        "globalMoveMod": 0,
         "setBonusVal": 0.1,
+        "headEffectVal": 0.15,
+        "chestEffectVal": 20,
+        "legsEffectVal": 0.15
+      }
+    }
+  },
+  "bronze": {
+    "name": "bronze",
+    "baseArmor": 16,
+    "armorPerLevel": 1,
+    "globalMoveMod": -0.05,
+    "setBonusVal": 1,
+    "headEffectVal": 0.05,
+    "chestEffectVal": 0.08,
+    "legsEffectVal": 8,
+    "capeEffectVal": -5,
+    "upgrades": {
+      "startingTier": 3,
+      "t3": {
+        "baseArmor": 20,
+        "armorPerLevel": 1,
+        "globalMoveMod": -0.05,
+        "setBonusVal": 1,
         "headEffectVal": 0.07,
-        "chestEffectVal": 0.1,
-        "legsEffectVal": 0.03,
-        "capeEffectVal": 0.05
+        "chestEffectVal": 0.11,
+        "legsEffectVal": 11
+      },
+      "t4": {
+        "baseArmor": 24,
+        "armorPerLevel": 1,
+        "globalMoveMod": -0.05,
+        "setBonusVal": 1,
+        "headEffectVal": 0.08,
+        "chestEffectVal": 0.13,
+        "legsEffectVal": 13
+      },
+      "t5": {
+        "baseArmor": 28,
+        "armorPerLevel": 1,
+        "globalMoveMod": -0.05,
+        "setBonusVal": 2,
+        "headEffectVal": 0.1,
+        "chestEffectVal": 0.15,
+        "legsEffectVal": 15
+      }
+    }
+  },
+  "iron": {
+    "name": "iron",
+    "baseArmor": 16,
+    "armorPerLevel": 1,
+    "globalMoveMod": 0,
+    "setBonusVal": 0.15,
+    "setActivationHP": 0.15,
+    "headEffectVal": 0.14,
+    "chestEffectVal": 20,
+    "legsEffectVal": 0.11,
+    "capeEffectVal": -5,
+    "upgrades": {
+      "startingTier": 4,
+      "t4": {
+        "baseArmor": 21,
+        "armorPerLevel": 1,
+        "globalMoveMod": 0,
+        "setBonusVal": 0.20,
+        "setActivationHP": 0.20,
+        "headEffectVal": 0.17,
+        "chestEffectVal": 30,
+        "legsEffectVal": 0.13
+      },
+      "t5": {
+        "baseArmor": 25,
+        "armorPerLevel": 1,
+        "globalMoveMod": 0,
+        "setBonusVal": 0.25,
+        "setActivationHP": 0.25,
+        "headEffectVal": 0.2,
+        "chestEffectVal": 40,
+        "legsEffectVal": 0.15
+      }
+    }
+  },
+  "silver": {
+    "name": "silver",
+    "baseArmor": 15,
+    "armorPerLevel": 1,
+    "globalMoveMod": 0,
+    "setBonusVal": 0.2,
+    "setActivationCount": 2,
+	"setAoESize": 2,
+    "headEffectVal": 0.08,
+    "chestEffectVal": 13,
+    "legsEffectVal": 0.15,
+    "capeEffectVal": 10,
+    "upgrades": {
+      "startingTier": 5,
+      "t5": {
+        "baseArmor": 20,
+        "armorPerLevel": 1,
+        "globalMoveMod": 0,
+        "setBonusVal": 0.2,
+		"setActivationCount": 4,
+		"setAoESize": 2,
+        "headEffectVal": 0.1,
+        "chestEffectVal": 15,
+        "legsEffectVal": 0.25
+      }
+    }
+  },
+  "padded": {
+    "name": "padded",
+    "baseArmor": 29,
+    "armorPerLevel": 1,
+    "globalMoveMod": -0.07,
+    "setBonusVal": 0.4,
+    "headEffectVal": 0.05,
+    "chestEffectVal": 0.2,
+    "legsEffectVal": 0.05,
+    "capeEffectVal": 0.2
+  },
+  "woodsmanHelmet": {
+    "name": "woodsmanHelmet",
+    "baseArmor": 2,
+    "armorPerLevel": 2,
+    "globalMoveMod": 0,
+    "headEffectVal": 0.5,
+    "crafting": {
+      "station": "forge",
+      "minLevel": 3,
+      "items": [
+        {
+          "item": "Iron",
+          "amount": 10,
+          "perLevel": 1
+        },
+        {
+          "item": "SurtlingCore",
+          "amount": 4,
+          "perLevel": 0
+        },
+        {
+          "item": "Ruby",
+          "amount": 10,
+          "perLevel": 1
+        },
+        {
+          "item": "AmberPearl",
+          "amount": 5,
+          "perLevel": 1
+        }
+      ]
+    }
+  },
+  "minersBelt": {
+    "name": "minersBelt",
+    "baseArmor": 2,
+    "armorPerLevel": 2,
+    "globalMoveMod": 0,
+    "headEffectVal": 0.5,
+    "crafting": {
+      "station": "forge",
+      "minLevel": 4,
+      "items": [
+        {
+          "item": "Silver",
+          "amount": 10,
+          "perLevel": 1
+        },
+        {
+          "item": "SurtlingCore",
+          "amount": 4,
+          "perLevel": 0
+        },
+        {
+          "item": "Crystal",
+          "amount": 8,
+          "perLevel": 1
+        },
+        {
+          "item": "DragonTear",
+          "amount": 1,
+          "perLevel": 0
+        }
+      ]
+    }
+  },
+  "upgradePath": {
+    "t1": {
+      "station": "piece_workbench",
+      "minLevel": 1,
+      "head": [
+        {
+          "item": "TrollHide",
+          "amount": 4,
+          "perLevel": 1
+        },
+        {
+          "item": "BoneFragments",
+          "amount": 3,
+          "perLevel": 0
+        }
+      ],
+      "chest": [
+        {
+          "item": "TrollHide",
+          "amount": 5,
+          "perLevel": 1
+        }
+      ],
+      "legs": [
+        {
+          "item": "TrollHide",
+          "amount": 4,
+          "perLevel": 1
+        }
+      ]
     },
-    "trollLeather": {
-        "name": "trollLeather",
-        "baseArmor": 4,
-        "armorPerLevel": 1,
-        "setBonusVal": 0.1,
-        "headEffectVal": 0.07,
-        "chestEffectVal": 10,
-        "legsEffectVal": 0.07,
-        "capeEffectVal": 2
+    "t2": {
+      "station": "forge",
+      "minLevel": 1,
+      "head": [
+        {
+          "item": "Bronze",
+          "amount": 4,
+          "perLevel": 1
+        },
+        {
+          "item": "DeerHide",
+          "amount": 2,
+          "perLevel": 0
+        }
+      ],
+      "chest": [
+        {
+          "item": "Bronze",
+          "amount": 4,
+          "perLevel": 1
+        },
+        {
+          "item": "DeerHide",
+          "amount": 2,
+          "perLevel": 0
+        }
+      ],
+      "legs": [
+        {
+          "item": "Bronze",
+          "amount": 4,
+          "perLevel": 2
+        },
+        {
+          "item": "DeerHide",
+          "amount": 2,
+          "perLevel": 0
+        }
+      ]
+    },
+    "t3": {
+      "station": "forge",
+      "minLevel": 2,
+      "head": [
+        {
+          "item": "Iron",
+          "amount": 18,
+          "perLevel": 2
+        },
+        {
+          "item": "DeerHide",
+          "amount": 2,
+          "perLevel": 0
+        }
+      ],
+      "chest": [
+        {
+          "item": "Iron",
+          "amount": 18,
+          "perLevel": 2
+        },
+        {
+          "item": "DeerHide",
+          "amount": 2,
+          "perLevel": 0
+        }
+      ],
+      "legs": [
+        {
+          "item": "Iron",
+          "amount": 18,
+          "perLevel": 2
+        },
+        {
+          "item": "DeerHide",
+          "amount": 2,
+          "perLevel": 0
+        }
+      ]
+    },
+    "t4": {
+      "station": "forge",
+      "minLevel": 2,
+      "head": [
+        {
+          "item": "Silver",
+          "amount": 18,
+          "perLevel": 3
+        },
+        {
+          "item": "WolfPelt",
+          "amount": 2,
+          "perLevel": 0
+        },
+        {
+          "item": "TrophyHatchling",
+          "amount": 2,
+          "perLevel": 0
+        }
+      ],
+      "chest": [
+        {
+          "item": "Silver",
+          "amount": 18,
+          "perLevel": 2
+        },
+        {
+          "item": "WolfPelt",
+          "amount": 2,
+          "perLevel": 1
+        },
+        {
+          "item": "Chain",
+          "amount": 1,
+          "perLevel": 0
+        }
+      ],
+      "legs": [
+        {
+          "item": "Silver",
+          "amount": 18,
+          "perLevel": 2
+        },
+        {
+          "item": "WolfPelt",
+          "amount": 5,
+          "perLevel": 0
+        },
+        {
+          "item": "WolfFang",
+          "amount": 4,
+          "perLevel": 0
+        }
+      ]
+    },
+    "t5": {
+      "station": "forge",
+      "minLevel": 1,
+      "head": [
+        {
+          "item": "BlackMetal",
+          "amount": 10,
+          "perLevel": 3
+        },
+        {
+          "item": "LinenThread",
+          "amount": 15,
+          "perLevel": 0
+        }
+      ],
+      "chest": [
+        {
+          "item": "BlackMetal",
+          "amount": 10,
+          "perLevel": 3
+        },
+        {
+          "item": "LinenThread",
+          "amount": 20,
+          "perLevel": 0
+        }
+      ],
+      "legs": [
+        {
+          "item": "BlackMetal",
+          "amount": 10,
+          "perLevel": 3
+        },
+        {
+          "item": "LinenThread",
+          "amount": 20,
+          "perLevel": 0
+        }
+      ]
     }
+  }
 }
