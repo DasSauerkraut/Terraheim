@@ -118,6 +118,8 @@ namespace Terraheim.Patches
                     effect.ClearIcon();
                 }
             }
+
+
         }
     }
 }

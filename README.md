@@ -4,8 +4,10 @@
 ## Weapons and Tools
 Nine new weapons and tools have been added with the goal of filling in the gaps in each tier.
 
-Fire, Frost and Lightning bombs have been added as well!
 ![weapons](https://cdn.discordapp.com/attachments/610164117277245482/828743095369334864/Capture.PNG)
+### Throwing Weapons
+Five new throwing axes have been added as well as Fire, Frost and Lightning bombs!
+![Throwing Axes](https://cdn.discordapp.com/attachments/610164117277245482/834155655367491684/unknown.png)
 You can view damage values, moveset information, and recipes [here](https://docs.google.com/spreadsheets/d/1DlnnJOvorgCQ1k1e4lO5nF8M-QQpf7FZmO5bRj3mwLI/edit?usp=sharing) in the Weapons tab.
 If you only want the new weapons, you can delete the Terraheim.dll file to disable the armor changes.
 ## Armor
@@ -22,6 +24,11 @@ Bowmen focus on dealing damage via, well bows, as well as daggers and spears. Th
 #### Shieldbrother
 Shieldbrothers are adept at blocking and have increased health. They can effectively deal damage with all melee weapons, but they are slower than the other classes. They have the highest armor rating in game.
 
+### Barbarian Armor
+If you have the [Barbarian Armor](https://www.nexusmods.com/valheim/mods/640) mod installed, it has been fully incorporated into Terraheim. The barbarian armor set provides several bonuses to throwing weapons as well as some interesting tertiary effects like a stacking move speed buff on kill and increased damage against low health targets.
+
+![barbarian armor](https://cdn.discordapp.com/attachments/610164117277245482/834156356680286249/unknown.png)
+
 You can view the full values for each set across every tier [here!](https://docs.google.com/spreadsheets/d/1DlnnJOvorgCQ1k1e4lO5nF8M-QQpf7FZmO5bRj3mwLI/edit?usp=sharing)
 
 ### Uptiering
@@ -32,18 +39,17 @@ Note that to uptier padded armor, you have to use the Artisan Table asides from 
 ## Utility Items
 Currently two utility items have been added, the Aescfell Belt and the Stánbrysan Belt. These items increase your damage dealt to trees and ores, respectively.
 ## Balance
-**Terraheim** is highly customizable as the effectiveness, material costs, and almost every armor stat can be tweaked in the `balance.json` file. Unfortunately, the same can not be said for weapons as of right now.
+**Terraheim** is highly customizable as the effectiveness, material costs, and almost every armor stat can be tweaked in the `balance.json` file. Weapons can be adjusted in the `weaponBalance.json` file
 **Bow Balance** - To prevent bowmen from being the be all end all class, the bow weapon type has been slightly nerfed by halving movement speed while the bow is drawn. This can be mitigated by wearing silver armor, or if you don't like it at all, you can remove it by setting `"baseBowDrawMoveSpeeed"` to 1 in the `balance.json` file.
 ## Compatibility
 There seems to be an incompatibility with ValheimLibOpenDatabasePatch.dll. Unfortunately I can't do anything about this issue, sorry.
 TripleBronze also appears to be incompatible.
-EpicLoot **IS** compatible, but there may be balance issues if both are installed.
+EpicLoot is compatible but when you reforge an enchanted piece of armor, it will lose that enchantment until you relog/reload your world. A more graceful fix is coming.
 ## Future Plans
 Flametal armor sets and weapons for each class
 EpicLoot version with tweaked balance
 ### Known Issues
 - You will appear naked on the character selection screen  
-- Currently, armor set bonuses do not scale with uptiering.
 
 ### Recommended Mods
 These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
@@ -56,6 +62,36 @@ These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 [Nexus](https://www.nexusmods.com/valheim/mods/803?tab=description)
 
 ### Patchnotes
+**v1.6.0 - Daroþas of Ullr Update**
+Oh wow this one took a bit, but there is a ton of stuff here.
+- Added a new weapon type: Throwing Axes! There is a version for each tier of material. - Integrated the Barbarian Armor mod as a throwing weapon set. 
+- Added the Eorthtilia Belt, which increases the number of resources gained when harvest bushes or crops. 
+- Added in the Stulor Belt, which increases sneak speed by 25% and reduces stamina cost for sneaking by 25%. 
+- Added in the Casul Belt, which prevents you from gaining the Wet effect while worn. 
+- Added in visuals for Lifesteal, Thorns, and Wolftears armor effects. 
+- Added in tooltips that will display adjusted damages on weapons based on what armor effects you currently have active. 
+- Changed the color of armor effect tooltips to reflect the changes made to weapon tooltips 
+- Leather set bonus is now Battle Furor, which provides a damage buff when above a certain HP threshold. 
+- Iron set bonus is now Wolftears, which provides a gradually scaling damage buff based on the amount of HP you're missing 
+- Silver set bonus is now Wyrdarrow, which lets you cause an explosion with dagger/spears/bows after hitting enemies a set number of times. 
+- Leather Leg armor's effect has been changed to Lifesteal -Lifesteal now caps at 4% lifesteal maximum 
+- Padded Leg armor's effect has been changed to Heal On Block/Parry 
+- Thorns has been increased to 40% reflected damage max, but it can no longer kill enemies 
+- Weapon damages and recipes can now be adjusted in the weaponBalance.json file 
+- Massively rebalanced armor values across the board. Bronze armor no longer provides a crazy amount of armor for its initial tier, and troll leather wearers can actually take a hit now. 
+- Upgrading armor now increases its defense by 2 instead of 1 
+- Material costs for upgrading armor has been increased to reflect this. 
+- Greatsword block bonuses have been reduced in order to make the parry bonus a bit less strong. 
+- The number of crafted bombs has been increased to 5 
+- Greatsword swing speed has been reduced to 80% of normal
+- -Increased the Spirit damage from the Wolf cape to 10 
+- Fixed compatibility issues with the Mjolnir and Hemorrhage mods 
+- Somewhat fixed compatibility with epic loot. When you reforge an enchanted item, it will initially lose its effect but if you go back to menu and rejoin/reload the world it will preserve its effect. This is obviously not perfect, and a better fix is coming. 
+- Fixed bug where you would not take damage on unarmed block while the Thorns effect is active 
+- Fixed bug where the localization values where not applying correctly 
+- Fixed a number of recipe bugs and issues 
+- Fixed incorrect stamina regen values for Iron Legs 
+- Refactored Bow Draw Speed Code
 **v1.4.0 - The Zweihander Update**
 - Added 4 new weapons! The Iron Greatsword, the Blackmetal Greatsword, the Silver Battleaxe, and the Blackmetal Battleaxe.
 - Damage modifier for the Blackmetal Axehammer's slam attack has been buffed to 2x.

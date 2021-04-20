@@ -89,8 +89,8 @@ namespace Terraheim.Armor
                 //Apply Status Effects
                 helmet.ItemDrop.m_itemData.m_shared.m_equipStatusEffect = axeDamageBonus;
                 chest.ItemDrop.m_itemData.m_shared.m_equipStatusEffect = dodgeStamUse;
-                legs.ItemDrop.m_itemData.m_shared.m_movementModifier = (float)tierBalance["legsEffectVal"];
-                
+                legs.ItemDrop.m_itemData.m_shared.m_equipStatusEffect = hpOnHit;
+
                 //Recipes
                 Recipe helmetRecipe = ScriptableObject.CreateInstance<Recipe>();
                 Recipe chestRecipe = ScriptableObject.CreateInstance<Recipe>();
@@ -666,7 +666,7 @@ namespace Terraheim.Armor
                         item.m_itemData.m_shared.m_armorPerLevel = (float)tierBalance["armorPerLevel"];
                         item.m_itemData.m_shared.m_setStatusEffect = sneakDamageBonus;
                         item.m_itemData.m_shared.m_setSize = 3;
-                        item.m_itemData.m_shared.m_setName = (string)setBalance["name"] + "T" + i;
+                        item.m_itemData.m_shared.m_setName = (string)setBalance["name"];
                         if (!item.m_itemData.m_shared.m_name.Contains("helmet"))
                             item.m_itemData.m_shared.m_movementModifier = (float)tierBalance["globalMoveMod"];
                     }

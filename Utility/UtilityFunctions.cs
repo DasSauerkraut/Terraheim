@@ -41,6 +41,8 @@ namespace Terraheim.Utility
                         return true;
                     case "Backstab Bonus":
                         return true;
+                    case "Throwing Damage Bonus":
+                        return true;
                     default:
                         break;
                 }
@@ -59,6 +61,11 @@ namespace Terraheim.Utility
         }
 
         public static EffectList.EffectData VFXAoECharged
+        {
+            get; set;
+        }
+
+        public static EffectList.EffectData VFXMarkedForDeath
         {
             get; set;
         }

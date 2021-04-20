@@ -27,7 +27,24 @@ namespace Terraheim.Patches
                 if (effect != null) moveSpeedMult += effect.GetDrawMoveSpeed();
                 __result *= moveSpeedMult;
             }
+            else if (__instance.GetSEMan().HaveStatusEffect("Bloodrush"))
+            {
+                SE_MoveSpeedOnKill effect = __instance.GetSEMan().GetStatusEffect("Bloodrush") as SE_MoveSpeedOnKill;
+                __result *= 1 + effect.GetCurrentSpeedBonus();
+            }
             //Log.LogMessage(__instance.GetAttackDrawPercentage());
+        }
+
+        [HarmonyPatch(typeof(Player), "GetRunSpeedFactor")]
+        [HarmonyPostfix]
+
+        public static void RunPostfix(Player __instance, ref float __result)
+        {
+            if (__instance.GetSEMan().HaveStatusEffect("Bloodrush"))
+            {
+                SE_MoveSpeedOnKill effect = __instance.GetSEMan().GetStatusEffect("Bloodrush") as SE_MoveSpeedOnKill;
+                __result *= 1 + effect.GetCurrentSpeedBonus();
+            }
         }
     }
 }

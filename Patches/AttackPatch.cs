@@ -17,7 +17,7 @@ namespace Terraheim.Patches
         }
 
         [HarmonyPatch(typeof(Attack), "Start")]
-        public static void Prefix(Humanoid character, ref ItemDrop.ItemData weapon)
+        public static void Prefix(ref Attack __instance, Humanoid character, ref ItemDrop.ItemData weapon)
         {
             //Log.LogWarning("Attack Start");
             if (character.m_unarmedWeapon && weapon == character?.m_unarmedWeapon.m_itemData)
@@ -71,6 +71,32 @@ namespace Terraheim.Patches
                 }
             }
 
+            //Throwing Damage Effect
+            if (weapon.m_shared.m_name.Contains("_throwingaxe") || 
+                (weapon.m_shared.m_name.Contains("_spear") && __instance.m_attackAnimation == weapon.m_shared.m_secondaryAttack.m_attackAnimation) ||
+                weapon.m_shared.m_name.Contains("bomb"))
+            {
+                if (character.GetSEMan().HaveStatusEffect("Throwing Damage Bonus"))
+                {
+                    SE_ThrowingDamageBonus effect = character.GetSEMan().GetStatusEffect("Throwing Damage Bonus") as SE_ThrowingDamageBonus;
+                    weapon.m_shared.m_attack.m_damageMultiplier += effect.getDamageBonus();
+                    //Log.LogMessage("weapon  damage " + weapon.m_shared.m_attack.m_damageMultiplier);
+                }
+                if (character.GetSEMan().HaveStatusEffect("Death Mark"))
+                {
+                     (character.GetSEMan().GetStatusEffect("Death Mark") as SE_DeathMark).SetLastHitThrowing(true);
+                    //Log.LogMessage("weapon  damage " + weapon.m_shared.m_attack.m_damageMultiplier);
+                }
+            }
+            else
+            {
+                if (character.GetSEMan().HaveStatusEffect("Death Mark"))
+                {
+                    (character.GetSEMan().GetStatusEffect("Death Mark") as SE_DeathMark).SetLastHitThrowing(false);
+                    //Log.LogMessage("weapon  damage " + weapon.m_shared.m_attack.m_damageMultiplier);
+                }
+            }
+
             //Dagger/Spear Damage Effect
             if ((weapon.m_shared.m_name.Contains("spear") || weapon.m_shared.m_name.Contains("knife")))
             {
@@ -118,7 +144,6 @@ namespace Terraheim.Patches
                     {
                         Log.LogWarning("Crit!");
                         weapon.m_shared.m_attack.m_damageMultiplier *= effect.GetCritBonus();
-                        //ZSFX sfx = new ZSFX();                        
                     }
                 }
             }
@@ -219,15 +244,25 @@ namespace Terraheim.Patches
                 }
             }
 
-            /*if (character.GetSEMan().HaveStatusEffect("Wyrdarrow"))
+            //Wyrdarrow
+            if (character.GetSEMan().HaveStatusEffect("WyrdarrowFX"))
             {
-                Log.LogMessage("Is Wyrd");
-                //Log.LogMessage("Attack Proj: " + weapon.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().name);
-                weapon.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit = AssetHelper.TestProjectile.GetComponent<Projectile>().m_spawnOnHit;
-                weapon.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 1;
-                //Log.LogMessage("Mod Attack Proj: " + weapon.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().name);
-            }*/
+                Log.LogInfo("Wyrd Active");
+                if (weapon.m_shared.m_name.Contains("_knife") && __instance.m_attackAnimation == weapon.m_shared.m_secondaryAttack.m_attackAnimation)
+                {
+                    var effect = character.GetSEMan().GetStatusEffect("Wyrdarrow") as SE_AoECounter;
+                    var damageBonus = (weapon.m_shared.m_damages.GetTotalDamage() * effect.GetDamageBonus()) / 2;
+                    AssetHelper.TestProjectile.GetComponent<Projectile>().m_spawnOnHit.GetComponent<Aoe>().m_radius = effect.GetAoESize();
 
+                    AssetHelper.TestProjectile.GetComponent<Projectile>().m_spawnOnHit.GetComponent<Aoe>().m_damage.m_frost = damageBonus;
+                    AssetHelper.TestProjectile.GetComponent<Projectile>().m_spawnOnHit.GetComponent<Aoe>().m_damage.m_spirit = damageBonus;
+
+                    Log.LogInfo("Terraheim | Aoe deals " + damageBonus + " frost and " + damageBonus + " spirit damage.");
+
+                    __instance.m_attackProjectile = AssetHelper.TestProjectile;
+                    __instance.m_attackType = Attack.AttackType.Projectile;
+                }
+            }
         }
 
         [HarmonyPatch(typeof(Attack), "GetStaminaUsage")]
@@ -249,8 +284,6 @@ namespace Terraheim.Patches
             __instance.m_attackStamina = weapon.m_itemData.m_shared.m_attack.m_attackStamina;
             if (__instance.m_character.GetSEMan().HaveStatusEffect("Attack Stamina Use"))
             {
-                //JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
-                //float baseStaminaUse = (float)balance["baseDodgeStaminaUse"];
                 SE_AttackStaminaUse effect = __instance.m_character.GetSEMan().GetStatusEffect("Attack Stamina Use") as SE_AttackStaminaUse;               
                 Log.LogMessage("Base Stamina " + weapon.m_itemData.m_shared.m_attack.m_attackStamina + " * " + (1f - effect.GetStaminaUse()));
                 __instance.m_attackStamina = weapon.m_itemData.m_shared.m_attack.m_attackStamina * (1f-effect.GetStaminaUse());
@@ -265,13 +298,40 @@ namespace Terraheim.Patches
             if (__instance.m_character.GetSEMan().HaveStatusEffect("WyrdarrowFX"))
             {
                 var effect = __instance.m_character.GetSEMan().GetStatusEffect("Wyrdarrow") as SE_AoECounter;
-                //effect.SetLastProjectile(__instance.m_ammoItem.m_shared.m_attack.m_attackProjectile);
-                //__instance.m_attackProjectile = AssetHelper.TestProjectile;
-                //__instance.m_ammoItem.m_shared.m_attack.m_attackProjectile = AssetHelper.TestProjectile;
+
                 AssetHelper.TestExplosion.GetComponent<Aoe>().m_radius = effect.GetAoESize();
-                __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit = AssetHelper.TestExplosion;
-                __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 1;
-                //__instance.m_ammoItem.m_shared.m_attack.m_projectileVel = __instance.m_projectileVel;
+                if(__instance.GetWeapon().m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow)
+                {
+                    var damageBonus = (__instance.GetWeapon().GetDamage().GetTotalDamage() + __instance.m_ammoItem.m_shared.m_damages.GetTotalDamage()
+                        * effect.GetDamageBonus()) / 2;
+                    AssetHelper.TestExplosion.GetComponent<Aoe>().m_damage.m_spirit = damageBonus;
+                    AssetHelper.TestExplosion.GetComponent<Aoe>().m_damage.m_frost = damageBonus;
+
+                    Log.LogInfo("Terraheim | Aoe deals " + damageBonus + " frost and " + damageBonus + " spirit damage.");
+
+                    __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit = AssetHelper.TestExplosion;
+                    __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 1;
+                } else if (__instance.GetWeapon().m_shared.m_name.Contains("spear"))
+                {
+                    var damageBonus = (__instance.GetWeapon().GetDamage().GetTotalDamage() * effect.GetDamageBonus()) / 2;
+                    AssetHelper.TestExplosion.GetComponent<Aoe>().m_damage.m_spirit = damageBonus;
+                    AssetHelper.TestExplosion.GetComponent<Aoe>().m_damage.m_frost = damageBonus;
+                    Log.LogInfo("Terraheim | Aoe deals " + damageBonus + " frost and " + damageBonus + " spirit damage.");
+
+                    __instance.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit = AssetHelper.TestExplosion;
+                    __instance.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 1;
+                }
+            }
+
+            if(__instance.m_character.GetSEMan().HaveStatusEffect("Throwing Weapon Velocity"))
+            {
+                if (__instance.GetWeapon().m_shared.m_name.Contains("_throwingaxe"))
+                {
+                    //Log.LogInfo(__instance.m_projectileVel);
+                    __instance.m_projectileVel += __instance.m_projectileVel * (1 + (__instance.m_character.GetSEMan().GetStatusEffect("Throwing Weapon Velocity") as SE_ThrowingWeaponVelocity).GetVelocityBonus());
+                }
+                
+
             }
         }
 
@@ -281,10 +341,15 @@ namespace Terraheim.Patches
         {
             if (__instance.m_character.GetSEMan().HaveStatusEffect("Wyrdarrow"))
             {
-                if (__instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit == AssetHelper.TestExplosion)
+                if (__instance.GetWeapon().m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow && __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit == AssetHelper.TestExplosion)
                 {
                     __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit = null;
                     __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 0;
+                }
+                else if (__instance.GetWeapon().m_shared.m_name.Contains("spear") && __instance.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit == AssetHelper.TestExplosion)
+                {
+                    __instance.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit = null;
+                    __instance.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 0;
                 }
                 if (__instance.m_character.GetSEMan().HaveStatusEffect("WyrdarrowFX"))
                 {

@@ -35,20 +35,18 @@
     <Reference Include="0Harmony">
       <HintPath>Libs\0Harmony.dll</HintPath>
     </Reference>
+    <Reference Include="assembly_guiutils, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\assembly_guiutils.dll</HintPath>
+    </Reference>
     <Reference Include="assembly_valheim_publicized">
       <HintPath>Libs\assembly_valheim_publicized.dll</HintPath>
     </Reference>
+    <Reference Include="barbarianArmor">
+      <HintPath>Libs\barbarianArmor.dll</HintPath>
+    </Reference>
     <Reference Include="BepInEx">
       <HintPath>Libs\BepInEx.dll</HintPath>
-    </Reference>
-    <Reference Include="BleedSword">
-      <HintPath>Libs\BleedSword.dll</HintPath>
-    </Reference>
-    <Reference Include="CombatOverhaul - Bow Only">
-      <HintPath>Libs\CombatOverhaul - Bow Only.dll</HintPath>
-    </Reference>
-    <Reference Include="Exhaustion">
-      <HintPath>Libs\Exhaustion.dll</HintPath>
     </Reference>
     <Reference Include="Json.Net, Version=1.0.25.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Json.Net.1.0.25\lib\netstandard2.0\Json.Net.dll</HintPath>
@@ -56,12 +54,6 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="plateArmor">
-      <HintPath>Libs\plateArmor.dll</HintPath>
-    </Reference>
-    <Reference Include="SpudsForsakenTotems">
-      <HintPath>Libs\SpudsForsakenTotems.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -79,8 +71,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\UnityEngine.AssetBundleModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>Libs\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.LocalizationModule">
+      <HintPath>Libs\UnityEngine.LocalizationModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ParticleSystemModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -91,18 +90,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArmorEffects\SE_AoECounterExhausted.cs" />
     <Compile Include="ArmorEffects\SE_AoECounterFX.cs" />
     <Compile Include="ArmorEffects\SE_AoECounter.cs" />
+    <Compile Include="ArmorEffects\SE_DamageVsLowHP.cs" />
+    <Compile Include="ArmorEffects\SE_DeathMark.cs" />
     <Compile Include="ArmorEffects\SE_FullHPDamageBonusFX.cs" />
     <Compile Include="ArmorEffects\SE_HealOnBlock.cs" />
+    <Compile Include="ArmorEffects\SE_IncreaseHarvest.cs" />
+    <Compile Include="ArmorEffects\SE_MarkedForDeath.cs" />
+    <Compile Include="ArmorEffects\SE_MarkedForDeathFX.cs" />
     <Compile Include="ArmorEffects\SE_MiningBonus.cs" />
     <Compile Include="ArmorEffects\SE_FullHPDamageBonus.cs" />
+    <Compile Include="ArmorEffects\SE_MoveSpeedOnKill.cs" />
+    <Compile Include="ArmorEffects\SE_MoveSpeedOnKillListener.cs" />
+    <Compile Include="ArmorEffects\SE_SneakMovement.cs" />
+    <Compile Include="ArmorEffects\SE_ThrowingDamageBonus.cs" />
+    <Compile Include="ArmorEffects\SE_ThrowingWeaponVelocity.cs" />
     <Compile Include="ArmorEffects\SE_TreeDamageBonus.cs" />
     <Compile Include="ArmorEffects\SE_FoodUsage.cs" />
     <Compile Include="ArmorEffects\SE_BlockPowerBonus.cs" />
     <Compile Include="ArmorEffects\SE_AttackStaminaUse.cs" />
     <Compile Include="ArmorEffects\SE_DrawMoveSpeed.cs" />
     <Compile Include="ArmorEffects\SE_Thorns.cs" />
+    <Compile Include="ArmorEffects\SE_WetImmunity.cs" />
     <Compile Include="ArmorEffects\SE_Wolftears.cs" />
     <Compile Include="ArmorEffects\SE_SpiritDamageBonus.cs" />
     <Compile Include="ArmorEffects\SE_SilverDamageBonus.cs" />
@@ -125,10 +136,13 @@
     <Compile Include="Armor\AddCirculets.cs" />
     <Compile Include="Armor\AddNewSets.cs" />
     <Compile Include="Armor\ACMod.cs" />
+    <Compile Include="Armor\BarbarianArmor.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="Patches\AddStatusEffectPatch.cs" />
     <Compile Include="Patches\AttackPatch.cs" />
     <Compile Include="Patches\BlockPatch.cs" />
     <Compile Include="Patches\BlockPowerPatch.cs" />
+    <Compile Include="Patches\CraftingPatch.cs" />
     <Compile Include="Patches\HealPatch.cs" />
     <Compile Include="Patches\DrawMoveSpeedPatch.cs" />
     <Compile Include="Patches\FoodUsagePatch.cs" />
@@ -137,6 +151,8 @@
     <Compile Include="Patches\HitPatch.cs" />
     <Compile Include="Patches\DodgePatch.cs" />
     <Compile Include="Patches\MiningPatch.cs" />
+    <Compile Include="Patches\PickableDropPatch.cs" />
+    <Compile Include="Patches\SneakMovementPatch.cs" />
     <Compile Include="Patches\StaminaIncreasePatch.cs" />
     <Compile Include="Patches\StaminaRegenPatch.cs" />
     <Compile Include="Patches\ThornsPatch.cs" />
@@ -145,6 +161,7 @@
     <Compile Include="Terraheim.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\AssetHelper.cs" />
+    <Compile Include="Utility\TranslationUtils.cs" />
     <Compile Include="Utility\UtilityFunctions.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -158,7 +175,9 @@
     <None Include="README.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="terraheim.language" />
+    <None Include="Translations\english.lang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="weaponBalance.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -170,7 +189,6 @@ copy /Y "$(SolutionDir)bin\debug\balance.json" "C:\Users\The Administrator\AppDa
 copy /Y "$(SolutionDir)bin\debug\weaponBalance.json" "C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\weaponBalance.json"
 copy /Y "$(SolutionDir)bin\debug\mainfest.json" "C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\manifest.json"
 copy /Y "$(SolutionDir)bin\debug\README.md" "C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\README.md"
-copy /Y "$(SolutionDir)bin\debug\terraheim.language" "C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\terraheim.language"
 </PostBuildEvent>
   </PropertyGroup>
 </Project>

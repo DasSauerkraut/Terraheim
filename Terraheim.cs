@@ -4,19 +4,25 @@ using ValheimLib.ODB;
 using Terraheim.ArmorEffects;
 using HarmonyLib;
 using Terraheim.Utility;
+using System.IO;
 
 namespace Terraheim
 {
+    [BepInDependency("ValheimModdingTeam.ValheimLib", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("GoldenJude_BarbarianArmor", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin(ModGuid, ModName, ModVer)]
     [BepInProcess("valheim.exe")]
-    [BepInDependency("ValheimModdingTeam.ValheimLib", BepInDependency.DependencyFlags.HardDependency)]
+
     class Terraheim : BaseUnityPlugin
     {
 
         public const string ModGuid = AuthorName + "." + ModName;
         private const string AuthorName = "DasSauerkraut";
         private const string ModName = "Terraheim";
-        private const string ModVer = "1.4.0";
+        private const string ModVer = "1.6.0";
+        public static readonly string ModPath = Path.GetDirectoryName(typeof(Terraheim).Assembly.Location);
+
+        public static bool hasBarbarianArmor = false;
 
         private readonly Harmony harmony = new Harmony(ModGuid);
 
@@ -26,13 +32,22 @@ namespace Terraheim
         {
             Instance = this;
             Log.Init(Logger);
+
+            TranslationUtils.LoadTranslations();
             SetupStatusEffects();
+
             harmony.PatchAll();
-            Utility.AssetHelper.Init();
+
+            AssetHelper.Init();
             SetupVFX();
+
             Armor.ACMod.Init();
             Armor.AddNewSets.Init();
             Armor.AddCirculets.Init();
+
+            Armor.BarbarianArmor.Integrate();
+            if (hasBarbarianArmor)
+                Armor.BarbarianArmor.Init();
 
             Log.LogInfo("Patching complete");
         }
@@ -49,6 +64,8 @@ namespace Terraheim
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_SpiritDamageBonus>(), fixReference: true));
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_TreeDamageBonus>(), fixReference: true));
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_MiningBonus>(), fixReference: true));
+            ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_ThrowingDamageBonus>(), fixReference: true));
+            ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_DamageVSLowHP>(), fixReference: true));
 
             //Stamina Modifiers
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_DodgeStamUse>(), fixReference: true));
@@ -65,6 +82,12 @@ namespace Terraheim
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_BlockPowerBonus>(), fixReference: true));
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_FoodUsage>(), fixReference: true));
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_HealOnBlock>(), fixReference: true));
+            ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_WetImmunity>(), fixReference: true));
+            ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_IncreaseHarvest>(), fixReference: true));
+            ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_SneakMovement>(), fixReference: true));
+            ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_ThrowingWeaponVelocity>(), fixReference: true));
+            ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_MoveSpeedOnKill>(), fixReference: true));
+            ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_MoveSpeedOnKillListener>(), fixReference: true));
 
             //Set Bonuses
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_HPOnHit>(), fixReference: true)); //Leather
@@ -76,7 +99,13 @@ namespace Terraheim
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_WolftearsFX>(), fixReference: true)); //Silver
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_AoECounter>(), fixReference: true)); //Silver
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_AoECounterFX>(), fixReference: true)); //Silver
+            ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_AoECounterExhausted>(), fixReference: true)); //Silver
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Thorns>(), fixReference: true)); //Padded
+            ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_DeathMark>(), fixReference: true)); //Barbarian
+            ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_MarkedForDeath>(), fixReference: true)); //Barbarian
+            ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_MarkedForDeathFX>(), fixReference: true)); //Barbarian
+
+
 
 
             Log.LogInfo("Status Effects Injected");
@@ -113,6 +142,17 @@ namespace Terraheim
                 m_attach = true,
                 m_inheritParentRotation = true,
                 m_inheritParentScale = false,
+                m_randomRotation = false,
+                m_scale = true
+            };
+
+            UtilityFunctions.VFXMarkedForDeath = new EffectList.EffectData()
+            {
+                m_prefab = Utility.AssetHelper.FXMarkedForDeath,
+                m_enabled = true,
+                m_attach = true,
+                m_inheritParentRotation = false,
+                m_inheritParentScale = true,
                 m_randomRotation = false,
                 m_scale = true
             };

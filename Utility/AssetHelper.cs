@@ -14,9 +14,16 @@ namespace Terraheim.Utility
         public static GameObject FXDamageAtFullHp;
         public static GameObject FXThorns;
         public static GameObject FXAoECharged;
+        public static GameObject FXExecution;
+        public static GameObject FXMarkedForDeath;
+        public static GameObject FXMarkedForDeathHit;
 
         public static GameObject TestProjectile;
         public static GameObject TestExplosion;
+
+        public static AudioClip AoEReady;
+        public static AudioClip SFXExecution;
+        public static AudioClip SFXMarkedForDeath;
 
         public static void Init()
         {
@@ -27,9 +34,17 @@ namespace Terraheim.Utility
             FXDamageAtFullHp = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/vfx_damageAtFullHP.prefab");
             FXThorns = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/vfx_Thorns_hit.prefab");
             FXAoECharged = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/vfx_AoECharge.prefab");
+            FXExecution = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/vfx_Execution.prefab");
+            FXMarkedForDeath = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/vfx_MarkedForDeath.prefab");
+            FXMarkedForDeathHit = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/vfx_MarkedForDeathHit.prefab");
 
             TestExplosion = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/test_explosion.prefab");
             TestProjectile = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/test_projectile.prefab");
+            
+            AoEReady = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/Dragon_BreathIce5.wav");
+            SFXExecution = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/Magic_Spell_EnergyBall8.wav");
+            SFXMarkedForDeath = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/DarkMagic_SpellImpact15.wav");
+
         }
 
         public static AssetBundle GetAssetBundleFromResources(string filename)

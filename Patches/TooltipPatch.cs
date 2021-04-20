@@ -74,6 +74,8 @@ namespace Terraheim.Patches
             float totalMultiplier = 0f;
             float frostDamage = 0f;
             float spiritDamage = 0f;
+            if (item == null)
+                return;
             if (seman.HaveStatusEffect("One Hand Damage Bonus") && (item.m_shared.m_name.Contains("axe") || item.m_shared.m_name.Contains("battleaxe")))
             {
                 var effect = localplayer.GetSEMan().GetStatusEffect("One Hand Damage Bonus") as SE_OneHandDamageBonus;
@@ -97,6 +99,13 @@ namespace Terraheim.Patches
             if (seman.HaveStatusEffect("Two Handed Damage Bonus") && item.m_shared.m_itemType == ItemDrop.ItemData.ItemType.TwoHandedWeapon)
             {
                 var effect = localplayer.GetSEMan().GetStatusEffect("Two Handed Damage Bonus") as SE_TwoHandedDmgBonus;
+                totalMultiplier += effect.getDamageBonus();
+            }
+            if (seman.HaveStatusEffect("Throwing Damage Bonus") && item.m_shared.m_name.Contains("_throwingaxe") ||
+                item.m_shared.m_name.Contains("_spear") ||
+                item.m_shared.m_name.Contains("bomb"))
+            {
+                var effect = localplayer.GetSEMan().GetStatusEffect("Throwing Damage Bonus") as SE_ThrowingDamageBonus;
                 totalMultiplier += effect.getDamageBonus();
             }
             if (seman.HaveStatusEffect("Wolftears"))

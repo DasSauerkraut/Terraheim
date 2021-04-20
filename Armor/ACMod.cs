@@ -132,7 +132,7 @@ namespace Terraheim.Armor
             trollLegs.m_itemData.m_shared.m_description = trollLegs.m_itemData.m_shared.m_description + $"\nDagger Damage is increased by <color=cyan>{System.Math.Round((daggerSpearDamageBonus.getDamageBonus()) * 100)}%</color>.\nSpear Damage is increased by <color=cyan>{System.Math.Round(daggerSpearDamageBonus.getDamageBonus() * 100)}%</color>.";
 
             backstabBonus.setBackstabBonus((float)setBalance["capeEffectVal"]);
-            trollCape.m_itemData.m_shared.m_description = trollCape.m_itemData.m_shared.m_description + $"\nBackstab Damage is increased by <color=cyan>{backstabBonus.getBackstabBonus()}x</color>.";
+            trollCape.m_itemData.m_shared.m_description = trollCape.m_itemData.m_shared.m_description + $"\nSneak Attack Damage is increased by <color=cyan>{backstabBonus.getBackstabBonus()}x</color>.";
 
 
             //Assign Effects
@@ -225,6 +225,8 @@ namespace Terraheim.Armor
                 item.m_itemData.m_shared.m_description = $"<i>" + balance["classes"]["berserker"] + $"</i>\n{item.m_itemData.m_shared.m_description}";
             }
 
+            chest.m_itemData.m_shared.m_armor += 2;
+
             //Create Status Effects
             var meleeDamageBonus = ScriptableObject.CreateInstance<SE_TwoHandedDmgBonus>();
             var extraStamina = ScriptableObject.CreateInstance<SE_ExtraStamina>();
@@ -281,6 +283,8 @@ namespace Terraheim.Armor
                 }                
                 item.m_itemData.m_shared.m_description = $"<i>" + balance["classes"]["ranger"] + $"</i>\n{item.m_itemData.m_shared.m_description}";
             }
+
+            helmet.m_itemData.m_shared.m_armor += 2;
 
             //Create Status Effects
             var silverDamageBonus = ScriptableObject.CreateInstance<SE_SilverDamageBonus>();
@@ -339,6 +343,8 @@ namespace Terraheim.Armor
                 }
                 item.m_itemData.m_shared.m_description = $"<i>" + balance["classes"]["tank"] + $"</i>\n{item.m_itemData.m_shared.m_description}";
             }
+
+            helmet.m_itemData.m_shared.m_armor += 2;
 
             //Create Status Effects
             var meleeDamageBonus = ScriptableObject.CreateInstance<SE_MeleeDamageBonus>();

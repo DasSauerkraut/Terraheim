@@ -9,6 +9,7 @@ namespace Terraheim.ArmorEffects
         public float m_damageBonus = 0.05f;
         public int m_activationCount = 0;
         public int m_count = 0;
+        public int m_maxCount = 12;
         public float m_aoeSize = 0f;
         public GameObject m_lastProjectile;
 
@@ -16,18 +17,31 @@ namespace Terraheim.ArmorEffects
         {
             m_name = "Wyrdarrow";
             base.name = "Wyrdarrow";
-            m_tooltip = "Hitting an enemy " + m_activationCount + " times with bows, daggers, or spears charges your weapon. The next special attack (Or normal attack, if using a bow) will deal " 
-                + m_damageBonus * 100 + " spirt/frost damage in a " + m_aoeSize + "m radius.";
+            m_tooltip = "Hitting an enemy " + m_activationCount + " times charges you. The next bowshot or special attack with daggers and spears will deal " 
+                + m_damageBonus * 100 + "% of damage dealt as spirit/frost damage in a " + m_aoeSize + "m radius.";
             m_icon = null;
         }
 
         public void IncreaseCounter()
         {
+            if (m_character.GetSEMan().HaveStatusEffect("Wyrd Exhausted"))
+                return;
+
             m_count += 1;
+            if (m_count >= m_maxCount)
+                m_count = m_maxCount;
+
             if(m_count >= m_activationCount && !m_character.GetSEMan().HaveStatusEffect("WyrdarrowFX"))
             {
                 Log.LogInfo("Adding status");
                 m_character.GetSEMan().AddStatusEffect("WyrdarrowFX");
+                var audioSource = m_character.GetComponent<AudioSource>();
+                if(audioSource == null)
+                {
+                    audioSource = m_character.gameObject.AddComponent<AudioSource>();
+                    audioSource.playOnAwake = false;
+                }
+                audioSource.PlayOneShot(AssetHelper.AoEReady);
             }
             m_name = base.name + " " + m_count;
         }
@@ -38,6 +52,7 @@ namespace Terraheim.ArmorEffects
             if(m_count < m_activationCount && m_character.GetSEMan().HaveStatusEffect("WyrdarrowFX"))
             {
                 m_character.GetSEMan().RemoveStatusEffect("WyrdarrowFX");
+                m_character.GetSEMan().AddStatusEffect("Wyrd Exhausted");
             }
 
             if(m_count < 1)
@@ -54,8 +69,8 @@ namespace Terraheim.ArmorEffects
         public void SetDamageBonus(float bonus)
         {
             m_damageBonus = bonus;
-            m_tooltip = "Hitting an enemy " + m_activationCount + " times with bows, daggers, or spears charges your weapon. The next special attack (Or normal attack, if using a bow) will deal "
-                + m_damageBonus * 100 + " spirt/frost damage in a " + m_aoeSize + "m radius.";
+            m_tooltip = "Hitting an enemy " + m_activationCount + " times charges you. The next special attack with daggers and spear or fully charged attack with bows will deal "
+                + m_damageBonus * 100 + "% of damage dealt as spirit/frost damage in a " + m_aoeSize + "m radius.";
         }
 
         public float GetDamageBonus() { return m_damageBonus; }
@@ -63,8 +78,8 @@ namespace Terraheim.ArmorEffects
         public void SetActivationCount(int count)
         {
             m_activationCount = count;
-            m_tooltip = "Hitting an enemy " + m_activationCount + " times with bows, daggers, or spears charges your weapon. The next special attack (Or normal attack, if using a bow) will deal "
-                + m_damageBonus * 100 + " spirt/frost damage in a " + m_aoeSize + "m radius.";
+            m_tooltip = "Hitting an enemy " + m_activationCount + " times charges you. The next special attack with daggers and spear or fully charged attack with bows will deal "
+                + m_damageBonus * 100 + "% of damage dealt as spirit/frost damage in a " + m_aoeSize + "m radius.";
         }
 
         public float GetActivationCount() { return m_activationCount; }
@@ -72,8 +87,8 @@ namespace Terraheim.ArmorEffects
         public void SetAoESize(float aoe)
         {
             m_aoeSize = aoe;
-            m_tooltip = "Hitting an enemy " + m_activationCount + " times with bows, daggers, or spears charges your weapon. The next special attack (Or normal attack, if using a bow) will deal "
-                + m_damageBonus * 100 + " spirt/frost damage in a " + m_aoeSize + "m radius.";
+            m_tooltip = "Hitting an enemy " + m_activationCount + " times charges you. The next special attack with daggers and spear or fully charged attack with bows will deal "
+                + m_damageBonus * 100 + "% of damage dealt as spirit/frost damage in a " + m_aoeSize + "m radius.";
         }
 
         public float GetAoESize() { return m_aoeSize; }
