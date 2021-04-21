@@ -6,7 +6,8 @@ namespace Terraheim.Utility
 {
     class TranslationUtils
     {
-        private static readonly string m_translationsPath = Path.Combine(Terraheim.ModPath, "Translations");
+        //private static readonly string m_translationsPath = Path.Combine(Terraheim.ModPath, "Translations");
+        private static readonly string m_translationsPath = Terraheim.ModPath;
         private static readonly string m_defaultLanguage = "English";
         private static string m_language = Localization.instance.GetSelectedLanguage();
         private static string m_translationPath;

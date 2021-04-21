@@ -31,11 +31,11 @@ If you have the [Barbarian Armor](https://www.nexusmods.com/valheim/mods/640) mo
 
 You can view the full values for each set across every tier [here!](https://docs.google.com/spreadsheets/d/1DlnnJOvorgCQ1k1e4lO5nF8M-QQpf7FZmO5bRj3mwLI/edit?usp=sharing)
 
-### Uptiering
-As you progress through the game, you will be able to uptier armor. Essentially leveling the armor up to utilize the new materials you come across. When you do so, the armor set's armor rating increases, and every one of its bonuses becomes more effective.
-For example, you can uptier the Bronze Helmet to become an Iron-Reinforced Bronze Helmet by combining a Bronze Helmet, some Iron, and some Deer Hide at the forge. By doing this, it's armor has increased from 15 to 19, and it's bonus(+5% Melee Damage) increases to +7% Melee Damage.
-Uptiering means that you won't have chests full of out-dated equipment as you can continually have the armor set keep pace with your progression!
-Note that to uptier padded armor, you have to use the Artisan Table asides from the forge or workbench.
+### Reforging
+As you progress through the game, you will be able to reforge armor. Essentially leveling the armor up to utilize the new materials you come across. When you do so, the armor set's armor rating increases, and every one of its bonuses becomes more effective.
+For example, you can reforge the Bronze Helmet to become an Iron-Reinforced Bronze Helmet by combining a Bronze Helmet, some Iron, and some Deer Hide at the forge. By doing this, it's armor has increased from 15 to 19, and it's bonus(+5% Melee Damage) increases to +7% Melee Damage.
+Reforging means that you won't have chests full of out-dated equipment as you can continually have the armor set keep pace with your progression!
+Note that to reforge padded armor, you have to use the Artisan Table asides from the forge or workbench.
 ## Utility Items
 Currently two utility items have been added, the Aescfell Belt and the Stánbrysan Belt. These items increase your damage dealt to trees and ores, respectively.
 ## Balance
@@ -62,6 +62,19 @@ These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 [Nexus](https://www.nexusmods.com/valheim/mods/803?tab=description)
 
 ### Patchnotes
+**v1.6.5**
+- Reduced Battle Furor VFX and made it clear when the armor is removed
+- Fixed Wolftears description values and it's damage bonus calculation
+- Fixed recipes requiring previous armor sets to upgrade
+- Fixed issues with Vulkan shaders
+**v1.6.4**
+- Actually fixed inventory issues
+**v1.6.3**
+- Fixed missing recipe for Blackmetal Throwing Axe
+- Removed extraneous logging.
+**v1.6.1**
+- Fixed broken translation folder structure for the thunderstore.
+- Potential fix for inventory issues
 **v1.6.0 - Daroþas of Ullr Update**
 Oh wow this one took a bit, but there is a ton of stuff here.
 - Added a new weapon type: Throwing Axes! There is a version for each tier of material. - Integrated the Barbarian Armor mod as a throwing weapon set. 

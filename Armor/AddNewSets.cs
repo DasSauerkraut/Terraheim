@@ -104,26 +104,31 @@ namespace Terraheim.Armor
                 List<Piece.Requirement> helmetList = new List<Piece.Requirement>();
                 List<Piece.Requirement> chestList = new List<Piece.Requirement>();
                 List<Piece.Requirement> legsList = new List<Piece.Requirement>();
-                
+
                 //Add base armor to requirements
+                int j = 0;
                 if (i == 1)
                 {
                     helmetList.Add(MockRequirement.Create("HelmetLeather", 1));
                     chestList.Add(MockRequirement.Create("ArmorLeatherChest", 1));
                     legsList.Add(MockRequirement.Create("ArmorLeatherLegs", 1));
+                    j++;
+                    helmetList[0].m_amountPerLevel = 0;
+                    chestList[0].m_amountPerLevel = 0;
+                    legsList[0].m_amountPerLevel = 0;
                 }
 
                 //Get recipe reqs from json
                 var recipeReqs = balance["upgradePath"][$"t{i}"];
-                int index = 0;
+                int index = 0 + j;
                 foreach (JObject item in recipeReqs["head"])
                 {
                     helmetList.Add(MockRequirement.Create((string)item["item"],(int)item["amount"]));
                     helmetList[index].m_amountPerLevel = (int)item["perLevel"];
                     index++;
                 }
-                
-                index = 0;
+
+                index = 0 + j;
                 foreach (JObject item in recipeReqs["chest"])
                 {
                     chestList.Add(MockRequirement.Create((string)item["item"], (int)item["amount"]));
@@ -131,7 +136,7 @@ namespace Terraheim.Armor
                     index++;
                 }
 
-                index = 0;
+                index = 0 + j;
                 foreach (JObject item in recipeReqs["legs"])
                 {
                     legsList.Add(MockRequirement.Create((string)item["item"], (int)item["amount"]));
@@ -252,16 +257,21 @@ namespace Terraheim.Armor
                 List<Piece.Requirement> legsList = new List<Piece.Requirement>();
 
                 //Add previous armor to requirements
+                int j = 0;
                 if (i == (int)setBalance["upgrades"]["startingTier"])
                 {
                     helmetList.Add(MockRequirement.Create("HelmetTrollLeather", 1));
                     chestList.Add(MockRequirement.Create("ArmorTrollLeatherChest", 1));
                     legsList.Add(MockRequirement.Create("ArmorTrollLeatherLegs", 1));
+                    j++;
+                    helmetList[0].m_amountPerLevel = 0;
+                    chestList[0].m_amountPerLevel = 0;
+                    legsList[0].m_amountPerLevel = 0;
                 }
 
                 //Get recipe reqs from json
                 var recipeReqs = balance["upgradePath"][$"t{i}"];
-                int index = 0;
+                int index = 0 + j;
                 foreach (JObject item in recipeReqs["head"])
                 {
                     helmetList.Add(MockRequirement.Create((string)item["item"], (int)item["amount"]));
@@ -269,7 +279,7 @@ namespace Terraheim.Armor
                     index++;
                 }
 
-                index = 0;
+                index = 0 + j;
                 foreach (JObject item in recipeReqs["chest"])
                 {
                     chestList.Add(MockRequirement.Create((string)item["item"], (int)item["amount"]));
@@ -277,7 +287,7 @@ namespace Terraheim.Armor
                     index++;
                 }
 
-                index = 0;
+                index = 0 + j;
                 foreach (JObject item in recipeReqs["legs"])
                 {
                     legsList.Add(MockRequirement.Create((string)item["item"], (int)item["amount"]));
@@ -402,17 +412,22 @@ namespace Terraheim.Armor
                 List<Piece.Requirement> chestList = new List<Piece.Requirement>();
                 List<Piece.Requirement> legsList = new List<Piece.Requirement>();
 
+                int j = 0;
                 //Add previous armor to requirements
                 if (i == (int)setBalance["upgrades"]["startingTier"])
                 {
                     helmetList.Add(MockRequirement.Create("HelmetBronze", 1));
                     chestList.Add(MockRequirement.Create("ArmorBronzeChest", 1));
                     legsList.Add(MockRequirement.Create("ArmorBronzeLegs", 1));
+                    j++;
+                    helmetList[0].m_amountPerLevel = 0;
+                    chestList[0].m_amountPerLevel = 0;
+                    legsList[0].m_amountPerLevel = 0;
                 }
 
                 //Get recipe reqs from json
                 var recipeReqs = balance["upgradePath"][$"t{i}"];
-                int index = 0;
+                int index = 0 + j;
                 foreach (JObject item in recipeReqs["head"])
                 {
                     helmetList.Add(MockRequirement.Create((string)item["item"], (int)item["amount"]));
@@ -420,7 +435,7 @@ namespace Terraheim.Armor
                     index++;
                 }
 
-                index = 0;
+                index = 0 + j;
                 foreach (JObject item in recipeReqs["chest"])
                 {
                     chestList.Add(MockRequirement.Create((string)item["item"], (int)item["amount"]));
@@ -428,7 +443,7 @@ namespace Terraheim.Armor
                     index++;
                 }
 
-                index = 0;
+                index = 0 + j;
                 foreach (JObject item in recipeReqs["legs"])
                 {
                     legsList.Add(MockRequirement.Create((string)item["item"], (int)item["amount"]));
@@ -555,16 +570,21 @@ namespace Terraheim.Armor
                 List<Piece.Requirement> legsList = new List<Piece.Requirement>();
 
                 //Add previous armor to requirements
+                int j = 0;
                 if (i == (int)setBalance["upgrades"]["startingTier"])
                 {
                     helmetList.Add(MockRequirement.Create("HelmetIron", 1));
                     chestList.Add(MockRequirement.Create("ArmorIronChest", 1));
                     legsList.Add(MockRequirement.Create("ArmorIronLegs", 1));
+                    j++;
+                    helmetList[0].m_amountPerLevel = 0;
+                    chestList[0].m_amountPerLevel = 0;
+                    legsList[0].m_amountPerLevel = 0;
                 }
 
                 //Get recipe reqs from json
                 var recipeReqs = balance["upgradePath"][$"t{i}"];
-                int index = 0;
+                int index = 0 + j;
                 foreach (JObject item in recipeReqs["head"])
                 {
                     helmetList.Add(MockRequirement.Create((string)item["item"], (int)item["amount"]));
@@ -572,7 +592,7 @@ namespace Terraheim.Armor
                     index++;
                 }
 
-                index = 0;
+                index = 0 + j;
                 foreach (JObject item in recipeReqs["chest"])
                 {
                     chestList.Add(MockRequirement.Create((string)item["item"], (int)item["amount"]));
@@ -580,7 +600,7 @@ namespace Terraheim.Armor
                     index++;
                 }
 
-                index = 0;
+                index = 0 + j;
                 foreach (JObject item in recipeReqs["legs"])
                 {
                     legsList.Add(MockRequirement.Create((string)item["item"], (int)item["amount"]));

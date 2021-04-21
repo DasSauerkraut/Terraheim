@@ -27,7 +27,7 @@ namespace Terraheim.Patches
         )]
         public static void GetTooltipPostfix(ref string __result, ItemDrop.ItemData item, int qualityLevel, bool crafting)
         {
-            if (UtilityFunctions.HasTooltipEffect(Player.m_localPlayer.GetSEMan()))
+            if (item != null && Player.m_localPlayer != null && UtilityFunctions.HasTooltipEffect(Player.m_localPlayer.GetSEMan()))
             {
                 if (item.IsWeapon())
                 {
@@ -69,44 +69,53 @@ namespace Terraheim.Patches
 
         public static void UpdateDamageTooltip(ref string tooltip, ItemDrop.ItemData item)
         {
+
             Player localplayer = Player.m_localPlayer;
             SEMan seman = localplayer.GetSEMan();
             float totalMultiplier = 0f;
             float frostDamage = 0f;
             float spiritDamage = 0f;
-            if (item == null)
+
+            if (item == null || seman == null || localplayer == null || item.m_shared == null || item.m_shared.m_name == null )
                 return;
+
             if (seman.HaveStatusEffect("One Hand Damage Bonus") && (item.m_shared.m_name.Contains("axe") || item.m_shared.m_name.Contains("battleaxe")))
             {
                 var effect = localplayer.GetSEMan().GetStatusEffect("One Hand Damage Bonus") as SE_OneHandDamageBonus;
                 totalMultiplier += effect.getDamageBonus();
             }
+
             if (seman.HaveStatusEffect("Dagger/Spear Damage Bonus") && (item.m_shared.m_name.Contains("spear") || item.m_shared.m_name.Contains("knife")))
             {
                 var effect = localplayer.GetSEMan().GetStatusEffect("Dagger/Spear Damage Bonus") as SE_DaggerSpearDmgBonus;
                 totalMultiplier += effect.getDamageBonus();
             }
+
             if (seman.HaveStatusEffect("Melee Damage Bonus") && item.m_shared.m_itemType != ItemDrop.ItemData.ItemType.Bow)
             {
                 var effect = localplayer.GetSEMan().GetStatusEffect("Melee Damage Bonus") as SE_MeleeDamageBonus;
                 totalMultiplier += effect.getDamageBonus();
             }
+
             if (seman.HaveStatusEffect("Ranged Damage Bonus") && item.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow)
             {
                 var effect = localplayer.GetSEMan().GetStatusEffect("Ranged Damage Bonus") as SE_RangedDmgBonus;
                 totalMultiplier += effect.getDamageBonus();
             }
+
             if (seman.HaveStatusEffect("Two Handed Damage Bonus") && item.m_shared.m_itemType == ItemDrop.ItemData.ItemType.TwoHandedWeapon)
             {
                 var effect = localplayer.GetSEMan().GetStatusEffect("Two Handed Damage Bonus") as SE_TwoHandedDmgBonus;
                 totalMultiplier += effect.getDamageBonus();
             }
+
             if (seman.HaveStatusEffect("Throwing Damage Bonus") && item.m_shared.m_name.Contains("_throwingaxe") ||
                 item.m_shared.m_name.Contains("_spear") ||
                 item.m_shared.m_name.Contains("bomb"))
             {
-                var effect = localplayer.GetSEMan().GetStatusEffect("Throwing Damage Bonus") as SE_ThrowingDamageBonus;
-                totalMultiplier += effect.getDamageBonus();
+                var effect = seman.GetStatusEffect("Throwing Damage Bonus") as SE_ThrowingDamageBonus;
+                if(effect != null)
+                    totalMultiplier += effect.getDamageBonus();
             }
             if (seman.HaveStatusEffect("Wolftears"))
             {
@@ -132,7 +141,6 @@ namespace Terraheim.Patches
                 var effect = localplayer.GetSEMan().GetStatusEffect("Spirit Damage Bonus") as SE_SpiritDamageBonus;
                 spiritDamage += effect.GetDamageBonus();
             }
-
             if (totalMultiplier > 0f)
             {
                 var damages = item.m_shared.m_damages;
@@ -278,6 +286,8 @@ namespace Terraheim.Patches
         public static void UpdateBackstabBonus(ref string tooltip, ItemDrop.ItemData item)
         {
             Player localplayer = Player.m_localPlayer;
+            if (localplayer == null)
+                return;
             if (localplayer.GetSEMan().HaveStatusEffect("Backstab Bonus"))
             {
                 SE_BackstabBonus effect = localplayer.GetSEMan().GetStatusEffect("Backstab Bonus") as SE_BackstabBonus;
@@ -294,6 +304,8 @@ namespace Terraheim.Patches
         public static void UpdateHealOnBlockTooltip(ref string tooltip, ItemDrop.ItemData item)
         {
             Player localplayer = Player.m_localPlayer;
+            if (localplayer == null)
+                return;
             if (localplayer.GetSEMan().HaveStatusEffect("Heal On Block"))
             {
                 SE_HealOnBlock effect = localplayer.GetSEMan().GetStatusEffect("Heal On Block") as SE_HealOnBlock;

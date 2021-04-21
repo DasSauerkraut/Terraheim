@@ -58,15 +58,15 @@ namespace Terraheim.ArmorEffects
         {
             m_damageBonus = bonus;
             m_damageIncrement = m_damageBonus / 10;
-            m_tooltip = "Gain +" + m_damageIncrement + "% damage for every 10% of HP missing, up to " + m_damageBonus * 100 + "% when below " + m_activationHealth + "% HP.";
+            m_tooltip = "Gain +" + m_damageIncrement * 100 + "% damage for every 10% of HP missing, up to " + m_damageBonus * 100 + "% when below " + m_activationHealth * 100 + "% HP.";
         }
 
         public float GetDamageBonus()
         {
             if (m_character.GetHealthPercentage() <= m_activationHealth)
                 return m_damageBonus;
-            else if (m_character.GetHealthPercentage() > 0.90f)
-                return ((1 - m_character.GetHealthPercentage()) / 10) * m_damageIncrement;
+            else if (m_character.GetHealthPercentage() < 0.90f)
+                return (Mathf.RoundToInt((1 - m_character.GetHealthPercentage()) * 10)) * m_damageIncrement;
             else
                 return 0f;
         }
@@ -75,7 +75,7 @@ namespace Terraheim.ArmorEffects
         {
             //Log.LogInfo("Setting Bonus: " + bonus * 10 + "%");
             m_activationHealth = bonus;
-            m_tooltip = "Gain +" + m_damageIncrement + "% damage for every 10% of HP missing, up to " + m_damageBonus * 100 + "% when below " + m_activationHealth + "% HP.";
+            m_tooltip = "Gain +" + m_damageIncrement * 100 + "% damage for every 10% of HP missing, up to " + m_damageBonus * 100 + "% when below " + m_activationHealth*100 + "% HP.";
         }
 
         public float GetActivationHP() { return m_activationHealth; }

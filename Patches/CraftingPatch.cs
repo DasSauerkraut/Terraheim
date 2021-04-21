@@ -21,27 +21,28 @@ namespace Terraheim.Patches
         [HarmonyPatch(typeof(InventoryGui), "DoCrafting")]
         public static void Prefix(InventoryGui __instance, Player player)
         {
-            Log.LogWarning("Doin crafting");
-            if (__instance.m_craftRecipe == null)
+            //Log.LogWarning("Doin crafting");
+            if (__instance.m_craftRecipe == null || __instance.m_craftRecipe.m_resources == null || __instance.m_craftRecipe.m_resources[0].m_resItem == null)
             {
                 return;
             }
 
-            Log.LogWarning("Doin crafting");
+            //Log.LogWarning("Doin crafting");
+            //Log.LogInfo(__instance.m_craftRecipe.m_resources[0].m_resItem.m_itemData.m_shared.m_itemType);
 
-            var terraheimItems = Array.FindLast(__instance.m_craftRecipe.m_resources, resource => resource.m_resItem.name.Contains("_Terraheim_AddNewSets_") ||
+            var terraheimItems = Array.FindIndex(__instance.m_craftRecipe.m_resources, resource => 
             resource.m_resItem.m_itemData.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Helmet ||
             resource.m_resItem.m_itemData.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Chest ||
             resource.m_resItem.m_itemData.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Legs);
-            Log.LogMessage("Contains item: " + player.GetInventory().ContainsItem(terraheimItems.m_resItem.m_itemData));
-            if (terraheimItems != null) {
-                var inventoryItem = player.GetInventory().GetAllItems().Find(item => item.m_shared.m_name == terraheimItems.m_resItem.m_itemData.m_shared.m_name);
+            if (terraheimItems != -1) {
+                //Log.LogMessage("Contains item: " + player.GetInventory().ContainsItem(__instance.m_craftRecipe.m_resources[terraheimItems].m_resItem.m_itemData));
+                var inventoryItem = player.GetInventory().GetAllItems().Find(item => item.m_shared.m_name == __instance.m_craftRecipe.m_resources[terraheimItems].m_resItem.m_itemData.m_shared.m_name);
                 if (inventoryItem != null)
                 {
                     m_crafterNameHolder = inventoryItem.m_crafterName;
                     //m_crafterNameHolder.Replace(inventoryItem.m_shared.m_name, __instance.m_craftRecipe.m_item.m_itemData.m_shared.m_name);
                 }
-                Log.LogMessage("From Do Craftin " + m_crafterNameHolder);
+                Log.LogMessage("Crafter Info " + m_crafterNameHolder);
             }
             else if (m_crafterNameHolder != null)
             {
@@ -67,7 +68,7 @@ namespace Terraheim.Patches
                 __result.m_crafterName = m_crafterNameHolder;
                 m_crafterNameHolder = null;
             }
-            Log.LogWarning("From AddItem" + __result.m_crafterName);
+            Log.LogInfo("Crafter Name from Add Item Patch" + __result.m_crafterName);
         }
         /*static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {

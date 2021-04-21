@@ -16,6 +16,15 @@ namespace Terraheim.ArmorEffects
             m_icon = null;
         }
 
+        public override void UpdateStatusEffect(float dt)
+        {
+            base.UpdateStatusEffect(dt);
+            if (!m_character.GetSEMan().HaveStatusEffect("Battle Furor"))
+            {
+                m_character.GetSEMan().RemoveStatusEffect("Battle FurorFX");
+            }
+        }
+
         public override void Setup(Character character)
         {
             m_startEffects = new EffectList();

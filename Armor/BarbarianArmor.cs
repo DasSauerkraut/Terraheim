@@ -62,7 +62,7 @@ namespace Terraheim.Armor
                     if (!item.m_itemData.m_shared.m_name.Contains("helmet"))
                         item.m_itemData.m_shared.m_movementModifier = (float)setBalance["globalMoveMod"];
                 }
-                helmet.m_itemData.m_shared.m_armor += 1;
+                helmet.m_itemData.m_shared.m_armor = (float)setBalance["baseArmor"] + 1;
                 item.m_itemData.m_shared.m_description = "<i>" + (string)balance["classes"]["thrower"] + $"</i>\n{item.m_itemData.m_shared.m_description}";
             }
 
