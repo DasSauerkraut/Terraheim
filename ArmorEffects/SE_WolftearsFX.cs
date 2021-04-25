@@ -23,5 +23,14 @@ namespace Terraheim.ArmorEffects
             m_startEffects.m_effectPrefabs = new EffectList.EffectData[] { UtilityFunctions.VFXRedTearstone };
             base.Setup(character);
         }
+
+        public override void UpdateStatusEffect(float dt)
+        {
+            base.UpdateStatusEffect(dt);
+            if (!m_character.GetSEMan().HaveStatusEffect("Wolftears"))
+            {
+                m_character.GetSEMan().RemoveStatusEffect("WolftearsFX");
+            }
+        }
     }
 }
