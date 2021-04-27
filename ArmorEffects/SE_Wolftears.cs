@@ -1,4 +1,5 @@
-﻿using Terraheim.Utility;
+﻿using Newtonsoft.Json.Linq;
+using Terraheim.Utility;
 using UnityEngine;
 using ValheimLib;
 
@@ -9,12 +10,14 @@ namespace Terraheim.ArmorEffects
         public float m_damageBonus = 0.05f;
         public float m_activationHealth = 0f;
         public float m_damageIncrement = 0f;
+        static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
 
         public void Awake()
         {
             m_name = "Wolftears";
             base.name = "Wolftears";
-            m_tooltip = "Gain +" + m_damageIncrement * 100 + "% damage for every 10% of HP missing, up to " + m_damageBonus * 100 + "% when below " + m_activationHealth *100+ "% HP.";
+            m_tooltip = "Gain +" + m_damageIncrement * 100 + "% damage for every 10% of HP missing, up to " + m_damageBonus * 100 + "% when below " + m_activationHealth * 100 + "% HP." +
+                $"\nEvery {(float)balance["wolftearOneHitTTL"]} seconds, when an attack would have killed you, survive at 1 hp.";
             m_icon = null;
         }
 
@@ -58,7 +61,8 @@ namespace Terraheim.ArmorEffects
         {
             m_damageBonus = bonus;
             m_damageIncrement = m_damageBonus / 10;
-            m_tooltip = "Gain +" + m_damageIncrement * 100 + "% damage for every 10% of HP missing, up to " + m_damageBonus * 100 + "% when below " + m_activationHealth * 100 + "% HP.";
+            m_tooltip = "Gain +" + m_damageIncrement * 100 + "% damage for every 10% of HP missing, up to " + m_damageBonus * 100 + "% when below " + m_activationHealth * 100 + "% HP." +
+                $"\nEvery {(float)balance["wolftearOneHitTTL"]} seconds, when an attack would have killed you, survive at 1 hp.";
         }
 
         public float GetDamageBonus()
@@ -75,7 +79,8 @@ namespace Terraheim.ArmorEffects
         {
             //Log.LogInfo("Setting Bonus: " + bonus * 10 + "%");
             m_activationHealth = bonus;
-            m_tooltip = "Gain +" + m_damageIncrement * 100 + "% damage for every 10% of HP missing, up to " + m_damageBonus * 100 + "% when below " + m_activationHealth*100 + "% HP.";
+            m_tooltip = "Gain +" + m_damageIncrement * 100 + "% damage for every 10% of HP missing, up to " + m_damageBonus * 100 + "% when below " + m_activationHealth * 100 + "% HP." +
+                $"\nEvery {(float)balance["wolftearOneHitTTL"]} seconds, when an attack would have killed you, survive at 1 hp.";
         }
 
         public float GetActivationHP() { return m_activationHealth; }

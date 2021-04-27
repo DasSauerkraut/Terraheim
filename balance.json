@@ -7,6 +7,8 @@
     "baseBowDrawMoveSpeeed": 0.5,
     "perfectBlockWindow": 0.15,
     "wyrdExhaustedTTL": 7,
+    "wolftearOneHitTTL": 260,
+    "thornsKillThreshold": 0.5,
     "bloodrushTTL": 10,
     "bloodrushMaxSpeed": 0.5,
     "classes": {

@@ -21,5 +21,14 @@ namespace Terraheim.ArmorEffects
             m_startEffects.m_effectPrefabs = new EffectList.EffectData[] { Data.VFXAoECharged };
             base.Setup(character);
         }
+
+        public override void UpdateStatusEffect(float dt)
+        {
+            base.UpdateStatusEffect(dt);
+            if (!m_character.GetSEMan().HaveStatusEffect("Wyrdarrow"))
+            {
+                m_character.GetSEMan().RemoveStatusEffect("WyrdarrowFX");
+            }
+        }
     }
 }

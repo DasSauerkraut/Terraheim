@@ -133,6 +133,7 @@
     <Compile Include="ArmorEffects\SE_DaggerSpearDmgBonus.cs" />
     <Compile Include="ArmorEffects\SE_RangedDmgBonus.cs" />
     <Compile Include="ArmorEffects\SE_WolftearsFX.cs" />
+    <Compile Include="ArmorEffects\SE_WolftearsProtectionExhausted.cs" />
     <Compile Include="Armor\AddCirculets.cs" />
     <Compile Include="Armor\AddNewSets.cs" />
     <Compile Include="Armor\ACMod.cs" />

@@ -4,6 +4,7 @@ using ValheimLib.ODB;
 using Terraheim.ArmorEffects;
 using UnityEngine;
 using Terraheim.Utility;
+using Newtonsoft.Json.Linq;
 
 namespace Terraheim.Patches
 {
@@ -15,6 +16,8 @@ namespace Terraheim.Patches
         {
             Log.LogInfo("Thorns Patching Complete");
         }
+        static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
+
 
 
         [HarmonyPatch(typeof(SEMan), "OnDamaged")]
@@ -46,7 +49,7 @@ namespace Terraheim.Patches
                 reflectedDamage.m_staggerMultiplier = 0;
 
                 //Log.LogMessage($"Reflected Damage ${reflectedDamage.m_damage.GetTotalDamage()}");
-                if (attacker.GetHealth() <= reflectedDamage.GetTotalDamage())
+                if (attacker.GetHealth() <= reflectedDamage.GetTotalDamage() && attacker.GetHealthPercentage() >= (float)balance["thornsKillThreshold"])
                 {
                     var totalDamage = attacker.GetHealth() - 1;
                     reflectedDamage.m_damage.m_blunt = totalDamage * (reflectedDamage.m_damage.m_blunt / reflectedDamage.GetTotalDamage());
@@ -73,6 +76,26 @@ namespace Terraheim.Patches
                     //Log.LogMessage("Playing particle");
                 }
             }
+
+            if (__instance.HaveStatusEffect("Wolftears") && __instance.m_character.GetHealth() <= hit.m_damage.GetTotalDamage() && !__instance.HaveStatusEffect("Tear Protection Exhausted"))
+            {
+                Log.LogInfo($"Would Kill defender! Damage: {hit.m_damage.GetTotalDamage()}, attacker health: {__instance.m_character.GetHealth()}");
+                /*var totalDamage = __instance.m_character.GetHealth() - 1;
+                hit.m_damage.m_blunt = totalDamage * (hit.m_damage.m_blunt / hit.GetTotalDamage());
+                hit.m_damage.m_chop = totalDamage * (hit.m_damage.m_chop / hit.GetTotalDamage());
+                hit.m_damage.m_damage = totalDamage * (hit.m_damage.m_damage / hit.GetTotalDamage());
+                hit.m_damage.m_fire = totalDamage * (hit.m_damage.m_fire / hit.GetTotalDamage());
+                hit.m_damage.m_frost = totalDamage * (hit.m_damage.m_frost / hit.GetTotalDamage());
+                hit.m_damage.m_lightning = totalDamage * (hit.m_damage.m_lightning / hit.GetTotalDamage());
+                hit.m_damage.m_pickaxe = totalDamage * (hit.m_damage.m_pickaxe / hit.GetTotalDamage());
+                hit.m_damage.m_pierce = totalDamage * (hit.m_damage.m_pierce / hit.GetTotalDamage());
+                hit.m_damage.m_poison = totalDamage * (hit.m_damage.m_poison / hit.GetTotalDamage());
+                hit.m_damage.m_slash = totalDamage * (hit.m_damage.m_slash / hit.GetTotalDamage());
+                hit.m_damage.m_spirit = totalDamage * (hit.m_damage.m_spirit / hit.GetTotalDamage());*/
+                hit.m_damage.Modify(0);
+                __instance.AddStatusEffect("Tear Protection Exhausted");
+                __instance.m_character.SetHealth(1f);
+            }
             /*
             if (__instance.HaveStatusEffect("Wolftears"))
             {
@@ -95,7 +118,7 @@ namespace Terraheim.Patches
         }
         [HarmonyPostfix]
         [HarmonyPatch(typeof(Character), "ApplyDamage")]
-        public static void DamagePostfix(Character __instance, HitData hit)
+        public static void DamagePostfix(Character __instance, ref HitData hit)
         {
             Character attacker = hit.GetAttacker();
             if (attacker == null || attacker.IsPlayer() || attacker.m_seman == null)
@@ -107,6 +130,7 @@ namespace Terraheim.Patches
             {
                 var effect = __instance.GetSEMan().GetStatusEffect("Wolftears") as SE_Wolftears;
                 effect.SetIcon();
+                
             }
 
             if (__instance.GetSEMan().HaveStatusEffect("Battle Furor"))
@@ -118,8 +142,6 @@ namespace Terraheim.Patches
                     effect.ClearIcon();
                 }
             }
-
-
         }
     }
 }
