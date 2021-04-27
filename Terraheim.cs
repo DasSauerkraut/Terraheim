@@ -97,6 +97,7 @@ namespace Terraheim
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_FullHPDamageBonusFX>(), fixReference: true)); //Iron 
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Wolftears>(), fixReference: true)); //Silver
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_WolftearsFX>(), fixReference: true)); //Silver
+            ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_WolftearsProtectionExhausted>(), fixReference: true)); //Silver
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_AoECounter>(), fixReference: true)); //Silver
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_AoECounterFX>(), fixReference: true)); //Silver
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_AoECounterExhausted>(), fixReference: true)); //Silver
@@ -113,7 +114,7 @@ namespace Terraheim
 
         private void SetupVFX()
         {
-            UtilityFunctions.VFXRedTearstone = new EffectList.EffectData()
+            Data.VFXRedTearstone = new EffectList.EffectData()
             {
                 m_prefab = Utility.AssetHelper.FXRedTearstone,
                 m_enabled = true,
@@ -124,7 +125,7 @@ namespace Terraheim
                 m_scale = true
             };
 
-            UtilityFunctions.VFXDamageAtFullHp = new EffectList.EffectData()
+            Data.VFXDamageAtFullHp = new EffectList.EffectData()
             {
                 m_prefab = Utility.AssetHelper.FXDamageAtFullHp,
                 m_enabled = true,
@@ -135,7 +136,7 @@ namespace Terraheim
                 m_scale = true
             };
 
-            UtilityFunctions.VFXAoECharged = new EffectList.EffectData()
+            Data.VFXAoECharged = new EffectList.EffectData()
             {
                 m_prefab = Utility.AssetHelper.FXAoECharged,
                 m_enabled = true,
@@ -146,7 +147,7 @@ namespace Terraheim
                 m_scale = true
             };
 
-            UtilityFunctions.VFXMarkedForDeath = new EffectList.EffectData()
+            Data.VFXMarkedForDeath = new EffectList.EffectData()
             {
                 m_prefab = Utility.AssetHelper.FXMarkedForDeath,
                 m_enabled = true,

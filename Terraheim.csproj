@@ -133,6 +133,7 @@
     <Compile Include="ArmorEffects\SE_DaggerSpearDmgBonus.cs" />
     <Compile Include="ArmorEffects\SE_RangedDmgBonus.cs" />
     <Compile Include="ArmorEffects\SE_WolftearsFX.cs" />
+    <Compile Include="ArmorEffects\SE_WolftearsProtectionExhausted.cs" />
     <Compile Include="Armor\AddCirculets.cs" />
     <Compile Include="Armor\AddNewSets.cs" />
     <Compile Include="Armor\ACMod.cs" />
@@ -160,7 +161,9 @@
     <Compile Include="Patches\TreeDamagePatch.cs" />
     <Compile Include="Terraheim.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\ArmorHelper.cs" />
     <Compile Include="Utility\AssetHelper.cs" />
+    <Compile Include="Utility\Data.cs" />
     <Compile Include="Utility\TranslationUtils.cs" />
     <Compile Include="Utility\UtilityFunctions.cs" />
   </ItemGroup>
