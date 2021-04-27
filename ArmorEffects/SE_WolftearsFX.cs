@@ -20,7 +20,7 @@ namespace Terraheim.ArmorEffects
         public override void Setup(Character character)
         {
             m_startEffects = new EffectList();
-            m_startEffects.m_effectPrefabs = new EffectList.EffectData[] { UtilityFunctions.VFXRedTearstone };
+            m_startEffects.m_effectPrefabs = new EffectList.EffectData[] { Data.VFXRedTearstone };
             base.Setup(character);
         }
     }

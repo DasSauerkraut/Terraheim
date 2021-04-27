@@ -113,7 +113,7 @@ namespace Terraheim
 
         private void SetupVFX()
         {
-            UtilityFunctions.VFXRedTearstone = new EffectList.EffectData()
+            Data.VFXRedTearstone = new EffectList.EffectData()
             {
                 m_prefab = Utility.AssetHelper.FXRedTearstone,
                 m_enabled = true,
@@ -124,7 +124,7 @@ namespace Terraheim
                 m_scale = true
             };
 
-            UtilityFunctions.VFXDamageAtFullHp = new EffectList.EffectData()
+            Data.VFXDamageAtFullHp = new EffectList.EffectData()
             {
                 m_prefab = Utility.AssetHelper.FXDamageAtFullHp,
                 m_enabled = true,
@@ -135,7 +135,7 @@ namespace Terraheim
                 m_scale = true
             };
 
-            UtilityFunctions.VFXAoECharged = new EffectList.EffectData()
+            Data.VFXAoECharged = new EffectList.EffectData()
             {
                 m_prefab = Utility.AssetHelper.FXAoECharged,
                 m_enabled = true,
@@ -146,7 +146,7 @@ namespace Terraheim
                 m_scale = true
             };
 
-            UtilityFunctions.VFXMarkedForDeath = new EffectList.EffectData()
+            Data.VFXMarkedForDeath = new EffectList.EffectData()
             {
                 m_prefab = Utility.AssetHelper.FXMarkedForDeath,
                 m_enabled = true,

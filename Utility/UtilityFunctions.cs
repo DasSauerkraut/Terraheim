@@ -10,7 +10,7 @@ namespace Terraheim.Utility
     {
         public static JObject GetJsonFromFile(string filename)
         {
-            var filePath = Path.Combine(Paths.PluginPath, "DasSauerkraut-Terraheim", filename);
+            var filePath = Path.Combine(Terraheim.ModPath, filename);
             //Log.LogWarning(filePath);
             string rawText = File.ReadAllText(filePath);
             //Log.LogWarning(rawText);
@@ -49,25 +49,6 @@ namespace Terraheim.Utility
             }
             return false;
         }
-
-        public static EffectList.EffectData VFXRedTearstone
-        {
-            get; set;
-        }
-
-        public static EffectList.EffectData VFXDamageAtFullHp
-        {
-            get; set;
-        }
-
-        public static EffectList.EffectData VFXAoECharged
-        {
-            get; set;
-        }
-
-        public static EffectList.EffectData VFXMarkedForDeath
-        {
-            get; set;
-        }
+        
     }
 }
