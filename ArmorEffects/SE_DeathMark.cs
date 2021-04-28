@@ -7,10 +7,10 @@ namespace Terraheim.ArmorEffects
 {
     class SE_DeathMark : StatusEffect
     {
-        public static float m_damageBonus = 0.05f;
-        public static int m_threshold = 0;
-        public static int m_duration = 0;
-        public static bool m_lastHitThrowing = false;
+        public float m_damageBonus = 0.05f;
+        public int m_threshold = 0;
+        public int m_duration = 0;
+        public bool m_lastHitThrowing = false;
 
         public void Awake()
         {

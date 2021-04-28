@@ -6,7 +6,7 @@ namespace Terraheim.ArmorEffects
 {
     class SE_MoveSpeedOnKillListener : StatusEffect
     {
-        public static float m_speedBonus = 0.05f;
+        public float m_speedBonus = 0.05f;
 
         public void Awake()
         {

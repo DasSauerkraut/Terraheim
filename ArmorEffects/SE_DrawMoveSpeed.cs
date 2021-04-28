@@ -5,7 +5,7 @@ namespace Terraheim.ArmorEffects
 {
     class SE_DrawMoveSpeed : StatusEffect
     {
-        public static float m_bonus = 0f;
+        public float m_bonus = 0f;
 
         public void Awake()
         {

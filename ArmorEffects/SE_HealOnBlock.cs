@@ -6,8 +6,8 @@ namespace Terraheim.ArmorEffects
 {
     class SE_HealOnBlock : StatusEffect
     {
-        public static float m_blockHeal = 0.05f;
-        public static float m_parryHeal = 0.05f;
+        public float m_blockHeal = 0.05f;
+        public float m_parryHeal = 0.05f;
 
         public void Awake()
         {

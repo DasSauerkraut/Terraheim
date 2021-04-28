@@ -2,7 +2,7 @@
 {
     class SE_TreeDamageBonus : StatusEffect
     {
-        public static float m_damageBonus = 0.05f;
+        public float m_damageBonus = 0.05f;
 
         public void Awake()
         {

@@ -5,8 +5,8 @@ namespace Terraheim.ArmorEffects
 {
     class SE_BlockStamUse : StatusEffect
     {
-        public static float m_bonus = 0f;
-        public static float m_baseConsumption = 0f;
+        public float m_bonus = 0f;
+        public float m_baseConsumption = 0f;
 
         public void Awake()
         {

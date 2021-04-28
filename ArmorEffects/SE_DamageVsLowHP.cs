@@ -6,8 +6,8 @@ namespace Terraheim.ArmorEffects
 {
     class SE_DamageVSLowHP : StatusEffect
     {
-        public static float m_damageBonus = 0.05f;
-        public static float m_healthThreshold = 0f;
+        public float m_damageBonus = 0.05f;
+        public float m_healthThreshold = 0f;
 
         public void Awake()
         {

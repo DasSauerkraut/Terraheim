@@ -5,7 +5,7 @@ namespace Terraheim.ArmorEffects
 {
     class SE_AmmoConsumption : StatusEffect
     {
-        public static int m_reduction = 0;
+        public int m_reduction = 0;
 
         public void Awake()
         {
