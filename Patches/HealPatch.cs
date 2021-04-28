@@ -17,7 +17,7 @@ namespace Terraheim.Patches
             Log.LogInfo("Block Patching Complete");
         }
 
-        [HarmonyPatch(typeof(Character), "Heal")]
+        /*[HarmonyPatch(typeof(Character), "Heal")]
         static void Prefix(Character __instance, ref SEMan ___m_seman, ref float hp)
         {
             //Log.LogWarning("Blocking!");
@@ -27,14 +27,14 @@ namespace Terraheim.Patches
                 {
                     hp = 0;
                 }
-        }
+        }*/
 
         [HarmonyPatch(typeof(Character), "Heal")]
         static void Postfix(Character __instance, ref SEMan ___m_seman)
         {
-            if (___m_seman.HaveStatusEffect("Wolftears"))
+            /*if (___m_seman.HaveStatusEffect("Wolftears"))
             {
-                /*SE_Wolftears effect = ___m_seman.GetStatusEffect("Wolftears") as SE_Wolftears;
+                SE_Wolftears effect = ___m_seman.GetStatusEffect("Wolftears") as SE_Wolftears;
                 if (__instance.GetHealthPercentage() > effect.GetActivationHP() && effect.m_icon != null)
                 {
                     effect.ClearIcon();
@@ -42,8 +42,8 @@ namespace Terraheim.Patches
                 else if (__instance.GetHealthPercentage() <= effect.GetActivationHP() && effect.m_icon == null)
                 {
                     effect.SetIcon();
-                }*/
-            }
+                }
+            }*/
             if (___m_seman.HaveStatusEffect("Battle Furor"))
             {
                 SE_FullHPDamageBonus effect = ___m_seman.GetStatusEffect("Battle Furor") as SE_FullHPDamageBonus;

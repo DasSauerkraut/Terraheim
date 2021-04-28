@@ -308,6 +308,7 @@ namespace Terraheim.Utility
                 GameObject clonedChest = Prefab.GetRealPrefabFromMock<ItemDrop>(mockChest).gameObject.InstantiateClone($"{armor.ChestID}T{i}", false);
                 GameObject clonedLegs = Prefab.GetRealPrefabFromMock<ItemDrop>(mockLegs).gameObject.InstantiateClone($"{armor.LegsID}T{i}", false);
 
+                //Set ID so that previous armors still exist
                 if(setName != "barbarian")
                 {
                     string armorSetName = char.ToUpper(setName[0]) + setName.Substring(1);
@@ -347,11 +348,11 @@ namespace Terraheim.Utility
 
                 //Add base armor to requirements
                 int j = 0;
-                if (i == 1)
+                if (i == (int)setBalance["upgrades"]["startingTier"])
                 {
-                    helmetList.Add(MockRequirement.Create(armor.HelmetID, 1));
-                    chestList.Add(MockRequirement.Create(armor.ChestID, 1));
-                    legsList.Add(MockRequirement.Create(armor.LegsID, 1));
+                    helmetList.Add(MockRequirement.Create(armor.HelmetID, 1, false));
+                    chestList.Add(MockRequirement.Create(armor.ChestID, 1, false));
+                    legsList.Add(MockRequirement.Create(armor.LegsID, 1, false));
                     j++;
                     helmetList[0].m_amountPerLevel = 0;
                     chestList[0].m_amountPerLevel = 0;
@@ -453,21 +454,24 @@ namespace Terraheim.Utility
                     {
                         m_resItem = ObjectDB.instance.GetItemPrefab("HelmetDrake").GetComponent<ItemDrop>(),
                         m_amount = 1,
-                        m_amountPerLevel = 0
+                        m_amountPerLevel = 0,
+                        m_recover = false
                     });
 
                     chestList.Add(new Piece.Requirement()
                     {
                         m_resItem = ObjectDB.instance.GetItemPrefab("ArmorWolfChest").GetComponent<ItemDrop>(),
                         m_amount = 1,
-                        m_amountPerLevel = 0
-                    });
+                        m_amountPerLevel = 0,
+                        m_recover = false
+                    }); ;
 
                     legsList.Add(new Piece.Requirement()
                     {
                         m_resItem = ObjectDB.instance.GetItemPrefab("ArmorWolfLegs").GetComponent<ItemDrop>(),
                         m_amount = 1,
-                        m_amountPerLevel = 0
+                        m_amountPerLevel = 0,
+                        m_recover = false
                     });
                 } 
                 else if (setName == "barbarian")
@@ -476,21 +480,24 @@ namespace Terraheim.Utility
                     {
                         m_resItem = ObjectDB.instance.GetItemPrefab($"{armor.HelmetID}T{i-1}_Terraheim_BarbarianArmor_AddNewSets").GetComponent<ItemDrop>(),
                         m_amount = 1,
-                        m_amountPerLevel = 0
+                        m_amountPerLevel = 0,
+                        m_recover = false
                     });
 
                     chestList.Add(new Piece.Requirement()
                     {
                         m_resItem = ObjectDB.instance.GetItemPrefab($"{armor.ChestID}T{i-1}_Terraheim_BarbarianArmor_AddNewSets").GetComponent<ItemDrop>(),
                         m_amount = 1,
-                        m_amountPerLevel = 0
+                        m_amountPerLevel = 0,
+                        m_recover = false
                     });
 
                     legsList.Add(new Piece.Requirement()
                     {
                         m_resItem = ObjectDB.instance.GetItemPrefab($"{armor.LegsID}T{i-1}_Terraheim_BarbarianArmor_AddNewSets").GetComponent<ItemDrop>(),
                         m_amount = 1,
-                        m_amountPerLevel = 0
+                        m_amountPerLevel = 0,
+                        m_recover = false
                     });
                 }
                 else
@@ -499,21 +506,24 @@ namespace Terraheim.Utility
                     {
                         m_resItem = ObjectDB.instance.GetItemPrefab($"{armor.HelmetID}T{i - 1}_Terraheim_AddNewSets_Add{armorSetName}Armor").GetComponent<ItemDrop>(),
                         m_amount = 1,
-                        m_amountPerLevel = 0
+                        m_amountPerLevel = 0,
+                        m_recover = false
                     });
 
                     chestList.Add(new Piece.Requirement()
                     {
                         m_resItem = ObjectDB.instance.GetItemPrefab($"{armor.ChestID}T{i - 1}_Terraheim_AddNewSets_Add{armorSetName}Armor").GetComponent<ItemDrop>(),
                         m_amount = 1,
-                        m_amountPerLevel = 0
+                        m_amountPerLevel = 0,
+                        m_recover = false
                     });
 
                     legsList.Add(new Piece.Requirement()
                     {
                         m_resItem = ObjectDB.instance.GetItemPrefab($"{armor.LegsID}T{i - 1}_Terraheim_AddNewSets_Add{armorSetName}Armor").GetComponent<ItemDrop>(),
                         m_amount = 1,
-                        m_amountPerLevel = 0
+                        m_amountPerLevel = 0,
+                        m_recover = false
                     });
                 }
                 

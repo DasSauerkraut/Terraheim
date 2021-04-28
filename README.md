@@ -1,3 +1,4 @@
+
 # Terraheim - Weapons/Tools/Armor
 **Terraheim** is both an overhaul for Valheim's armor system with the goal of making each armor set viable all the way to the end of the game and a weapon expansion that fills the gaps in the games base roster. 
 ![Its ya boy, back at it again at the mountains](https://media.discordapp.net/attachments/610164117277245482/827282733658669056/unknown.png?width=960&height=540)
@@ -39,7 +40,9 @@ Note that to reforge padded armor, you have to use the Artisan Table asides from
 ## Utility Items
 Currently two utility items have been added, the Aescfell Belt and the Stánbrysan Belt. These items increase your damage dealt to trees and ores, respectively.
 ## Balance
-**Terraheim** is highly customizable as the effectiveness, material costs, and almost every armor stat can be tweaked in the `balance.json` file. Weapons can be adjusted in the `weaponBalance.json` file
+**Terraheim** is highly customizable as the effectiveness, material costs, and almost every armor stat can be tweaked in the `balance.json` file. Weapons can be adjusted in the `weaponBalance.json` file.
+You can even change out what armor sets have what set effect! If you want the bronze armor set to have ranged damage or Wyrdarrow, you can!
+Just note that set effects are seperate from standard armor effects, so you can't assign Thorns to a helmet, it has to be the set bonus.
 **Bow Balance** - To prevent bowmen from being the be all end all class, the bow weapon type has been slightly nerfed by halving movement speed while the bow is drawn. This can be mitigated by wearing silver armor, or if you don't like it at all, you can remove it by setting `"baseBowDrawMoveSpeeed"` to 1 in the `balance.json` file.
 ## Compatibility
 There seems to be an incompatibility with ValheimLibOpenDatabasePatch.dll. Unfortunately I can't do anything about this issue, sorry.
@@ -62,6 +65,15 @@ These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 [Nexus](https://www.nexusmods.com/valheim/mods/803?tab=description)
 
 ### Patchnotes
+**v1.7.0 - Greatswords Reforged**
+- Greatswords have had a balance pass. The primary moveset is now the battleaxes, but the first attack is 1.6x faster. Their range has been increased to 3.
+- Wolftears has recieved some love too. For starters, it's max damage bonus has been upped to +50% at 20% hp. Also every 4 minutes (260 seconds) if you take lethal damage, you will survive at 1hp.
+- The thorns set effect will now kill enemies that are below 50% hp.
+- You can now configure armor set's effects in the balance.json! This means you can swap around individual effects to your pleasure. Want bronze to have ranged damage, go ahead and change it!
+- Fixed armor VFX sticking around after the armor set had been removed
+- Fixed the leather armor set bonus not scaling
+- Loosened restrictions on folder naming conventions and locations, this should improve Terraheim's ability to be integrated into modpacks.
+- There is a potential fix for the Barbarian throwing axe Black Void of DoomTM included as well.
 **v1.6.5**
 - Reduced Battle Furor VFX and made it clear when the armor is removed
 - Fixed Wolftears description values and it's damage bonus calculation
