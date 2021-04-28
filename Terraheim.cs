@@ -39,7 +39,7 @@ namespace Terraheim
             harmony.PatchAll();
 
             AssetHelper.Init();
-            SetupVFX();
+            AssetHelper.SetupVFX();
 
             Armor.ACMod.Init();
             Armor.AddNewSets.Init();
@@ -112,52 +112,7 @@ namespace Terraheim
             Log.LogInfo("Status Effects Injected");
         }
 
-        private void SetupVFX()
-        {
-            Data.VFXRedTearstone = new EffectList.EffectData()
-            {
-                m_prefab = Utility.AssetHelper.FXRedTearstone,
-                m_enabled = true,
-                m_attach = true,
-                m_inheritParentRotation = false,
-                m_inheritParentScale = false,
-                m_randomRotation = false,
-                m_scale = true
-            };
-
-            Data.VFXDamageAtFullHp = new EffectList.EffectData()
-            {
-                m_prefab = Utility.AssetHelper.FXDamageAtFullHp,
-                m_enabled = true,
-                m_attach = true,
-                m_inheritParentRotation = false,
-                m_inheritParentScale = false,
-                m_randomRotation = false,
-                m_scale = true
-            };
-
-            Data.VFXAoECharged = new EffectList.EffectData()
-            {
-                m_prefab = Utility.AssetHelper.FXAoECharged,
-                m_enabled = true,
-                m_attach = true,
-                m_inheritParentRotation = true,
-                m_inheritParentScale = false,
-                m_randomRotation = false,
-                m_scale = true
-            };
-
-            Data.VFXMarkedForDeath = new EffectList.EffectData()
-            {
-                m_prefab = Utility.AssetHelper.FXMarkedForDeath,
-                m_enabled = true,
-                m_attach = true,
-                m_inheritParentRotation = false,
-                m_inheritParentScale = true,
-                m_randomRotation = false,
-                m_scale = true
-            };
-        }
+        
 
     }
 }
