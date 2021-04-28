@@ -12,7 +12,7 @@ Five new throwing axes have been added as well as Fire, Frost and Lightning bomb
 You can view damage values, moveset information, and recipes [here](https://docs.google.com/spreadsheets/d/1DlnnJOvorgCQ1k1e4lO5nF8M-QQpf7FZmO5bRj3mwLI/edit?usp=sharing) in the Weapons tab.
 If you only want the new weapons, you can delete the Terraheim.dll file to disable the armor changes.
 ## Armor
-Each piece of armor has been given its own unique effect and each armor set its own set bonus while also allowing armor to be 'uptiered,' which increases all of the piece's stats to be usable in the next tier of gameplay.
+Each piece of armor has been given its own unique effect and each armor set its own set bonus while also allowing armor to be 'uptiered,' which increases all of the piece's stats to be usable in the next tier of gameplay. These effects can range from simple damage bonuses all the way to interesting effects like Wyrdarrow﻿!
 If you only want the armor changes, you can delete the TerraheimItems.dll file to disable the armor changes.
 ### Classes
 Each armor set has been divided into three classes:
@@ -38,7 +38,12 @@ For example, you can reforge the Bronze Helmet to become an Iron-Reinforced Bron
 Reforging means that you won't have chests full of out-dated equipment as you can continually have the armor set keep pace with your progression!
 Note that to reforge padded armor, you have to use the Artisan Table asides from the forge or workbench.
 ## Utility Items
-Currently two utility items have been added, the Aescfell Belt and the Stánbrysan Belt. These items increase your damage dealt to trees and ores, respectively.
+Currently five utility items have been added:
+- Aescfell Belt: Increased damage vs trees
+- Stánbrysan Belt: Increased damage vs ores
+- Eorðtilia Belt: Harvest additional flora from bushes and crops
+- Stulor Belt: Increased sneak speed and less sneak stamina use
+- Casul Belt: Immunity to the wet ailment
 ## Balance
 **Terraheim** is highly customizable as the effectiveness, material costs, and almost every armor stat can be tweaked in the `balance.json` file. Weapons can be adjusted in the `weaponBalance.json` file.
 You can even change out what armor sets have what set effect! If you want the bronze armor set to have ranged damage or Wyrdarrow, you can!
@@ -65,6 +70,11 @@ These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 [Nexus](https://www.nexusmods.com/valheim/mods/803?tab=description)
 
 ### Patchnotes
+**v1.7.1**
+- Fixed Wolftears preventing healing on crouch
+- Fixed reforging not consuming previous armor
+- Fixed missing requirements for reforging
+- Fixed Poisoned Iron Throwing axe's damages. 75 Slash -> 30 Slash, 20 Poison
 **v1.7.0 - Greatswords Reforged**
 - Greatswords have had a balance pass. The primary moveset is now the battleaxes, but the first attack is 1.6x faster. Their range has been increased to 3.
 - Wolftears has recieved some love too. For starters, it's max damage bonus has been upped to +50% at 20% hp. Also every 4 minutes (260 seconds) if you take lethal damage, you will survive at 1hp.
