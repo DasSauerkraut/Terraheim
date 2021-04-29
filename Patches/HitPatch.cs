@@ -171,7 +171,7 @@ namespace Terraheim.Patches
             }
         }
 
-            [HarmonyPrefix]
+        [HarmonyPrefix]
         [HarmonyPatch(typeof(Character), "Damage")]
         static void OnDamagedPrefix(HitData hit)
         {
