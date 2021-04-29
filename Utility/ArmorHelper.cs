@@ -65,6 +65,12 @@ namespace Terraheim.Utility
                         effect.SetIcon();
                         return effect;
                     }
+                case "brassflesh":
+                    {
+                        var effect = ScriptableObject.CreateInstance<SE_ArmorOnHitListener>();
+                        effect.SetMaxArmor((float)values["setBonusVal"]);
+                        return effect;
+                    }
                 default:
                     return null;
             }
@@ -135,7 +141,7 @@ namespace Terraheim.Utility
                     {
                         var effect = ScriptableObject.CreateInstance<SE_HealthIncrease>();
                         effect.setHealthBonus((float)values[$"{location}EffectVal"]);
-                        description += $"\nHP is increased by <color=cyan>{effect.getHealthBonus()}</color>.";
+                        description += $"\nMax HP is increased by <color=cyan>{effect.getHealthBonus()*100}%</color>.";
                         return effect;
                     }
                 case "twohanddmg":

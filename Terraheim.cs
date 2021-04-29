@@ -91,7 +91,9 @@ namespace Terraheim
 
             //Set Bonuses
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_HPOnHit>(), fixReference: true)); //Leather
-            ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_HPRegen>(), fixReference: true)); //Bronze
+            ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_HPRegen>(), fixReference: true)); //BronzeOLD
+            ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_ArmorOnHitListener>(), fixReference: true)); //BronzeOLD
+            ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_ArmorOnHit>(), fixReference: true)); //BronzeOLD
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_CritChance>(), fixReference: true)); //IronOLD
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_FullHPDamageBonus>(), fixReference: true)); //Iron
             ObjectDBHelper.Add(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_FullHPDamageBonusFX>(), fixReference: true)); //Iron 
@@ -111,8 +113,6 @@ namespace Terraheim
 
             Log.LogInfo("Status Effects Injected");
         }
-
-        
 
     }
 }

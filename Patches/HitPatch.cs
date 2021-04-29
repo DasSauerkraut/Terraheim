@@ -171,13 +171,58 @@ namespace Terraheim.Patches
             }
         }
 
-            [HarmonyPrefix]
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(Character), "ApplyDamage")]
+        public static void DamagePostfix(Character __instance, HitData hit)
+        {
+            SEMan seman = __instance.GetSEMan();
+            if (seman.HaveStatusEffect("Wolftears") && seman.m_character.GetHealth() <= hit.m_damage.GetTotalDamage() && !seman.HaveStatusEffect("Tear Protection Exhausted"))
+            {
+                Log.LogInfo($"Would Kill defender! Damage: {hit.m_damage.GetTotalDamage()}, attacker health: {__instance.GetHealth()}");
+
+                hit.m_damage.Modify(0);
+                seman.AddStatusEffect("Tear Protection Exhausted");
+                __instance.SetHealth(1f);
+            }
+        }
+
+        [HarmonyPrefix]
         [HarmonyPatch(typeof(Character), "Damage")]
-        static void OnDamagedPrefix(HitData hit)
+        static void OnDamagedPrefix(Character __instance, ref HitData hit)
         {
             if (hit.HaveAttacker() && hit.GetAttacker().IsPlayer() && hit.GetAttacker().GetSEMan().HaveStatusEffect("Wyrdarrow"))
             {
                 (hit.GetAttacker().GetSEMan().GetStatusEffect("Wyrdarrow") as SE_AoECounter).IncreaseCounter();
+            }
+            if (hit.HaveAttacker() && hit.GetAttacker().IsPlayer() && hit.GetAttacker().GetSEMan().HaveStatusEffect("Brassflesh Listener"))
+            {
+                if (hit.GetAttacker().GetSEMan().HaveStatusEffect("Brassflesh"))
+                    (hit.GetAttacker().GetSEMan().GetStatusEffect("Brassflesh") as SE_ArmorOnHit).OnHit();
+                else
+                {
+                    SEMan seman = hit.GetAttacker().GetSEMan();
+                    float maxArmor = (seman.GetStatusEffect("Brassflesh Listener") as SE_ArmorOnHitListener).GetMaxArmor();
+                    seman.AddStatusEffect("Brassflesh");
+                    (seman.GetStatusEffect("Brassflesh") as SE_ArmorOnHit).SetMaxArmor(maxArmor);
+                }
+            }
+
+            if(__instance.IsPlayer() && __instance.GetSEMan().HaveStatusEffect("Brassflesh"))
+            {
+                Log.LogInfo($"starting damage: {hit.GetTotalDamage()}");
+                float damageMod = (__instance.GetSEMan().GetStatusEffect("Brassflesh") as SE_ArmorOnHit).GetCurrentDamageReduction();
+                hit.m_damage.m_blunt *= 1 - damageMod;
+                hit.m_damage.m_chop *= 1 - damageMod;
+                hit.m_damage.m_damage *= 1 - damageMod;
+                hit.m_damage.m_fire *= 1 - damageMod;
+                hit.m_damage.m_frost *= 1 - damageMod;
+                hit.m_damage.m_lightning *= 1 - damageMod;
+                hit.m_damage.m_pickaxe *= 1 - damageMod;
+                hit.m_damage.m_pierce *= 1 - damageMod;
+                hit.m_damage.m_poison *= 1 - damageMod;
+                hit.m_damage.m_slash *= 1 - damageMod;
+                hit.m_damage.m_spirit *= 1 - damageMod;
+                Log.LogInfo($"ending damage: {hit.GetTotalDamage()}");
             }
         }
     }

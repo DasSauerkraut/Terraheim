@@ -14,7 +14,7 @@ namespace Terraheim.Patches
             {
                 //Log.LogInfo($"Total Val Has Effect HP${hp}");
                 SE_HealthIncrease effect = __instance.GetSEMan().GetStatusEffect("Health Increase") as SE_HealthIncrease;
-                hp += effect.getHealthBonus();
+                hp += hp * effect.getHealthBonus();
                 //Log.LogInfo($"Total Val Modded HP${hp} from effect ${effect.getHealthBonus()}");
             }
         }
@@ -30,7 +30,7 @@ namespace Terraheim.Patches
             {
                 //Log.LogMessage($"Base Food HP Has Effect HP${__result}");
                 SE_HealthIncrease effect = __instance.GetSEMan().GetStatusEffect("Health Increase") as SE_HealthIncrease;
-                __result += effect.getHealthBonus();
+                __result += __result * effect.getHealthBonus();
                 //Log.LogMessage($"Base Food HP Modded HP${__result}, from effect ${effect.getHealthBonus()}");
             }
         }

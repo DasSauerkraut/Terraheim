@@ -239,6 +239,35 @@
             }
         ]
     },
+    "ParryingDagger": {
+        "modified": false,
+        "station": "forge",
+        "amountCrafted": 1,
+        "damages": [
+        ],
+        "recipe": [
+            {
+                "item": "Wood",
+                "amount": 1,
+                "perLevel": 1
+            },
+            {
+                "item": "Bronze",
+                "amount": 1,
+                "perLevel": 1
+            },
+            {
+                "item": "Silver",
+                "amount": 6,
+                "perLevel": 4
+            },
+            {
+                "item": "LeatherScraps",
+                "amount": 2,
+                "perLevel": 1
+            }
+        ]
+    },
     "GreatswordBlackmetal": {
         "modified": false,
         "station": "forge",

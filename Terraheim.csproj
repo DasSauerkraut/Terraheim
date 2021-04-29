@@ -93,6 +93,8 @@
     <Compile Include="ArmorEffects\SE_AoECounterExhausted.cs" />
     <Compile Include="ArmorEffects\SE_AoECounterFX.cs" />
     <Compile Include="ArmorEffects\SE_AoECounter.cs" />
+    <Compile Include="ArmorEffects\SE_ArmorOnHit.cs" />
+    <Compile Include="ArmorEffects\SE_ArmorOnHitListener.cs" />
     <Compile Include="ArmorEffects\SE_DamageVsLowHP.cs" />
     <Compile Include="ArmorEffects\SE_DeathMark.cs" />
     <Compile Include="ArmorEffects\SE_FullHPDamageBonusFX.cs" />
