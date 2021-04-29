@@ -261,7 +261,7 @@
         "chestEffect": "blockpower",
         "legsEffect": "healonblock",
         "setBonusVal": 0.5,
-        "headEffectVal": 1000,
+        "headEffectVal": 0.05,
         "chestEffectVal": 0.2,
         "legsEffectVal": 0.05
     },

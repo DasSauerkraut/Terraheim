@@ -70,6 +70,8 @@ These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 [Nexus](https://www.nexusmods.com/valheim/mods/803?tab=description)
 
 ### Patchnotes
+**v1.7.2**
+- Fixed status effects reading from the last instance of that effect. This fixes the issue with the bronze armor using the padded armor's values for its damage bonus.
 **v1.7.1**
 - Fixed Wolftears preventing healing on crouch
 - Fixed reforging not consuming previous armor
