@@ -106,6 +106,34 @@
             }
         ]
     },
+    "BowBlackmetal": {
+        "modified": false,
+        "station": "forge",
+        "amountCrafted": 1,
+        "damages": [
+            {
+                "type": "pierce",
+                "value": 40
+            }
+        ],
+        "recipe": [
+            {
+                "item": "FineWood",
+                "amount": 40,
+                "perLevel": 10
+            },
+            {
+                "item": "BlackMetal",
+                "amount": 10,
+                "perLevel": 15
+            },
+            {
+                "item": "LinenThread",
+                "amount": 5,
+                "perLevel": 5
+            }
+        ]
+    },
     "PickaxeBlackmetal": {
         "modified": false,
         "station": "forge",
