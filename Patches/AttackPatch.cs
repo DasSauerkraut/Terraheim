@@ -295,6 +295,7 @@ namespace Terraheim.Patches
         [HarmonyPrefix]
         public static void FireProjectileBurstPrefix(ref Attack __instance)
         {
+            //Log.LogInfo("Firing Proj");
             if (__instance.m_character.GetSEMan().HaveStatusEffect("WyrdarrowFX"))
             {
                 var effect = __instance.m_character.GetSEMan().GetStatusEffect("Wyrdarrow") as SE_AoECounter;
@@ -304,13 +305,27 @@ namespace Terraheim.Patches
                 {
                     var damageBonus = (__instance.GetWeapon().GetDamage().GetTotalDamage() + __instance.m_ammoItem.m_shared.m_damages.GetTotalDamage()
                         * effect.GetDamageBonus()) / 2;
-                    AssetHelper.TestExplosion.GetComponent<Aoe>().m_damage.m_spirit = damageBonus;
-                    AssetHelper.TestExplosion.GetComponent<Aoe>().m_damage.m_frost = damageBonus;
+                    if (__instance.GetWeapon().m_shared.m_name.Contains("bow_fireTH"))
+                    {
+                        AssetHelper.FlamebowWyrdExplosion.GetComponent<Aoe>().m_damage.m_spirit = damageBonus;
+                        AssetHelper.FlamebowWyrdExplosion.GetComponent<Aoe>().m_damage.m_frost = damageBonus;
 
-                    Log.LogInfo("Terraheim | Aoe deals " + damageBonus + " frost and " + damageBonus + " spirit damage.");
+                        Log.LogInfo("Terraheim | Aoe deals " + damageBonus + " frost and " + damageBonus + " spirit damage.");
 
-                    __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit = AssetHelper.TestExplosion;
-                    __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 1;
+                        __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit = AssetHelper.FlamebowWyrdExplosion;
+                        __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 1;
+                    }
+                    else
+                    {
+                        AssetHelper.TestExplosion.GetComponent<Aoe>().m_damage.m_spirit = damageBonus;
+                        AssetHelper.TestExplosion.GetComponent<Aoe>().m_damage.m_frost = damageBonus;
+
+                        Log.LogInfo("Terraheim | Aoe deals " + damageBonus + " frost and " + damageBonus + " spirit damage.");
+
+                        __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit = AssetHelper.TestExplosion;
+                        __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 1;
+                    }
+                    
                 } else if (__instance.GetWeapon().m_shared.m_name.Contains("spear"))
                 {
                     var damageBonus = (__instance.GetWeapon().GetDamage().GetTotalDamage() * effect.GetDamageBonus()) / 2;
@@ -322,8 +337,14 @@ namespace Terraheim.Patches
                     __instance.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 1;
                 }
             }
+            else if (__instance.GetWeapon().m_shared.m_name.Contains("bow_fireTH"))
+            {
+                //Log.LogInfo("Is fire bow");
 
-            if(__instance.m_character.GetSEMan().HaveStatusEffect("Throwing Weapon Velocity"))
+                __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit = AssetHelper.BowFireExplosionPrefab;
+                __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 1;
+            }
+            if (__instance.m_character.GetSEMan().HaveStatusEffect("Throwing Weapon Velocity"))
             {
                 if (__instance.GetWeapon().m_shared.m_name.Contains("_throwingaxe"))
                 {
