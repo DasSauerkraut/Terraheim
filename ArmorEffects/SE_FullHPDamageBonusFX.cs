@@ -1,5 +1,4 @@
 ﻿using Terraheim.Utility;
-using ValheimLib;
 
 namespace Terraheim.ArmorEffects
 {

@@ -1,5 +1,4 @@
-﻿using ValheimLib;
-using ValheimLib.ODB;
+﻿using Jotunn.Managers;
 using Terraheim.Utility;
 using Newtonsoft.Json.Linq;
 using System.IO;
@@ -11,9 +10,9 @@ namespace Terraheim.Armor
         static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
         internal static void Init()
         {
-            ObjectDBHelper.OnAfterInit += ModExistingArmor;
-            ObjectDBHelper.OnBeforeCustomItemsAdded += AddNewSets;
-            ObjectDBHelper.OnAfterInit += AddTieredRecipes;
+            ItemManager.OnItemsRegistered += ModExistingArmor;
+            On.ObjectDB.CopyOtherDB += AddNewSets;
+            ItemManager.OnItemsRegistered += AddTieredRecipes;
         }
 
         internal static void Integrate()
@@ -30,20 +29,20 @@ namespace Terraheim.Armor
 
         private static void ModExistingArmor()
         {
-            var helmet = Prefab.Cache.GetPrefab<ItemDrop>("ArmorBarbarianBronzeHelmetJD");
-            var chest = Prefab.Cache.GetPrefab<ItemDrop>("ArmorBarbarianBronzeChestJD");
-            var legs = Prefab.Cache.GetPrefab<ItemDrop>("ArmorBarbarianBronzeLegsJD");
-            var cape = Prefab.Cache.GetPrefab<ItemDrop>("ArmorBarbarianCapeJD");
+            var helmet = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorBarbarianBronzeHelmetJD");
+            var chest = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorBarbarianBronzeChestJD");
+            var legs = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorBarbarianBronzeLegsJD");
+            var cape = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorBarbarianCapeJD");
 
             var setBalance = balance["barbarian"];
 
 
-            ArmorHelper.ModArmorSet("barbarian", ref helmet, ref chest, ref legs, setBalance, false, -1);
+            ArmorHelper.ModArmorSet("barbarian", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
 
             cape.m_itemData.m_shared.m_equipStatusEffect = ArmorHelper.GetArmorEffect((string)balance["capes"]["barbarian"]["effect"], balance["capes"]["barbarian"], "cape", ref cape.m_itemData.m_shared.m_description);
         }
 
-        private static void AddNewSets()
+        private static void AddNewSets(On.ObjectDB.orig_CopyOtherDB orig, ObjectDB self, ObjectDB other)
         {
             ArmorHelper.AddArmorSet("barbarian");
         }

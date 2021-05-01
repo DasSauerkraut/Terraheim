@@ -27,6 +27,8 @@ namespace Terraheim.Utility
         public static AudioClip SFXExecution;
         public static AudioClip SFXMarkedForDeath;
 
+        public static Sprite SpriteTempStatus;
+
         public static void Init()
         {
             TerraheimAssetBundle = GetAssetBundleFromResources(AssetBundleName);
@@ -49,6 +51,7 @@ namespace Terraheim.Utility
             SFXExecution = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/Magic_Spell_EnergyBall8.wav");
             SFXMarkedForDeath = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/DarkMagic_SpellImpact15.wav");
 
+            SpriteTempStatus = TerraheimAssetBundle.LoadAsset<Sprite>("Assets/CustomItems/TEMPICON.png");
         }
 
         public static AssetBundle GetAssetBundleFromResources(string filename)

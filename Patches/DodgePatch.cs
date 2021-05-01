@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
-using ValheimLib;
-using ValheimLib.ODB;
+using Jotunn;
+using Jotunn.Entities;
+using Jotunn.Managers;
 using Terraheim.ArmorEffects;
 using Terraheim.Utility;
 using Newtonsoft.Json.Linq;

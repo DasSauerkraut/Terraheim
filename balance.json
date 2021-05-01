@@ -347,6 +347,7 @@
         "baseArmor": 2,
         "armorPerLevel": 2,
         "globalMoveMod": 0,
+        "effect": "woodsman",
         "headEffectVal": 0.5,
         "crafting": {
             "station": "forge",
@@ -380,6 +381,7 @@
         "baseArmor": 2,
         "armorPerLevel": 2,
         "globalMoveMod": 0,
+        "effect": "miner",
         "headEffectVal": 0.5,
         "crafting": {
             "station": "forge",
@@ -413,6 +415,7 @@
         "baseArmor": 2,
         "armorPerLevel": 2,
         "globalMoveMod": 0,
+        "effect": "waterproof",
         "headEffectVal": 0.5,
         "crafting": {
             "station": "forge",
@@ -446,6 +449,7 @@
         "baseArmor": 2,
         "armorPerLevel": 2,
         "globalMoveMod": 0,
+        "effect": "farmer",
         "headEffectVal": 0.5,
         "crafting": {
             "station": "piece_workbench",
@@ -479,6 +483,7 @@
         "baseArmor": 2,
         "armorPerLevel": 2,
         "globalMoveMod": 0,
+        "effect": "thief",
         "headEffectVal": 0.25,
         "crafting": {
             "station": "piece_workbench",

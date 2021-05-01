@@ -1,4 +1,6 @@
-﻿using ValheimLib;
+﻿using Jotunn;
+using Jotunn.Entities;
+using Jotunn.Managers;
 
 namespace Terraheim.ArmorEffects
 {
@@ -17,13 +19,13 @@ namespace Terraheim.ArmorEffects
 
         public void InitIcon()
         {
-            m_icon = Prefab.Cache.GetPrefab<ItemDrop>("HelmetLeather").m_itemData.GetIcon();
+            m_icon = PrefabManager.Cache.GetPrefab<ItemDrop>("HelmetLeather").m_itemData.GetIcon();
         }
 
         public void SetIcon()
         {
             if(m_icon == null)
-                m_icon = Prefab.Cache.GetPrefab<ItemDrop>("HelmetLeather").m_itemData.GetIcon();
+                m_icon = PrefabManager.Cache.GetPrefab<ItemDrop>("HelmetLeather").m_itemData.GetIcon();
             if (m_character.GetHealthPercentage() >= m_activationHealth && !m_character.GetSEMan().HaveStatusEffect("Battle FurorFX"))
             {
                 Log.LogInfo("Adding status");

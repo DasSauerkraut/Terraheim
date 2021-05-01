@@ -1,4 +1,6 @@
-﻿using ValheimLib;
+﻿using Jotunn;
+using Jotunn.Entities;
+using Jotunn.Managers;
 
 namespace Terraheim.ArmorEffects
 {
@@ -16,7 +18,7 @@ namespace Terraheim.ArmorEffects
 
         public void SetIcon()
         {
-            m_icon = Prefab.Cache.GetPrefab<ItemDrop>("HelmetBronze").m_itemData.GetIcon();
+            m_icon = PrefabManager.Cache.GetPrefab<ItemDrop>("HelmetBronze").m_itemData.GetIcon();
         }
 
 

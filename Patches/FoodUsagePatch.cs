@@ -1,7 +1,9 @@
 ﻿using HarmonyLib;
 using System.Collections.Generic;
 using Terraheim.ArmorEffects;
-using ValheimLib;
+using Jotunn;
+using Jotunn.Entities;
+using Jotunn.Managers;
 
 namespace Terraheim.Patches
 {

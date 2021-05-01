@@ -42,14 +42,39 @@
     <Reference Include="assembly_valheim_publicized">
       <HintPath>Libs\assembly_valheim_publicized.dll</HintPath>
     </Reference>
-    <Reference Include="barbarianArmor">
-      <HintPath>Libs\barbarianArmor.dll</HintPath>
-    </Reference>
     <Reference Include="BepInEx">
       <HintPath>Libs\BepInEx.dll</HintPath>
     </Reference>
     <Reference Include="Json.Net, Version=1.0.25.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Json.Net.1.0.25\lib\netstandard2.0\Json.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="MMHOOK_assembly_googleanalytics">
+      <HintPath>Libs\MMHOOK_assembly_googleanalytics.dll</HintPath>
+    </Reference>
+    <Reference Include="MMHOOK_assembly_guiutils">
+      <HintPath>Libs\MMHOOK_assembly_guiutils.dll</HintPath>
+    </Reference>
+    <Reference Include="MMHOOK_assembly_lux">
+      <HintPath>Libs\MMHOOK_assembly_lux.dll</HintPath>
+    </Reference>
+    <Reference Include="MMHOOK_assembly_postprocessing">
+      <HintPath>Libs\MMHOOK_assembly_postprocessing.dll</HintPath>
+    </Reference>
+    <Reference Include="MMHOOK_assembly_simplemeshcombine">
+      <HintPath>Libs\MMHOOK_assembly_simplemeshcombine.dll</HintPath>
+    </Reference>
+    <Reference Include="MMHOOK_assembly_steamworks">
+      <HintPath>Libs\MMHOOK_assembly_steamworks.dll</HintPath>
+    </Reference>
+    <Reference Include="MMHOOK_assembly_sunshafts">
+      <HintPath>Libs\MMHOOK_assembly_sunshafts.dll</HintPath>
+    </Reference>
+    <Reference Include="MMHOOK_assembly_utils">
+      <HintPath>Libs\MMHOOK_assembly_utils.dll</HintPath>
+    </Reference>
+    <Reference Include="MMHOOK_assembly_valheim, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\MMHOOK_assembly_valheim.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -84,9 +109,6 @@
     <Reference Include="UnityEngine.ParticleSystemModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\UnityEngine.ParticleSystemModule.dll</HintPath>
-    </Reference>
-    <Reference Include="ValheimLib">
-      <HintPath>Libs\ValheimLib.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +208,11 @@
     <None Include="weaponBalance.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="JotunnLib">
+      <Version>2.0.3</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

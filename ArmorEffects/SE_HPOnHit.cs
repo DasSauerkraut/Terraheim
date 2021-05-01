@@ -1,4 +1,6 @@
-﻿using ValheimLib;
+﻿using Jotunn;
+using Jotunn.Entities;
+using Jotunn.Managers;
 using HarmonyLib;
 using UnityEngine;
 
@@ -19,7 +21,7 @@ namespace Terraheim.ArmorEffects
 
         public void SetIcon()
         {
-            m_icon = Prefab.Cache.GetPrefab<ItemDrop>("HelmetLeather").m_itemData.GetIcon();
+            m_icon = PrefabManager.Cache.GetPrefab<ItemDrop>("HelmetLeather").m_itemData.GetIcon();
         }
 
         public void setLastHitMelee(bool melee) { m_lastHitMelee = melee; }

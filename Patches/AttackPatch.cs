@@ -1,10 +1,9 @@
 ﻿using HarmonyLib;
-using ValheimLib;
-using ValheimLib.ODB;
+using Jotunn;
+using Jotunn.Entities;
+using Jotunn.Managers;
 using Terraheim.ArmorEffects;
 using Terraheim.Utility;
-using UnityEngine;
-using Newtonsoft.Json.Linq;
 
 namespace Terraheim.Patches
 {
@@ -27,7 +26,7 @@ namespace Terraheim.Patches
             }
             
             //Get base weapon
-            var baseWeapon = Prefab.Cache.GetPrefab<ItemDrop>(weapon.m_dropPrefab.name);
+            var baseWeapon = PrefabManager.Cache.GetPrefab<ItemDrop>(weapon.m_dropPrefab.name);
             if (baseWeapon == null)
             {
                 Log.LogMessage("Terraheim (AttackPatch Start) | Weapon is null, grabbing directly");
@@ -275,7 +274,7 @@ namespace Terraheim.Patches
                 //check for all damage bonus
                 return;
             }
-            var weapon = Prefab.Cache.GetPrefab<ItemDrop>(__instance.m_weapon.m_dropPrefab.name);
+            var weapon = PrefabManager.Cache.GetPrefab<ItemDrop>(__instance.m_weapon.m_dropPrefab.name);
             if (weapon == null)
             {
                 Log.LogMessage("Terraheim (AttackPatch GetStaminaUsage) | Weapon is null, grabbing directly");

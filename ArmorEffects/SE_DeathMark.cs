@@ -1,7 +1,9 @@
 ﻿using HarmonyLib;
 using System.Threading;
 using UnityEngine;
-using ValheimLib;
+using Jotunn;
+using Jotunn.Entities;
+using Jotunn.Managers;
 
 namespace Terraheim.ArmorEffects
 {
@@ -22,7 +24,7 @@ namespace Terraheim.ArmorEffects
 
         public void SetIcon()
         {
-            m_icon = Prefab.Cache.GetPrefab<ItemDrop>("ArmorBarbarianBronzeHelmetJD").m_itemData.GetIcon();
+            m_icon = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorBarbarianBronzeHelmetJD").m_itemData.GetIcon();
         }
 
         public void SetLastHitThrowing(bool hit) { m_lastHitThrowing = hit; }

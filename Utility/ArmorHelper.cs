@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraheim.ArmorEffects;
 using UnityEngine;
-using ValheimLib;
-using ValheimLib.ODB;
+using Jotunn;
+using Jotunn.Entities;
+using Jotunn.Managers;
 using static Terraheim.Utility.Data;
 using System;
 
@@ -253,15 +254,48 @@ namespace Terraheim.Utility
                         $" seconds. Killing an enemy resets the countdown.";
                         return effect;
                     }
+                case "woodsman":
+                    {
+                        var effect = ScriptableObject.CreateInstance<SE_TreeDamageBonus>();
+                        effect.setDamageBonus((float)values[$"{location}EffectVal"]);
+                        description += $"Weland's designs raises your effectiveness at woodcutting.\nDamage against trees is increased by <color=yellow>{effect.getDamageBonus() * 100}%</color>.";
+                        return effect;
+                    }
+                case "miner":
+                    {
+                        var effect = ScriptableObject.CreateInstance<SE_MiningBonus>();
+                        effect.setDamageBonus((float)values[$"{location}EffectVal"]);
+                        description += $"An artifact of Brokkr, crushing earth comes easily now.\nDamage against rocks and ores is increased by <color=yellow>{effect.getDamageBonus() * 100}%</color>.";
+                        return effect;
+                    }
+                case "waterproof":
+                    {
+                        var effect = ScriptableObject.CreateInstance<SE_WetImmunity>();
+                        description += $"A gift from Freyr.\nYou will not gain the <color=cyan>Wet</color> Ailment.";
+                        return effect;
+                    }
+                case "farmer":
+                    {
+                        var effect = ScriptableObject.CreateInstance<SE_IncreaseHarvest>();
+                        description += $"A blessing from Freyr.\nWhen you harvest wild plants, gain <color=cyan>2</color> more items from each harvest.\nWhen you harvest grown plants, gain <color=cyan>1</color> more item from each harvest.";
+                        return effect;
+                    }
+                case "thief":
+                    {
+                        var effect = ScriptableObject.CreateInstance<SE_SneakMovement>();
+                        effect.SetBonus((float)values[$"{location}EffectVal"]);
+                        description += $"A blessing from Loki.\nMove <color=cyan>{effect.GetBonus() * 100}%</color> faster while using <color=cyan>{effect.GetBonus() * 100}%</color> less stamina while sneaking.";
+                        return effect;
+                    }
                 default:
                     return null;
             }
         }
 
-        public static void ModArmorSet(string setName, ref ItemDrop helmet,ref ItemDrop chest, ref ItemDrop legs, JToken values, bool isNewSet, int i)
+        public static void ModArmorSet(string setName, ref ItemDrop.ItemData helmet,ref ItemDrop.ItemData chest, ref ItemDrop.ItemData legs, JToken values, bool isNewSet, int i)
         {
             ArmorSet armor = ArmorSets[setName];
-            List<ItemDrop> armorList = new List<ItemDrop>() { helmet, chest, legs };
+            List<ItemDrop.ItemData> armorList = new List<ItemDrop.ItemData>() { helmet, chest, legs };
             JToken tierBalance;
             if (isNewSet)
                 tierBalance = values["upgrades"][$"t{i}"];
@@ -270,31 +304,31 @@ namespace Terraheim.Utility
 
             StatusEffect setEffect = GetSetEffect((string)values["setEffect"], tierBalance);
 
-            foreach (ItemDrop item in armorList)
+            foreach (ItemDrop.ItemData item in armorList)
             {
-                item.m_itemData.m_shared.m_armor = (float)tierBalance["baseArmor"];
-                item.m_itemData.m_shared.m_armorPerLevel = (float)tierBalance["armorPerLevel"];
+                item.m_shared.m_armor = (float)tierBalance["baseArmor"];
+                item.m_shared.m_armorPerLevel = (float)tierBalance["armorPerLevel"];
                 if (setEffect != null)
-                    item.m_itemData.m_shared.m_setStatusEffect = setEffect;
+                    item.m_shared.m_setStatusEffect = setEffect;
                 else
                     Log.LogMessage($"{setName}: No set effect found for {(string)values["setEffect"]}");
-                item.m_itemData.m_shared.m_setSize = 3;
-                item.m_itemData.m_shared.m_setName = (string)values["name"];
-                if (!item.m_itemData.m_shared.m_name.Contains("helmet"))
-                    item.m_itemData.m_shared.m_movementModifier = (float)tierBalance["globalMoveMod"];
+                item.m_shared.m_setSize = 3;
+                item.m_shared.m_setName = (string)values["name"];
+                if (!item.m_shared.m_name.Contains("helmet"))
+                    item.m_shared.m_movementModifier = (float)tierBalance["globalMoveMod"];
 
-                item.m_itemData.m_shared.m_description = $"<i>{armor.ClassName}</i>\n{item.m_itemData.m_shared.m_description}";
+                item.m_shared.m_description = $"<i>{armor.ClassName}</i>\n{item.m_shared.m_description}";
             }
 
-            helmet.m_itemData.m_shared.m_armor += armor.HelmetArmor;
+            helmet.m_shared.m_armor += armor.HelmetArmor;
 
-            StatusEffect headStatus = GetArmorEffect((string)values["headEffect"], tierBalance, "head", ref helmet.m_itemData.m_shared.m_description);
-            StatusEffect chestStatus = GetArmorEffect((string)values["chestEffect"], tierBalance, "chest", ref chest.m_itemData.m_shared.m_description);
-            StatusEffect legStatus = GetArmorEffect((string)values["legsEffect"], tierBalance, "legs", ref legs.m_itemData.m_shared.m_description);
+            StatusEffect headStatus = GetArmorEffect((string)values["headEffect"], tierBalance, "head", ref helmet.m_shared.m_description);
+            StatusEffect chestStatus = GetArmorEffect((string)values["chestEffect"], tierBalance, "chest", ref chest.m_shared.m_description);
+            StatusEffect legStatus = GetArmorEffect((string)values["legsEffect"], tierBalance, "legs", ref legs.m_shared.m_description);
 
-            helmet.m_itemData.m_shared.m_equipStatusEffect = headStatus;
-            chest.m_itemData.m_shared.m_equipStatusEffect = chestStatus;
-            legs.m_itemData.m_shared.m_equipStatusEffect = legStatus;
+            helmet.m_shared.m_equipStatusEffect = headStatus;
+            chest.m_shared.m_equipStatusEffect = chestStatus;
+            legs.m_shared.m_equipStatusEffect = legStatus;
         }
 
         public static void AddArmorSet(string setName)
@@ -310,12 +344,16 @@ namespace Terraheim.Utility
                 ItemDrop mockChest = Mock<ItemDrop>.Create(armor.ChestID);
                 ItemDrop mockLegs = Mock<ItemDrop>.Create(armor.LegsID);
 
-                GameObject clonedHelmet = Prefab.GetRealPrefabFromMock<ItemDrop>(mockHelmet).gameObject.InstantiateClone($"{armor.HelmetID}T{i}", false);
+                GameObject clonedHelmet = PrefabManager.Instance.CreateClonedPrefab($"{armor.HelmetID}T{i}", armor.HelmetID);
+                GameObject clonedChest = PrefabManager.Instance.CreateClonedPrefab($"{armor.ChestID}T{i}", armor.ChestID);
+                GameObject clonedLegs = PrefabManager.Instance.CreateClonedPrefab($"{armor.LegsID}T{i}", armor.LegsID);
+
+                /*GameObject clonedHelmet = Prefab.GetRealPrefabFromMock<ItemDrop>(mockHelmet).gameObject.InstantiateClone($"{armor.HelmetID}T{i}", false);
                 GameObject clonedChest = Prefab.GetRealPrefabFromMock<ItemDrop>(mockChest).gameObject.InstantiateClone($"{armor.ChestID}T{i}", false);
-                GameObject clonedLegs = Prefab.GetRealPrefabFromMock<ItemDrop>(mockLegs).gameObject.InstantiateClone($"{armor.LegsID}T{i}", false);
+                GameObject clonedLegs = Prefab.GetRealPrefabFromMock<ItemDrop>(mockLegs).gameObject.InstantiateClone($"{armor.LegsID}T{i}", false);*/
 
                 //Set ID so that previous armors still exist
-                if(setName != "barbarian")
+                if (setName != "barbarian")
                 {
                     string armorSetName = char.ToUpper(setName[0]) + setName.Substring(1);
                     clonedHelmet.name = $"{armor.HelmetID}T{i}_Terraheim_AddNewSets_Add{armorSetName}Armor";
@@ -337,7 +375,7 @@ namespace Terraheim.Utility
                 chest.ItemDrop.m_itemData.m_shared.m_name = $"{armor.ChestName}{i}";
                 legs.ItemDrop.m_itemData.m_shared.m_name = $"{armor.LegsName}{i}";
 
-                ModArmorSet(setName, ref helmet.ItemDrop, ref chest.ItemDrop, ref legs.ItemDrop, setBalance, true, i);
+                ModArmorSet(setName, ref helmet.ItemDrop.m_itemData, ref chest.ItemDrop.m_itemData, ref legs.ItemDrop.m_itemData, setBalance, true, i);
 
                 //Recipes
                 Recipe helmetRecipe = ScriptableObject.CreateInstance<Recipe>();
@@ -414,16 +452,71 @@ namespace Terraheim.Utility
                 CustomRecipe customChestRecipe = new CustomRecipe(chestRecipe, fixReference: true, fixRequirementReferences: true);
                 CustomRecipe customLegsRecipe = new CustomRecipe(legsRecipe, fixReference: true, fixRequirementReferences: true);
 
-                ObjectDBHelper.Add(helmet);
-                ObjectDBHelper.Add(chest);
-                ObjectDBHelper.Add(legs);
+                ItemManager.Instance.AddItem(helmet);
+                ItemManager.Instance.AddItem(chest);
+                ItemManager.Instance.AddItem(legs);
 
                 //Add recipes to DB
 
-                ObjectDBHelper.Add(customHelmetRecipe);
-                ObjectDBHelper.Add(customChestRecipe);
-                ObjectDBHelper.Add(customLegsRecipe);
+                ItemManager.Instance.AddRecipe(customHelmetRecipe);
+                ItemManager.Instance.AddRecipe(customChestRecipe);
+                ItemManager.Instance.AddRecipe(customLegsRecipe);
             }
+        }
+
+        public static void AddBelt(string name)
+        {
+            var setBalance = balance[name];
+            UtilityBelt beltData = UtilityBelts[name];
+
+            GameObject clonedBelt = PrefabManager.Instance.CreateClonedPrefab(beltData.BaseID, beltData.CloneID);
+
+            //Set ID so that previous armors still exist
+            clonedBelt.name = beltData.FinalID;
+            
+            CustomItem belt = new CustomItem(clonedBelt, true);
+
+            belt.ItemDrop.m_itemData.m_shared.m_name = $"{beltData.Name}";
+
+            //GET EFFECT
+            StatusEffect status = GetArmorEffect((string)setBalance["effect"], setBalance, "head", ref belt.ItemDrop.m_itemData.m_shared.m_description);
+            belt.ItemDrop.m_itemData.m_shared.m_equipStatusEffect = status;
+
+            //Recipes
+            Recipe recipe = ScriptableObject.CreateInstance<Recipe>();
+
+            recipe.name = $"Recipe_{beltData.BaseID}";
+
+            List<Piece.Requirement> helmetList = new List<Piece.Requirement>();
+
+            var recipeReqs = setBalance["crafting"];
+            int index = 0;
+            foreach (JObject item in recipeReqs["items"])
+            {
+                helmetList.Add(MockRequirement.Create((string)item["item"], (int)item["amount"]));
+                helmetList[index].m_amountPerLevel = (int)item["perLevel"];
+                index++;
+            }
+
+
+            recipe.m_craftingStation = Mock<CraftingStation>.Create((string)recipeReqs["station"]);
+
+            //Set crafting station level
+            recipe.m_minStationLevel = (int)recipeReqs["minLevel"];
+
+            //Assign reqs to recipe
+            recipe.m_resources = helmetList.ToArray();
+
+            //Add item to recipe
+            recipe.m_item = belt.ItemDrop;
+
+            //Create the custome recipe
+            CustomRecipe customRecipe = new CustomRecipe(recipe, fixReference: true, fixRequirementReferences: true);
+
+            ItemManager.Instance.AddItem(belt);
+
+            //Add recipes to DB
+            ItemManager.Instance.AddRecipe(customRecipe);
         }
 
         public static void AddTieredRecipes(string setName)

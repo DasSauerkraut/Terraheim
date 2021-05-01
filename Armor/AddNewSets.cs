@@ -1,4 +1,4 @@
-﻿using ValheimLib.ODB;
+﻿using Jotunn.Managers;
 using Terraheim.Utility;
 
 namespace Terraheim.Armor
@@ -7,10 +7,10 @@ namespace Terraheim.Armor
     {
         internal static void Init()
         {
-            ObjectDBHelper.OnBeforeCustomItemsAdded += AddArmorSets;
-            ObjectDBHelper.OnAfterInit += ModExistingRecipes;
+            On.ObjectDB.CopyOtherDB += AddArmorSets;
+            ItemManager.OnItemsRegistered += ModExistingRecipes;
         }
-        private static void AddArmorSets()
+        private static void AddArmorSets(On.ObjectDB.orig_CopyOtherDB orig, ObjectDB self, ObjectDB other)
         {
             ArmorHelper.AddArmorSet("leather");
             ArmorHelper.AddArmorSet("trollLeather");
