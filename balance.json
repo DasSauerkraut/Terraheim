@@ -85,10 +85,12 @@
         "baseArmor": 4,
         "armorPerLevel": 2,
         "globalMoveMod": 0,
+        "setEffect": "pinning",
         "headEffect": "rangeddmg",
         "chestEffect": "ammoconsumption",
         "legsEffect": "daggerspeardmg",
-        "setBonusVal": 0.1,
+        "setBonusVal": 5,
+        "setBonusCooldown": 20,
         "headEffectVal": 0.06,
         "chestEffectVal": 8,
         "legsEffectVal": 0.06,
@@ -98,7 +100,8 @@
                 "baseArmor": 7,
                 "armorPerLevel": 2,
                 "globalMoveMod": 0,
-                "setBonusVal": 0.05,
+                "setBonusVal": 7,
+                "setBonusCooldown": 19,
                 "headEffectVal": 0.08,
                 "chestEffectVal": 11,
                 "legsEffectVal": 0.08
@@ -107,7 +110,8 @@
                 "baseArmor": 12,
                 "armorPerLevel": 2,
                 "globalMoveMod": 0,
-                "setBonusVal": 0.07,
+                "setBonusVal": 8,
+                "setBonusCooldown": 17,
                 "headEffectVal": 0.11,
                 "chestEffectVal": 14,
                 "legsEffectVal": 0.11
@@ -116,7 +120,8 @@
                 "baseArmor": 18,
                 "armorPerLevel": 2,
                 "globalMoveMod": 0,
-                "setBonusVal": 0.08,
+                "setBonusVal": 9,
+                "setBonusCooldown": 16,
                 "headEffectVal": 0.13,
                 "chestEffectVal": 17,
                 "legsEffectVal": 0.13
@@ -125,7 +130,8 @@
                 "baseArmor": 22,
                 "armorPerLevel": 2,
                 "globalMoveMod": 0,
-                "setBonusVal": 0.1,
+                "setBonusVal": 10,
+                "setBonusCooldown": 15,
                 "headEffectVal": 0.15,
                 "chestEffectVal": 20,
                 "legsEffectVal": 0.15
@@ -347,6 +353,7 @@
         "baseArmor": 2,
         "armorPerLevel": 2,
         "globalMoveMod": 0,
+        "effect": "woodsman",
         "headEffectVal": 0.5,
         "crafting": {
             "station": "forge",
@@ -380,6 +387,7 @@
         "baseArmor": 2,
         "armorPerLevel": 2,
         "globalMoveMod": 0,
+        "effect": "miner",
         "headEffectVal": 0.5,
         "crafting": {
             "station": "forge",
@@ -413,6 +421,7 @@
         "baseArmor": 2,
         "armorPerLevel": 2,
         "globalMoveMod": 0,
+        "effect": "waterproof",
         "headEffectVal": 0.5,
         "crafting": {
             "station": "forge",
@@ -446,6 +455,7 @@
         "baseArmor": 2,
         "armorPerLevel": 2,
         "globalMoveMod": 0,
+        "effect": "farmer",
         "headEffectVal": 0.5,
         "crafting": {
             "station": "piece_workbench",
@@ -479,6 +489,7 @@
         "baseArmor": 2,
         "armorPerLevel": 2,
         "globalMoveMod": 0,
+        "effect": "thief",
         "headEffectVal": 0.25,
         "crafting": {
             "station": "piece_workbench",

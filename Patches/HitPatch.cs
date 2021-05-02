@@ -1,6 +1,4 @@
 ﻿using HarmonyLib;
-using ValheimLib;
-using ValheimLib.ODB;
 using Terraheim.ArmorEffects;
 using Terraheim.Utility;
 using UnityEngine;
@@ -57,7 +55,11 @@ namespace Terraheim.Patches
         [HarmonyPatch(typeof(Character), "ApplyDamage")]
         public static void DamagePrefix(Character __instance, HitData hit)
         {
-            if (hit.HaveAttacker() && hit.GetAttacker().GetSEMan().HaveStatusEffect("Damage Vs Low HP"))
+            if (!hit.HaveAttacker())
+                return;
+            Character attacker = hit.GetAttacker();
+
+            if (attacker.GetSEMan().HaveStatusEffect("Damage Vs Low HP"))
             {
                 SE_DamageVSLowHP effect = hit.GetAttacker().GetSEMan().GetStatusEffect("Damage Vs Low HP") as SE_DamageVSLowHP;
                 if (__instance.GetHealthPercentage() <= effect.GetHealthThreshold())
@@ -92,7 +94,7 @@ namespace Terraheim.Patches
                 }
             }
 
-            if(hit.HaveAttacker() && __instance.GetSEMan().HaveStatusEffect("Marked For Death FX"))
+            if(__instance.GetSEMan().HaveStatusEffect("Marked For Death FX"))
             {
                 Log.LogMessage("Increasing damage");
                 var effect = __instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath;
@@ -126,7 +128,7 @@ namespace Terraheim.Patches
                 audioSource.PlayOneShot(AssetHelper.SFXExecution);
             }
 
-            if (hit.HaveAttacker() && hit.GetAttacker().GetSEMan().HaveStatusEffect("Death Mark"))
+            if (attacker.GetSEMan().HaveStatusEffect("Death Mark"))
             {
                 var effect = hit.GetAttacker().GetSEMan().GetStatusEffect("Death Mark") as SE_DeathMark;
 
@@ -148,7 +150,7 @@ namespace Terraheim.Patches
                         (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).SetActivationCount(effect.GetThreshold());
                         (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).SetDamageBonus(effect.GetDamageBonus());
                         (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).SetHitDuration(effect.GetHitDuration());
-                        Log.LogMessage($"Death Mark Counter : {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).m_count}, " +
+                        Log.LogInfo($"Death Mark Counter : {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).m_count}, " +
                             $"Activation: {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).GetActivationCount()} " +
                             $"Damage Bonus: {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).GetDamageBonus()} " +
                             $"Hit Amount: {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).GetHitDuration()}");
@@ -157,16 +159,77 @@ namespace Terraheim.Patches
                
             }
 
-            if(hit.HaveAttacker() && __instance.GetHealth() <= hit.GetTotalDamage() && hit.GetAttacker().GetSEMan().HaveStatusEffect("Bloodrush Listener"))
+            if(__instance.GetHealth() <= hit.GetTotalDamage() && attacker.GetSEMan().HaveStatusEffect("Bloodrush Listener"))
             {
-                if (hit.GetAttacker().GetSEMan().HaveStatusEffect("Bloodrush"))
+                if (attacker.GetSEMan().HaveStatusEffect("Bloodrush"))
                 {
-                    (hit.GetAttacker().GetSEMan().GetStatusEffect("Bloodrush") as SE_MoveSpeedOnKill).OnKill();
+                    (attacker.GetSEMan().GetStatusEffect("Bloodrush") as SE_MoveSpeedOnKill).OnKill();
                 }
                 else
                 {
-                    hit.GetAttacker().GetSEMan().AddStatusEffect("Bloodrush");
-                    (hit.GetAttacker().GetSEMan().GetStatusEffect("Bloodrush") as SE_MoveSpeedOnKill).SetSpeedBonus((hit.GetAttacker().GetSEMan().GetStatusEffect("Bloodrush Listener") as SE_MoveSpeedOnKillListener).GetSpeedBonus());
+                    attacker.GetSEMan().AddStatusEffect("Bloodrush");
+                    (attacker.GetSEMan().GetStatusEffect("Bloodrush") as SE_MoveSpeedOnKill).SetSpeedBonus((attacker.GetSEMan().GetStatusEffect("Bloodrush Listener") as SE_MoveSpeedOnKillListener).GetSpeedBonus());
+                }
+            }
+
+            if(attacker.GetSEMan().HaveStatusEffect("Pinning") && !__instance.GetSEMan().HaveStatusEffect("Pinned") && !__instance.GetSEMan().HaveStatusEffect("Pinned Cooldown"))
+            {
+                bool isWeak = false;
+                if((__instance.GetDamageModifier(HitData.DamageType.Blunt) == HitData.DamageModifier.Weak || 
+                    __instance.GetDamageModifier(HitData.DamageType.Blunt) == HitData.DamageModifier.VeryWeak) &&
+                    hit.m_damage.m_blunt > 0)
+                {
+                    isWeak = true;
+                }
+                else if ((__instance.GetDamageModifier(HitData.DamageType.Slash) == HitData.DamageModifier.Weak ||
+                    __instance.GetDamageModifier(HitData.DamageType.Slash) == HitData.DamageModifier.VeryWeak) &&
+                    hit.m_damage.m_slash > 0)
+                {
+                    isWeak = true;
+                }
+                else if ((__instance.GetDamageModifier(HitData.DamageType.Pierce) == HitData.DamageModifier.Weak ||
+                    __instance.GetDamageModifier(HitData.DamageType.Pierce) == HitData.DamageModifier.VeryWeak) &&
+                    hit.m_damage.m_pierce > 0)
+                {
+                    isWeak = true;
+                }
+                else if ((__instance.GetDamageModifier(HitData.DamageType.Fire) == HitData.DamageModifier.Weak ||
+                    __instance.GetDamageModifier(HitData.DamageType.Fire) == HitData.DamageModifier.VeryWeak) &&
+                    hit.m_damage.m_fire > 0)
+                {
+                    isWeak = true;
+                }
+                else if ((__instance.GetDamageModifier(HitData.DamageType.Frost) == HitData.DamageModifier.Weak ||
+                    __instance.GetDamageModifier(HitData.DamageType.Frost) == HitData.DamageModifier.VeryWeak) &&
+                    hit.m_damage.m_frost > 0)
+                {
+                    isWeak = true;
+                }
+                else if ((__instance.GetDamageModifier(HitData.DamageType.Lightning) == HitData.DamageModifier.Weak ||
+                    __instance.GetDamageModifier(HitData.DamageType.Lightning) == HitData.DamageModifier.VeryWeak) &&
+                    hit.m_damage.m_lightning > 0)
+                {
+                    isWeak = true;
+                }
+                else if ((__instance.GetDamageModifier(HitData.DamageType.Spirit) == HitData.DamageModifier.Weak ||
+                    __instance.GetDamageModifier(HitData.DamageType.Spirit) == HitData.DamageModifier.VeryWeak) &&
+                    hit.m_damage.m_spirit > 0)
+                {
+                    isWeak = true;
+                }
+                else if ((__instance.GetDamageModifier(HitData.DamageType.Poison) == HitData.DamageModifier.Weak ||
+                    __instance.GetDamageModifier(HitData.DamageType.Poison) == HitData.DamageModifier.VeryWeak) &&
+                    hit.m_damage.m_poison > 0)
+                {
+                    isWeak = true;
+                }
+
+                if (isWeak)
+                {
+                    var effect = attacker.GetSEMan().GetStatusEffect("Pinning") as SE_Pinning;
+                    __instance.GetSEMan().AddStatusEffect("Pinned");
+                    (__instance.GetSEMan().GetStatusEffect("Pinned") as SE_Pinned).SetPinTTL(effect.GetPinTTL());
+                    (__instance.GetSEMan().GetStatusEffect("Pinned") as SE_Pinned).SetPinCooldownTTL(effect.GetPinCooldownTTL());
                 }
             }
         }

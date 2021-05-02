@@ -1,5 +1,7 @@
 ﻿
-using ValheimLib;
+using Jotunn;
+using Jotunn.Entities;
+using Jotunn.Managers;
 
 namespace Terraheim.ArmorEffects
 {
@@ -13,12 +15,11 @@ namespace Terraheim.ArmorEffects
             m_name = "Crit Chance";
             base.name = "Crit Chance";
             m_tooltip = m_chance + "% chance to crit with two handed weapons, increasing damage by " + m_bonus + "x.";
-            m_icon = null;
         }
 
         public void SetIcon()
         {
-            m_icon = Prefab.Cache.GetPrefab<ItemDrop>("HelmetIron").m_itemData.GetIcon();
+            m_icon = PrefabManager.Cache.GetPrefab<ItemDrop>("HelmetIron").m_itemData.GetIcon();
         }
 
 

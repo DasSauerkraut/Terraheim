@@ -32,9 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony">
-      <HintPath>Libs\0Harmony.dll</HintPath>
-    </Reference>
     <Reference Include="assembly_guiutils, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\assembly_guiutils.dll</HintPath>
@@ -42,14 +39,39 @@
     <Reference Include="assembly_valheim_publicized">
       <HintPath>Libs\assembly_valheim_publicized.dll</HintPath>
     </Reference>
-    <Reference Include="barbarianArmor">
-      <HintPath>Libs\barbarianArmor.dll</HintPath>
-    </Reference>
     <Reference Include="BepInEx">
       <HintPath>Libs\BepInEx.dll</HintPath>
     </Reference>
     <Reference Include="Json.Net, Version=1.0.25.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Json.Net.1.0.25\lib\netstandard2.0\Json.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="MMHOOK_assembly_googleanalytics">
+      <HintPath>Libs\MMHOOK_assembly_googleanalytics.dll</HintPath>
+    </Reference>
+    <Reference Include="MMHOOK_assembly_guiutils">
+      <HintPath>Libs\MMHOOK_assembly_guiutils.dll</HintPath>
+    </Reference>
+    <Reference Include="MMHOOK_assembly_lux">
+      <HintPath>Libs\MMHOOK_assembly_lux.dll</HintPath>
+    </Reference>
+    <Reference Include="MMHOOK_assembly_postprocessing">
+      <HintPath>Libs\MMHOOK_assembly_postprocessing.dll</HintPath>
+    </Reference>
+    <Reference Include="MMHOOK_assembly_simplemeshcombine">
+      <HintPath>Libs\MMHOOK_assembly_simplemeshcombine.dll</HintPath>
+    </Reference>
+    <Reference Include="MMHOOK_assembly_steamworks">
+      <HintPath>Libs\MMHOOK_assembly_steamworks.dll</HintPath>
+    </Reference>
+    <Reference Include="MMHOOK_assembly_sunshafts">
+      <HintPath>Libs\MMHOOK_assembly_sunshafts.dll</HintPath>
+    </Reference>
+    <Reference Include="MMHOOK_assembly_utils">
+      <HintPath>Libs\MMHOOK_assembly_utils.dll</HintPath>
+    </Reference>
+    <Reference Include="MMHOOK_assembly_valheim, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\MMHOOK_assembly_valheim.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -85,9 +107,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\UnityEngine.ParticleSystemModule.dll</HintPath>
     </Reference>
-    <Reference Include="ValheimLib">
-      <HintPath>Libs\ValheimLib.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArmorEffects\SE_AoECounterExhausted.cs" />
@@ -106,6 +125,9 @@
     <Compile Include="ArmorEffects\SE_FullHPDamageBonus.cs" />
     <Compile Include="ArmorEffects\SE_MoveSpeedOnKill.cs" />
     <Compile Include="ArmorEffects\SE_MoveSpeedOnKillListener.cs" />
+    <Compile Include="ArmorEffects\SE_Pinned.cs" />
+    <Compile Include="ArmorEffects\SE_PinnedCooldown.cs" />
+    <Compile Include="ArmorEffects\SE_Pinning.cs" />
     <Compile Include="ArmorEffects\SE_SneakMovement.cs" />
     <Compile Include="ArmorEffects\SE_ThrowingDamageBonus.cs" />
     <Compile Include="ArmorEffects\SE_ThrowingWeaponVelocity.cs" />
@@ -136,10 +158,8 @@
     <Compile Include="ArmorEffects\SE_RangedDmgBonus.cs" />
     <Compile Include="ArmorEffects\SE_WolftearsFX.cs" />
     <Compile Include="ArmorEffects\SE_WolftearsProtectionExhausted.cs" />
-    <Compile Include="Armor\AddCirculets.cs" />
     <Compile Include="Armor\AddNewSets.cs" />
-    <Compile Include="Armor\ACMod.cs" />
-    <Compile Include="Armor\BarbarianArmor.cs" />
+    <Compile Include="Armor\ModExistingSets.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Patches\AddStatusEffectPatch.cs" />
     <Compile Include="Patches\AttackPatch.cs" />
@@ -183,6 +203,11 @@
     <None Include="Translations\english.lang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="JotunnLib">
+      <Version>2.0.3</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

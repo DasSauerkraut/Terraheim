@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json.Linq;
 using Terraheim.Utility;
 using UnityEngine;
-using ValheimLib;
+using Jotunn;
+using Jotunn.Entities;
+using Jotunn.Managers;
 
 namespace Terraheim.ArmorEffects
 {
@@ -19,7 +21,6 @@ namespace Terraheim.ArmorEffects
             m_name = "Wyrd Exhausted";
             base.name = "Wyrd Exhausted";
             m_tooltip = "";
-            m_icon = null;
         }
 
         public override void Setup(Character character)
@@ -32,7 +33,7 @@ namespace Terraheim.ArmorEffects
 
         public void SetIcon()
         {
-            m_icon = Prefab.Cache.GetPrefab<ItemDrop>("HelmetDrake").m_itemData.GetIcon();
+            m_icon = PrefabManager.Cache.GetPrefab<ItemDrop>("HelmetDrake").m_itemData.GetIcon();
         }
     }
 }

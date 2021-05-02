@@ -16,6 +16,7 @@ namespace Terraheim.ArmorEffects
             m_name = "Brassflesh Listener";
             base.name = "Brassflesh Listener";
             m_tooltip = $"Hitting an enemy grants {(m_maxArmor / 10) * 100}% damage reduction for {(int)balance["brassfleshTTL"]} seconds, stacking up to {m_maxArmor * 100}%. Striking an enemy resets the countdown. The damage reduction applies before armor bonuses.";
+
         }
 
         public void SetMaxArmor(float bonus)

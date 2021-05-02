@@ -50,5 +50,15 @@ namespace Terraheim.Utility
             return false;
         }
         
+        public static bool CheckBarbarian()
+        {
+            if (!File.Exists(Terraheim.ModPath + "/../barbarianArmor.dll"))
+            {
+                Log.LogWarning("Barbarian armor not found!");
+                return false;
+            }
+            Log.LogInfo("Barbarian Armor Found!");
+            return true;
+        }
     }
 }

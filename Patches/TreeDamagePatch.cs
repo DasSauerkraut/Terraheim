@@ -1,9 +1,5 @@
 ﻿using HarmonyLib;
-using ValheimLib;
-using ValheimLib.ODB;
 using Terraheim.ArmorEffects;
-using Terraheim.Utility;
-using Newtonsoft.Json.Linq;
 
 namespace Terraheim.Patches
 {
