@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Terraheim.Armor
 {
-    internal static class ACMod
+    internal static class ModExistingSets
     {
         static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
         internal static void Init()
@@ -15,6 +15,8 @@ namespace Terraheim.Armor
             ItemManager.OnItemsRegistered += ModIronArmor;
             ItemManager.OnItemsRegistered += ModSilverArmor;
             ItemManager.OnItemsRegistered += ModPaddedArmor;
+            if(Terraheim.hasBarbarianArmor)
+                ItemManager.OnItemsRegistered += ModBarbarianArmor;
             ItemManager.OnItemsRegistered += ModCapes;
         }
 
@@ -83,6 +85,21 @@ namespace Terraheim.Armor
             var setBalance = balance["padded"];
 
             ArmorHelper.ModArmorSet("padded", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
+        }
+
+        private static void ModBarbarianArmor()
+        {
+            var helmet = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorBarbarianBronzeHelmetJD");
+            var chest = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorBarbarianBronzeChestJD");
+            var legs = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorBarbarianBronzeLegsJD");
+            var cape = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorBarbarianCapeJD");
+
+            var setBalance = balance["barbarian"];
+
+
+            ArmorHelper.ModArmorSet("barbarian", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
+
+            cape.m_itemData.m_shared.m_equipStatusEffect = ArmorHelper.GetArmorEffect((string)balance["capes"]["barbarian"]["effect"], balance["capes"]["barbarian"], "cape", ref cape.m_itemData.m_shared.m_description);
         }
 
         private static void ModCapes()

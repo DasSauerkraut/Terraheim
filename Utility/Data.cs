@@ -28,6 +28,11 @@ namespace Terraheim.Utility
             get; set;
         }
 
+        public static EffectList.EffectData VFXPinned
+        {
+            get; set;
+        }
+
         public class ArmorSet
         {
             public string HelmetID { get; set; }
@@ -117,9 +122,9 @@ namespace Terraheim.Utility
                     HelmetID = "HelmetPadded",
                     ChestID = "ArmorPaddedCuirass",
                     LegsID = "ArmorPaddedGreaves",
-                    HelmetName = "$item_helmet_drake",
-                    ChestName = "$item_chest_wolf",
-                    LegsName = "$item_legs_wolf",
+                    HelmetName = "$item_helmet_padded_t",
+                    ChestName = "$item_chest_padded_t",
+                    LegsName = "$item_legs_padded_t",
                     ClassName = "$class_tank",
                     HelmetArmor = 2
                 }

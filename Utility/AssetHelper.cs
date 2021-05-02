@@ -17,6 +17,7 @@ namespace Terraheim.Utility
         public static GameObject FXExecution;
         public static GameObject FXMarkedForDeath;
         public static GameObject FXMarkedForDeathHit;
+        public static GameObject FXPinned;
 
         public static GameObject TestProjectile;
         public static GameObject TestExplosion;
@@ -41,6 +42,7 @@ namespace Terraheim.Utility
             FXExecution = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/vfx_Execution.prefab");
             FXMarkedForDeath = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/vfx_MarkedForDeath.prefab");
             FXMarkedForDeathHit = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/vfx_MarkedForDeathHit.prefab");
+            FXPinned = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/vfx_Pinned.prefab");
 
             TestExplosion = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/test_explosion.prefab");
             TestProjectile = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/test_projectile.prefab");
@@ -103,6 +105,17 @@ namespace Terraheim.Utility
             Data.VFXMarkedForDeath = new EffectList.EffectData()
             {
                 m_prefab = Utility.AssetHelper.FXMarkedForDeath,
+                m_enabled = true,
+                m_attach = true,
+                m_inheritParentRotation = false,
+                m_inheritParentScale = true,
+                m_randomRotation = false,
+                m_scale = true
+            };
+
+            Data.VFXPinned = new EffectList.EffectData()
+            {
+                m_prefab = Utility.AssetHelper.FXPinned,
                 m_enabled = true,
                 m_attach = true,
                 m_inheritParentRotation = false,

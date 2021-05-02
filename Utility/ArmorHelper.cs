@@ -72,6 +72,14 @@ namespace Terraheim.Utility
                         effect.SetMaxArmor((float)values["setBonusVal"]);
                         return effect;
                     }
+                case "pinning":
+                    {
+                        var effect = ScriptableObject.CreateInstance<SE_Pinning>();
+                        effect.SetPinTTL((float)values["setBonusVal"]);
+                        effect.SetPinCooldownTTL((float)values["setBonusCooldown"]);
+                        effect.SetIcon();
+                        return effect;
+                    }
                 default:
                     return null;
             }
@@ -300,7 +308,15 @@ namespace Terraheim.Utility
             if (isNewSet)
                 tierBalance = values["upgrades"][$"t{i}"];
             else
+            {
                 tierBalance = values;
+                if(setName != "barbarian")
+                {
+                    helmet.m_shared.m_name = $"{armor.HelmetName}0";
+                    chest.m_shared.m_name = $"{armor.ChestName}0";
+                    legs.m_shared.m_name = $"{armor.LegsName}0";
+                }
+            }
 
             StatusEffect setEffect = GetSetEffect((string)values["setEffect"], tierBalance);
 
@@ -311,7 +327,7 @@ namespace Terraheim.Utility
                 if (setEffect != null)
                     item.m_shared.m_setStatusEffect = setEffect;
                 else
-                    Log.LogMessage($"{setName}: No set effect found for {(string)values["setEffect"]}");
+                    Log.LogWarning($"{setName} - No set effect found for provided effect: {(string)values["setEffect"]}");
                 item.m_shared.m_setSize = 3;
                 item.m_shared.m_setName = (string)values["name"];
                 if (!item.m_shared.m_name.Contains("helmet"))
@@ -326,9 +342,21 @@ namespace Terraheim.Utility
             StatusEffect chestStatus = GetArmorEffect((string)values["chestEffect"], tierBalance, "chest", ref chest.m_shared.m_description);
             StatusEffect legStatus = GetArmorEffect((string)values["legsEffect"], tierBalance, "legs", ref legs.m_shared.m_description);
 
-            helmet.m_shared.m_equipStatusEffect = headStatus;
-            chest.m_shared.m_equipStatusEffect = chestStatus;
-            legs.m_shared.m_equipStatusEffect = legStatus;
+            if(headStatus != null)
+                helmet.m_shared.m_equipStatusEffect = headStatus;
+            else
+                Log.LogWarning($"{setName} Head - No status effect found for provided effect: {(string)values["headEffect"]}");
+
+            if (chestStatus != null)
+                chest.m_shared.m_equipStatusEffect = chestStatus;
+            else
+                Log.LogWarning($"{setName} Chest - No status effect found for provided effect: {(string)values["chestEffect"]}");
+
+            if (legStatus != null)
+                legs.m_shared.m_equipStatusEffect = legStatus;
+            else
+                Log.LogWarning($"{setName} Legs - No status effect found for provided effect: {(string)values["legsEffect"]}");
+
         }
 
         public static void AddArmorSet(string setName)
@@ -340,10 +368,6 @@ namespace Terraheim.Utility
                 var tierBalance = setBalance["upgrades"][$"t{i}"];
 
                 //Create mocks for use in clones
-                ItemDrop mockHelmet = Mock<ItemDrop>.Create(armor.HelmetID);
-                ItemDrop mockChest = Mock<ItemDrop>.Create(armor.ChestID);
-                ItemDrop mockLegs = Mock<ItemDrop>.Create(armor.LegsID);
-
                 GameObject clonedHelmet = PrefabManager.Instance.CreateClonedPrefab($"{armor.HelmetID}T{i}", armor.HelmetID);
                 GameObject clonedChest = PrefabManager.Instance.CreateClonedPrefab($"{armor.ChestID}T{i}", armor.ChestID);
                 GameObject clonedLegs = PrefabManager.Instance.CreateClonedPrefab($"{armor.LegsID}T{i}", armor.LegsID);
@@ -480,7 +504,10 @@ namespace Terraheim.Utility
 
             //GET EFFECT
             StatusEffect status = GetArmorEffect((string)setBalance["effect"], setBalance, "head", ref belt.ItemDrop.m_itemData.m_shared.m_description);
-            belt.ItemDrop.m_itemData.m_shared.m_equipStatusEffect = status;
+            if (status != null)
+                belt.ItemDrop.m_itemData.m_shared.m_equipStatusEffect = status;
+            else
+                Log.LogWarning($"{name} - No status effect found for provided effect: {(string)setBalance["effect"]}");
 
             //Recipes
             Recipe recipe = ScriptableObject.CreateInstance<Recipe>();
@@ -523,13 +550,11 @@ namespace Terraheim.Utility
         {
             ArmorSet armor = ArmorSets[setName];
             string armorSetName = char.ToUpper(setName[0]) + setName.Substring(1);
-
             for (int i = (int)balance[setName]["upgrades"]["startingTier"] + 1; i <= 5; i++)
             {
                 Recipe helmetRecipe;
                 Recipe chestRecipe;
                 Recipe legsRecipe;
-
                 if (setName != "barbarian")
                 {
                     helmetRecipe = ObjectDB.instance.GetRecipe(ObjectDB.instance.GetItemPrefab($"{armor.HelmetID}T{i}_Terraheim_AddNewSets_Add{armorSetName}Armor").GetComponent<ItemDrop>().m_itemData);
@@ -547,7 +572,7 @@ namespace Terraheim.Utility
                 List<Piece.Requirement> chestList = chestRecipe.m_resources.ToList();
                 List<Piece.Requirement> legsList = legsRecipe.m_resources.ToList();
 
-                if(setName == "silver")
+                if (setName == "silver")
                 {
                     helmetList.Add(new Piece.Requirement()
                     {
@@ -625,12 +650,10 @@ namespace Terraheim.Utility
                         m_recover = false
                     });
                 }
-                
 
                 helmetRecipe.m_resources = helmetList.ToArray();
                 chestRecipe.m_resources = chestList.ToArray();
                 legsRecipe.m_resources = legsList.ToArray();
-
             }
         }
     }

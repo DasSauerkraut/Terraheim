@@ -12,11 +12,20 @@ namespace Terraheim.Armor
         }
         private static void AddArmorSets(On.ObjectDB.orig_CopyOtherDB orig, ObjectDB self, ObjectDB other)
         {
+
             ArmorHelper.AddArmorSet("leather");
             ArmorHelper.AddArmorSet("trollLeather");
             ArmorHelper.AddArmorSet("bronze");
             ArmorHelper.AddArmorSet("iron");
             ArmorHelper.AddArmorSet("silver");
+            if(Terraheim.hasBarbarianArmor)
+                ArmorHelper.AddArmorSet("barbarian");
+
+            ArmorHelper.AddBelt("woodsmanHelmet");
+            ArmorHelper.AddBelt("minersBelt");
+            ArmorHelper.AddBelt("waterproofBelt");
+            ArmorHelper.AddBelt("farmerBelt");
+            ArmorHelper.AddBelt("thiefBelt");
         }
 
         private static void ModExistingRecipes()
@@ -26,6 +35,8 @@ namespace Terraheim.Armor
             ArmorHelper.AddTieredRecipes("bronze");
             ArmorHelper.AddTieredRecipes("iron");
             ArmorHelper.AddTieredRecipes("silver");
+            if (Terraheim.hasBarbarianArmor)
+                ArmorHelper.AddTieredRecipes("barbarian");
         }
     }
 }

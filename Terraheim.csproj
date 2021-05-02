@@ -32,9 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony">
-      <HintPath>Libs\0Harmony.dll</HintPath>
-    </Reference>
     <Reference Include="assembly_guiutils, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\assembly_guiutils.dll</HintPath>
@@ -128,6 +125,9 @@
     <Compile Include="ArmorEffects\SE_FullHPDamageBonus.cs" />
     <Compile Include="ArmorEffects\SE_MoveSpeedOnKill.cs" />
     <Compile Include="ArmorEffects\SE_MoveSpeedOnKillListener.cs" />
+    <Compile Include="ArmorEffects\SE_Pinned.cs" />
+    <Compile Include="ArmorEffects\SE_PinnedCooldown.cs" />
+    <Compile Include="ArmorEffects\SE_Pinning.cs" />
     <Compile Include="ArmorEffects\SE_SneakMovement.cs" />
     <Compile Include="ArmorEffects\SE_ThrowingDamageBonus.cs" />
     <Compile Include="ArmorEffects\SE_ThrowingWeaponVelocity.cs" />
@@ -158,10 +158,8 @@
     <Compile Include="ArmorEffects\SE_RangedDmgBonus.cs" />
     <Compile Include="ArmorEffects\SE_WolftearsFX.cs" />
     <Compile Include="ArmorEffects\SE_WolftearsProtectionExhausted.cs" />
-    <Compile Include="Armor\AddCirculets.cs" />
     <Compile Include="Armor\AddNewSets.cs" />
-    <Compile Include="Armor\ACMod.cs" />
-    <Compile Include="Armor\BarbarianArmor.cs" />
+    <Compile Include="Armor\ModExistingSets.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Patches\AddStatusEffectPatch.cs" />
     <Compile Include="Patches\AttackPatch.cs" />

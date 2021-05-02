@@ -42,13 +42,9 @@ namespace Terraheim
             AssetHelper.Init();
             AssetHelper.SetupVFX();
 
-            Armor.ACMod.Init();
+            hasBarbarianArmor = UtilityFunctions.CheckBarbarian();
+            Armor.ModExistingSets.Init();
             Armor.AddNewSets.Init();
-            Armor.AddCirculets.Init();
-
-            Armor.BarbarianArmor.Integrate();
-            if (hasBarbarianArmor)
-                Armor.BarbarianArmor.Init();
 
             Log.LogInfo("Patching complete");
         }
@@ -92,6 +88,9 @@ namespace Terraheim
 
             //Set Bonuses
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_HPOnHit>(), fixReference: true)); //Leather
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Pinning>(), fixReference: true)); //Leather
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Pinned>(), fixReference: true)); //Leather
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_PinnedCooldown>(), fixReference: true)); //Leather
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_HPRegen>(), fixReference: true)); //BronzeOLD
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_ArmorOnHitListener>(), fixReference: true)); //BronzeOLD
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_ArmorOnHit>(), fixReference: true)); //BronzeOLD
