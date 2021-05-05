@@ -11,12 +11,7 @@
     "thornsKillThreshold": 0.5,
     "bloodrushTTL": 10,
     "bloodrushMaxSpeed": 0.5,
-    "classes": {
-        "berserker": "Berserkr",
-        "ranger": "Bowman",
-        "tank": "Shieldbrother",
-        "thrower": "Skirmisher"
-    },
+    "enableMarkedForDeathFX": true,
     "leather": {
         "name": "leather",
         "baseArmor": 2,
@@ -260,7 +255,7 @@
         "headEffect": "meleedmg",
         "chestEffect": "blockpower",
         "legsEffect": "healonblock",
-        "setBonusVal": 0.5,
+        "setBonusVal": 1.10,
         "headEffectVal": 0.05,
         "chestEffectVal": 0.2,
         "legsEffectVal": 0.05
