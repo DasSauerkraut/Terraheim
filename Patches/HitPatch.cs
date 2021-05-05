@@ -53,7 +53,7 @@ namespace Terraheim.Patches
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(Character), "ApplyDamage")]
-        public static void DamagePrefix(Character __instance, HitData hit)
+        public static void DamagePrefix(Character __instance, ref HitData hit)
         {
             if (!hit.HaveAttacker())
                 return;
@@ -174,62 +174,24 @@ namespace Terraheim.Patches
 
             if(attacker.GetSEMan().HaveStatusEffect("Pinning") && !__instance.GetSEMan().HaveStatusEffect("Pinned") && !__instance.GetSEMan().HaveStatusEffect("Pinned Cooldown"))
             {
-                bool isWeak = false;
-                if((__instance.GetDamageModifier(HitData.DamageType.Blunt) == HitData.DamageModifier.Weak || 
-                    __instance.GetDamageModifier(HitData.DamageType.Blunt) == HitData.DamageModifier.VeryWeak) &&
-                    hit.m_damage.m_blunt > 0)
-                {
-                    isWeak = true;
-                }
-                else if ((__instance.GetDamageModifier(HitData.DamageType.Slash) == HitData.DamageModifier.Weak ||
-                    __instance.GetDamageModifier(HitData.DamageType.Slash) == HitData.DamageModifier.VeryWeak) &&
-                    hit.m_damage.m_slash > 0)
-                {
-                    isWeak = true;
-                }
-                else if ((__instance.GetDamageModifier(HitData.DamageType.Pierce) == HitData.DamageModifier.Weak ||
-                    __instance.GetDamageModifier(HitData.DamageType.Pierce) == HitData.DamageModifier.VeryWeak) &&
-                    hit.m_damage.m_pierce > 0)
-                {
-                    isWeak = true;
-                }
-                else if ((__instance.GetDamageModifier(HitData.DamageType.Fire) == HitData.DamageModifier.Weak ||
-                    __instance.GetDamageModifier(HitData.DamageType.Fire) == HitData.DamageModifier.VeryWeak) &&
-                    hit.m_damage.m_fire > 0)
-                {
-                    isWeak = true;
-                }
-                else if ((__instance.GetDamageModifier(HitData.DamageType.Frost) == HitData.DamageModifier.Weak ||
-                    __instance.GetDamageModifier(HitData.DamageType.Frost) == HitData.DamageModifier.VeryWeak) &&
-                    hit.m_damage.m_frost > 0)
-                {
-                    isWeak = true;
-                }
-                else if ((__instance.GetDamageModifier(HitData.DamageType.Lightning) == HitData.DamageModifier.Weak ||
-                    __instance.GetDamageModifier(HitData.DamageType.Lightning) == HitData.DamageModifier.VeryWeak) &&
-                    hit.m_damage.m_lightning > 0)
-                {
-                    isWeak = true;
-                }
-                else if ((__instance.GetDamageModifier(HitData.DamageType.Spirit) == HitData.DamageModifier.Weak ||
-                    __instance.GetDamageModifier(HitData.DamageType.Spirit) == HitData.DamageModifier.VeryWeak) &&
-                    hit.m_damage.m_spirit > 0)
-                {
-                    isWeak = true;
-                }
-                else if ((__instance.GetDamageModifier(HitData.DamageType.Poison) == HitData.DamageModifier.Weak ||
-                    __instance.GetDamageModifier(HitData.DamageType.Poison) == HitData.DamageModifier.VeryWeak) &&
-                    hit.m_damage.m_poison > 0)
-                {
-                    isWeak = true;
-                }
-
-                if (isWeak)
+                if (UtilityFunctions.CheckIfVulnerable(__instance, hit))
                 {
                     var effect = attacker.GetSEMan().GetStatusEffect("Pinning") as SE_Pinning;
                     __instance.GetSEMan().AddStatusEffect("Pinned");
                     (__instance.GetSEMan().GetStatusEffect("Pinned") as SE_Pinned).SetPinTTL(effect.GetPinTTL());
                     (__instance.GetSEMan().GetStatusEffect("Pinned") as SE_Pinned).SetPinCooldownTTL(effect.GetPinCooldownTTL());
+                }
+            }
+
+            if (attacker.GetSEMan().HaveStatusEffect("Poison Vulnerable"))
+            {
+                if (UtilityFunctions.CheckIfVulnerable(__instance, hit))
+                {
+                    Log.LogInfo("Vulnerable");
+                    var effect = attacker.GetSEMan().GetStatusEffect("Poison Vulnerable") as SE_PoisonVulnerable;
+                    __instance.AddPoisonDamage(hit.GetTotalDamage() * effect.GetDamageBonus());
+                    //hit.m_damage.m_poison += hit.GetTotalDamage() * effect.GetDamageBonus();
+                    Log.LogInfo($"Poison damage {hit.GetTotalDamage() * effect.GetDamageBonus()} damage {hit.GetTotalDamage()}");
                 }
             }
         }

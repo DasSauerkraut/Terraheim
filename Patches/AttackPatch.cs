@@ -217,6 +217,15 @@ namespace Terraheim.Patches
                 }
             }
 
+            //Ranger weapon bonus
+            if (weapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow || weapon.m_shared.m_name.Contains("spear") || weapon.m_shared.m_name.Contains("knife"))
+            {
+                if (character.GetSEMan().HaveStatusEffect("Ranger Weapon Bonus"))
+                {
+                    weapon.m_shared.m_attack.m_damageMultiplier += (character.GetSEMan().GetStatusEffect("Silver Damage Bonus") as SE_RangerWeaponBonus).GetDamageBonus();
+                }
+            }
+
             //Add Spirit damage to all weapons
             if (character.GetSEMan().HaveStatusEffect("Spirit Damage Bonus"))
             {

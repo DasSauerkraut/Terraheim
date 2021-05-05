@@ -80,6 +80,14 @@ namespace Terraheim.Utility
                         effect.SetIcon();
                         return effect;
                     }
+                case "crit":
+                    {
+                        var effect = ScriptableObject.CreateInstance<SE_CritChance>();
+                        effect.SetCritChance((float)values["setBonusChance"]);
+                        effect.SetCritBonus((float)values["setBonusVal"]);
+                        effect.SetIcon();
+                        return effect;
+                    }
                 default:
                     return null;
             }
@@ -293,6 +301,20 @@ namespace Terraheim.Utility
                         var effect = ScriptableObject.CreateInstance<SE_SneakMovement>();
                         effect.SetBonus((float)values[$"{location}EffectVal"]);
                         description += $"A blessing from Loki.\nMove <color=cyan>{effect.GetBonus() * 100}%</color> faster while using <color=cyan>{effect.GetBonus() * 100}%</color> less stamina while sneaking.";
+                        return effect;
+                    }
+                case "rangerweapondmg":
+                    {
+                        var effect = ScriptableObject.CreateInstance<SE_RangerWeaponBonus>();
+                        effect.SetDamageBonus((float)values[$"{location}EffectVal"]);
+                        description += $"\nDamage with bows, daggers, and spears is increased by <color=cyan>{effect.GetDamageBonus() * 100}%</color>.";
+                        return effect;
+                    }
+                case "poisonvuln":
+                    {
+                        var effect = ScriptableObject.CreateInstance<SE_PoisonVulnerable>();
+                        effect.SetDamageBonus((float)values[$"{location}EffectVal"]);
+                        description += $"\nStriking an enemy with a damage type it is vulnerable deals <color=cyan>{effect.GetDamageBonus() * 100}%</color> of the damage dealt as poison damage.";
                         return effect;
                     }
                 default:

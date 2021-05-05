@@ -106,6 +106,12 @@ namespace Terraheim.Patches
                 totalMultiplier += effect.getDamageBonus();
             }
 
+            if (seman.HaveStatusEffect("Ranger Weapon Bonus") && (item.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow || item.m_shared.m_name.Contains("spear") || item.m_shared.m_name.Contains("knife")))
+            {
+                var effect = localplayer.GetSEMan().GetStatusEffect("Ranger Weapon Bonus") as SE_RangerWeaponBonus;
+                totalMultiplier += effect.GetDamageBonus();
+            }
+
             if (seman.HaveStatusEffect("Throwing Damage Bonus") && item.m_shared.m_name.Contains("_throwingaxe") ||
                 item.m_shared.m_name.Contains("_spear") ||
                 item.m_shared.m_name.Contains("bomb"))

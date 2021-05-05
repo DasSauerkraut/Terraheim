@@ -128,6 +128,8 @@
     <Compile Include="ArmorEffects\SE_Pinned.cs" />
     <Compile Include="ArmorEffects\SE_PinnedCooldown.cs" />
     <Compile Include="ArmorEffects\SE_Pinning.cs" />
+    <Compile Include="ArmorEffects\SE_PoisonVulnerable.cs" />
+    <Compile Include="ArmorEffects\SE_RangerWeaponBonus.cs" />
     <Compile Include="ArmorEffects\SE_SneakMovement.cs" />
     <Compile Include="ArmorEffects\SE_ThrowingDamageBonus.cs" />
     <Compile Include="ArmorEffects\SE_ThrowingWeaponVelocity.cs" />
