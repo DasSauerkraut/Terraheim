@@ -18,7 +18,7 @@ namespace Terraheim.Patches
 
 
 
-        [HarmonyPatch(typeof(SEMan), "OnDamaged")]
+        /*[HarmonyPatch(typeof(SEMan), "OnDamaged")]
         public static void Postfix(SEMan __instance, HitData hit, ref Character attacker)
         {
             //Log.LogMessage("Enemy Damaged!");
@@ -27,10 +27,26 @@ namespace Terraheim.Patches
                 return;
             }
                 //Log.LogMessage("Trying FOr Thorns!");
-            if (__instance.HaveStatusEffect("Thorns") && !__instance.m_character.IsBlocking())
+            
+        }*/
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(Character), "ApplyDamage")]
+        public static void DamagePostfix(Character __instance, ref HitData hit)
+        {
+
+            SEMan seman = __instance.GetSEMan();
+
+            Character attacker = hit.GetAttacker();
+            if (attacker == null || attacker.IsPlayer() || attacker.m_seman == null)
             {
-                SE_Thorns effect = __instance.GetStatusEffect("Thorns") as SE_Thorns;
-                //Log.LogMessage($"Damage dealt: {hit.GetTotalDamage()} thorns %${effect.GetReflectPercent()}");
+                return;
+            }
+
+            if (seman.HaveStatusEffect("Thorns") && !seman.m_character.IsBlocking())
+            {
+                SE_Thorns effect = seman.GetStatusEffect("Thorns") as SE_Thorns;
+                Log.LogMessage($"Damage dealt: {hit.GetTotalDamage()} thorns %${effect.GetReflectPercent()}");
                 HitData reflectedDamage = new HitData();
                 reflectedDamage.m_damage.Add(hit.m_damage);
                 reflectedDamage.m_damage.m_blunt *= effect.GetReflectPercent();
@@ -46,7 +62,7 @@ namespace Terraheim.Patches
                 reflectedDamage.m_damage.m_spirit *= effect.GetReflectPercent();
                 reflectedDamage.m_staggerMultiplier = 0;
 
-                //Log.LogMessage($"Reflected Damage ${reflectedDamage.m_damage.GetTotalDamage()}");
+                Log.LogMessage($"Reflected Damage ${reflectedDamage.m_damage.GetTotalDamage()}");
                 if (attacker.GetHealth() <= reflectedDamage.GetTotalDamage() && attacker.GetHealthPercentage() >= (float)balance["thornsKillThreshold"])
                 {
                     var totalDamage = attacker.GetHealth() - 1;
@@ -75,26 +91,19 @@ namespace Terraheim.Patches
                 }
             }
 
-            
-           
-        }
-        [HarmonyPostfix]
-        [HarmonyPatch(typeof(Character), "ApplyDamage")]
-        public static void DamagePostfix(Character __instance, ref HitData hit)
-        {
-            Character attacker = hit.GetAttacker();
-            if (attacker == null || attacker.IsPlayer() || attacker.m_seman == null)
-            {
-                return;
-            }
-
             if (__instance.GetSEMan().HaveStatusEffect("Wolftears"))
             {
                 var effect = __instance.GetSEMan().GetStatusEffect("Wolftears") as SE_Wolftears;
                 effect.SetIcon();
-                
-            }
+                if (seman.m_character.GetHealth() <= hit.m_damage.GetTotalDamage() && !seman.HaveStatusEffect("Tear Protection Exhausted"))
+                {
+                    Log.LogInfo($"Would Kill defender! Damage: {hit.m_damage.GetTotalDamage()}, attacker health: {__instance.GetHealth()}");
 
+                    hit.m_damage.Modify(0);
+                    seman.AddStatusEffect("Tear Protection Exhausted");
+                    __instance.SetHealth(1f);
+                }
+            }
             if (__instance.GetSEMan().HaveStatusEffect("Battle Furor"))
             {
                 var effect = __instance.GetSEMan().GetStatusEffect("Battle Furor") as SE_FullHPDamageBonus;

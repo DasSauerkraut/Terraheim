@@ -70,6 +70,14 @@ These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 [Nexus](https://www.nexusmods.com/valheim/mods/803?tab=description)
 
 ### Patchnotes
+**v1.7.4**
+- The first attack for greatswords has been sped up by 20%.
+- The rest of the greatswords attack combo has been sped up 40%.
+- Added field in balance.json to disable the Marked For Death FX until I can find a proper solution for the black void bug.
+- Fixed bug where greatswords animation speed tweaks would not apply, leading to inconsistent attack timing.
+- Fixed bug where thorns would do crazy amounts of damage to bosses. This has had the side effect of thorns damage being calc'd after armor damage reduction, so to compensate, thorns reflect % is now 110%.
+**v1.7.3**
+- Fixed wolftears 1 hit protection triggering in non-applicaple cases
 **v1.7.2**
 - Fixed status effects reading from the last instance of that effect. This fixes the issue with the bronze armor using the padded armor's values for its damage bonus.
 **v1.7.1**

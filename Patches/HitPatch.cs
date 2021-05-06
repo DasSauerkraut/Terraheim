@@ -2,6 +2,7 @@
 using Terraheim.ArmorEffects;
 using Terraheim.Utility;
 using UnityEngine;
+using Newtonsoft.Json.Linq;
 
 namespace Terraheim.Patches
 {
@@ -14,6 +15,7 @@ namespace Terraheim.Patches
             Log.LogInfo("Hit Patching Complete");
         }
 
+        static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
 
         [HarmonyPatch(typeof(MonsterAI), "OnDamaged")]
         static void Prefix(MonsterAI __instance, ref float damage, ref Character attacker)
@@ -112,11 +114,14 @@ namespace Terraheim.Patches
 
                 effect.DecreaseHitsRemaining();
 
-                var executionVFX = Object.Instantiate(AssetHelper.FXMarkedForDeathHit, __instance.GetCenterPoint(), Quaternion.identity);
-                ParticleSystem[] children = executionVFX.GetComponentsInChildren<ParticleSystem>();
-                foreach (ParticleSystem particle in children)
+                if ((bool)balance["enableMarkedForDeathFX"])
                 {
-                    particle.Play();
+                    var executionVFX = Object.Instantiate(AssetHelper.FXMarkedForDeathHit, __instance.GetCenterPoint(), Quaternion.identity);
+                    ParticleSystem[] children = executionVFX.GetComponentsInChildren<ParticleSystem>();
+                    foreach (ParticleSystem particle in children)
+                    {
+                        particle.Play();
+                    }
                 }
 
                 var audioSource = hit.GetAttacker().GetComponent<AudioSource>();
