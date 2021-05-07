@@ -237,9 +237,27 @@ namespace Terraheim.Patches
                 }
             }
 
-            if(__instance.IsPlayer() && __instance.GetSEMan().HaveStatusEffect("Brassflesh"))
+            if (__instance.IsPlayer() && __instance.GetSEMan().HaveStatusEffect("Challenge Move Speed"))
             {
-                Log.LogInfo($"starting damage: {hit.GetTotalDamage()}");
+                //Log.LogInfo($"starting damage: {hit.GetTotalDamage()}");
+                float damageMod = 2f;
+                hit.m_damage.m_blunt *= damageMod;
+                hit.m_damage.m_chop *= damageMod;
+                hit.m_damage.m_damage *= damageMod;
+                hit.m_damage.m_fire *= damageMod;
+                hit.m_damage.m_frost *= damageMod;
+                hit.m_damage.m_lightning *= damageMod;
+                hit.m_damage.m_pickaxe *= damageMod;
+                hit.m_damage.m_pierce *= damageMod;
+                hit.m_damage.m_poison *= damageMod;
+                hit.m_damage.m_slash *= damageMod;
+                hit.m_damage.m_spirit *= damageMod;
+                //Log.LogInfo($"ending damage: {hit.GetTotalDamage()}");
+            }
+
+            if (__instance.IsPlayer() && __instance.GetSEMan().HaveStatusEffect("Brassflesh"))
+            {
+                //Log.LogInfo($"starting damage: {hit.GetTotalDamage()}");
                 float damageMod = (__instance.GetSEMan().GetStatusEffect("Brassflesh") as SE_ArmorOnHit).GetCurrentDamageReduction();
                 hit.m_damage.m_blunt *= 1 - damageMod;
                 hit.m_damage.m_chop *= 1 - damageMod;
@@ -252,7 +270,7 @@ namespace Terraheim.Patches
                 hit.m_damage.m_poison *= 1 - damageMod;
                 hit.m_damage.m_slash *= 1 - damageMod;
                 hit.m_damage.m_spirit *= 1 - damageMod;
-                Log.LogInfo($"ending damage: {hit.GetTotalDamage()}");
+                //Log.LogInfo($"ending damage: {hit.GetTotalDamage()}");
             }
         }
     }

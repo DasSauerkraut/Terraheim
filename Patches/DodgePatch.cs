@@ -30,6 +30,13 @@ namespace Terraheim.Patches
                 ___m_dodgeStaminaUsage = baseStaminaUse * (1 - effect.getDodgeStaminaUse());
                 //Log.LogWarning("Stamina Use: " + ___m_dodgeStaminaUsage);
             }
+            else if (___m_seman.HaveStatusEffect("Challenge Dodge Bonus"))
+            {
+                SE_ChallengeDodgeBonus effect = ___m_seman.GetStatusEffect("Challenge Dodge Bonus") as SE_ChallengeDodgeBonus;
+                //Log.LogMessage("Has Effect");
+                ___m_dodgeStaminaUsage = baseStaminaUse * (1 - effect.GetDodgeBonus());
+                //Log.LogWarning("Stamina Use: " + ___m_dodgeStaminaUsage);
+            }
             else if(___m_dodgeStaminaUsage != baseStaminaUse)
             {
                 ___m_dodgeStaminaUsage = baseStaminaUse;

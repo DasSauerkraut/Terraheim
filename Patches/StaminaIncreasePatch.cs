@@ -16,6 +16,15 @@ namespace Terraheim.Patches
                 stamina += effect.GetStaminaBonus();
                 //Log.LogInfo($"Total Val Modded Stamina ${stamina} from effect ${effect.GetStaminaBonus()}");
             }
+
+            if (__instance.GetSEMan().HaveStatusEffect("Sprinter"))
+            {
+                SE_ChallengeSprinter effect = __instance.GetSEMan().GetStatusEffect("Sprinter") as SE_ChallengeSprinter;
+                Log.LogInfo($"Total Val Has Effect Stamina ${stamina}");
+
+                stamina *= effect.GetTotalStamina();
+                Log.LogInfo($"Total Val Modded Stamina ${stamina} from effect ${effect.GetTotalStamina()}");
+            }
         }
     }
 }

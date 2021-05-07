@@ -14,6 +14,9 @@ namespace Terraheim.Armor
         {
 
             ArmorHelper.AddArmorSet("leather");
+            //ArmorHelper.AddArmorSet("rags");
+            ArmorHelper.AddArmorPiece("rags", "chest");
+            ArmorHelper.AddArmorPiece("rags", "legs");
             ArmorHelper.AddArmorSet("trollLeather");
             ArmorHelper.AddArmorSet("bronze");
             ArmorHelper.AddArmorSet("iron");
@@ -31,6 +34,7 @@ namespace Terraheim.Armor
         private static void ModExistingRecipes()
         {
             ArmorHelper.AddTieredRecipes("leather");
+            //ArmorHelper.AddTieredRecipes("rags");
             ArmorHelper.AddTieredRecipes("trollLeather");
             ArmorHelper.AddTieredRecipes("bronze");
             ArmorHelper.AddTieredRecipes("iron");

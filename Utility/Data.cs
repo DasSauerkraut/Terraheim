@@ -55,6 +55,18 @@ namespace Terraheim.Utility
 
         public static Dictionary<string, ArmorSet> ArmorSets = new Dictionary<string, ArmorSet>
         {
+            {"rags", new ArmorSet
+                {
+                    HelmetID = "n/a",
+                    ChestID = "ArmorRagsChest",
+                    LegsID = "ArmorRagsLegs",
+                    HelmetName = "n/a",
+                    ChestName = "$item_chest_rags_t",
+                    LegsName = "$item_legs_rags_t",
+                    ClassName = "$class_challenge",
+                    HelmetArmor = 0
+                }
+            },
             {"leather", new ArmorSet
                 {
                     HelmetID = "HelmetLeather",

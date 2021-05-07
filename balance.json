@@ -13,6 +13,67 @@
     "bloodrushMaxSpeed": 0.5,
     "enableMarkedForDeathFX": true,
     "brassfleshTTL": 10,
+    "rags": {
+        "name": "rags",
+        "baseArmor": 2,
+        "armorPerLevel": 2,
+        "globalMoveMod": 0,
+        "setBonusVal": 0.40,
+        "setRegenBonusVal": 0.70,
+        "setEffect": "sprinter",
+        "chestEffect": "challengemvespd",
+        "legsEffect": "challengedodgecost",
+        "chestEffectVal": 0.10,
+        "legsEffectVal": 0.30,
+        "upgrades": {
+            "startingTier": 1,
+            "t1": {
+                "baseArmor": 2,
+                "armorPerLevel": 2,
+                "globalMoveMod": 0,
+                "setBonusVal": 0.40,
+                "setRegenBonusVal": 0.70,
+                "chestEffectVal": 0.10,
+                "legsEffectVal": 0.30
+            },
+            "t2": {
+                "baseArmor": 4,
+                "armorPerLevel": 2,
+                "globalMoveMod": 0,
+                "setBonusVal": 0.40,
+                "setRegenBonusVal": 0.70,
+                "chestEffectVal": 0.10,
+                "legsEffectVal": 0.30
+            },
+            "t3": {
+                "baseArmor": 7,
+                "armorPerLevel": 2,
+                "globalMoveMod": 0,
+                "setBonusVal": 0.40,
+                "setRegenBonusVal": 0.70,
+                "chestEffectVal": 0.10,
+                "legsEffectVal": 0.30
+            },
+            "t4": {
+                "baseArmor": 10,
+                "armorPerLevel": 2,
+                "globalMoveMod": 0,
+                "setBonusVal": 0.40,
+                "setRegenBonusVal": 0.70,
+                "chestEffectVal": 0.10,
+                "legsEffectVal": 0.30
+            },
+            "t5": {
+                "baseArmor": 12,
+                "armorPerLevel": 2,
+                "globalMoveMod": 0,
+                "setBonusVal": 0.40,
+                "setRegenBonusVal": 0.70,
+                "chestEffectVal": 0.10,
+                "legsEffectVal": 0.30
+            }
+        }
+    },
     "leather": {
         "name": "leather",
         "baseArmor": 2,
@@ -94,7 +155,7 @@
         "setBonusCooldown": 20,
         "headEffectVal": 0.06,
         "chestEffectVal": 8,
-        "legsEffectVal": 0.06,
+        "legsEffectVal": 0.02,
         "upgrades": {
             "startingTier": 2,
             "t2": {
@@ -105,7 +166,7 @@
                 "setBonusCooldown": 19,
                 "headEffectVal": 0.08,
                 "chestEffectVal": 11,
-                "legsEffectVal": 0.08
+                "legsEffectVal": 0.04
             },
             "t3": {
                 "baseArmor": 12,
@@ -115,7 +176,7 @@
                 "setBonusCooldown": 17,
                 "headEffectVal": 0.11,
                 "chestEffectVal": 14,
-                "legsEffectVal": 0.11
+                "legsEffectVal": 0.06
             },
             "t4": {
                 "baseArmor": 18,
@@ -125,7 +186,7 @@
                 "setBonusCooldown": 16,
                 "headEffectVal": 0.13,
                 "chestEffectVal": 17,
-                "legsEffectVal": 0.13
+                "legsEffectVal": 0.08
             },
             "t5": {
                 "baseArmor": 22,
@@ -135,7 +196,7 @@
                 "setBonusCooldown": 15,
                 "headEffectVal": 0.15,
                 "chestEffectVal": 20,
-                "legsEffectVal": 0.15
+                "legsEffectVal": 0.10
             }
         }
     },

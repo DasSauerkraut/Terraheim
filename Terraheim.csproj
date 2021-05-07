@@ -114,6 +114,9 @@
     <Compile Include="ArmorEffects\SE_AoECounter.cs" />
     <Compile Include="ArmorEffects\SE_ArmorOnHit.cs" />
     <Compile Include="ArmorEffects\SE_ArmorOnHitListener.cs" />
+    <Compile Include="ArmorEffects\SE_ChallengeDodgeBonus.cs" />
+    <Compile Include="ArmorEffects\SE_ChallengeMoveSpeed.cs" />
+    <Compile Include="ArmorEffects\SE_ChallengeSprinter.cs" />
     <Compile Include="ArmorEffects\SE_DamageVsLowHP.cs" />
     <Compile Include="ArmorEffects\SE_DeathMark.cs" />
     <Compile Include="ArmorEffects\SE_FullHPDamageBonusFX.cs" />
