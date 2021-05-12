@@ -132,33 +132,36 @@ namespace Terraheim.Patches
                 }
                 audioSource.PlayOneShot(AssetHelper.SFXExecution);
             }
-
+            if(hit.m_statusEffect == "Marked For Death" && !__instance.GetSEMan().HaveStatusEffect("Marked For Death FX"))
+            {
+                __instance.GetSEMan().AddStatusEffect("Marked For Death FX");
+            }
             if (attacker.GetSEMan().HaveStatusEffect("Death Mark"))
             {
                 var effect = hit.GetAttacker().GetSEMan().GetStatusEffect("Death Mark") as SE_DeathMark;
 
                 if (!__instance.GetSEMan().HaveStatusEffect("Marked For Death FX"))
                 {
-                    Log.LogInfo(effect.GetLastHitThrowing());
+                    //Log.LogInfo(effect.GetLastHitThrowing());
                     if (__instance.GetSEMan().HaveStatusEffect("Marked For Death") && effect.GetLastHitThrowing())
                     {
                         //increase counter
                         (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).IncreaseCounter();
-                        Log.LogMessage($"Death Mark Counter : {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).m_count}");
+                        //Log.LogMessage($"Death Mark Counter : {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).m_count}");
                     }
                     else if (effect.GetLastHitThrowing())
                     {
-                        Log.LogMessage("Adding Death Mark");
+                        //Log.LogMessage("Adding Death Mark");
                         //add marked for death counter
                         __instance.GetSEMan().AddStatusEffect("Marked For Death");
                         //(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).IncreaseCounter();
                         (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).SetActivationCount(effect.GetThreshold());
                         (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).SetDamageBonus(effect.GetDamageBonus());
                         (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).SetHitDuration(effect.GetHitDuration());
-                        Log.LogInfo($"Death Mark Counter : {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).m_count}, " +
-                            $"Activation: {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).GetActivationCount()} " +
-                            $"Damage Bonus: {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).GetDamageBonus()} " +
-                            $"Hit Amount: {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).GetHitDuration()}");
+                        //Log.LogInfo($"Death Mark Counter : {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).m_count}, " +
+                            //$"Activation: {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).GetActivationCount()} " +
+                            //$"Damage Bonus: {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).GetDamageBonus()} " +
+                            //$"Hit Amount: {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).GetHitDuration()}");
                     }
                 }
                
@@ -179,7 +182,7 @@ namespace Terraheim.Patches
 
             if(attacker.GetSEMan().HaveStatusEffect("Pinning") && !__instance.GetSEMan().HaveStatusEffect("Pinned") && !__instance.GetSEMan().HaveStatusEffect("Pinned Cooldown"))
             {
-                if (UtilityFunctions.CheckIfVulnerable(__instance, hit))
+                if (UtilityFunctions.CheckIfVulnerable(__instance, hit) || (attacker as Player).GetCurrentWeapon().m_shared.m_name.Contains("mace_fire"))
                 {
                     var effect = attacker.GetSEMan().GetStatusEffect("Pinning") as SE_Pinning;
                     __instance.GetSEMan().AddStatusEffect("Pinned");

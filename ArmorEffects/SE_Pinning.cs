@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Terraheim.ArmorEffects
 {
-    class SE_Pinning : StatusEffect
+    public class SE_Pinning : StatusEffect
     {
         public float m_pinTTL = 0f;
         public float m_pinCooldownTTL = 0f;

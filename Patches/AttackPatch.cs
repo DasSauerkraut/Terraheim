@@ -220,9 +220,11 @@ namespace Terraheim.Patches
             //Ranger weapon bonus
             if (weapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow || weapon.m_shared.m_name.Contains("spear") || weapon.m_shared.m_name.Contains("knife"))
             {
+                //Log.LogInfo(1);
                 if (character.GetSEMan().HaveStatusEffect("Ranger Weapon Bonus"))
                 {
-                    weapon.m_shared.m_attack.m_damageMultiplier += (character.GetSEMan().GetStatusEffect("Silver Damage Bonus") as SE_RangerWeaponBonus).GetDamageBonus();
+                    //Log.LogInfo(2);
+                    weapon.m_shared.m_attack.m_damageMultiplier += (character.GetSEMan().GetStatusEffect("Ranger Weapon Bonus") as SE_RangerWeaponBonus).GetDamageBonus();
                 }
             }
 
@@ -345,12 +347,17 @@ namespace Terraheim.Patches
                     __instance.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 1;
                 }
             }
-            else if (__instance.GetWeapon().m_shared.m_name.Contains("bow_fireTH"))
+            else if (__instance.m_character.IsPlayer() && __instance.GetWeapon().m_shared.m_name.Contains("bow_fireTH"))
             {
                 //Log.LogInfo("Is fire bow");
 
                 __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit = AssetHelper.BowFireExplosionPrefab;
                 __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 1;
+            }
+            else if(__instance.m_character.IsPlayer() && __instance.GetWeapon().m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow && __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit == AssetHelper.BowFireExplosionPrefab)
+            {
+                __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit = null;
+                __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 0;
             }
             if (__instance.m_character.GetSEMan().HaveStatusEffect("Throwing Weapon Velocity"))
             {

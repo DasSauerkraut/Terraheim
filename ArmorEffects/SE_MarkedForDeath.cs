@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Terraheim.ArmorEffects
 {
-    class SE_MarkedForDeath : StatusEffect
+    public class SE_MarkedForDeath : StatusEffect
     {
         public int m_activationCount = 0;
         public int m_count = 1;

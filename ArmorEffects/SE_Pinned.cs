@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Terraheim.ArmorEffects
 {
-    class SE_Pinned : StatusEffect
+    public class SE_Pinned : StatusEffect
     {
         static JObject balance = UtilityFunctions.GetJsonFromFile("weaponBalance.json");
         public float TTL
@@ -28,6 +28,8 @@ namespace Terraheim.ArmorEffects
 
         public override void UpdateStatusEffect(float dt)
         {
+            if (m_character.GetSEMan().HaveStatusEffect("Pinned Cooldown"))
+                m_character.GetSEMan().RemoveStatusEffect("Pinned");
             if (m_time >= TTL - 0.05f && !hasTriggered)
             {
                 Log.LogInfo(1);
