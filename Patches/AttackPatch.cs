@@ -348,10 +348,9 @@ namespace Terraheim.Patches
             }
             else if (__instance.m_character.IsPlayer() && __instance.GetWeapon().m_shared.m_name.Contains("bow_fireTH"))
             {
-                //Log.LogInfo("Is fire bow");
                 JObject balance = UtilityFunctions.GetJsonFromFile("weaponBalance.json");
-                AssetHelper.BowFireExplosionPrefab.GetComponent<Aoe>().m_damage.m_fire = (float)balance["BowFire"]["effectVal"];
                 __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit = AssetHelper.BowFireExplosionPrefab;
+                __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit.GetComponent<Aoe>().m_damage.m_fire = (float)balance["BowFire"]["effectVal"];
                 __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 1;
             }
             else if(__instance.m_character.IsPlayer() && __instance.GetWeapon().m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow && __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit == AssetHelper.BowFireExplosionPrefab)

@@ -63,7 +63,7 @@ EpicLoot is compatible but when you reforge an enchanted piece of armor, it will
 Flametal armor sets for each class
 EpicLoot version with tweaked balance
 ### Known Issues
-- You will appear naked on the character selection screen  
+none atm
 
 ### Recommended Mods
 These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
@@ -79,6 +79,9 @@ These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 [Nexus](https://www.nexusmods.com/valheim/mods/803?tab=description)
 
 ### Patchnotes
+**v2.0.2**
+- Fixed bug where Gywnttorrwr would not shoot arrows
+- O L Y M P I A can now be disabled
 **v2.0.2**
 - Fixed bug where new characters could not be created
 - Fixed characters being naked on the main menu
