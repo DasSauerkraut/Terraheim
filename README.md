@@ -79,6 +79,10 @@ These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 [Nexus](https://www.nexusmods.com/valheim/mods/803?tab=description)
 
 ### Patchnotes
+**v2.0.2**
+- Fixed bug where new characters could not be created
+- Fixed characters being naked on the main menu
+- Fixed bug where characters were missing beards/hair etc.
 **v2.0.1**
 - Forgot to change dependancies for the TerraheimItems.dll oops
 **v2.0.0 - Embers of Surtr**
