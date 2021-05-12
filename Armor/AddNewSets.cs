@@ -7,10 +7,10 @@ namespace Terraheim.Armor
     {
         internal static void Init()
         {
-            On.ObjectDB.CopyOtherDB += AddArmorSets;
+            ItemManager.OnVanillaItemsAvailable += AddArmorSets;
             ItemManager.OnItemsRegistered += ModExistingRecipes;
         }
-        private static void AddArmorSets(On.ObjectDB.orig_CopyOtherDB orig, ObjectDB self, ObjectDB other)
+        private static void AddArmorSets()
         {
 
             ArmorHelper.AddArmorSet("leather");

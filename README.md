@@ -79,6 +79,8 @@ These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 [Nexus](https://www.nexusmods.com/valheim/mods/803?tab=description)
 
 ### Patchnotes
+**v2.0.1**
+- Forgot to change dependancies for the TerraheimItems.dll oops
 **v2.0.0 - Embers of Surtr**
 This is a hefty update, adding 14 weapons, tons of effects, a new armor set, and a rework of the Troll Leather and Bronze armor sets. Enjoy!
 *Additions*
