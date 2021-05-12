@@ -1,11 +1,12 @@
 
+
 # Terraheim - Weapons/Tools/Armor
 **Terraheim** is both an overhaul for Valheim's armor system with the goal of making each armor set viable all the way to the end of the game and a weapon expansion that fills the gaps in the games base roster. 
-![Its ya boy, back at it again at the mountains](https://media.discordapp.net/attachments/610164117277245482/827282733658669056/unknown.png?width=960&height=540)
+![Beeg boe](https://media.discordapp.net/attachments/610164117277245482/841774554695204894/unknown.png?width=960&height=540)
 ## Weapons and Tools
-Nine new weapons and tools have been added with the goal of filling in the gaps in each tier.
-
-![weapons](https://cdn.discordapp.com/attachments/610164117277245482/828743095369334864/Capture.PNG)
+23 new weapons and tools have been added with the goal of filling in the gaps in each tier.
+12 of which are new Flametal weapons which have unique and dangerous effects, from hurtling waves of fire across the battlefield with Mistilteinn to teleporting to the struck location with Rhongomiant! 
+![weapons](https://cdn.discordapp.com/attachments/610164117277245482/828743095369334864/Capture.PNG)![Flametal Weapons](https://media.discordapp.net/attachments/610164117277245482/841773595658289182/unknown.png?width=960&height=632)
 ### Throwing Weapons
 Five new throwing axes have been added as well as Fire, Frost and Lightning bombs!
 ![Throwing Axes](https://cdn.discordapp.com/attachments/610164117277245482/834155655367491684/unknown.png)
@@ -15,7 +16,7 @@ If you only want the new weapons, you can delete the Terraheim.dll file to disab
 Each piece of armor has been given its own unique effect and each armor set its own set bonus while also allowing armor to be 'uptiered,' which increases all of the piece's stats to be usable in the next tier of gameplay. These effects can range from simple damage bonuses all the way to interesting effects like Wyrdarrow﻿!
 If you only want the armor changes, you can delete the TerraheimItems.dll file to disable the armor changes.
 ### Classes
-Each armor set has been divided into three classes:
+Each armor set has been divided into four classes:
 #### Berserkr
 Berserkr's have a focus on dodging, axe damage, two handed weapon damage and stamina management. 
 
@@ -24,6 +25,9 @@ Bowmen focus on dealing damage via, well bows, as well as daggers and spears. Th
 
 #### Shieldbrother
 Shieldbrothers are adept at blocking and have increased health. They can effectively deal damage with all melee weapons, but they are slower than the other classes. They have the highest armor rating in game.
+
+#### Braggart
+Braggart armor is for those who want a challenge, they provide some minor stat benefits with some large detriments too. Think of these sets as the Calamity ring from Dark Souls.
 
 ### Barbarian Armor
 If you have the [Barbarian Armor](https://www.nexusmods.com/valheim/mods/640) mod installed, it has been fully incorporated into Terraheim. The barbarian armor set provides several bonuses to throwing weapons as well as some interesting tertiary effects like a stacking move speed buff on kill and increased damage against low health targets.
@@ -36,7 +40,7 @@ You can view the full values for each set across every tier [here!](https://docs
 As you progress through the game, you will be able to reforge armor. Essentially leveling the armor up to utilize the new materials you come across. When you do so, the armor set's armor rating increases, and every one of its bonuses becomes more effective.
 For example, you can reforge the Bronze Helmet to become an Iron-Reinforced Bronze Helmet by combining a Bronze Helmet, some Iron, and some Deer Hide at the forge. By doing this, it's armor has increased from 15 to 19, and it's bonus(+5% Melee Damage) increases to +7% Melee Damage.
 Reforging means that you won't have chests full of out-dated equipment as you can continually have the armor set keep pace with your progression!
-Note that to reforge padded armor, you have to use the Artisan Table asides from the forge or workbench.
+You can reforge an item by going to the requisite crafting station with new materials and craft it as a new piece of armor.
 ## Utility Items
 Currently five utility items have been added:
 - Aescfell Belt: Increased damage vs trees
@@ -45,16 +49,18 @@ Currently five utility items have been added:
 - Stulor Belt: Increased sneak speed and less sneak stamina use
 - Casul Belt: Immunity to the wet ailment
 ## Balance
-**Terraheim** is highly customizable as the effectiveness, material costs, and almost every armor stat can be tweaked in the `balance.json` file. Weapons can be adjusted in the `weaponBalance.json` file.
+**Terraheim** is highly customizable as the effectiveness, material costs, and almost every armor stat can be tweaked in the `balance.json` file. Weapons can be adjusted and disabled in the `weaponBalance.json` file. Flametal weapons' special effects can be tweaked and disabled there as well.
+
 You can even change out what armor sets have what set effect! If you want the bronze armor set to have ranged damage or Wyrdarrow, you can!
-Just note that set effects are seperate from standard armor effects, so you can't assign Thorns to a helmet, it has to be the set bonus.
+Just note that set effects are seperate from standard armor effects, so you can't assign Thorns to a helmet, it has to be the set bonus. You can view the effect ids on the balance sheet, there are several unimplemented effects there if you want to experiment a bit.
+
 **Bow Balance** - To prevent bowmen from being the be all end all class, the bow weapon type has been slightly nerfed by halving movement speed while the bow is drawn. This can be mitigated by wearing silver armor, or if you don't like it at all, you can remove it by setting `"baseBowDrawMoveSpeeed"` to 1 in the `balance.json` file.
 ## Compatibility
 There seems to be an incompatibility with ValheimLibOpenDatabasePatch.dll. Unfortunately I can't do anything about this issue, sorry.
 TripleBronze also appears to be incompatible.
 EpicLoot is compatible but when you reforge an enchanted piece of armor, it will lose that enchantment until you relog/reload your world. A more graceful fix is coming.
 ## Future Plans
-Flametal armor sets and weapons for each class
+Flametal armor sets for each class
 EpicLoot version with tweaked balance
 ### Known Issues
 - You will appear naked on the character selection screen  
@@ -62,14 +68,50 @@ EpicLoot version with tweaked balance
 ### Recommended Mods
 These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 [Unique Weapons](https://www.nexusmods.com/valheim/mods/799) by v801
-[Combat Overhaul](https://www.nexusmods.com/valheim/mods/591) by leseryk (*This is the inspiration for the weapon draw speed effect.*)
+[Combat Overhaul](https://www.nexusmods.com/valheim/mods/591) by leseryk (*Terraheim is balanced with CO in mind.*)
 [Better Archery](https://www.nexusmods.com/valheim/mods/348?tab=description) by Elfking23
+[Monsternomicon](https://www.nexusmods.com/valheim/mods/1166?tab=description) by Belasias (*Adds new enemies to make the Ashlands a bit more fun to explore*)
+[Forgotten Biomes](https://www.nexusmods.com/valheim/mods/1128?tab=description) (*Adds a bunch of new clutter to the Ashlands, Ocean, and Deep North biomes.*)
 
 ### Mirrors
-[Github](https://github.com/DasSauerkraut/Terraheim)
+[Github Armor Repo](https://github.com/DasSauerkraut/Terraheim)
+[Github Items Repo](https://github.com/DasSauerkraut/TerraheimItems)
 [Nexus](https://www.nexusmods.com/valheim/mods/803?tab=description)
 
 ### Patchnotes
+**v2.0.0 - Embers of Surtr**
+This is a hefty update, adding 14 weapons, tons of effects, a new armor set, and a rework of the Troll Leather and Bronze armor sets. Enjoy!
+*Additions*
+- Added 12 new flametal weapons! Each flametal weapon has a unique effect, from hurling waves of fire across the battlefield with Mistilteinn to teleporting to the hit location using Rhongomiant. Each effect can be configured in weaponBalance.json, and the durability drain can be adjusted there as well. You can also turn off all effects in the same location.
+- Added the Blackmetal Bow, a fast firing sidegrade to the Draugr Fang.
+- Added the Parrying Dagger, which has low block values, but has a very high parry bonus.
+- Implemented the Béotes set, for those of you who want a unique challenge. This set can be crafted by reforging rag armor to tier 2.
+- Renamed all armor sets.
+
+- **Terraheim has migrated to JVL, ValheimLib is no longer required, but JVL MUST be installed for this mod to work**
+- You can now disable individual weapons in the weaponBalance.json
+
+*Balance*
+- Reworked the Jotunn(Troll Leather) set
+	- Jotunn Hood now provides a max +15% damage bonus to bows, spears, and daggers.
+	- Jotunn Legs now deal +10% poison damage when you hit an enemy with a damage type it is vulnerable to.
+	- Jotunn Set Bonus is now Pinning: Hitting an enemy with a damage type it is vulnerable to Pins it for 10s. Pinned enemies are vulnerable to all damage types and have reduced movement speed.
+- Reworked the Eorl(Bronze) Set
+	- Eorl Legs now provide a % based health bonus as opposed to a flat buff.
+	- Eorl Set Bonus is now Brassflesh: Hitting an enemy grants 2% damage reduction for 10 seconds, stacking up to 20%. This reduction applies before any armor bonuses are calculated.
+- Greatswords have had some balance adjustments
+	- Greatsword block values have all increased by 4, so Iron is now at 7, Folcbrand is at 8, and the Blackmetal greatsword is now at 9.
+	- Greatsword attack speed has been overall slowed by 20% to give them a different feel from normal swords.
+
+*Fixes*
+- Fixed the Black Void of Doom bug for the Marked for Death VFX
+- Fixed incorrect upgrade materials
+- Fixed duplication bug
+- Fixed greatswords being incorrectly flagged under the Run skill
+- Fixed breaking other mods localization
+- Fixed lag spike when grabbing corpses or taking all from chests.
+- Probably introduced a bunch of new bugs ¯\\\_(ツ)_/¯
+
 **v1.7.4**
 - The first attack for greatswords has been sped up by 20%.
 - The rest of the greatswords attack combo has been sped up 40%.
