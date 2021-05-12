@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
-using ValheimLib;
-using ValheimLib.ODB;
+using Jotunn;
+using Jotunn.Entities;
+using Jotunn.Managers;
 using Terraheim.ArmorEffects;
 using Terraheim.Utility;
 using Newtonsoft.Json.Linq;
@@ -24,6 +25,8 @@ namespace Terraheim.Patches
             {
                 var moveSpeedMult = (float)balance["baseBowDrawMoveSpeeed"];
                 SE_DrawMoveSpeed effect = __instance.GetSEMan().GetStatusEffect("Draw Move Speed") as SE_DrawMoveSpeed;
+                if (__instance.GetCurrentWeapon().m_shared.m_name.Contains("bow_fireTH"))
+                    moveSpeedMult = 0;
                 if (effect != null) moveSpeedMult += effect.GetDrawMoveSpeed();
                 __result *= moveSpeedMult;
             }

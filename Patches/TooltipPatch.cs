@@ -1,9 +1,6 @@
 ﻿using HarmonyLib;
-using ValheimLib;
-using ValheimLib.ODB;
 using Terraheim.ArmorEffects;
 using Terraheim.Utility;
-using Newtonsoft.Json.Linq;
 using System;
 using UnityEngine;
 
@@ -107,6 +104,12 @@ namespace Terraheim.Patches
             {
                 var effect = localplayer.GetSEMan().GetStatusEffect("Two Handed Damage Bonus") as SE_TwoHandedDmgBonus;
                 totalMultiplier += effect.getDamageBonus();
+            }
+
+            if (seman.HaveStatusEffect("Ranger Weapon Bonus") && (item.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow || item.m_shared.m_name.Contains("spear") || item.m_shared.m_name.Contains("knife")))
+            {
+                var effect = localplayer.GetSEMan().GetStatusEffect("Ranger Weapon Bonus") as SE_RangerWeaponBonus;
+                totalMultiplier += effect.GetDamageBonus();
             }
 
             if (seman.HaveStatusEffect("Throwing Damage Bonus") && item.m_shared.m_name.Contains("_throwingaxe") ||

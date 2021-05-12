@@ -1,6 +1,6 @@
 ﻿using Terraheim.Utility;
 using UnityEngine;
-using ValheimLib;
+using Jotunn.Managers;
 
 namespace Terraheim.ArmorEffects
 {
@@ -19,7 +19,6 @@ namespace Terraheim.ArmorEffects
             base.name = "Wyrdarrow";
             m_tooltip = "Hitting an enemy " + m_activationCount + " times charges you. The next bowshot or special attack with daggers and spears will deal " 
                 + m_damageBonus * 100 + "% of damage dealt as spirit/frost damage in a " + m_aoeSize + "m radius.";
-            m_icon = null;
         }
 
         public void IncreaseCounter()
@@ -63,7 +62,7 @@ namespace Terraheim.ArmorEffects
 
         public void SetIcon()
         {
-            m_icon = Prefab.Cache.GetPrefab<ItemDrop>("HelmetDrake").m_itemData.GetIcon();
+            m_icon = PrefabManager.Cache.GetPrefab<ItemDrop>("HelmetDrake").m_itemData.GetIcon();
         }
 
         public void SetDamageBonus(float bonus)

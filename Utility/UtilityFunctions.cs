@@ -43,6 +43,8 @@ namespace Terraheim.Utility
                         return true;
                     case "Throwing Damage Bonus":
                         return true;
+                    case "Ranger Weapon Bonus":
+                        return true;
                     default:
                         break;
                 }
@@ -50,5 +52,68 @@ namespace Terraheim.Utility
             return false;
         }
         
+        public static bool CheckBarbarian()
+        {
+            if (!File.Exists(Terraheim.ModPath + "/../barbarianArmor.dll"))
+            {
+                Log.LogWarning("Barbarian armor not found!");
+                return false;
+            }
+            Log.LogInfo("Barbarian Armor Found!");
+            return true;
+        }
+
+        public static bool CheckIfVulnerable(Character __instance, HitData hit)
+        {
+            if ((__instance.GetDamageModifier(HitData.DamageType.Blunt) == HitData.DamageModifier.Weak ||
+                __instance.GetDamageModifier(HitData.DamageType.Blunt) == HitData.DamageModifier.VeryWeak) &&
+                hit.m_damage.m_blunt > 0)
+            {
+                return true;
+            }
+            else if ((__instance.GetDamageModifier(HitData.DamageType.Slash) == HitData.DamageModifier.Weak ||
+                __instance.GetDamageModifier(HitData.DamageType.Slash) == HitData.DamageModifier.VeryWeak) &&
+                hit.m_damage.m_slash > 0)
+            {
+                return true;
+            }
+            else if ((__instance.GetDamageModifier(HitData.DamageType.Pierce) == HitData.DamageModifier.Weak ||
+                __instance.GetDamageModifier(HitData.DamageType.Pierce) == HitData.DamageModifier.VeryWeak) &&
+                hit.m_damage.m_pierce > 0)
+            {
+                return true;
+            }
+            else if ((__instance.GetDamageModifier(HitData.DamageType.Fire) == HitData.DamageModifier.Weak ||
+                __instance.GetDamageModifier(HitData.DamageType.Fire) == HitData.DamageModifier.VeryWeak) &&
+                hit.m_damage.m_fire > 0)
+            {
+                return true;
+            }
+            else if ((__instance.GetDamageModifier(HitData.DamageType.Frost) == HitData.DamageModifier.Weak ||
+                __instance.GetDamageModifier(HitData.DamageType.Frost) == HitData.DamageModifier.VeryWeak) &&
+                hit.m_damage.m_frost > 0)
+            {
+                return true;
+            }
+            else if ((__instance.GetDamageModifier(HitData.DamageType.Lightning) == HitData.DamageModifier.Weak ||
+                __instance.GetDamageModifier(HitData.DamageType.Lightning) == HitData.DamageModifier.VeryWeak) &&
+                hit.m_damage.m_lightning > 0)
+            {
+                return true;
+            }
+            else if ((__instance.GetDamageModifier(HitData.DamageType.Spirit) == HitData.DamageModifier.Weak ||
+                __instance.GetDamageModifier(HitData.DamageType.Spirit) == HitData.DamageModifier.VeryWeak) &&
+                hit.m_damage.m_spirit > 0)
+            {
+                return true;
+            }
+            else if ((__instance.GetDamageModifier(HitData.DamageType.Poison) == HitData.DamageModifier.Weak ||
+                __instance.GetDamageModifier(HitData.DamageType.Poison) == HitData.DamageModifier.VeryWeak) &&
+                hit.m_damage.m_poison > 0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

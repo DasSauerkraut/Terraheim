@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using Terraheim.Utility;
 using UnityEngine;
-using ValheimLib;
 
 namespace Terraheim.ArmorEffects
 {

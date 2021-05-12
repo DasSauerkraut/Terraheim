@@ -28,6 +28,11 @@ namespace Terraheim.Utility
             get; set;
         }
 
+        public static EffectList.EffectData VFXPinned
+        {
+            get; set;
+        }
+
         public class ArmorSet
         {
             public string HelmetID { get; set; }
@@ -40,8 +45,28 @@ namespace Terraheim.Utility
             public int HelmetArmor { get; set; }
         }
 
+        public class UtilityBelt
+        {
+            public string BaseID { get; set; }
+            public string FinalID { get; set; }
+            public string CloneID { get; set; }
+            public string Name { get; set; }
+        }
+
         public static Dictionary<string, ArmorSet> ArmorSets = new Dictionary<string, ArmorSet>
         {
+            {"rags", new ArmorSet
+                {
+                    HelmetID = "n/a",
+                    ChestID = "ArmorRagsChest",
+                    LegsID = "ArmorRagsLegs",
+                    HelmetName = "n/a",
+                    ChestName = "$item_chest_rags_t",
+                    LegsName = "$item_legs_rags_t",
+                    ClassName = "$class_challenge",
+                    HelmetArmor = 0
+                }
+            },
             {"leather", new ArmorSet
                 {
                     HelmetID = "HelmetLeather",
@@ -109,9 +134,9 @@ namespace Terraheim.Utility
                     HelmetID = "HelmetPadded",
                     ChestID = "ArmorPaddedCuirass",
                     LegsID = "ArmorPaddedGreaves",
-                    HelmetName = "$item_helmet_drake",
-                    ChestName = "$item_chest_wolf",
-                    LegsName = "$item_legs_wolf",
+                    HelmetName = "$item_helmet_padded_t",
+                    ChestName = "$item_chest_padded_t",
+                    LegsName = "$item_legs_padded_t",
                     ClassName = "$class_tank",
                     HelmetArmor = 2
                 }
@@ -128,6 +153,50 @@ namespace Terraheim.Utility
                     HelmetArmor = 1
                 }
             }
+        };
+
+        public static readonly Dictionary<string, UtilityBelt> UtilityBelts = new Dictionary<string, UtilityBelt>()
+        {
+            {"woodsmanHelmet", new UtilityBelt
+                {
+                    BaseID = "HelmetWoodsman",
+                    CloneID = "BeltStrength",
+                    FinalID = "HelmetWoodsman_Terraheim_AddCirculets_AddWoodsmanCirculet",
+                    Name = "$item_helmet_woodsman"
+                }
+            },
+            {"minersBelt", new UtilityBelt
+                {
+                    BaseID = "BeltMiner",
+                    CloneID = "BeltStrength",
+                    FinalID = "BeltMiner_Terraheim_AddCirculets_AddMinersCirculet",
+                    Name = "$item_belt_miner"
+                }
+            },
+            {"waterproofBelt", new UtilityBelt
+                {
+                    BaseID = "BeltWaterproof",
+                    CloneID = "BeltStrength",
+                    FinalID = "BeltWaterproof_Terraheim_AddCirculets_AddWaterproofBelt",
+                    Name = "$item_belt_waterproof"
+                }
+            },
+            {"farmerBelt", new UtilityBelt
+                {
+                    BaseID = "BeltFarmer",
+                    CloneID = "BeltStrength",
+                    FinalID = "BeltFarmer_Terraheim_AddCirculets_AddFarmerBelt",
+                    Name = "$item_belt_farmer"
+                }
+            },
+            {"thiefBelt", new UtilityBelt
+                {
+                    BaseID = "BeltThief",
+                    CloneID = "BeltStrength",
+                    FinalID = "BeltThief_Terraheim_AddCirculets_AddThiefBelt",
+                    Name = "$item_belt_thief"
+                }
+            },
         };
     }
 }

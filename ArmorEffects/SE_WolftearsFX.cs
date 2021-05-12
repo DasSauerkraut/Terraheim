@@ -1,6 +1,8 @@
 ﻿using Terraheim.Utility;
 using UnityEngine;
-using ValheimLib;
+using Jotunn;
+using Jotunn.Entities;
+using Jotunn.Managers;
 
 namespace Terraheim.ArmorEffects
 {

@@ -1,7 +1,9 @@
 ﻿using HarmonyLib;
 using System.Collections.Generic;
 using Terraheim.ArmorEffects;
-using ValheimLib;
+using Jotunn;
+using Jotunn.Entities;
+using Jotunn.Managers;
 
 namespace Terraheim.Patches
 {
@@ -32,6 +34,15 @@ namespace Terraheim.Patches
                             //Log.LogMessage("mod burn " + food.m_item.m_shared.m_foodBurnTime);
                         }
                     }
+                    else if (__instance.GetSEMan().HaveStatusEffect("Challenge Dodge Bonus"))
+                    {
+                        if (food.m_item.m_shared.m_foodBurnTime == foodDuration[food.m_name])
+                        {
+                            //Log.LogMessage("Dictionary Contains Food " + food.m_name + " base burn " + food.m_item.m_shared.m_foodBurnTime + " Dict Usage " + foodDuration[food.m_name]);
+                            food.m_item.m_shared.m_foodBurnTime = foodDuration[food.m_name] * 0.5f;
+                            //Log.LogMessage("mod burn " + food.m_item.m_shared.m_foodBurnTime);
+                        }
+                    }
                     else if (food.m_item.m_shared.m_foodBurnTime != foodDuration[food.m_name]) food.m_item.m_shared.m_foodBurnTime = foodDuration[food.m_name];
                 }
                 else
@@ -45,7 +56,16 @@ namespace Terraheim.Patches
                          food.m_item.m_shared.m_foodBurnTime = foodDuration[food.m_name] * (1 + effect.GetFoodUsage());
                          //Log.LogMessage("mod burn " + food.m_item.m_shared.m_foodBurnTime);
                      }
-                     else if (food.m_item.m_shared.m_foodBurnTime != foodDuration[food.m_name]) food.m_item.m_shared.m_foodBurnTime = foodDuration[food.m_name];
+                    else if (__instance.GetSEMan().HaveStatusEffect("Challenge Dodge Bonus"))
+                    {
+                        if (food.m_item.m_shared.m_foodBurnTime == foodDuration[food.m_name])
+                        {
+                            //Log.LogMessage("Dictionary Contains Food " + food.m_name + " base burn " + food.m_item.m_shared.m_foodBurnTime + " Dict Usage " + foodDuration[food.m_name]);
+                            food.m_item.m_shared.m_foodBurnTime = foodDuration[food.m_name] * 0.5f;
+                            //Log.LogMessage("mod burn " + food.m_item.m_shared.m_foodBurnTime);
+                        }
+                    }
+                    else if (food.m_item.m_shared.m_foodBurnTime != foodDuration[food.m_name]) food.m_item.m_shared.m_foodBurnTime = foodDuration[food.m_name];
                      //Log.LogMessage("Dictionary Contains Food " + food.m_name + " base burn " + food.m_item.m_shared.m_foodBurnTime + " Dict Usage " + foodDuration[food.m_name]);
                 }
                     

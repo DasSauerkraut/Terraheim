@@ -1,10 +1,9 @@
 ﻿using Terraheim.Utility;
 using UnityEngine;
-using ValheimLib;
 
 namespace Terraheim.ArmorEffects
 {
-    class SE_MarkedForDeath : StatusEffect
+    public class SE_MarkedForDeath : StatusEffect
     {
         public int m_activationCount = 0;
         public int m_count = 1;

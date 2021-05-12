@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json.Linq;
 using Terraheim.Utility;
 using UnityEngine;
-using ValheimLib;
+using Jotunn;
+using Jotunn.Entities;
+using Jotunn.Managers;
 
 namespace Terraheim.ArmorEffects
 {
@@ -24,7 +26,7 @@ namespace Terraheim.ArmorEffects
         public void SetIcon()
         {
             if(m_icon == null)
-                m_icon = Prefab.Cache.GetPrefab<ItemDrop>("HelmetIron").m_itemData.GetIcon();
+                m_icon = PrefabManager.Cache.GetPrefab<ItemDrop>("HelmetIron").m_itemData.GetIcon();
             int damageDisplay = Mathf.RoundToInt((1-m_character.GetHealthPercentage()) * 10);
             if (m_character.GetHealthPercentage() <= m_activationHealth)
                 damageDisplay = 10;

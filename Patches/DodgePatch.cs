@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
-using ValheimLib;
-using ValheimLib.ODB;
+using Jotunn;
+using Jotunn.Entities;
+using Jotunn.Managers;
 using Terraheim.ArmorEffects;
 using Terraheim.Utility;
 using Newtonsoft.Json.Linq;
@@ -27,6 +28,13 @@ namespace Terraheim.Patches
                 SE_DodgeStamUse effect = ___m_seman.GetStatusEffect("Dodge Stamina Use") as SE_DodgeStamUse;
                 //Log.LogMessage("Has Effect");
                 ___m_dodgeStaminaUsage = baseStaminaUse * (1 - effect.getDodgeStaminaUse());
+                //Log.LogWarning("Stamina Use: " + ___m_dodgeStaminaUsage);
+            }
+            else if (___m_seman.HaveStatusEffect("Challenge Dodge Bonus"))
+            {
+                SE_ChallengeDodgeBonus effect = ___m_seman.GetStatusEffect("Challenge Dodge Bonus") as SE_ChallengeDodgeBonus;
+                //Log.LogMessage("Has Effect");
+                ___m_dodgeStaminaUsage = baseStaminaUse * (1 - effect.GetDodgeBonus());
                 //Log.LogWarning("Stamina Use: " + ___m_dodgeStaminaUsage);
             }
             else if(___m_dodgeStaminaUsage != baseStaminaUse)

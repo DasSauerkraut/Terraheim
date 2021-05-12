@@ -17,13 +17,18 @@ namespace Terraheim.Utility
         public static GameObject FXExecution;
         public static GameObject FXMarkedForDeath;
         public static GameObject FXMarkedForDeathHit;
+        public static GameObject FXPinned;
 
         public static GameObject TestProjectile;
         public static GameObject TestExplosion;
+        public static GameObject BowFireExplosionPrefab;
+        public static GameObject FlamebowWyrdExplosion;
 
         public static AudioClip AoEReady;
         public static AudioClip SFXExecution;
         public static AudioClip SFXMarkedForDeath;
+
+        public static Sprite SpriteTempStatus;
 
         public static void Init()
         {
@@ -37,14 +42,18 @@ namespace Terraheim.Utility
             FXExecution = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/vfx_Execution.prefab");
             FXMarkedForDeath = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/vfx_MarkedForDeath.prefab");
             FXMarkedForDeathHit = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/vfx_MarkedForDeathHit.prefab");
+            FXPinned = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/vfx_Pinned.prefab");
 
             TestExplosion = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/test_explosion.prefab");
             TestProjectile = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/test_projectile.prefab");
-            
+            FlamebowWyrdExplosion = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/flametal/bow/bowFire_wyrdexplosion.prefab");
+            BowFireExplosionPrefab = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/flametal/bow/bowFire_explosion1.prefab");
+
             AoEReady = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/Dragon_BreathIce5.wav");
             SFXExecution = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/Magic_Spell_EnergyBall8.wav");
             SFXMarkedForDeath = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/DarkMagic_SpellImpact15.wav");
 
+            SpriteTempStatus = TerraheimAssetBundle.LoadAsset<Sprite>("Assets/CustomItems/TEMPICON.png");
         }
 
         public static AssetBundle GetAssetBundleFromResources(string filename)
@@ -96,6 +105,17 @@ namespace Terraheim.Utility
             Data.VFXMarkedForDeath = new EffectList.EffectData()
             {
                 m_prefab = Utility.AssetHelper.FXMarkedForDeath,
+                m_enabled = true,
+                m_attach = true,
+                m_inheritParentRotation = false,
+                m_inheritParentScale = true,
+                m_randomRotation = false,
+                m_scale = true
+            };
+
+            Data.VFXPinned = new EffectList.EffectData()
+            {
+                m_prefab = Utility.AssetHelper.FXPinned,
                 m_enabled = true,
                 m_attach = true,
                 m_inheritParentRotation = false,
