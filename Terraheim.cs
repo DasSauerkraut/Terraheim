@@ -6,6 +6,7 @@ using Terraheim.ArmorEffects;
 using HarmonyLib;
 using Terraheim.Utility;
 using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace Terraheim
 {
@@ -20,10 +21,12 @@ namespace Terraheim
         public const string ModGuid = AuthorName + "." + ModName;
         private const string AuthorName = "DasSauerkraut";
         private const string ModName = "Terraheim";
-        private const string ModVer = "2.0.3";
+        private const string ModVer = "2.0.4";
         public static readonly string ModPath = Path.GetDirectoryName(typeof(Terraheim).Assembly.Location);
 
         public static bool hasBarbarianArmor = false;
+        
+        static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
 
         private readonly Harmony harmony = new Harmony(ModGuid);
 
@@ -43,8 +46,16 @@ namespace Terraheim
             AssetHelper.SetupVFX();
 
             hasBarbarianArmor = UtilityFunctions.CheckBarbarian();
-            Armor.ModExistingSets.Init();
-            Armor.AddNewSets.Init();
+            if ((bool)balance["armorChangesEnabled"])
+            {
+                Armor.ModExistingSets.Init();
+                Armor.AddNewSets.Init();
+            }
+            else
+            {
+                Log.LogInfo("Terraheim armor changes disabled!");
+            }
+            
 
             Log.LogInfo("Patching complete");
         }

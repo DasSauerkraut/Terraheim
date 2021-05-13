@@ -11,7 +11,7 @@
 Five new throwing axes have been added as well as Fire, Frost and Lightning bombs!
 ![Throwing Axes](https://cdn.discordapp.com/attachments/610164117277245482/834155655367491684/unknown.png)
 You can view damage values, moveset information, and recipes [here](https://docs.google.com/spreadsheets/d/1DlnnJOvorgCQ1k1e4lO5nF8M-QQpf7FZmO5bRj3mwLI/edit?usp=sharing) in the Weapons tab.
-If you only want the new weapons, you can delete the Terraheim.dll file to disable the armor changes.
+If you only want the new weapons, you can set the `armorChangesEnabled` field to false in the `balance.json` file to disable the armor changes.
 ## Armor
 Each piece of armor has been given its own unique effect and each armor set its own set bonus while also allowing armor to be 'uptiered,' which increases all of the piece's stats to be usable in the next tier of gameplay. These effects can range from simple damage bonuses all the way to interesting effects like Wyrdarrow﻿!
 If you only want the armor changes, you can delete the TerraheimItems.dll file to disable the armor changes.
@@ -71,7 +71,7 @@ These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 [Combat Overhaul](https://www.nexusmods.com/valheim/mods/591) by leseryk (*Terraheim is balanced with CO in mind.*)
 [Better Archery](https://www.nexusmods.com/valheim/mods/348?tab=description) by Elfking23
 [Monsternomicon](https://www.nexusmods.com/valheim/mods/1166?tab=description) by Belasias (*Adds new enemies to make the Ashlands a bit more fun to explore*)
-[Forgotten Biomes](https://www.nexusmods.com/valheim/mods/1128?tab=description) (*Adds a bunch of new clutter to the Ashlands, Ocean, and Deep North biomes.*)
+[Forgotten Biomes](https://www.nexusmods.com/valheim/mods/1128?tab=description) by Alree (*Adds a bunch of new clutter to the Ashlands, Ocean, and Deep North biomes.*)
 
 ### Mirrors
 [Github Armor Repo](https://github.com/DasSauerkraut/Terraheim)
@@ -79,7 +79,11 @@ These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 [Nexus](https://www.nexusmods.com/valheim/mods/803?tab=description)
 
 ### Patchnotes
-**v2.0.2**
+**v2.0.4**
+- Fixed NPCs being unable to fire bows
+- Fixed some bows being unable to fire arrows
+- Changed how to disable the Terraheim armor changes. Simply set the armorChangesEnabled field to false in the balance.json file. The Terraheim.dll is now REQUIRED to be installed!
+**v2.0.3**
 - Fixed bug where Gywnttorrwr would not shoot arrows
 - O L Y M P I A can now be disabled
 **v2.0.2**
