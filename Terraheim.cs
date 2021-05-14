@@ -13,8 +13,6 @@ namespace Terraheim
     [BepInDependency(Jotunn.Main.ModGuid, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("GoldenJude_BarbarianArmor", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin(ModGuid, ModName, ModVer)]
-    [BepInProcess("valheim.exe")]
-
     class Terraheim : BaseUnityPlugin
     {
 

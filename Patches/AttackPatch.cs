@@ -304,7 +304,7 @@ namespace Terraheim.Patches
         [HarmonyPrefix]
         public static void FireProjectileBurstPrefix(ref Attack __instance)
         {
-            //Log.LogInfo("Firing Proj");
+            Log.LogInfo("Firing Proj");
             if (__instance.m_character.GetSEMan().HaveStatusEffect("WyrdarrowFX"))
             {
                 var effect = __instance.m_character.GetSEMan().GetStatusEffect("Wyrdarrow") as SE_AoECounter;
@@ -349,14 +349,23 @@ namespace Terraheim.Patches
             else if (__instance.m_character.IsPlayer() && __instance.GetWeapon().m_shared.m_name.Contains("bow_fireTH"))
             {
                 JObject balance = UtilityFunctions.GetJsonFromFile("weaponBalance.json");
+                
                 __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit = AssetHelper.BowFireExplosionPrefab;
                 __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit.GetComponent<Aoe>().m_damage.m_fire = (float)balance["BowFire"]["effectVal"];
                 __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 1;
             }
-            else if(__instance.m_character.IsPlayer() && __instance.GetWeapon().m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow && __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit == AssetHelper.BowFireExplosionPrefab)
+            else if(__instance.m_character.IsPlayer() && __instance.GetWeapon().m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow)
             {
-                __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit = null;
-                __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 0;
+                var explosion = AssetHelper.BowFireExplosionPrefab;
+                if(__instance.m_ammoItem != null &&
+                    __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile != null && 
+                    __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>() != null && 
+                    __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit == explosion)
+                {
+                    __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit = null;
+                    __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 0;
+                }
+                
             }
             if (__instance.m_character.GetSEMan().HaveStatusEffect("Throwing Weapon Velocity"))
             {

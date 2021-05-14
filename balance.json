@@ -213,7 +213,7 @@
         "setBonusVal": 0.08,
         "headEffectVal": 0.05,
         "chestEffectVal": 0.08,
-        "legsEffectVal": 0.8,
+        "legsEffectVal": 0.08,
         "upgrades": {
             "startingTier": 3,
             "t3": {
