@@ -42,11 +42,7 @@ namespace Terraheim.Patches
                         }
                     }
                 }
-                
-                /*if (attacker.GetSEMan().HaveStatusEffect("Wyrdarrow"))
-                {
-                    (attacker.GetSEMan().GetStatusEffect("Wyrdarrow") as SE_AoECounter).IncreaseCounter();
-                }*/
+               
                 } catch
             {
                 return;
@@ -57,7 +53,7 @@ namespace Terraheim.Patches
         [HarmonyPatch(typeof(Character), "ApplyDamage")]
         public static void DamagePrefix(Character __instance, ref HitData hit)
         {
-            if (!hit.HaveAttacker())
+            if (!hit.HaveAttacker() || !hit.GetAttacker().IsPlayer())
                 return;
             Character attacker = hit.GetAttacker();
 
@@ -195,7 +191,6 @@ namespace Terraheim.Patches
             {
                 if (UtilityFunctions.CheckIfVulnerable(__instance, hit))
                 {
-                    Log.LogInfo("Vulnerable");
                     var effect = attacker.GetSEMan().GetStatusEffect("Poison Vulnerable") as SE_PoisonVulnerable;
                     __instance.AddPoisonDamage(hit.GetTotalDamage() * effect.GetDamageBonus());
                     //hit.m_damage.m_poison += hit.GetTotalDamage() * effect.GetDamageBonus();
