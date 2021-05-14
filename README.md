@@ -79,6 +79,11 @@ These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 [Nexus](https://www.nexusmods.com/valheim/mods/803?tab=description)
 
 ### Patchnotes
+**v2.0.5**
+- Fixed Eorl Leggings T2 providing +80% HP instead of 8%
+- Fixed incompatability with Forsaken Weapons
+- Fixed issue with NPCs being unable to damage each other
+- Disabling a weapon will now also disable its recipe
 **v2.0.4**
 - Fixed NPCs being unable to fire bows
 - Fixed some bows being unable to fire arrows
