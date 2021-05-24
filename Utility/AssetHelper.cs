@@ -19,6 +19,14 @@ namespace Terraheim.Utility
         public static GameObject FXMarkedForDeathHit;
         public static GameObject FXPinned;
 
+        public static GameObject ItemSalamanderFurPrefab;
+        public static GameObject PieceReforgerPrefab;
+        public static GameObject PieceReforgerExt1Prefab;
+        public static GameObject PieceReforgerExt2Prefab;
+        public static GameObject PieceReforgerExt3Prefab;
+        public static GameObject PieceReforgerExt4Prefab;
+        public static GameObject PieceReforgerExt5Prefab;
+
         public static GameObject TestProjectile;
         public static GameObject TestExplosion;
         public static GameObject BowFireExplosionPrefab;
@@ -48,6 +56,14 @@ namespace Terraheim.Utility
             TestProjectile = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/test_projectile.prefab");
             FlamebowWyrdExplosion = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/flametal/bow/bowFire_wyrdexplosion.prefab");
             BowFireExplosionPrefab = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/flametal/bow/bowFire_explosion1.prefab");
+
+            ItemSalamanderFurPrefab = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/material/SalamanderFurTH.prefab");
+            PieceReforgerPrefab = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/CraftingBench/reforger.prefab");
+            PieceReforgerExt1Prefab = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/CraftingBench/ext1/reforger_ext1.prefab");
+            PieceReforgerExt2Prefab = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/CraftingBench/ext2/reforger_ext2.prefab");
+            PieceReforgerExt3Prefab = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/CraftingBench/ext3/reforger_ext3.prefab");
+            PieceReforgerExt4Prefab = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/CraftingBench/ext4/reforger_ext4.prefab");
+            PieceReforgerExt5Prefab = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/CraftingBench/ext5/reforger_ext5.prefab");
 
             AoEReady = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/Dragon_BreathIce5.wav");
             SFXExecution = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/Magic_Spell_EnergyBall8.wav");

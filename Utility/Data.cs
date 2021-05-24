@@ -152,6 +152,18 @@ namespace Terraheim.Utility
                     ClassName = "$class_thrower",
                     HelmetArmor = 1
                 }
+            },
+            {"chaos", new ArmorSet
+                {
+                    HelmetID = "ChaosPlateArmorBody",
+                    ChestID = "ChaosPlateHelm",
+                    LegsID = "ChaosPlateLegs",
+                    HelmetName = "$item_helmet_chaos_t",
+                    ChestName = "$item_chest_chaos_t",
+                    LegsName = "$item_legs_chaos_t",
+                    ClassName = "$class_berserker",
+                    HelmetArmor = 0
+                }
             }
         };
 

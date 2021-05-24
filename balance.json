@@ -385,6 +385,32 @@
             }
         }
     },
+    "chaos": {
+        "name": "chaos",
+        "baseArmor": 20,
+        "armorPerLevel": 2,
+        "globalMoveMod": 0,
+        "setEffect": "champion",
+        "headEffect": "2hattackspeed",
+        "chestEffect": "hyperarmor",
+        "legsEffect": "parrybns",
+        "setBonusVal": 2.0,
+        "headEffectVal": 0.08,
+        "chestEffectVal": 0.20,
+        "legsEffectVal": 0.10,
+        "upgrades": {
+            "startingTier": 5,
+            "t5": {
+                "baseArmor": 24,
+                "armorPerLevel": 2,
+                "globalMoveMod": 0,
+                "setBonusVal": 3.0,
+                "headEffectVal": 0.10,
+                "chestEffectVal": 0.30,
+                "legsEffectVal": 0.15
+            }
+        }
+    },
     "capes": {
         "leather": {
             "effect": "movespeed",
@@ -409,6 +435,46 @@
         "barbarian": {
             "effect": "speedonkill",
             "capeEffectVal": 0.10
+        },
+        "upgrades": {
+            "t0": {
+                "station": "reforger",
+                "minLevel": 2,
+                "resources": [
+                    {
+                        "item": "TrophyWolf",
+                        "amount": 1,
+                        "perLevel": 0
+                    },
+                    {
+                        "item": "WolfPelt",
+                        "amount": 5,
+                        "perLevel": 1
+                    },
+                    {
+                        "item": "Silver",
+                        "amount": 6,
+                        "perLevel": 2
+                    }
+                ]
+            },
+            "t1": {
+                "station": "reforger",
+                "minLevel": 2,
+                "resources": [
+                    {
+                        "item": "SalamanderFur",
+                        "amount": 4,
+                        "perLevel": 0
+                    },
+                    {
+                        "item": "BoneFragments",
+                        "amount": 3,
+                        "perLevel": 0
+                    }
+                ]
+            }
+
         }
     },
     "woodsmanHelmet": {
@@ -581,9 +647,33 @@
             ]
         }
     },
+    "salamanderFur": {
+        "crafting": {
+            "station": "piece_workbench",
+            "minLevel": 4,
+            "amountCrafted": 1,
+            "items": [
+                {
+                    "item": "SurtlingCore",
+                    "amount": 1,
+                    "perLevel": 0
+                },
+                {
+                    "item": "LinenThread",
+                    "amount": 5,
+                    "perLevel": 0
+                },
+                {
+                    "item": "Chitin",
+                    "amount": 1,
+                    "perLevel": 0
+                }
+            ]
+        }
+    },
     "upgradePath": {
         "t1": {
-            "station": "piece_workbench",
+            "station": "reforger",
             "minLevel": 1,
             "head": [
                 {
@@ -613,7 +703,7 @@
             ]
         },
         "t2": {
-            "station": "forge",
+            "station": "reforger",
             "minLevel": 1,
             "head": [
                 {
@@ -653,7 +743,7 @@
             ]
         },
         "t3": {
-            "station": "forge",
+            "station": "reforger",
             "minLevel": 2,
             "head": [
                 {
@@ -693,7 +783,7 @@
             ]
         },
         "t4": {
-            "station": "forge",
+            "station": "reforger",
             "minLevel": 2,
             "head": [
                 {
@@ -748,7 +838,7 @@
             ]
         },
         "t5": {
-            "station": "forge",
+            "station": "reforger",
             "minLevel": 1,
             "head": [
                 {

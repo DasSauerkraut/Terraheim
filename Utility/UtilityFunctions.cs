@@ -63,6 +63,22 @@ namespace Terraheim.Utility
             return true;
         }
 
+        public static bool CheckChaos()
+        {
+            if (File.Exists(Terraheim.ModPath + "/../ChaosArmor.dll"))
+            {
+                Log.LogInfo("Chaos Armor Found!");
+                return true;
+            }
+            else if (File.Exists(Terraheim.ModPath + "/../AeehyehssReeper-ChaosArmor/ChaosArmor.dll"))
+            {
+                Log.LogInfo("Chaos Armor Found!");
+                return true;
+            }
+            Log.LogWarning("Chaos armor not found!");
+            return false;
+        }
+
         public static bool CheckIfVulnerable(Character __instance, HitData hit)
         {
             if ((__instance.GetDamageModifier(HitData.DamageType.Blunt) == HitData.DamageModifier.Weak ||

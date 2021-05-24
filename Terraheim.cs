@@ -7,11 +7,13 @@ using HarmonyLib;
 using Terraheim.Utility;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace Terraheim
 {
     [BepInDependency(Jotunn.Main.ModGuid, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("GoldenJude_BarbarianArmor", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("AeehyehssReeper-ChaosArmor", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin(ModGuid, ModName, ModVer)]
     class Terraheim : BaseUnityPlugin
     {
@@ -23,7 +25,9 @@ namespace Terraheim
         public static readonly string ModPath = Path.GetDirectoryName(typeof(Terraheim).Assembly.Location);
 
         public static bool hasBarbarianArmor = false;
-        
+        public static bool hasChaosArmor = false;
+        //public static CustomItem salamanderItem;
+
         static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
 
         private readonly Harmony harmony = new Harmony(ModGuid);
@@ -37,13 +41,15 @@ namespace Terraheim
 
             TranslationUtils.LoadTranslations();
             SetupStatusEffects();
-
             harmony.PatchAll();
 
             AssetHelper.Init();
             AssetHelper.SetupVFX();
+            Pieces.Init();
+            AddResources();
 
             hasBarbarianArmor = UtilityFunctions.CheckBarbarian();
+            hasChaosArmor = UtilityFunctions.CheckChaos();
             if ((bool)balance["armorChangesEnabled"])
             {
                 Armor.ModExistingSets.Init();
@@ -58,6 +64,31 @@ namespace Terraheim
             Log.LogInfo("Patching complete");
         }
 
+        private void AddResources()
+        {
+            var salRecipe = ScriptableObject.CreateInstance<Recipe>();
+
+            salRecipe.m_item = AssetHelper.ItemSalamanderFurPrefab.GetComponent<ItemDrop>();
+            var itemReqs = new List<Piece.Requirement>();
+            int index = 0;
+            foreach (var item in balance["salamanderFur"]["crafting"]["items"])
+            {
+                itemReqs.Add(MockRequirement.Create((string)item["item"], (int)item["amount"]));
+                itemReqs[index].m_amountPerLevel = (int)item["perLevel"];
+                index++;
+            }
+            salRecipe.name = $"Recipe_{balance["salamanderFur"].Path}";
+            salRecipe.m_resources = itemReqs.ToArray();
+            salRecipe.m_craftingStation = Mock<CraftingStation>.Create((string)balance["salamanderFur"]["crafting"]["station"]);
+            salRecipe.m_amount = (int)balance["salamanderFur"]["crafting"]["amountCrafted"];
+
+            CustomRecipe SalamanderRecipe = new CustomRecipe(salRecipe, true, true);
+
+            ItemManager.Instance.AddRecipe(SalamanderRecipe);
+            
+            SharedResources.SalamanderItem = new CustomItem(AssetHelper.ItemSalamanderFurPrefab, true);
+            ItemManager.Instance.AddItem(SharedResources.SalamanderItem);
+        }
         private void SetupStatusEffects()
         {
             //Damage Bonuses

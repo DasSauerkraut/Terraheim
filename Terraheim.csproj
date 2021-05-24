@@ -191,6 +191,8 @@
     <Compile Include="Utility\ArmorHelper.cs" />
     <Compile Include="Utility\AssetHelper.cs" />
     <Compile Include="Utility\Data.cs" />
+    <Compile Include="Utility\Pieces.cs" />
+    <Compile Include="Utility\SharedResources.cs" />
     <Compile Include="Utility\TranslationUtils.cs" />
     <Compile Include="Utility\UtilityFunctions.cs" />
   </ItemGroup>

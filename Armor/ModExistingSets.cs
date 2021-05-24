@@ -1,6 +1,7 @@
 ﻿using Jotunn.Managers;
 using Terraheim.Utility;
 using Newtonsoft.Json.Linq;
+using Jotunn.Entities;
 
 namespace Terraheim.Armor
 {
@@ -17,6 +18,8 @@ namespace Terraheim.Armor
             ItemManager.OnItemsRegistered += ModPaddedArmor;
             if(Terraheim.hasBarbarianArmor)
                 ItemManager.OnItemsRegistered += ModBarbarianArmor;
+            if (Terraheim.hasChaosArmor)
+                ItemManager.OnItemsRegistered += ModChaosArmor;
             ItemManager.OnItemsRegistered += ModCapes;
         }
 
@@ -27,6 +30,18 @@ namespace Terraheim.Armor
             var legs = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorLeatherLegs");
 
             var setBalance = balance["leather"];
+
+            var headRecipe = ObjectDB.instance.GetRecipe(helmet.m_itemData);
+            var chestRecipe = ObjectDB.instance.GetRecipe(chest.m_itemData);
+            var legsRecipe = ObjectDB.instance.GetRecipe(legs.m_itemData);
+
+            headRecipe.m_craftingStation = Pieces.Reforger;
+            chestRecipe.m_craftingStation = Pieces.Reforger;
+            legsRecipe.m_craftingStation = Pieces.Reforger;
+
+            headRecipe.m_minStationLevel = 1;
+            chestRecipe.m_minStationLevel = 1;
+            legsRecipe.m_minStationLevel = 1;
 
             ArmorHelper.ModArmorSet("leather", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
         }
@@ -39,6 +54,14 @@ namespace Terraheim.Armor
             var trollChest = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorTrollLeatherChest");
             var trollLegs = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorTrollLeatherLegs");
 
+            var headRecipe = ObjectDB.instance.GetRecipe(trollHood.m_itemData);
+            var chestRecipe = ObjectDB.instance.GetRecipe(trollChest.m_itemData);
+            var legsRecipe = ObjectDB.instance.GetRecipe(trollLegs.m_itemData);
+
+            headRecipe.m_craftingStation = Pieces.Reforger;
+            chestRecipe.m_craftingStation = Pieces.Reforger;
+            legsRecipe.m_craftingStation = Pieces.Reforger;
+
             ArmorHelper.ModArmorSet("trollLeather", ref trollHood.m_itemData, ref trollChest.m_itemData, ref trollLegs.m_itemData, setBalance, false, -1);
         }
 
@@ -49,6 +72,14 @@ namespace Terraheim.Armor
             var chest = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorBronzeChest");
             var legs = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorBronzeLegs");
             var setBalance = balance["bronze"];
+
+            var headRecipe = ObjectDB.instance.GetRecipe(helmet.m_itemData);
+            var chestRecipe = ObjectDB.instance.GetRecipe(chest.m_itemData);
+            var legsRecipe = ObjectDB.instance.GetRecipe(legs.m_itemData);
+
+            headRecipe.m_craftingStation = Pieces.Reforger;
+            chestRecipe.m_craftingStation = Pieces.Reforger;
+            legsRecipe.m_craftingStation = Pieces.Reforger;
 
             ArmorHelper.ModArmorSet("bronze", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
         }
@@ -61,6 +92,14 @@ namespace Terraheim.Armor
             var legs = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorIronLegs");
             var setBalance = balance["iron"];
 
+            var headRecipe = ObjectDB.instance.GetRecipe(helmet.m_itemData);
+            var chestRecipe = ObjectDB.instance.GetRecipe(chest.m_itemData);
+            var legsRecipe = ObjectDB.instance.GetRecipe(legs.m_itemData);
+
+            headRecipe.m_craftingStation = Pieces.Reforger;
+            chestRecipe.m_craftingStation = Pieces.Reforger;
+            legsRecipe.m_craftingStation = Pieces.Reforger;
+
             ArmorHelper.ModArmorSet("iron", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
         }
 
@@ -72,6 +111,14 @@ namespace Terraheim.Armor
             var legs = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorWolfLegs");
             var setBalance = balance["silver"];
 
+            var headRecipe = ObjectDB.instance.GetRecipe(helmet.m_itemData);
+            var chestRecipe = ObjectDB.instance.GetRecipe(chest.m_itemData);
+            var legsRecipe = ObjectDB.instance.GetRecipe(legs.m_itemData);
+
+            headRecipe.m_craftingStation = Pieces.Reforger;
+            chestRecipe.m_craftingStation = Pieces.Reforger;
+            legsRecipe.m_craftingStation = Pieces.Reforger;
+
             ArmorHelper.ModArmorSet("silver", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
         }
 
@@ -81,6 +128,14 @@ namespace Terraheim.Armor
             var helmet = PrefabManager.Cache.GetPrefab<ItemDrop>("HelmetPadded");
             var chest = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorPaddedCuirass");
             var legs = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorPaddedGreaves");
+
+            var headRecipe = ObjectDB.instance.GetRecipe(helmet.m_itemData);
+            var chestRecipe = ObjectDB.instance.GetRecipe(chest.m_itemData);
+            var legsRecipe = ObjectDB.instance.GetRecipe(legs.m_itemData);
+
+            headRecipe.m_craftingStation = Pieces.Reforger;
+            chestRecipe.m_craftingStation = Pieces.Reforger;
+            legsRecipe.m_craftingStation = Pieces.Reforger;
 
             var setBalance = balance["padded"];
 
@@ -96,10 +151,38 @@ namespace Terraheim.Armor
 
             var setBalance = balance["barbarian"];
 
+            var headRecipe = ObjectDB.instance.GetRecipe(helmet.m_itemData);
+            var chestRecipe = ObjectDB.instance.GetRecipe(chest.m_itemData);
+            var legsRecipe = ObjectDB.instance.GetRecipe(legs.m_itemData);
+            var capeRecipe = ObjectDB.instance.GetRecipe(cape.m_itemData);
+
+            headRecipe.m_craftingStation = Pieces.Reforger;
+            chestRecipe.m_craftingStation = Pieces.Reforger;
+            legsRecipe.m_craftingStation = Pieces.Reforger;
+            capeRecipe.m_craftingStation = Pieces.Reforger;
 
             ArmorHelper.ModArmorSet("barbarian", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
 
             cape.m_itemData.m_shared.m_equipStatusEffect = ArmorHelper.GetArmorEffect((string)balance["capes"]["barbarian"]["effect"], balance["capes"]["barbarian"], "cape", ref cape.m_itemData.m_shared.m_description);
+        }
+
+        private static void ModChaosArmor()
+        {
+            var helmet = PrefabManager.Cache.GetPrefab<ItemDrop>("ChaosPlateArmorBody");
+            var chest = PrefabManager.Cache.GetPrefab<ItemDrop>("ChaosPlateHelm");
+            var legs = PrefabManager.Cache.GetPrefab<ItemDrop>("ChaosPlateLegs");
+
+            var setBalance = balance["chaos"];
+
+            var headRecipe = ObjectDB.instance.GetRecipe(helmet.m_itemData);
+            var chestRecipe = ObjectDB.instance.GetRecipe(chest.m_itemData);
+            var legsRecipe = ObjectDB.instance.GetRecipe(legs.m_itemData);
+
+            headRecipe.m_craftingStation = Pieces.Reforger;
+            chestRecipe.m_craftingStation = Pieces.Reforger;
+            legsRecipe.m_craftingStation = Pieces.Reforger;
+
+            ArmorHelper.ModArmorSet("chaos", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
         }
 
         private static void ModCapes()
@@ -111,9 +194,23 @@ namespace Terraheim.Armor
             var linenCape = PrefabManager.Cache.GetPrefab<ItemDrop>("CapeLinen");
 
             var capeBalance = balance["capes"];
+
+            var deerRecipe = ObjectDB.instance.GetRecipe(deerCape.m_itemData);
+            var trollRecipe = ObjectDB.instance.GetRecipe(trollCape.m_itemData);
+            var wolfRecipe = ObjectDB.instance.GetRecipe(wolfCape.m_itemData);
+            var loxRecipe = ObjectDB.instance.GetRecipe(loxCape.m_itemData);
+            var linenRecipe = ObjectDB.instance.GetRecipe(linenCape.m_itemData);
+
+            deerRecipe.m_craftingStation = Pieces.Reforger;
+            trollRecipe.m_craftingStation = Pieces.Reforger;
+            wolfRecipe.m_craftingStation = Pieces.Reforger;
+            loxRecipe.m_craftingStation = Pieces.Reforger;
+            linenRecipe.m_craftingStation = Pieces.Reforger;
+
             //deer
             deerCape.m_itemData.m_shared.m_description += $"\nMovement speed is increased by <color=cyan>{(float)capeBalance["leather"]["capeEffectVal"] * 100 }%</color>.";
             deerCape.m_itemData.m_shared.m_movementModifier = (float)capeBalance["leather"]["capeEffectVal"];
+            deerRecipe.m_minStationLevel = 1;
 
             //troll
             trollCape.m_itemData.m_shared.m_equipStatusEffect = ArmorHelper.GetArmorEffect((string)capeBalance["trollLeather"]["effect"], capeBalance["trollLeather"], "cape", ref trollCape.m_itemData.m_shared.m_description);

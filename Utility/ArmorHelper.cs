@@ -550,6 +550,115 @@ namespace Terraheim.Utility
             }
         }
 
+        public static void AddCape(string setName, string balanceId)
+        {
+            var setBalance = balance["capes"];
+            for (int i = 0; i < 2; i++)
+            {
+                if (setName.Contains("Wolf") || setName.Contains("Lox"))
+                    if (i == 0) continue;
+                //Create mocks for use in clones
+
+                GameObject clonedPiece = PrefabManager.Instance.CreateClonedPrefab($"{setName}T{i}TH", setName);
+
+                //Set ID so that previous armors still exist
+
+                CustomItem piece = new CustomItem(clonedPiece, true);
+
+                piece.ItemDrop.m_itemData.m_shared.m_name = $"{piece.ItemDrop.m_itemData.m_shared.m_name}T{i}";
+
+                //deer
+                if (setName.Contains("Deer"))
+                {
+                    piece.ItemDrop.m_itemData.m_shared.m_description += $"\nMovement speed is increased by <color=cyan>{(float)balance["capes"]["leather"]["capeEffectVal"] * 100 }%</color>.";
+                    piece.ItemDrop.m_itemData.m_shared.m_movementModifier = (float)balance["capes"]["leather"]["capeEffectVal"];
+                }
+                else
+                    piece.ItemDrop.m_itemData.m_shared.m_equipStatusEffect = GetArmorEffect((string)balance["capes"][balanceId]["effect"], balance["capes"][balanceId], "cape", ref piece.ItemDrop.m_itemData.m_shared.m_description);
+
+                if (i == 0)
+                {
+                    HitData.DamageModPair mod = new HitData.DamageModPair
+                    {
+                        m_type = HitData.DamageType.Frost,
+                        m_modifier = HitData.DamageModifier.Resistant
+                    };
+                    piece.ItemDrop.m_itemData.m_shared.m_damageModifiers.Add(mod);
+                }
+                else
+                {
+                    HitData.DamageModPair mod = new HitData.DamageModPair
+                    {
+                        m_type = HitData.DamageType.Fire,
+                        m_modifier = HitData.DamageModifier.Resistant
+                    };
+                    piece.ItemDrop.m_itemData.m_shared.m_damageModifiers.Add(mod);
+                    if(!setName.Contains("Wolf") && !setName.Contains("Lox"))
+                    {
+                        HitData.DamageModPair mod2 = new HitData.DamageModPair
+                        {
+                            m_type = HitData.DamageType.Frost,
+                            m_modifier = HitData.DamageModifier.Resistant
+                        };
+                        piece.ItemDrop.m_itemData.m_shared.m_damageModifiers.Add(mod2);
+                    }
+                }
+                //Recipes
+                Recipe recipe = ScriptableObject.CreateInstance<Recipe>();
+
+                recipe.name = $"Recipe_{setName}T{i}";
+
+                List<Piece.Requirement> recipeList = new List<Piece.Requirement>();
+
+                //Add base armor to requirements
+                int j = 0;
+                if (i == 0 || setName.Contains("Wolf") || setName.Contains("Lox"))
+                {
+                    recipeList.Add(MockRequirement.Create(setName, 1, false));
+                    j++;
+                    recipeList[0].m_amountPerLevel = 0;
+                }
+
+                var recipeReqs = setBalance["upgrades"][$"t{i}"];
+                int index = 0 + j;
+                foreach (JObject item in recipeReqs["resources"])
+                {
+                    if ((string)item["item"] == "SalamanderFur")
+                    {
+                        var fur = new Piece.Requirement
+                        {
+                            m_resItem = SharedResources.SalamanderItem.ItemDrop,
+                            m_amount = (int)item["amount"],
+                        };
+                        recipeList.Add(fur);
+                    }
+                    else
+                        recipeList.Add(MockRequirement.Create((string)item["item"], (int)item["amount"]));
+                    recipeList[index].m_amountPerLevel = (int)item["perLevel"];
+                    index++;
+                }
+
+                recipe.m_craftingStation = Mock<CraftingStation>.Create((string)recipeReqs["station"]);
+
+                //Set crafting station level
+                recipe.m_minStationLevel = (int)recipeReqs["minLevel"];
+
+                //Assign reqs to recipe
+                recipe.m_resources = recipeList.ToArray();
+
+                //Add item to recipe
+                recipe.m_item = piece.ItemDrop;
+
+                //Create the custome recipe
+                CustomRecipe customPieceRecipe = new CustomRecipe(recipe, fixReference: true, fixRequirementReferences: true);
+
+                ItemManager.Instance.AddItem(piece);
+
+                //Add recipes to DB
+                ItemManager.Instance.AddRecipe(customPieceRecipe);
+            }
+        }
+
         public static void AddArmorSet(string setName)
         {
             AddArmorPiece(setName, "head");
@@ -572,6 +681,7 @@ namespace Terraheim.Utility
             belt.ItemDrop.m_itemData.m_shared.m_name = $"{beltData.Name}";
 
             //GET EFFECT
+            belt.ItemDrop.m_itemData.m_shared.m_description = "";
             StatusEffect status = GetArmorEffect((string)setBalance["effect"], setBalance, "head", ref belt.ItemDrop.m_itemData.m_shared.m_description);
             if (status != null)
                 belt.ItemDrop.m_itemData.m_shared.m_equipStatusEffect = status;
@@ -725,5 +835,25 @@ namespace Terraheim.Utility
                 legsRecipe.m_resources = legsList.ToArray();
             }
         }
+
+        public static void AddTieredCape(string setName)
+        {
+
+            Recipe recipe = ObjectDB.instance.GetRecipe(ObjectDB.instance.GetItemPrefab($"{setName}T{1}TH").GetComponent<ItemDrop>().m_itemData);
+
+            List<Piece.Requirement> recipeList = recipe.m_resources.ToList();
+            recipeList.Add(new Piece.Requirement()
+                {
+                    m_resItem = ObjectDB.instance.GetItemPrefab($"{setName}T{0}TH").GetComponent<ItemDrop>(),
+                    m_amount = 1,
+                    m_amountPerLevel = 0,
+                    m_recover = false
+                });
+
+
+            recipe.m_resources = recipeList.ToArray();
+        }
     }
+
+    
 }
