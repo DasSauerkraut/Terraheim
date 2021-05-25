@@ -8,6 +8,7 @@ using Jotunn.Entities;
 using Jotunn.Managers;
 using static Terraheim.Utility.Data;
 using System;
+using Terraheim.ArmorEffects.ChosenEffects;
 
 namespace Terraheim.Utility
 {
@@ -94,6 +95,14 @@ namespace Terraheim.Utility
                         effect.SetTotalStamina((float)values["setBonusVal"]);
                         effect.SetRegen((float)values["setRegenBonusVal"]);
                         effect.SetIcon();
+                        return effect;
+                    }
+                case "chosen":
+                    {
+                        var effect = ScriptableObject.CreateInstance<SE_Chosen>();
+                        effect.SetBoonTTLIncrease((int)values["setBoonVal"]);
+                        effect.SetBaneTTLIncrease((int)values["setBaneVal"]);
+                        //effect.SetIcon();
                         return effect;
                     }
                 default:

@@ -8,6 +8,7 @@ using Terraheim.Utility;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using Terraheim.ArmorEffects.ChosenEffects;
 
 namespace Terraheim
 {
@@ -149,6 +150,17 @@ namespace Terraheim
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_DeathMark>(), fixReference: true)); //Barbarian
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_MarkedForDeath>(), fixReference: true)); //Barbarian
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_MarkedForDeathFX>(), fixReference: true)); //Barbarian
+
+            //Chosen
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Chosen>(), fixReference: true));
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Bloodlust>(), fixReference: true));
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Bloated>(), fixReference: true));
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_HiddenKnowledge>(), fixReference: true));
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Adrenaline>(), fixReference: true));
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_BlindingRage>(), fixReference: true));
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Pestilence>(), fixReference: true));
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_MaddeningVisions>(), fixReference: true));
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Withdrawals>(), fixReference: true));
 
             //Challenge Statuses
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_ChallengeMoveSpeed>(), fixReference: true));

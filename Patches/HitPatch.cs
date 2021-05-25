@@ -3,6 +3,7 @@ using Terraheim.ArmorEffects;
 using Terraheim.Utility;
 using UnityEngine;
 using Newtonsoft.Json.Linq;
+using Terraheim.ArmorEffects.ChosenEffects;
 
 namespace Terraheim.Patches
 {
@@ -58,8 +59,8 @@ namespace Terraheim.Patches
                 return;
 
             Character attacker = hit.GetAttacker();
-            Log.LogInfo(2);
 
+            //Damage vs Low HP | Execurtion
             if (attacker.GetSEMan().HaveStatusEffect("Damage Vs Low HP"))
             {
                 SE_DamageVSLowHP effect = hit.GetAttacker().GetSEMan().GetStatusEffect("Damage Vs Low HP") as SE_DamageVSLowHP;
@@ -94,8 +95,8 @@ namespace Terraheim.Patches
                     audioSource.PlayOneShot(AssetHelper.SFXExecution);
                 }
             }
-            Log.LogInfo(3);
 
+            //Marked for Death
             if (__instance.GetSEMan().HaveStatusEffect("Marked For Death FX"))
             {
                 var effect = __instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath;
@@ -135,7 +136,6 @@ namespace Terraheim.Patches
             {
                 __instance.GetSEMan().AddStatusEffect("Marked For Death FX");
             }
-            Log.LogInfo(5);
             if (attacker.GetSEMan().HaveStatusEffect("Death Mark"))
             {
                 var effect = hit.GetAttacker().GetSEMan().GetStatusEffect("Death Mark") as SE_DeathMark;
@@ -166,8 +166,8 @@ namespace Terraheim.Patches
                 }
 
             }
-            Log.LogInfo(6);
 
+            //Bloodrush
             if (__instance.GetHealth() <= hit.GetTotalDamage() && attacker.GetSEMan().HaveStatusEffect("Bloodrush Listener"))
             {
                 if (attacker.GetSEMan().HaveStatusEffect("Bloodrush"))
@@ -180,8 +180,14 @@ namespace Terraheim.Patches
                     (attacker.GetSEMan().GetStatusEffect("Bloodrush") as SE_MoveSpeedOnKill).SetSpeedBonus((attacker.GetSEMan().GetStatusEffect("Bloodrush Listener") as SE_MoveSpeedOnKillListener).GetSpeedBonus());
                 }
             }
-            Log.LogInfo(7);
 
+            //Chosen
+            if (__instance.GetHealth() <= hit.GetTotalDamage() && attacker.GetSEMan().HaveStatusEffect("Chosen"))
+            {
+                (attacker.GetSEMan().GetStatusEffect("Chosen") as SE_Chosen).OnKill();
+            }
+
+            //Pinning
             if (attacker.GetSEMan().HaveStatusEffect("Pinning") && !__instance.GetSEMan().HaveStatusEffect("Pinned") && !__instance.GetSEMan().HaveStatusEffect("Pinned Cooldown"))
             {
                 if (UtilityFunctions.CheckIfVulnerable(__instance, hit) || (attacker as Player).GetCurrentWeapon().m_shared.m_name.Contains("mace_fire"))
@@ -192,7 +198,6 @@ namespace Terraheim.Patches
                     (__instance.GetSEMan().GetStatusEffect("Pinned") as SE_Pinned).SetPinCooldownTTL(effect.GetPinCooldownTTL());
                 }
             }
-            Log.LogInfo(8);
 
             if (attacker.GetSEMan().HaveStatusEffect("Poison Vulnerable"))
             {
@@ -260,6 +265,12 @@ namespace Terraheim.Patches
                 //Log.LogInfo($"ending damage: {hit.GetTotalDamage()}");
             }
 
+            if(__instance.IsPlayer() && __instance.GetSEMan().HaveStatusEffect("Chosen") && !__instance.IsBlocking())
+            {
+                (__instance.GetSEMan().GetStatusEffect("Chosen") as SE_Chosen).OnTakeDamage();
+            }
+
+            //Brassflesh
             if (__instance.IsPlayer() && __instance.GetSEMan().HaveStatusEffect("Brassflesh"))
             {
                 //Log.LogInfo($"starting damage: {hit.GetTotalDamage()}");

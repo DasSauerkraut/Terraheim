@@ -5,6 +5,7 @@ using Jotunn.Managers;
 using Terraheim.ArmorEffects;
 using Terraheim.Utility;
 using Newtonsoft.Json.Linq;
+using Terraheim.ArmorEffects.ChosenEffects;
 
 namespace Terraheim.Patches
 {
@@ -46,7 +47,7 @@ namespace Terraheim.Patches
 
             if (___m_seman.HaveStatusEffect("Heal On Block"))
             {
-                if ((___m_seman.m_character as Humanoid) && (___m_seman.m_character as Humanoid).m_leftItem != (___m_seman.m_character as Humanoid).m_unarmedWeapon.m_itemData 
+                if ((___m_seman.m_character as Humanoid) && (___m_seman.m_character as Humanoid).m_leftItem != (___m_seman.m_character as Humanoid).m_unarmedWeapon.m_itemData
                     && (___m_seman.m_character as Humanoid).m_leftItem != null)
                 {
                     var effect = ___m_seman.GetStatusEffect("Heal On Block") as SE_HealOnBlock;
@@ -66,16 +67,24 @@ namespace Terraheim.Patches
                             ___m_seman.m_character.Heal(healAmount);
                         }
                     }
-                    else if(blocker.m_shared.m_name.Contains("shield") && parryFlag)
+                    else if (blocker.m_shared.m_name.Contains("shield") && parryFlag)
                     {
                         //Log.LogWarning("Has Small Shield");
                         //Do Heal on Parry
-                        var healAmount = blocker.GetBaseBlockPower() * effect.GetBlockHeal() + 
+                        var healAmount = blocker.GetBaseBlockPower() * effect.GetBlockHeal() +
                             (blocker.GetBaseBlockPower() * blocker.m_shared.m_timedBlockBonus * effect.GetBlockHeal());
                         Log.LogInfo("Terraheim | Heal on Parry: Block Power: " + blocker.GetBaseBlockPower() + " Parry Bonus: " + blocker.m_shared.m_timedBlockBonus + " Heal Amount: " + healAmount);
                         ___m_seman.m_character.Heal(healAmount);
                     }
                 }
+            }
+
+            if (___m_seman.HaveStatusEffect("Chosen"))
+            {
+                var effect = ___m_seman.GetStatusEffect("Chosen") as SE_Chosen;
+
+                if (___m_blockTimer != -1f && (float)balance["perfectBlockWindow"] >= ___m_blockTimer)
+                    effect.OnParry();
             }
         }
     }

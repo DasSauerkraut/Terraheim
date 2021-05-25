@@ -18,7 +18,11 @@ namespace Terraheim.Utility
         public static GameObject FXMarkedForDeath;
         public static GameObject FXMarkedForDeathHit;
         public static GameObject FXPinned;
-
+        public static GameObject FXBoonGain;
+        public static GameObject FXBaneGain;
+        public static GameObject FXBoonLock;
+        public static GameObject FXBaneLock;
+        
         public static GameObject ItemSalamanderFurPrefab;
         public static GameObject PieceReforgerPrefab;
         public static GameObject PieceReforgerExt1Prefab;
@@ -34,9 +38,26 @@ namespace Terraheim.Utility
 
         public static AudioClip AoEReady;
         public static AudioClip SFXExecution;
-        public static AudioClip SFXMarkedForDeath;
+        public static AudioClip SFXMarkedForDeath; 
+        public static AudioClip SFXBoonGain;
+        public static AudioClip SFXBaneGain;
+        public static AudioClip SFXBoonLock;
+        public static AudioClip SFXBaneLock;
 
         public static Sprite SpriteTempStatus;
+
+        public static Sprite SpriteChosen;
+        public static Sprite SpriteChosenBoon;
+        public static Sprite SpriteChosenBane;
+        public static Sprite SpriteChosenKhorneBoon;
+        public static Sprite SpriteChosenKhorneBane;
+        public static Sprite SpriteChosenTzeentchBoon;
+        public static Sprite SpriteChosenTzeentchBane;
+        public static Sprite SpriteChosenNurgleBoon;
+        public static Sprite SpriteChosenNurgleBane;
+        public static Sprite SpriteChosenSlaaneshBoon;
+        public static Sprite SpriteChosenSlaaneshBane;
+
 
         public static void Init()
         {
@@ -70,6 +91,28 @@ namespace Terraheim.Utility
             SFXMarkedForDeath = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/DarkMagic_SpellImpact15.wav");
 
             SpriteTempStatus = TerraheimAssetBundle.LoadAsset<Sprite>("Assets/CustomItems/TEMPICON.png");
+
+            SpriteChosen = TerraheimAssetBundle.LoadAsset<Sprite>("Assets/CustomItems/Effects/Chosen/chosen.png");
+            SpriteChosenBoon = TerraheimAssetBundle.LoadAsset<Sprite>("Assets/CustomItems/Effects/Chosen/chosenBoonLock.png");
+            SpriteChosenBane = TerraheimAssetBundle.LoadAsset<Sprite>("Assets/CustomItems/Effects/Chosen/chosenBaneLock.png");
+            SpriteChosenKhorneBoon = TerraheimAssetBundle.LoadAsset<Sprite>("Assets/CustomItems/Effects/Chosen/KhorneBoon.png");
+            SpriteChosenKhorneBane = TerraheimAssetBundle.LoadAsset<Sprite>("Assets/CustomItems/Effects/Chosen/khorneBane.png");
+            SpriteChosenTzeentchBoon = TerraheimAssetBundle.LoadAsset<Sprite>("Assets/CustomItems/Effects/Chosen/tzeenBoon.png");
+            SpriteChosenTzeentchBane = TerraheimAssetBundle.LoadAsset<Sprite>("Assets/CustomItems/Effects/Chosen/tzeenBane.png");
+            SpriteChosenNurgleBoon = TerraheimAssetBundle.LoadAsset<Sprite>("Assets/CustomItems/Effects/Chosen/nurgBoon.png");
+            SpriteChosenNurgleBane = TerraheimAssetBundle.LoadAsset<Sprite>("Assets/CustomItems/Effects/Chosen/nurgBane.png");
+            SpriteChosenSlaaneshBoon = TerraheimAssetBundle.LoadAsset<Sprite>("Assets/CustomItems/Effects/Chosen/slaanBoon.png");
+            SpriteChosenSlaaneshBane = TerraheimAssetBundle.LoadAsset<Sprite>("Assets/CustomItems/Effects/Chosen/SlaanBane.png");
+
+
+            FXBoonGain = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/Chosen/vfx_boonGain.prefab");
+            FXBaneGain = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/Chosen/vfx_baneGain.prefab");
+            FXBoonLock = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/Chosen/vfx_boonLock.prefab");
+            FXBaneLock = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/Chosen/vfx_baneLock.prefab");
+            SFXBoonGain = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/Chosen/boongain.wav");
+            SFXBaneGain = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/Chosen/baingain.wav");
+            SFXBoonLock = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/Chosen/boonLock.wav");
+            SFXBaneLock = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/Chosen/banelock.wav");
         }
 
         public static AssetBundle GetAssetBundleFromResources(string filename)
