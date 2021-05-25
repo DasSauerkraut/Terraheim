@@ -6,20 +6,20 @@ namespace Terraheim.Patches
     [HarmonyPatch]
     class PickableDropPatch
     {
-        [HarmonyPatch(typeof(Pickable), nameof(Pickable.Drop))]
-        public static void Prefix(GameObject prefab, ref int stack)
+        [HarmonyPatch(typeof(Pickable), nameof(Pickable.RPC_Pick))]
+        public static void Prefix(Pickable __instance, long sender)
         {
-            var player = Player.m_localPlayer;
+            var player = Player.GetPlayer(sender);
+            if (player == null)
+                player = Player.m_localPlayer;
+            if (player == null)
+                return;
             if (player.GetSEMan().HaveStatusEffect("Harvest Yield Up"))
             {
-                if (isWild(prefab))
-                {
-                    stack += 2;
-                }
-                else if (isCrop(prefab))
-                {
-                    stack += 1;
-                }
+                if (isWild(__instance.m_itemPrefab))
+                    __instance.m_amount += 2;
+                else if (isCrop(__instance.m_itemPrefab))
+                    __instance.m_amount += 1;
             }
         }
 

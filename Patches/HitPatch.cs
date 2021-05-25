@@ -53,9 +53,12 @@ namespace Terraheim.Patches
         [HarmonyPatch(typeof(Character), "ApplyDamage")]
         public static void DamagePrefix(Character __instance, ref HitData hit)
         {
-            if (!hit.HaveAttacker() || !hit.GetAttacker().IsPlayer())
+            if (!hit.HaveAttacker() || hit.GetAttacker() == null || !hit.GetAttacker().IsPlayer() || hit == null)
                 return;
+
+            Log.LogInfo(1);
             Character attacker = hit.GetAttacker();
+            Log.LogInfo(2);
 
             if (attacker.GetSEMan().HaveStatusEffect("Damage Vs Low HP"))
             {
@@ -91,8 +94,9 @@ namespace Terraheim.Patches
                     audioSource.PlayOneShot(AssetHelper.SFXExecution);
                 }
             }
+            Log.LogInfo(3);
 
-            if(__instance.GetSEMan().HaveStatusEffect("Marked For Death FX"))
+            if (__instance.GetSEMan().HaveStatusEffect("Marked For Death FX"))
             {
                 Log.LogMessage("Increasing damage");
                 var effect = __instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath;
@@ -128,10 +132,12 @@ namespace Terraheim.Patches
                 }
                 audioSource.PlayOneShot(AssetHelper.SFXExecution);
             }
-            if(hit.m_statusEffect == "Marked For Death" && !__instance.GetSEMan().HaveStatusEffect("Marked For Death FX"))
+            Log.LogInfo(4);
+            if (hit.m_statusEffect == "Marked For Death" && !__instance.GetSEMan().HaveStatusEffect("Marked For Death FX"))
             {
                 __instance.GetSEMan().AddStatusEffect("Marked For Death FX");
             }
+            Log.LogInfo(5);
             if (attacker.GetSEMan().HaveStatusEffect("Death Mark"))
             {
                 var effect = hit.GetAttacker().GetSEMan().GetStatusEffect("Death Mark") as SE_DeathMark;
@@ -162,8 +168,9 @@ namespace Terraheim.Patches
                 }
                
             }
+            Log.LogInfo(6);
 
-            if(__instance.GetHealth() <= hit.GetTotalDamage() && attacker.GetSEMan().HaveStatusEffect("Bloodrush Listener"))
+            if (__instance.GetHealth() <= hit.GetTotalDamage() && attacker.GetSEMan().HaveStatusEffect("Bloodrush Listener"))
             {
                 if (attacker.GetSEMan().HaveStatusEffect("Bloodrush"))
                 {
@@ -175,8 +182,9 @@ namespace Terraheim.Patches
                     (attacker.GetSEMan().GetStatusEffect("Bloodrush") as SE_MoveSpeedOnKill).SetSpeedBonus((attacker.GetSEMan().GetStatusEffect("Bloodrush Listener") as SE_MoveSpeedOnKillListener).GetSpeedBonus());
                 }
             }
+            Log.LogInfo(7);
 
-            if(attacker.GetSEMan().HaveStatusEffect("Pinning") && !__instance.GetSEMan().HaveStatusEffect("Pinned") && !__instance.GetSEMan().HaveStatusEffect("Pinned Cooldown"))
+            if (attacker.GetSEMan().HaveStatusEffect("Pinning") && !__instance.GetSEMan().HaveStatusEffect("Pinned") && !__instance.GetSEMan().HaveStatusEffect("Pinned Cooldown"))
             {
                 if (UtilityFunctions.CheckIfVulnerable(__instance, hit) || (attacker as Player).GetCurrentWeapon().m_shared.m_name.Contains("mace_fire"))
                 {
@@ -186,6 +194,7 @@ namespace Terraheim.Patches
                     (__instance.GetSEMan().GetStatusEffect("Pinned") as SE_Pinned).SetPinCooldownTTL(effect.GetPinCooldownTTL());
                 }
             }
+            Log.LogInfo(8);
 
             if (attacker.GetSEMan().HaveStatusEffect("Poison Vulnerable"))
             {
