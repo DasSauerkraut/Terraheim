@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Terraheim.Patches
 {
-    
+
     [HarmonyPatch]
     class HitPatch
     {
@@ -26,7 +26,7 @@ namespace Terraheim.Patches
                 return;
             }
             try
-            { 
+            {
                 //Log.LogMessage("Trying FOr Life Steal!");
                 if (attacker.GetSEMan().HaveStatusEffect("Life Steal"))
                 {
@@ -36,14 +36,15 @@ namespace Terraheim.Patches
                         attacker.Heal(damage * effect.getHealAmount());
                         var lifestealVfx = Object.Instantiate(AssetHelper.FXLifeSteal, attacker.GetCenterPoint(), Quaternion.identity);
                         ParticleSystem[] children = lifestealVfx.GetComponentsInChildren<ParticleSystem>();
-                        foreach(ParticleSystem particle in children)
+                        foreach (ParticleSystem particle in children)
                         {
                             particle.Play();
                         }
                     }
                 }
-               
-                } catch
+
+            }
+            catch
             {
                 return;
             }
@@ -53,8 +54,9 @@ namespace Terraheim.Patches
         [HarmonyPatch(typeof(Character), "ApplyDamage")]
         public static void DamagePrefix(Character __instance, ref HitData hit)
         {
-            if (!hit.HaveAttacker() || !hit.GetAttacker().IsPlayer())
+            if (!hit.HaveAttacker() || hit.GetAttacker() == null || !hit.GetAttacker().IsPlayer() || hit == null)
                 return;
+
             Character attacker = hit.GetAttacker();
 
             if (attacker.GetSEMan().HaveStatusEffect("Damage Vs Low HP"))
@@ -77,7 +79,7 @@ namespace Terraheim.Patches
 
                     var executionVFX = Object.Instantiate(AssetHelper.FXExecution, __instance.GetCenterPoint(), Quaternion.identity);
                     ParticleSystem[] children = executionVFX.GetComponentsInChildren<ParticleSystem>();
-                    foreach(ParticleSystem particle in children)
+                    foreach (ParticleSystem particle in children)
                     {
                         particle.Play();
                     }
@@ -92,9 +94,8 @@ namespace Terraheim.Patches
                 }
             }
 
-            if(__instance.GetSEMan().HaveStatusEffect("Marked For Death FX"))
+            if (__instance.GetSEMan().HaveStatusEffect("Marked For Death FX"))
             {
-                Log.LogMessage("Increasing damage");
                 var effect = __instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath;
                 hit.m_damage.m_blunt += hit.m_damage.m_blunt * effect.GetDamageBonus();
                 hit.m_damage.m_chop += hit.m_damage.m_chop * effect.GetDamageBonus();
@@ -128,7 +129,7 @@ namespace Terraheim.Patches
                 }
                 audioSource.PlayOneShot(AssetHelper.SFXExecution);
             }
-            if(hit.m_statusEffect == "Marked For Death" && !__instance.GetSEMan().HaveStatusEffect("Marked For Death FX"))
+            if (hit.m_statusEffect == "Marked For Death" && !__instance.GetSEMan().HaveStatusEffect("Marked For Death FX"))
             {
                 __instance.GetSEMan().AddStatusEffect("Marked For Death FX");
             }
@@ -155,15 +156,15 @@ namespace Terraheim.Patches
                         (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).SetDamageBonus(effect.GetDamageBonus());
                         (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).SetHitDuration(effect.GetHitDuration());
                         //Log.LogInfo($"Death Mark Counter : {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).m_count}, " +
-                            //$"Activation: {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).GetActivationCount()} " +
-                            //$"Damage Bonus: {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).GetDamageBonus()} " +
-                            //$"Hit Amount: {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).GetHitDuration()}");
+                        //$"Activation: {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).GetActivationCount()} " +
+                        //$"Damage Bonus: {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).GetDamageBonus()} " +
+                        //$"Hit Amount: {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).GetHitDuration()}");
                     }
                 }
-               
+
             }
 
-            if(__instance.GetHealth() <= hit.GetTotalDamage() && attacker.GetSEMan().HaveStatusEffect("Bloodrush Listener"))
+            if (__instance.GetHealth() <= hit.GetTotalDamage() && attacker.GetSEMan().HaveStatusEffect("Bloodrush Listener"))
             {
                 if (attacker.GetSEMan().HaveStatusEffect("Bloodrush"))
                 {
@@ -176,7 +177,7 @@ namespace Terraheim.Patches
                 }
             }
 
-            if(attacker.GetSEMan().HaveStatusEffect("Pinning") && !__instance.GetSEMan().HaveStatusEffect("Pinned") && !__instance.GetSEMan().HaveStatusEffect("Pinned Cooldown"))
+            if (attacker.GetSEMan().HaveStatusEffect("Pinning") && !__instance.GetSEMan().HaveStatusEffect("Pinned") && !__instance.GetSEMan().HaveStatusEffect("Pinned Cooldown"))
             {
                 if (UtilityFunctions.CheckIfVulnerable(__instance, hit) || (attacker as Player).GetCurrentWeapon().m_shared.m_name.Contains("mace_fire"))
                 {
@@ -204,10 +205,10 @@ namespace Terraheim.Patches
         public static void DamagePostfix(Character __instance, HitData hit)
         {
             SEMan seman = __instance.GetSEMan();
-            if (seman.HaveStatusEffect("Wolftears") && seman.m_character.GetHealth() <= hit.m_damage.GetTotalDamage() && !seman.HaveStatusEffect("Tear Protection Exhausted"))
+            hit.ApplyArmor(__instance.GetBodyArmor());
+            if (seman.HaveStatusEffect("Wolftears") && __instance.GetHealth() <= hit.m_damage.GetTotalDamage() && !seman.HaveStatusEffect("Tear Protection Exhausted"))
             {
                 Log.LogInfo($"Would Kill defender! Damage: {hit.m_damage.GetTotalDamage()}, attacker health: {__instance.GetHealth()}");
-
                 hit.m_damage.Modify(0);
                 seman.AddStatusEffect("Tear Protection Exhausted");
                 __instance.SetHealth(1f);
