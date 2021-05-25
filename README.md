@@ -79,6 +79,11 @@ These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 [Nexus](https://www.nexusmods.com/valheim/mods/803?tab=description)
 
 ### Patchnotes
+**v2.0.6**
+- Fixed RRR NPCs causing errors when using weapons
+- Fixed RRR NPCs being unable to use the troll leather set
+- Fixed Wolftears 1 Hit protection triggering in situations where the wearer wouldn't die
+- Increased Rhongomiant's TTL, which should prevent the spear despawning before it hits the ground.
 **v2.0.5**
 - Fixed Eorl Leggings T2 providing +80% HP instead of 8%
 - Fixed incompatability with Forsaken Weapons
