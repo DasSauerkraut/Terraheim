@@ -265,7 +265,7 @@ namespace Terraheim.Patches
                 //Log.LogInfo($"ending damage: {hit.GetTotalDamage()}");
             }
 
-            if(__instance.IsPlayer() && __instance.GetSEMan().HaveStatusEffect("Chosen") && !__instance.IsBlocking())
+            if(__instance.IsPlayer() && __instance.GetSEMan().HaveStatusEffect("Chosen") && !__instance.IsBlocking() && !__instance.InAttack())
             {
                 (__instance.GetSEMan().GetStatusEffect("Chosen") as SE_Chosen).OnTakeDamage();
             }
@@ -287,6 +287,26 @@ namespace Terraheim.Patches
                 hit.m_damage.m_slash *= 1 - damageMod;
                 hit.m_damage.m_spirit *= 1 - damageMod;
                 //Log.LogInfo($"ending damage: {hit.GetTotalDamage()}");
+            }
+
+            if(__instance.IsPlayer() && __instance.GetSEMan().HaveStatusEffect("Hyperarmor") && __instance.InAttack())
+            {
+                hit.m_staggerMultiplier = 0;
+                hit.m_pushForce = 0;
+                Log.LogInfo($"starting damage: {hit.GetTotalDamage()}");
+                float damageMod = (__instance.GetSEMan().GetStatusEffect("Hyperarmor") as SE_Hyperarmor).GetArmor();
+                hit.m_damage.m_blunt *= 1 - damageMod;
+                hit.m_damage.m_chop *= 1 - damageMod;
+                hit.m_damage.m_damage *= 1 - damageMod;
+                hit.m_damage.m_fire *= 1 - damageMod;
+                hit.m_damage.m_frost *= 1 - damageMod;
+                hit.m_damage.m_lightning *= 1 - damageMod;
+                hit.m_damage.m_pickaxe *= 1 - damageMod;
+                hit.m_damage.m_pierce *= 1 - damageMod;
+                hit.m_damage.m_poison *= 1 - damageMod;
+                hit.m_damage.m_slash *= 1 - damageMod;
+                hit.m_damage.m_spirit *= 1 - damageMod;
+                Log.LogInfo($"ending damage: {hit.GetTotalDamage()}");
             }
         }
     }

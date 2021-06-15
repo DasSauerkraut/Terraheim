@@ -1,8 +1,9 @@
 ﻿using System.IO;
 using Newtonsoft.Json.Linq;
-
-using BepInEx;
-
+using Jotunn.Entities;
+using System.Collections.Generic;
+using Jotunn.Managers;
+using Jotunn;
 
 namespace Terraheim.Utility
 {
@@ -10,10 +11,13 @@ namespace Terraheim.Utility
     {
         public static JObject GetJsonFromFile(string filename)
         {
+            //Logger.LogWarning("AAA");
+            //Logger.LogInfo(1);
+            //Logger.LogInfo(Terraheim.ModPath);
             var filePath = Path.Combine(Terraheim.ModPath, filename);
-            //Log.LogWarning(filePath);
+            //Logger.LogWarning(filePath);
             string rawText = File.ReadAllText(filePath);
-            //Log.LogWarning(rawText);
+            //Logger.LogWarning(rawText);
             return JObject.Parse(rawText);
         }
 
@@ -77,6 +81,49 @@ namespace Terraheim.Utility
             }
             Log.LogWarning("Chaos armor not found!");
             return false;
+        }
+
+        public static void GetRecipe(ref Recipe recipe, JToken json, string location, bool useName = true)
+        {
+            var itemReqs = new List<Piece.Requirement>();
+            int index = 0;
+            foreach (var item in json[location])
+            {
+                //Log.LogInfo((string)item["item"]);
+                if ((string)item["item"] == "SalamanderFur")
+                {
+                    var fur = new Piece.Requirement
+                    {
+                        m_resItem = SharedResources.SalamanderItem.ItemDrop,
+                        m_amount = (int)item["amount"],
+                    };
+                    itemReqs.Add(fur);
+                }
+                else
+                {
+                    var req = new Piece.Requirement
+                    {
+                        m_resItem = PrefabManager.Cache.GetPrefab<ItemDrop>((string)item["item"]),
+                        m_amount = (int)item["amount"],
+                        m_amountPerLevel = (int)item["perLevel"]
+                    };
+                    //itemReqs.Add(MockRequirement.Create((string)item["item"], (int)item["amount"]));
+                    //itemReqs[index].m_amountPerLevel = (int)item["perLevel"];
+                    itemReqs.Add(req);
+                }
+                index++;
+            }
+            if (useName)
+                recipe.name = $"Recipe_{json.Path}";
+            //Log.LogInfo("reqs obj " + itemReqs[0].m_resItem.m_itemData.m_shared.m_name);
+            recipe.m_resources = itemReqs.ToArray();
+            //Log.LogInfo("res obj " + recipe.m_resources[0].m_resItem.m_itemData.m_shared.m_name);
+
+            recipe.m_minStationLevel = (int)json["minLevel"];
+            if ((string)json["station"] == "reforger")
+                recipe.m_craftingStation = Pieces.Reforger;
+            else
+                recipe.m_craftingStation = Mock<CraftingStation>.Create((string)json["station"]);
         }
 
         public static bool CheckIfVulnerable(Character __instance, HitData hit)

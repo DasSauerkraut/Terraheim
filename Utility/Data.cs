@@ -153,14 +153,26 @@ namespace Terraheim.Utility
                     HelmetArmor = 1
                 }
             },
-            {"chaos", new ArmorSet
+            {"chaosT0", new ArmorSet
                 {
-                    HelmetID = "ChaosPlateArmorBody",
-                    ChestID = "ChaosPlateHelm",
-                    LegsID = "ChaosPlateLegs",
+                    HelmetID = "T2ChaosPlateArmor",
+                    ChestID = "T2ChaosPlateHelm",
+                    LegsID = "T2ChaosPlateLegs",
                     HelmetName = "$item_helmet_chaos_t",
                     ChestName = "$item_chest_chaos_t",
                     LegsName = "$item_legs_chaos_t",
+                    ClassName = "$class_berserker",
+                    HelmetArmor = 0
+                }
+            },
+            {"chaosT1", new ArmorSet
+                {
+                    HelmetID = "ChaosPlateHelm",
+                    ChestID = "ChaosPlateArmorBody",
+                    LegsID = "ChaosPlateLegs",
+                    HelmetName = "$item_helmet_chaos_t1",
+                    ChestName = "$item_chest_chaos_t1",
+                    LegsName = "$item_legs_chaos_t1",
                     ClassName = "$class_berserker",
                     HelmetArmor = 0
                 }

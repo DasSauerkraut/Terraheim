@@ -12,19 +12,33 @@ namespace Terraheim.Armor
         }
         private static void AddArmorSets()
         {
-
-            ArmorHelper.AddArmorSet("leather");
+            if ((bool)Terraheim.balance["leather"]["enabled"])
+                ArmorHelper.AddArmorSet("leather");
             //ArmorHelper.AddArmorSet("rags");
-            ArmorHelper.AddArmorPiece("rags", "chest");
-            ArmorHelper.AddArmorPiece("rags", "legs");
-            ArmorHelper.AddArmorSet("trollLeather");
-            ArmorHelper.AddArmorSet("bronze");
-            ArmorHelper.AddArmorSet("iron");
-            ArmorHelper.AddArmorSet("silver");
-            if(Terraheim.hasBarbarianArmor)
+            if ((bool)Terraheim.balance["rags"]["enabled"])
+            { 
+                ArmorHelper.AddArmorPiece("rags", "chest");
+                ArmorHelper.AddArmorPiece("rags", "legs");
+            }
+
+            if ((bool)Terraheim.balance["trollLeather"]["enabled"])
+                ArmorHelper.AddArmorSet("trollLeather");
+
+            if ((bool)Terraheim.balance["bronze"]["enabled"])
+                ArmorHelper.AddArmorSet("bronze");
+
+            if ((bool)Terraheim.balance["iron"]["enabled"])
+                ArmorHelper.AddArmorSet("iron");
+
+            if ((bool)Terraheim.balance["silver"]["enabled"])
+                ArmorHelper.AddArmorSet("silver");
+
+            if ((bool)Terraheim.balance["padded"]["enabled"])
+                ArmorHelper.AddArmorSet("padded");
+            if (Terraheim.hasBarbarianArmor)
                 ArmorHelper.AddArmorSet("barbarian");
-            if (Terraheim.hasChaosArmor)
-                ArmorHelper.AddArmorSet("chaos");
+            /*if (Terraheim.hasChaosArmor)
+                ArmorHelper.AddArmorSet("chaos");*/
 
             ArmorHelper.AddBelt("woodsmanHelmet");
             ArmorHelper.AddBelt("minersBelt");
@@ -43,16 +57,23 @@ namespace Terraheim.Armor
 
         private static void ModExistingRecipes()
         {
-            ArmorHelper.AddTieredRecipes("leather");
+            if ((bool)Terraheim.balance["leather"]["enabled"])
+                ArmorHelper.AddTieredRecipes("leather");
             //ArmorHelper.AddTieredRecipes("rags");
-            ArmorHelper.AddTieredRecipes("trollLeather");
-            ArmorHelper.AddTieredRecipes("bronze");
-            ArmorHelper.AddTieredRecipes("iron");
-            ArmorHelper.AddTieredRecipes("silver");
+            if ((bool)Terraheim.balance["trollLeather"]["enabled"])
+                ArmorHelper.AddTieredRecipes("trollLeather");
+            if ((bool)Terraheim.balance["bronze"]["enabled"])
+                ArmorHelper.AddTieredRecipes("bronze");
+            if ((bool)Terraheim.balance["iron"]["enabled"])
+                ArmorHelper.AddTieredRecipes("iron");
+            if ((bool)Terraheim.balance["silver"]["enabled"])
+                ArmorHelper.AddTieredRecipes("silver");
+            if ((bool)Terraheim.balance["padded"]["enabled"])
+                ArmorHelper.AddTieredRecipes("padded");
             if (Terraheim.hasBarbarianArmor)
                 ArmorHelper.AddTieredRecipes("barbarian");
-            if (Terraheim.hasChaosArmor)
-                ArmorHelper.AddTieredRecipes("chaos");
+            /*if (Terraheim.hasChaosArmor)
+                ArmorHelper.AddTieredRecipes("chaos");*/
 
             ArmorHelper.AddTieredCape("CapeDeerHide");
             ArmorHelper.AddTieredCape("CapeTrollHide");

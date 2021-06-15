@@ -130,6 +130,7 @@
     <Compile Include="ArmorEffects\SE_DeathMark.cs" />
     <Compile Include="ArmorEffects\SE_FullHPDamageBonusFX.cs" />
     <Compile Include="ArmorEffects\SE_HealOnBlock.cs" />
+    <Compile Include="ArmorEffects\SE_Hyperarmor.cs" />
     <Compile Include="ArmorEffects\SE_IncreaseHarvest.cs" />
     <Compile Include="ArmorEffects\SE_MarkedForDeath.cs" />
     <Compile Include="ArmorEffects\SE_MarkedForDeathFX.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="ArmorEffects\SE_AttackStaminaUse.cs" />
     <Compile Include="ArmorEffects\SE_DrawMoveSpeed.cs" />
     <Compile Include="ArmorEffects\SE_Thorns.cs" />
+    <Compile Include="ArmorEffects\SE_TwoHandAttackSpeed.cs" />
     <Compile Include="ArmorEffects\SE_WetImmunity.cs" />
     <Compile Include="ArmorEffects\SE_Wolftears.cs" />
     <Compile Include="ArmorEffects\SE_SpiritDamageBonus.cs" />
@@ -233,4 +235,5 @@ copy /Y "$(SolutionDir)bin\debug\mainfest.json" "C:\Users\The Administrator\AppD
 copy /Y "$(SolutionDir)bin\debug\README.md" "C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\README.md"
 </PostBuildEvent>
   </PropertyGroup>
+  <ProjectExtensions />
 </Project>

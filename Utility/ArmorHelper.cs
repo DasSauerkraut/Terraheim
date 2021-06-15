@@ -349,6 +349,20 @@ namespace Terraheim.Utility
                             $"Food fullness degrades <color=red>2x</color> faster.";
                         return effect;
                     }
+                case "hyperarmor":
+                    {
+                        var effect = ScriptableObject.CreateInstance<SE_Hyperarmor>();
+                        effect.SetArmor((float)values[$"{location}EffectVal"]);
+                        description += $"\nDamage suffered is reduced by <color=cyan>{effect.GetArmor() * 100}%</color>, Chosen Banes will not have their TTL increased and you will suffer no knockback or stagger when hit during an attack.";
+                        return effect;
+                    }
+                case "2hattackspeed":
+                    {
+                        var effect = ScriptableObject.CreateInstance<SE_TwoHandAttackSpeed>();
+                        effect.SetSpeed((float)values[$"{location}EffectVal"]);
+                        description += $"\nAttack speed for Two-Handed weapons is increased by <color=cyan>{effect.GetSpeed() * 100}%</color>.";
+                        return effect;
+                    }
                 default:
                     return null;
             }
@@ -468,7 +482,7 @@ namespace Terraheim.Utility
         {
             var setBalance = balance[setName];
             ArmorSet armor = ArmorSets[setName];
-            for (int i = (int)setBalance["upgrades"]["startingTier"]; i <= 5; i++)
+            for (int i = (int)setBalance["upgrades"]["startingTier"]; i <= 6; i++)
             {
                 var tierBalance = setBalance["upgrades"][$"t{i}"];
                 string id = "";
@@ -533,7 +547,17 @@ namespace Terraheim.Utility
                 int index = 0 + j;
                 foreach (JObject item in recipeReqs[location])
                 {
-                    recipeList.Add(MockRequirement.Create((string)item["item"], (int)item["amount"]));
+                    if ((string)item["item"] == "SalamanderFur")
+                    {
+                        var fur = new Piece.Requirement
+                        {
+                            m_resItem = SharedResources.SalamanderItem.ItemDrop,
+                            m_amount = (int)item["amount"],
+                        };
+                        recipeList.Add(fur);
+                    }
+                    else
+                        recipeList.Add(MockRequirement.Create((string)item["item"], (int)item["amount"]));
                     recipeList[index].m_amountPerLevel = (int)item["perLevel"];
                     index++;
                 }
@@ -738,7 +762,7 @@ namespace Terraheim.Utility
         {
             ArmorSet armor = ArmorSets[setName];
             string armorSetName = char.ToUpper(setName[0]) + setName.Substring(1);
-            for (int i = (int)balance[setName]["upgrades"]["startingTier"] + 1; i <= 5; i++)
+            for (int i = (int)balance[setName]["upgrades"]["startingTier"] + 1; i <= 6; i++)
             {
                 Recipe helmetRecipe;
                 Recipe chestRecipe;

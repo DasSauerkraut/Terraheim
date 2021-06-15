@@ -2,7 +2,9 @@
 using Jotunn.Managers;
 using Newtonsoft.Json.Linq;
 using Terraheim.ArmorEffects;
+using Terraheim.ArmorEffects.ChosenEffects;
 using Terraheim.Utility;
+using UnityEngine;
 
 namespace Terraheim.Patches
 {
@@ -253,6 +255,11 @@ namespace Terraheim.Patches
                 }
             }
 
+            if(character.GetSEMan().HaveStatusEffect("Chosen") && weapon.m_shared.m_name.Contains("knife_silver") && __instance.m_attackAnimation == weapon.m_shared.m_secondaryAttack.m_attackAnimation)
+            {
+                (character.GetSEMan().GetStatusEffect("Chosen") as SE_Chosen).OnKnifeUse();
+            }
+
             //Wyrdarrow
             if (character.GetSEMan().HaveStatusEffect("WyrdarrowFX"))
             {
@@ -305,6 +312,7 @@ namespace Terraheim.Patches
         public static void FireProjectileBurstPrefix(ref Attack __instance)
         {
             Log.LogInfo("Firing Proj");
+            
             if (__instance.m_character.GetSEMan().HaveStatusEffect("WyrdarrowFX"))
             {
                 var effect = __instance.m_character.GetSEMan().GetStatusEffect("Wyrdarrow") as SE_AoECounter;

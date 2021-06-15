@@ -9,6 +9,7 @@ using System.IO;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using Terraheim.ArmorEffects.ChosenEffects;
+using System.Reflection;
 
 namespace Terraheim
 {
@@ -22,14 +23,12 @@ namespace Terraheim
         public const string ModGuid = AuthorName + "." + ModName;
         private const string AuthorName = "DasSauerkraut";
         private const string ModName = "Terraheim";
-        private const string ModVer = "2.0.6";
-        public static readonly string ModPath = Path.GetDirectoryName(typeof(Terraheim).Assembly.Location);
+        private const string ModVer = "2.0.7";
+        public static readonly string ModPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public static bool hasBarbarianArmor = false;
         public static bool hasChaosArmor = false;
-        //public static CustomItem salamanderItem;
-
-        static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
+        public static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
 
         private readonly Harmony harmony = new Harmony(ModGuid);
 
@@ -38,8 +37,6 @@ namespace Terraheim
         private void Awake()
         {
             Instance = this;
-            Log.Init(Logger);
-
             TranslationUtils.LoadTranslations();
             SetupStatusEffects();
             harmony.PatchAll();
@@ -60,18 +57,17 @@ namespace Terraheim
             {
                 Log.LogInfo("Terraheim armor changes disabled!");
             }
-            
-
             Log.LogInfo("Patching complete");
         }
 
         private void AddResources()
         {
             var salRecipe = ScriptableObject.CreateInstance<Recipe>();
-
+            JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
             salRecipe.m_item = AssetHelper.ItemSalamanderFurPrefab.GetComponent<ItemDrop>();
             var itemReqs = new List<Piece.Requirement>();
             int index = 0;
+
             foreach (var item in balance["salamanderFur"]["crafting"]["items"])
             {
                 itemReqs.Add(MockRequirement.Create((string)item["item"], (int)item["amount"]));
@@ -86,7 +82,7 @@ namespace Terraheim
             CustomRecipe SalamanderRecipe = new CustomRecipe(salRecipe, true, true);
 
             ItemManager.Instance.AddRecipe(SalamanderRecipe);
-            
+
             SharedResources.SalamanderItem = new CustomItem(AssetHelper.ItemSalamanderFurPrefab, true);
             ItemManager.Instance.AddItem(SharedResources.SalamanderItem);
         }
@@ -128,6 +124,8 @@ namespace Terraheim
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_ThrowingWeaponVelocity>(), fixReference: true));
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_MoveSpeedOnKill>(), fixReference: true));
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_MoveSpeedOnKillListener>(), fixReference: true));
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Hyperarmor>(), fixReference: true));
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_TwoHandAttackSpeed>(), fixReference: true));
 
             //Set Bonuses
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_HPOnHit>(), fixReference: true)); //Leather

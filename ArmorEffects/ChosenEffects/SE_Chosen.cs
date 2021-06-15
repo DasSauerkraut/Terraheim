@@ -72,13 +72,13 @@ namespace Terraheim.ArmorEffects.ChosenEffects
             Log.LogInfo("Chosen Kill");
             if (m_boonLock)
                 return;
-            Log.LogInfo("Not Locked");
+            //Log.LogInfo("Not Locked");
             bool added = false;
             SEMan seman = m_character.GetSEMan();
             while (!added)
             {
                 int roll = m_dice.Next(1, 8+1);
-                Log.LogInfo("roll " + roll);
+                //Log.LogInfo("roll " + roll);
 
                 switch (roll)
                 {
@@ -379,6 +379,62 @@ namespace Terraheim.ArmorEffects.ChosenEffects
                 (seman.GetStatusEffect("Maddening Visions") as SE_MaddeningVisions).IncreaseTTL(m_baneTTLIncrease);
             if (seman.HaveStatusEffect("Withdrawals"))
                 (seman.GetStatusEffect("Withdrawals") as SE_Withdrawals).IncreaseTTL(m_baneTTLIncrease);
+        }
+
+        public void OnKnifeUse()
+        {
+            Log.LogInfo("Knife used");
+            if (!m_boonLock)
+            {
+                int hpChange = (m_currentBoons.Count * 15) - (m_currentBanes.Count * 25);
+                Log.LogInfo("HP Change " + hpChange);
+                if(hpChange < 0)
+                {
+                    hpChange *= -1;
+                    HitData damage = new HitData();
+                    damage.m_damage.m_damage = hpChange;
+                    m_character.Damage(damage);
+                }
+                else if (hpChange > 0)
+                {
+                    m_character.Heal(hpChange);
+                }
+                SEMan seman = m_character.GetSEMan();
+                foreach(var boon in m_currentBoons)
+                    seman.RemoveStatusEffect(boon);
+                foreach (var bane in m_currentBanes)
+                    seman.RemoveStatusEffect(bane);
+                m_currentBoons.Clear();
+                m_currentBanes.Clear();
+
+                var executionVFX = Instantiate(AssetHelper.FXBoonLock, m_character.GetCenterPoint(), Quaternion.identity);
+                ParticleSystem[] children = executionVFX.GetComponentsInChildren<ParticleSystem>();
+                foreach (ParticleSystem particle in children)
+                {
+                    particle.Play();
+                }
+                var audioSource = m_character.GetComponent<AudioSource>();
+                if (audioSource == null)
+                {
+                    audioSource = m_character.gameObject.AddComponent<AudioSource>();
+                    audioSource.playOnAwake = false;
+                }
+                audioSource.PlayOneShot(AssetHelper.SFXBoonLock);
+
+                var banelock = Instantiate(AssetHelper.FXBaneLock, m_character.GetCenterPoint(), Quaternion.identity);
+                ParticleSystem[] children2 = banelock.GetComponentsInChildren<ParticleSystem>();
+                foreach (ParticleSystem particle in children2)
+                {
+                    particle.Play();
+                }
+                var audioSource2 = m_character.GetComponent<AudioSource>();
+                if (audioSource2 == null)
+                {
+                    audioSource2 = m_character.gameObject.AddComponent<AudioSource>();
+                    audioSource2.playOnAwake = false;
+                }
+                audioSource.PlayOneShot(AssetHelper.SFXBaneLock);
+            }
         }
     }
 }

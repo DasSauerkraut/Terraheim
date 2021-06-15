@@ -10,12 +10,18 @@ namespace Terraheim.Armor
         static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
         internal static void Init()
         {
-            ItemManager.OnItemsRegistered += ModLeatherArmor;
-            ItemManager.OnItemsRegistered += ModTrollArmor;
-            ItemManager.OnItemsRegistered += ModBronzeArmor;
-            ItemManager.OnItemsRegistered += ModIronArmor;
-            ItemManager.OnItemsRegistered += ModSilverArmor;
-            ItemManager.OnItemsRegistered += ModPaddedArmor;
+            if ((bool)Terraheim.balance["leather"]["enabled"])
+                ItemManager.OnItemsRegistered += ModLeatherArmor;
+            if ((bool)Terraheim.balance["trollLeather"]["enabled"])
+                ItemManager.OnItemsRegistered += ModTrollArmor;
+            if ((bool)Terraheim.balance["bronze"]["enabled"])
+                ItemManager.OnItemsRegistered += ModBronzeArmor;
+            if ((bool)Terraheim.balance["iron"]["enabled"])
+                ItemManager.OnItemsRegistered += ModIronArmor;
+            if ((bool)Terraheim.balance["silver"]["enabled"])
+                ItemManager.OnItemsRegistered += ModSilverArmor;
+            if ((bool)Terraheim.balance["padded"]["enabled"])
+                ItemManager.OnItemsRegistered += ModPaddedArmor;
             if(Terraheim.hasBarbarianArmor)
                 ItemManager.OnItemsRegistered += ModBarbarianArmor;
             if (Terraheim.hasChaosArmor)
@@ -168,21 +174,51 @@ namespace Terraheim.Armor
 
         private static void ModChaosArmor()
         {
-            var helmet = PrefabManager.Cache.GetPrefab<ItemDrop>("ChaosPlateArmorBody");
-            var chest = PrefabManager.Cache.GetPrefab<ItemDrop>("ChaosPlateHelm");
-            var legs = PrefabManager.Cache.GetPrefab<ItemDrop>("ChaosPlateLegs");
+            var helmett0 = PrefabManager.Cache.GetPrefab<ItemDrop>("T1ChaosPlateHelm");
+            var chestt0 = PrefabManager.Cache.GetPrefab<ItemDrop>("T1ChaosPlateArmor");
+            var legst0 = PrefabManager.Cache.GetPrefab<ItemDrop>("T1ChaosPlateLegs");
 
-            var setBalance = balance["chaos"];
+            var headRecipet0 = ObjectDB.instance.GetRecipe(helmett0.m_itemData);
+            var chestRecipet0 = ObjectDB.instance.GetRecipe(chestt0.m_itemData);
+            var legsRecipet0 = ObjectDB.instance.GetRecipe(legst0.m_itemData);
+
+            headRecipet0.m_enabled = false;
+            chestRecipet0.m_enabled = false;
+            legsRecipet0.m_enabled = false;
+
+            var helmet = PrefabManager.Cache.GetPrefab<ItemDrop>("T2ChaosPlateHelm");
+            var chest = PrefabManager.Cache.GetPrefab<ItemDrop>("T2ChaosPlateArmor");
+            var legs = PrefabManager.Cache.GetPrefab<ItemDrop>("T2ChaosPlateLegs");
+
+            var setBalance = balance["chaosT0"];
 
             var headRecipe = ObjectDB.instance.GetRecipe(helmet.m_itemData);
             var chestRecipe = ObjectDB.instance.GetRecipe(chest.m_itemData);
             var legsRecipe = ObjectDB.instance.GetRecipe(legs.m_itemData);
 
-            headRecipe.m_craftingStation = Pieces.Reforger;
-            chestRecipe.m_craftingStation = Pieces.Reforger;
-            legsRecipe.m_craftingStation = Pieces.Reforger;
+            UtilityFunctions.GetRecipe(ref headRecipe, setBalance["recipe"], "head", false);
+            UtilityFunctions.GetRecipe(ref chestRecipe, setBalance["recipe"], "chest", false);
+            UtilityFunctions.GetRecipe(ref legsRecipe, setBalance["recipe"], "legs", false);
 
-            ArmorHelper.ModArmorSet("chaos", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
+            ArmorHelper.ModArmorSet("chaosT0", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
+
+            var helmetT1 = PrefabManager.Cache.GetPrefab<ItemDrop>("ChaosPlateHelm");
+            var chestT1 = PrefabManager.Cache.GetPrefab<ItemDrop>("ChaosPlateArmorBody");
+            var legsT1 = PrefabManager.Cache.GetPrefab<ItemDrop>("ChaosPlateLegs");
+
+            var setBalanceT1 = balance["chaosT1"];
+
+            var headRecipeT1 = ObjectDB.instance.GetRecipe(helmetT1.m_itemData);
+            var chestRecipeT1 = ObjectDB.instance.GetRecipe(chestT1.m_itemData);
+            var legsRecipeT1 = ObjectDB.instance.GetRecipe(legsT1.m_itemData);
+
+            UtilityFunctions.GetRecipe(ref headRecipeT1, setBalanceT1["recipe"], "head", false);
+            UtilityFunctions.GetRecipe(ref chestRecipeT1, setBalanceT1["recipe"], "chest", false);
+            UtilityFunctions.GetRecipe(ref legsRecipeT1, setBalanceT1["recipe"], "legs", false);
+            //Log.LogWarning("Recipe station post " + headRecipe.m_craftingStation.m_name);
+            //Log.LogWarning("Recipe ingrediant " + headRecipe.m_resources[0].m_resItem.m_itemData.m_shared.m_name);
+
+            ArmorHelper.ModArmorSet("chaosT1", ref helmetT1.m_itemData, ref chestT1.m_itemData, ref legsT1.m_itemData, setBalanceT1, false, -1);
         }
 
         private static void ModCapes()
