@@ -19,6 +19,14 @@ namespace Terraheim.Patches
                 __instance.GetCurrentBlocker().m_shared.m_blockPower = baseWeapon.m_itemData.m_shared.m_blockPower * (1+effect.GetBlockPower());
                 //Log.LogWarning("Human " + __instance.GetCurrentBlocker().m_shared.m_blockPower);
             }
+            if(__instance.IsPlayer() && __instance.GetSEMan().HaveStatusEffect("Parry Bonus Increase") && __instance.GetCurrentWeapon() != __instance.m_unarmedWeapon.m_itemData)
+            {
+                Log.LogWarning("Human " + __instance.GetCurrentBlocker().m_shared.m_blockPower);
+                SE_ParryBonus effect = __instance.GetSEMan().GetStatusEffect("Parry Bonus Increase") as SE_ParryBonus;
+                var baseWeapon = PrefabManager.Cache.GetPrefab<ItemDrop>(__instance.GetCurrentBlocker().m_dropPrefab.name);
+                __instance.GetCurrentBlocker().m_shared.m_blockPower = baseWeapon.m_itemData.m_shared.m_timedBlockBonus * (1 + effect.GetParryBonus());
+                Log.LogWarning("Human " + __instance.GetCurrentBlocker().m_shared.m_blockPower);
+            }
         }
     }
 }

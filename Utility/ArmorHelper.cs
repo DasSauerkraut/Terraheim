@@ -363,6 +363,13 @@ namespace Terraheim.Utility
                         description += $"\nAttack speed for Two-Handed weapons is increased by <color=cyan>{effect.GetSpeed() * 100}%</color>.";
                         return effect;
                     }
+                case "parrybns":
+                    {
+                        var effect = ScriptableObject.CreateInstance<SE_ParryBonus>();
+                        effect.SetParryBonus((float)values[$"{location}EffectVal"]);
+                        description += $"\nParry Bonus is increased by <color=cyan>{effect.GetParryBonus() * 100}%</color>.";
+                        return effect;
+                    }
                 default:
                     return null;
             }

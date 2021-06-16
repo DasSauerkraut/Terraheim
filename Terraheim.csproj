@@ -138,6 +138,7 @@
     <Compile Include="ArmorEffects\SE_FullHPDamageBonus.cs" />
     <Compile Include="ArmorEffects\SE_MoveSpeedOnKill.cs" />
     <Compile Include="ArmorEffects\SE_MoveSpeedOnKillListener.cs" />
+    <Compile Include="ArmorEffects\SE_ParryBonus.cs" />
     <Compile Include="ArmorEffects\SE_Pinned.cs" />
     <Compile Include="ArmorEffects\SE_PinnedCooldown.cs" />
     <Compile Include="ArmorEffects\SE_Pinning.cs" />

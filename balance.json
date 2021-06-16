@@ -576,7 +576,7 @@
                     "perLevel": 0
                 },
                 {
-                    "item": "T2ChaosPlateHelm",
+                    "item": "T1ChaosPlateHelm",
                     "amount": 1,
                     "perLevel": 0
                 }
@@ -593,7 +593,7 @@
                     "perLevel": 0
                 },
                 {
-                    "item": "T2ChaosPlateArmor",
+                    "item": "T1ChaosPlateArmor",
                     "amount": 1,
                     "perLevel": 0
                 }
@@ -607,6 +607,77 @@
                 {
                     "item": "LinenThread",
                     "amount": 20,
+                    "perLevel": 0
+                },
+                {
+                    "item": "T1ChaosPlateLegs",
+                    "amount": 1,
+                    "perLevel": 0
+                }
+            ]
+        }
+    },
+    "chaosT2": {
+        "enabled": true,
+        "name": "chaos",
+        "baseArmor": 28,
+        "armorPerLevel": 2,
+        "globalMoveMod": 0,
+        "setEffect": "chosen",
+        "headEffect": "2hattackspeed",
+        "chestEffect": "hyperarmor",
+        "legsEffect": "parrybns",
+        "setBaneVal": 8,
+        "setBoonVal": 17,
+        "headEffectVal": 0.17,
+        "chestEffectVal": 0.35,
+        "legsEffectVal": 0.17,
+        "recipe": {
+            "station": "reforger",
+            "minLevel": 2,
+            "head": [
+                {
+                    "item": "Flametal",
+                    "amount": 10,
+                    "perLevel": 5
+                },
+                {
+                    "item": "SalamanderFur",
+                    "amount": 5,
+                    "perLevel": 0
+                },
+                {
+                    "item": "T2ChaosPlateHelm",
+                    "amount": 1,
+                    "perLevel": 0
+                }
+            ],
+            "chest": [
+                {
+                    "item": "Flametal",
+                    "amount": 10,
+                    "perLevel": 5
+                },
+                {
+                    "item": "SalamanderFur",
+                    "amount": 5,
+                    "perLevel": 0
+                },
+                {
+                    "item": "T2ChaosPlateArmor",
+                    "amount": 1,
+                    "perLevel": 0
+                }
+            ],
+            "legs": [
+                {
+                    "item": "Flametal",
+                    "amount": 10,
+                    "perLevel": 5
+                },
+                {
+                    "item": "SalamanderFur",
+                    "amount": 5,
                     "perLevel": 0
                 },
                 {

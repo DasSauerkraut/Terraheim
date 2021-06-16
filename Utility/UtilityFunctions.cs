@@ -49,9 +49,29 @@ namespace Terraheim.Utility
                         return true;
                     case "Ranger Weapon Bonus":
                         return true;
+                    case "Parry Bonus Increase":
+                        return true;
                     default:
                         break;
                 }
+            }
+            return false;
+        }
+
+        public static bool IsBoss(string name)
+        {
+            switch (name)
+            {
+                case "$enemy_eikthyr":
+                    return true;
+                case "$enemy_gdking":
+                    return true;
+                case "$enemy_bonemass":
+                    return true;
+                case "$enemy_dragon":
+                    return true;
+                case "$enemy_goblinking":
+                    return true;
             }
             return false;
         }

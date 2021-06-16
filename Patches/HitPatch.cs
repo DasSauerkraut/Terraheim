@@ -182,9 +182,19 @@ namespace Terraheim.Patches
             }
 
             //Chosen
-            if (__instance.GetHealth() <= hit.GetTotalDamage() && attacker.GetSEMan().HaveStatusEffect("Chosen"))
+            if (attacker.GetSEMan().HaveStatusEffect("Chosen"))
             {
-                (attacker.GetSEMan().GetStatusEffect("Chosen") as SE_Chosen).OnKill();
+                Log.LogInfo(__instance.m_name);
+                if (__instance.GetHealth() <= hit.GetTotalDamage())
+                {
+                    (attacker.GetSEMan().GetStatusEffect("Chosen") as SE_Chosen).OnKill();
+                }
+                else if (UtilityFunctions.IsBoss(__instance.m_name))
+                {
+                    System.Random dice = new System.Random();
+                    if(dice.Next(1, 8 + 1) >= 8)
+                        (attacker.GetSEMan().GetStatusEffect("Chosen") as SE_Chosen).OnKill();
+                }
             }
 
             //Pinning

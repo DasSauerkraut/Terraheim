@@ -24,6 +24,8 @@ namespace Terraheim.Patches
         )]
         public static void GetTooltipPostfix(ref string __result, ItemDrop.ItemData item, int qualityLevel, bool crafting)
         {
+            //Log.LogInfo(__result);
+
             if (item != null && Player.m_localPlayer != null && UtilityFunctions.HasTooltipEffect(Player.m_localPlayer.GetSEMan()))
             {
                 if (item.IsWeapon())
@@ -60,6 +62,18 @@ namespace Terraheim.Patches
                         var blockBonus = item.m_shared.m_blockPower * (1 + effect.GetBlockPower());
                         tooltip = tooltip.Insert(index + blockPowerString.Length, $" <color=orange>|</color> <color=cyan>({blockBonus:#.##})</color>");
                     }
+                }
+            }
+            if(localplayer.GetSEMan().HaveStatusEffect("Parry Bonus Increase"))
+            {
+                //Log.LogInfo(item.m_shared.m_timedBlockBonus);
+                SE_ParryBonus effect = localplayer.GetSEMan().GetStatusEffect("Parry Bonus Increase") as SE_ParryBonus;
+                string blockPowerString = $"$item_parrybonus: <color=orange>{item.m_shared.m_timedBlockBonus}x</color>";
+                var index = tooltip.IndexOf(blockPowerString);
+                if (index > -1)
+                {
+                    var blockBonus = item.m_shared.m_timedBlockBonus * (1 + effect.GetParryBonus());
+                    tooltip = tooltip.Insert(index + blockPowerString.Length, $" <color=orange>|</color> <color=cyan>{blockBonus:#.##}x</color>");
                 }
             }
         }

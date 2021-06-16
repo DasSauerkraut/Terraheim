@@ -155,9 +155,9 @@ namespace Terraheim.Utility
             },
             {"chaosT0", new ArmorSet
                 {
-                    HelmetID = "T2ChaosPlateArmor",
-                    ChestID = "T2ChaosPlateHelm",
-                    LegsID = "T2ChaosPlateLegs",
+                    HelmetID = "T1ChaosPlateArmor",
+                    ChestID = "T1ChaosPlateHelm",
+                    LegsID = "T1ChaosPlateLegs",
                     HelmetName = "$item_helmet_chaos_t",
                     ChestName = "$item_chest_chaos_t",
                     LegsName = "$item_legs_chaos_t",
@@ -167,12 +167,24 @@ namespace Terraheim.Utility
             },
             {"chaosT1", new ArmorSet
                 {
-                    HelmetID = "ChaosPlateHelm",
-                    ChestID = "ChaosPlateArmorBody",
-                    LegsID = "ChaosPlateLegs",
+                    HelmetID = "T2ChaosPlateArmor",
+                    ChestID = "T2ChaosPlateHelm",
+                    LegsID = "T2ChaosPlateLegs",
                     HelmetName = "$item_helmet_chaos_t1",
                     ChestName = "$item_chest_chaos_t1",
                     LegsName = "$item_legs_chaos_t1",
+                    ClassName = "$class_berserker",
+                    HelmetArmor = 0
+                }
+            },
+            {"chaosT2", new ArmorSet
+                {
+                    HelmetID = "ChaosPlateHelm",
+                    ChestID = "ChaosPlateArmorBody",
+                    LegsID = "ChaosPlateLegs",
+                    HelmetName = "$item_helmet_chaos_t2",
+                    ChestName = "$item_chest_chaos_t2",
+                    LegsName = "$item_legs_chaos_t2",
                     ClassName = "$class_berserker",
                     HelmetArmor = 0
                 }
