@@ -33,6 +33,7 @@ namespace Terraheim.Utility
 
         public static GameObject TestProjectile;
         public static GameObject TestExplosion;
+        public static GameObject PestilenceExplosion;
         public static GameObject BowFireExplosionPrefab;
         public static GameObject FlamebowWyrdExplosion;
 
@@ -74,6 +75,7 @@ namespace Terraheim.Utility
             FXPinned = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/vfx_Pinned.prefab");
 
             TestExplosion = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/test_explosion.prefab");
+            PestilenceExplosion = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/pestilence_explosion.prefab");
             TestProjectile = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/test_projectile.prefab");
             FlamebowWyrdExplosion = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/flametal/bow/bowFire_wyrdexplosion.prefab");
             BowFireExplosionPrefab = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/flametal/bow/bowFire_explosion1.prefab");

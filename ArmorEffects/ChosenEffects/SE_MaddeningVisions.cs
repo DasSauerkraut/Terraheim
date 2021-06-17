@@ -7,7 +7,9 @@ namespace Terraheim.ArmorEffects
     class SE_MaddeningVisions : StatusEffect
     {
         private bool m_hasTriggered = false;
-
+        private float m_rangedMalus;
+        private float m_meleeMalus;
+        private bool m_isActive = false;
         public float TTL
         {
             get { return m_ttl; }
@@ -23,6 +25,8 @@ namespace Terraheim.ArmorEffects
 
         public override void Setup(Character character)
         {
+            m_rangedMalus = (float)Terraheim.balance["baneSettings"]["maddeningVisions"]["rangedDamage"];
+            m_meleeMalus = (float)Terraheim.balance["baneSettings"]["maddeningVisions"]["meleeDamage"]; 
             m_icon = AssetHelper.SpriteChosenTzeentchBane;
             Log.LogWarning("Adding Maddening Visions");
             base.Setup(character);
@@ -30,6 +34,8 @@ namespace Terraheim.ArmorEffects
 
         public override void UpdateStatusEffect(float dt)
         {
+            if(m_time > 0.5f)
+                m_isActive = true;
             if (m_time >= TTL - 0.1f && !m_hasTriggered)
             {
                 SEMan seman = m_character.GetSEMan();
@@ -51,5 +57,9 @@ namespace Terraheim.ArmorEffects
             TTL += increase;
             m_time -= increase;
         }
+
+        public float GetRangedMalus() { return m_rangedMalus; }
+        public float GetMeleeMalus() { return m_meleeMalus; }
+        public bool IsActive() { return m_isActive; }
     }
 }

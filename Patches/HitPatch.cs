@@ -197,6 +197,67 @@ namespace Terraheim.Patches
                 }
             }
 
+            if (attacker.GetSEMan().HaveStatusEffect("Bloodlust"))
+            {
+                SE_Bloodlust effect = attacker.GetSEMan().GetStatusEffect("Bloodlust") as SE_Bloodlust;
+                //Log.LogInfo($"Has Bloodlust, Enemy Health {__instance.GetHealthPercentage() * 100}%, Threshold {effect.GetThreshold() * 100}%");
+                if(__instance.GetHealthPercentage() >= effect.GetThreshold())
+                {
+                    //Log.LogWarning($"Haha get fucked. Starting Damage {hit.GetTotalDamage()}");
+                    hit.m_damage.m_blunt += hit.m_damage.m_blunt * effect.GetDamageBonus();
+                    hit.m_damage.m_chop += hit.m_damage.m_chop * effect.GetDamageBonus();
+                    hit.m_damage.m_damage += hit.m_damage.m_damage * effect.GetDamageBonus();
+                    hit.m_damage.m_fire += hit.m_damage.m_fire * effect.GetDamageBonus();
+                    hit.m_damage.m_frost += hit.m_damage.m_frost * effect.GetDamageBonus();
+                    hit.m_damage.m_lightning += hit.m_damage.m_lightning * effect.GetDamageBonus();
+                    hit.m_damage.m_pickaxe += hit.m_damage.m_pickaxe * effect.GetDamageBonus();
+                    hit.m_damage.m_pierce += hit.m_damage.m_pierce * effect.GetDamageBonus();
+                    hit.m_damage.m_poison += hit.m_damage.m_poison * effect.GetDamageBonus();
+                    hit.m_damage.m_slash += hit.m_damage.m_slash * effect.GetDamageBonus();
+                    hit.m_damage.m_spirit += hit.m_damage.m_spirit * effect.GetDamageBonus();
+                    //Log.LogInfo($"Ending Damage {hit.GetTotalDamage()}");
+                    var executionVFX = Object.Instantiate(AssetHelper.FXExecution, __instance.GetCenterPoint(), Quaternion.identity);
+                    ParticleSystem[] children = executionVFX.GetComponentsInChildren<ParticleSystem>();
+                    foreach (ParticleSystem particle in children)
+                    {
+                        particle.Play();
+                    }
+
+                    var audioSource = hit.GetAttacker().GetComponent<AudioSource>();
+                    if (audioSource == null)
+                    {
+                        audioSource = hit.GetAttacker().gameObject.AddComponent<AudioSource>();
+                        audioSource.playOnAwake = false;
+                    }
+                    audioSource.PlayOneShot(AssetHelper.SFXExecution);
+                }
+            }
+
+            if(attacker.GetSEMan().HaveStatusEffect("Maddening Visions") && (attacker.GetSEMan().GetStatusEffect("Maddening Visions") as SE_MaddeningVisions).IsActive())
+            {
+                float modifier;
+                if((attacker as Player).GetCurrentWeapon().m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow)
+                {
+                    modifier = (attacker.GetSEMan().GetStatusEffect("Maddening Visions") as SE_MaddeningVisions).GetRangedMalus();
+
+                }
+                else
+                {
+                    modifier = (attacker.GetSEMan().GetStatusEffect("Maddening Visions") as SE_MaddeningVisions).GetMeleeMalus();
+
+                }
+                hit.m_damage.m_blunt -= hit.m_damage.m_blunt * modifier;
+                hit.m_damage.m_chop -= hit.m_damage.m_chop * modifier;
+                hit.m_damage.m_damage -= hit.m_damage.m_damage * modifier;
+                hit.m_damage.m_fire -= hit.m_damage.m_fire * modifier;
+                hit.m_damage.m_frost -= hit.m_damage.m_frost * modifier;
+                hit.m_damage.m_lightning -= hit.m_damage.m_lightning * modifier;
+                hit.m_damage.m_pickaxe -= hit.m_damage.m_pickaxe * modifier;
+                hit.m_damage.m_pierce -= hit.m_damage.m_pierce * modifier;
+                hit.m_damage.m_poison -= hit.m_damage.m_poison * modifier;
+                hit.m_damage.m_slash -= hit.m_damage.m_slash * modifier;
+                hit.m_damage.m_spirit -= hit.m_damage.m_spirit * modifier;
+            }
             //Pinning
             if (attacker.GetSEMan().HaveStatusEffect("Pinning") && !__instance.GetSEMan().HaveStatusEffect("Pinned") && !__instance.GetSEMan().HaveStatusEffect("Pinned Cooldown"))
             {

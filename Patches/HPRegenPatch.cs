@@ -17,6 +17,11 @@ namespace Terraheim.Patches
                 regenMultiplier += effect.getHealPercent();
                 //Log.LogInfo($"Total Val Modded HP${hp} from effect ${effect.getHealthBonus()}");
 
+            } else if (__instance.HaveStatusEffect("Bloated"))
+            {
+                SE_Bloated effect = __instance.GetStatusEffect("Bloated") as SE_Bloated;
+                //Player player = __instance.m_character as Player;
+                regenMultiplier += effect.GetRegen();
             }
         }
     }

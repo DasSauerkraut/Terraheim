@@ -77,8 +77,8 @@ namespace Terraheim.ArmorEffects.ChosenEffects
             SEMan seman = m_character.GetSEMan();
             while (!added)
             {
-                int roll = m_dice.Next(1, 8+1);
-                //Log.LogInfo("roll " + roll);
+            int roll = m_dice.Next(1, 8+1);
+            //Log.LogInfo("roll " + roll);
 
                 switch (roll)
                 {

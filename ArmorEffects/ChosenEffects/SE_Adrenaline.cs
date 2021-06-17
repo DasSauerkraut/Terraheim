@@ -4,9 +4,11 @@ using Terraheim.Utility;
 
 namespace Terraheim.ArmorEffects
 {
-    class SE_Adrenaline : StatusEffect
+    public class SE_Adrenaline : StatusEffect
     {
         private bool m_hasTriggered = false;
+        private float m_moveSpeed = 0f;
+        private float m_attackSpeed = 0f;
 
         public float TTL
         {
@@ -23,6 +25,8 @@ namespace Terraheim.ArmorEffects
 
         public override void Setup(Character character)
         {
+            m_attackSpeed = (float)Terraheim.balance["boonSettings"]["adrenaline"]["attackspeed"];
+            m_moveSpeed = (float)Terraheim.balance["boonSettings"]["adrenaline"]["movespeed"];
             m_icon = AssetHelper.SpriteChosenSlaaneshBoon;
             Log.LogWarning("Adding Adrenaline");
             base.Setup(character);
@@ -49,6 +53,14 @@ namespace Terraheim.ArmorEffects
         {
             TTL += increase;
             m_time -= increase;
+        }
+
+        public float GetAttackSpeed() { return m_attackSpeed; }
+
+        public override void ModifySpeed(ref float speed)
+        {
+            speed *= 1 + m_moveSpeed;
+            base.ModifySpeed(ref speed);
         }
     }
 }

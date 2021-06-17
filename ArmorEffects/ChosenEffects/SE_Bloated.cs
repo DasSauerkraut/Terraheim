@@ -7,6 +7,7 @@ namespace Terraheim.ArmorEffects
     class SE_Bloated : StatusEffect
     {
         private bool m_hasTriggered = false;
+        public float m_regenAmount = 0f;
         
         public float TTL
         {
@@ -23,6 +24,7 @@ namespace Terraheim.ArmorEffects
 
         public override void Setup(Character character)
         {
+            m_regenAmount = (float)Terraheim.balance["boonSettings"]["bloated"]["regen"];
             m_icon = AssetHelper.SpriteChosenNurgleBoon;
             Log.LogWarning("Adding Bloated");
             base.Setup(character);
@@ -50,5 +52,7 @@ namespace Terraheim.ArmorEffects
             TTL += increase;
             m_time -= increase;
         }
+
+        public float GetRegen() { return m_regenAmount; }
     }
 }

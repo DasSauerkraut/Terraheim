@@ -7,7 +7,7 @@ namespace Terraheim.ArmorEffects
     class SE_HiddenKnowledge : StatusEffect
     {
         private bool m_hasTriggered = false;
-
+        public float m_modifier = 0f;
         public float TTL
         {
             get { return m_ttl; }
@@ -23,6 +23,7 @@ namespace Terraheim.ArmorEffects
 
         public override void Setup(Character character)
         {
+            m_modifier = (float)Terraheim.balance["boonSettings"]["knowledge"]["increase"];
             m_icon = AssetHelper.SpriteChosenTzeentchBoon;
             Log.LogWarning("Adding Hidden Knowledge");
             base.Setup(character);
@@ -49,6 +50,14 @@ namespace Terraheim.ArmorEffects
         {
             TTL += increase;
             m_time -= increase;
+        }
+
+        public override void ModifyRaiseSkill(Skills.SkillType skill, ref float value)
+        {
+            //Log.LogInfo($"Before Mod: {value}");
+            value *= 1 + m_modifier;
+            //Log.LogInfo($"Post Mod: {value}");
+            base.ModifyRaiseSkill(skill, ref value);
         }
     }
 }

@@ -8,6 +8,8 @@ namespace Terraheim.ArmorEffects
     {
         private bool m_hasTriggered = false;
 
+        public float m_damageBonus = 0f;
+        public float m_thresholdPercent = 0f;
         public float TTL
         {
             get { return m_ttl; }
@@ -23,6 +25,8 @@ namespace Terraheim.ArmorEffects
 
         public override void Setup(Character character)
         {
+            m_damageBonus = (float)Terraheim.balance["boonSettings"]["bloodlust"]["damage"];
+            m_thresholdPercent = (float)Terraheim.balance["boonSettings"]["bloodlust"]["threshold"];
             m_icon = AssetHelper.SpriteChosenKhorneBoon;
             Log.LogWarning("Adding Bloodlust");
             base.Setup(character);
@@ -50,5 +54,8 @@ namespace Terraheim.ArmorEffects
             TTL += increase;
             m_time -= increase;
         }
+
+        public float GetDamageBonus() { return m_damageBonus; }
+        public float GetThreshold() { return m_thresholdPercent; }
     }
 }

@@ -14,6 +14,41 @@
     "bloodrushMaxSpeed": 0.5,
     "enableMarkedForDeathFX": true,
     "brassfleshTTL": 10,
+    "boonSettings": {
+        "bloodlust": {
+            "damage": 0.20,
+            "threshold": 0.90
+        },
+        "bloated": {
+            "regen": 0.5
+        },
+        "knowledge": {
+            "increase": 0.50
+        },
+        "adrenaline": {
+            "movespeed": 0.15,
+            "attackspeed": 0.05
+        }
+    },
+    "baneSettings": {
+        "blindingRage": {
+            "damageIncrease": 0.20
+        },
+        "pestilence": {
+            "chance": 0.70,
+            "damagePercent": 0.14,
+            "timeToCheck": 15
+        },
+        "maddeningVisions": {
+            "rangedDamage": 0.30,
+            "meleeDamage": 0.10
+        },
+        "withdrawals": {
+            "meadCooldown": 2,
+            "meadDuration": 0.5,
+            "foodDegradeRate": 2
+        }
+    },
     "rags": {
         "enabled": true,
         "name": "rags",

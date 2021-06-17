@@ -43,6 +43,16 @@ namespace Terraheim.Patches
                             //Log.LogMessage("mod burn " + food.m_item.m_shared.m_foodBurnTime);
                         }
                     }
+                    else if (__instance.GetSEMan().HaveStatusEffect("Withdrawals"))
+                    {
+                        if (food.m_item.m_shared.m_foodBurnTime == foodDuration[food.m_name])
+                        {
+                            
+                            //Log.LogMessage("Dictionary Contains Food " + food.m_name + " base burn " + food.m_item.m_shared.m_foodBurnTime + " Dict Usage " + foodDuration[food.m_name]);
+                            food.m_item.m_shared.m_foodBurnTime = foodDuration[food.m_name] * (__instance.GetSEMan().GetStatusEffect("Withdrawals") as SE_Withdrawals).GetFoodEffect();
+                            //Log.LogMessage("mod burn " + food.m_item.m_shared.m_foodBurnTime);
+                        }
+                    }
                     else if (food.m_item.m_shared.m_foodBurnTime != foodDuration[food.m_name]) food.m_item.m_shared.m_foodBurnTime = foodDuration[food.m_name];
                 }
                 else
