@@ -23,7 +23,7 @@ namespace Terraheim
         public const string ModGuid = AuthorName + "." + ModName;
         private const string AuthorName = "DasSauerkraut";
         private const string ModName = "Terraheim";
-        private const string ModVer = "2.0.7";
+        private const string ModVer = "2.1.0";
         public static readonly string ModPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public static bool hasBarbarianArmor = false;
@@ -127,6 +127,11 @@ namespace Terraheim
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_MoveSpeedOnKillListener>(), fixReference: true));
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Hyperarmor>(), fixReference: true));
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_TwoHandAttackSpeed>(), fixReference: true));
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_ShieldFireHeal>(), fixReference: true));
+            //ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_ShieldFireListener>(), fixReference: true));
+            //ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_ShieldFireParryListener>(), fixReference: true));
+            //ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Afterburn>(), fixReference: true));
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_AfterburnCooldown>(), fixReference: true));
 
             //Set Bonuses
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_HPOnHit>(), fixReference: true)); //Leather
@@ -169,6 +174,5 @@ namespace Terraheim
 
             Log.LogInfo("Status Effects Injected");
         }
-
     }
 }

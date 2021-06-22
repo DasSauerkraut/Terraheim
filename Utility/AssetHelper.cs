@@ -18,6 +18,7 @@ namespace Terraheim.Utility
         public static GameObject FXMarkedForDeath;
         public static GameObject FXMarkedForDeathHit;
         public static GameObject FXPinned;
+        public static GameObject FXAfterburn;
         public static GameObject FXBoonGain;
         public static GameObject FXBaneGain;
         public static GameObject FXBoonLock;
@@ -34,6 +35,7 @@ namespace Terraheim.Utility
         public static GameObject TestProjectile;
         public static GameObject TestExplosion;
         public static GameObject PestilenceExplosion;
+        public static GameObject ShieldTowerFireHeal;
         public static GameObject BowFireExplosionPrefab;
         public static GameObject FlamebowWyrdExplosion;
 
@@ -73,9 +75,11 @@ namespace Terraheim.Utility
             FXMarkedForDeath = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/vfx_MarkedForDeath.prefab");
             FXMarkedForDeathHit = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/vfx_MarkedForDeathHit.prefab");
             FXPinned = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/vfx_Pinned.prefab");
+            FXAfterburn = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/flametal/shield/afterburn_effect.prefab");
 
             TestExplosion = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/test_explosion.prefab");
             PestilenceExplosion = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/pestilence_explosion.prefab");
+            ShieldTowerFireHeal = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/flametal/gshield/shieldfire_heal_aoe.prefab");
             TestProjectile = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/test_projectile.prefab");
             FlamebowWyrdExplosion = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/flametal/bow/bowFire_wyrdexplosion.prefab");
             BowFireExplosionPrefab = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/flametal/bow/bowFire_explosion1.prefab");
@@ -177,6 +181,17 @@ namespace Terraheim.Utility
             Data.VFXPinned = new EffectList.EffectData()
             {
                 m_prefab = Utility.AssetHelper.FXPinned,
+                m_enabled = true,
+                m_attach = true,
+                m_inheritParentRotation = false,
+                m_inheritParentScale = true,
+                m_randomRotation = false,
+                m_scale = true
+            };
+
+            Data.VFXAfterburn = new EffectList.EffectData()
+            {
+                m_prefab = Utility.AssetHelper.FXAfterburn,
                 m_enabled = true,
                 m_attach = true,
                 m_inheritParentRotation = false,

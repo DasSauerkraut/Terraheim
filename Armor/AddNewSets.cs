@@ -53,6 +53,7 @@ namespace Terraheim.Armor
             ArmorHelper.AddCape("CapeLinen", "linen");
             if (Terraheim.hasBarbarianArmor)
                 ArmorHelper.AddCape("ArmorBarbarianCapeJD", "barbarian");
+            ItemManager.OnVanillaItemsAvailable -= AddArmorSets;
         }
 
         private static void ModExistingRecipes()
@@ -80,6 +81,7 @@ namespace Terraheim.Armor
             ArmorHelper.AddTieredCape("CapeLinen");
             if (Terraheim.hasBarbarianArmor)
                 ArmorHelper.AddTieredCape("ArmorBarbarianCapeJD");
+            ItemManager.OnItemsRegistered -= ModExistingRecipes;
         }
     }
 }

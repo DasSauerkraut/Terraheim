@@ -50,6 +50,7 @@ namespace Terraheim.Armor
             legsRecipe.m_minStationLevel = 1;
 
             ArmorHelper.ModArmorSet("leather", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
+            ItemManager.OnItemsRegistered -= ModLeatherArmor;
         }
 
         private static void ModTrollArmor()
@@ -242,7 +243,7 @@ namespace Terraheim.Armor
             loxCape.m_itemData.m_shared.m_equipStatusEffect = ArmorHelper.GetArmorEffect((string)capeBalance["lox"]["effect"], capeBalance["lox"], "cape", ref loxCape.m_itemData.m_shared.m_description);
 
             linenCape.m_itemData.m_shared.m_equipStatusEffect = ArmorHelper.GetArmorEffect((string)capeBalance["linen"]["effect"], capeBalance["linen"], "cape", ref linenCape.m_itemData.m_shared.m_description);
-
+            ItemManager.OnItemsRegistered -= ModCapes;
         }
 
     }

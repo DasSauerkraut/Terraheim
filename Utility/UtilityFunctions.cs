@@ -51,6 +51,8 @@ namespace Terraheim.Utility
                         return true;
                     case "Parry Bonus Increase":
                         return true;
+                    case "ShieldFireParryListener":
+                        return true;
                     default:
                         break;
                 }

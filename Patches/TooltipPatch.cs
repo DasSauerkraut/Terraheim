@@ -158,6 +158,40 @@ namespace Terraheim.Patches
                 var effect = localplayer.GetSEMan().GetStatusEffect("Spirit Damage Bonus") as SE_SpiritDamageBonus;
                 spiritDamage += effect.GetDamageBonus();
             }
+            if (seman.HaveStatusEffect("ShieldFireParryListener"))
+            {
+                float damageBns = 0f;
+                if (item.m_shared.m_name.Contains("knife_fire"))
+                    damageBns = 5f;
+                else if (item.m_shared.m_name.Contains("spear_fire"))
+                    damageBns = 15f;
+                if(damageBns > 0f)
+                {
+                    localplayer.GetSkills().GetRandomSkillRange(out var min, out var max, item.m_shared.m_skillType);
+
+                    int minRange = Mathf.RoundToInt(item.GetDamage().m_damage * min);
+                    int maxRange = Mathf.RoundToInt(item.GetDamage().m_damage * max);
+                    string toolString = $"$inventory_damage: <color=orange>{item.GetDamage().m_damage}</color> <color=yellow>({minRange}-{maxRange}) </color>";
+
+                    var dmgBonusMin = Mathf.RoundToInt((item.GetDamage().m_damage + damageBns) * min);
+                    var dmgBonusMax = Mathf.RoundToInt((item.GetDamage().m_damage + damageBns) * max);
+
+                    var index = tooltip.IndexOf(toolString);
+                    if (index > -1)
+                    {
+                        tooltip = tooltip.Insert(index + toolString.Length, $"<color=orange>|</color> <color=cyan>({dmgBonusMin:#.##}-{dmgBonusMax:#.##})</color>");
+                    }
+                    else
+                    {
+                        string newString = $"$item_blockpower: <color=orange>{item.m_shared.m_blockPower}</color> <color=yellow>({item.m_shared.m_blockPower})</color>";
+                        index = tooltip.IndexOf(newString);
+                        if (index > -1)
+                        {
+                            tooltip = tooltip.Insert(index, $"<color=cyan>$inventory_damage: {item.GetDamage().m_damage + damageBns} ({dmgBonusMin:#.#}-{dmgBonusMax:#.#})</color>\n");
+                        }
+                    }
+                }
+            }
             if (totalMultiplier > 0f)
             {
                 var damages = item.m_shared.m_damages;

@@ -32,13 +32,9 @@ namespace Terraheim.ArmorEffects
                 m_character.GetSEMan().RemoveStatusEffect("Pinned");
             if (m_time >= TTL - 0.05f && !hasTriggered)
             {
-                Log.LogInfo(1);
                 m_character.GetSEMan().AddStatusEffect("Pinned Cooldown");
-                Log.LogInfo(2);
                 var effect = m_character.GetSEMan().GetStatusEffect("Pinned Cooldown") as SE_PinnedCooldown;
-                Log.LogInfo(3);
                 effect.SetPinCooldownTTL(m_cooldownTTL);
-                Log.LogInfo(4);
                 effect.SetBaseMods(m_baseMods);
                 hasTriggered = true;
             }

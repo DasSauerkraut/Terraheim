@@ -19,27 +19,33 @@ namespace Terraheim.Patches
         [HarmonyPatch(typeof(Attack), "Start")]
         public static void Prefix(ref Attack __instance, Humanoid character, ref ItemDrop.ItemData weapon)
         {
-            //Log.LogWarning("Attack Start");
-            if (character.m_unarmedWeapon && weapon == character?.m_unarmedWeapon.m_itemData)
+            //Log.LogWarning("Attack Start lol");
+            if ((character.m_unarmedWeapon && weapon == character?.m_unarmedWeapon.m_itemData) || (weapon.m_dropPrefab == null || weapon.m_dropPrefab.name == null))
             {
-                //check for all damage bonus
+                          //Log.LogWarning(89);
                 return;
             }
-            
+            //Log.LogWarning(1);
+            //Log.LogWarning(weapon.m_dropPrefab.name);
+            //Log.LogWarning(12);
             //Get base weapon
             var baseWeapon = PrefabManager.Cache.GetPrefab<ItemDrop>(weapon.m_dropPrefab.name);
+            //Log.LogWarning(13);
             if (baseWeapon == null)
             {
                 Log.LogMessage("Terraheim (AttackPatch Start) | Weapon is null, grabbing directly");
                 baseWeapon = ObjectDB.instance.GetItemPrefab(weapon.m_dropPrefab.name).GetComponent<ItemDrop>();
             }
+            //Log.LogWarning(2);
 
             //set all damages to default values to prevent forever increasing damages
             weapon.m_shared.m_backstabBonus = baseWeapon.m_itemData.m_shared.m_backstabBonus;
             weapon.m_shared.m_damages.m_frost = baseWeapon.m_itemData.m_shared.m_damages.m_frost;
             weapon.m_shared.m_damages.m_spirit = baseWeapon.m_itemData.m_shared.m_damages.m_spirit;
+            weapon.m_shared.m_damages.m_damage = baseWeapon.m_itemData.m_shared.m_damages.m_damage;
             weapon.m_shared.m_attack.m_damageMultiplier = baseWeapon.m_itemData.m_shared.m_attack.m_damageMultiplier;
             //Bow Damage Effect
+            //Log.LogWarning(3);
             if (weapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow)
             {
                 if (character.GetSEMan().GetStatusEffect("Life Steal"))
@@ -61,6 +67,7 @@ namespace Terraheim.Patches
             }
 
             //Melee Damage Effect
+            //Log.LogWarning(4);
             if (weapon.m_shared.m_itemType != ItemDrop.ItemData.ItemType.Bow)
             {
                 if (character.GetSEMan().HaveStatusEffect("Melee Damage Bonus"))
@@ -72,6 +79,7 @@ namespace Terraheim.Patches
             }
 
             //Throwing Damage Effect
+            //Log.LogWarning(5);
             if (weapon.m_shared.m_name.Contains("_throwingaxe") || 
                 (weapon.m_shared.m_name.Contains("_spear") && __instance.m_attackAnimation == weapon.m_shared.m_secondaryAttack.m_attackAnimation) ||
                 weapon.m_shared.m_name.Contains("bomb"))
@@ -97,6 +105,7 @@ namespace Terraheim.Patches
                 }
             }
 
+            //Log.LogWarning(6);
             //Dagger/Spear Damage Effect
             if ((weapon.m_shared.m_name.Contains("spear") || weapon.m_shared.m_name.Contains("knife")))
             {
@@ -107,6 +116,7 @@ namespace Terraheim.Patches
                 }
             }
 
+           // Log.LogWarning(7);
             //One Hand Damage Effect
             if (weapon.m_shared.m_itemType != ItemDrop.ItemData.ItemType.TwoHandedWeapon && character.GetLeftItem() == null)
             {
@@ -119,6 +129,7 @@ namespace Terraheim.Patches
                 }
             }
 
+            //Log.LogWarning(8);
             //Two Handed Damage Effect
             if (weapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.TwoHandedWeapon)
             {
@@ -130,6 +141,7 @@ namespace Terraheim.Patches
                 }
             }
 
+            //Log.LogWarning(9);
             //TODO: Audio Effect on Activation!
             //Crit Damage Effect
             if (weapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.TwoHandedWeapon)
@@ -148,6 +160,7 @@ namespace Terraheim.Patches
                 }
             }
 
+            //Log.LogWarning(10);
             //Ammo Consumption Effect
             if (weapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow && character.GetSEMan().HaveStatusEffect("Ammo Consumption"))
             {
@@ -195,6 +208,7 @@ namespace Terraheim.Patches
                 }
             }
 
+            //Log.LogWarning(11);
             //Backstab Bonus Effect
             if (character.GetSEMan().HaveStatusEffect("Backstab Bonus"))
             {
@@ -202,6 +216,7 @@ namespace Terraheim.Patches
                 weapon.m_shared.m_backstabBonus = baseWeapon.m_itemData.m_shared.m_backstabBonus + effect.getBackstabBonus();
             }
 
+            //Log.LogWarning(12);
             //Silver Damage Bonus Effect
             weapon.m_shared.m_damages.m_spirit = baseWeapon.m_itemData.m_shared.m_damages.m_spirit;
             if (weapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow || weapon.m_shared.m_name.Contains("spear") || weapon.m_shared.m_name.Contains("knife"))
@@ -218,6 +233,7 @@ namespace Terraheim.Patches
                 }
             }
 
+            //Log.LogWarning(13);
             //Ranger weapon bonus
             if (weapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow || weapon.m_shared.m_name.Contains("spear") || weapon.m_shared.m_name.Contains("knife"))
             {
@@ -229,6 +245,7 @@ namespace Terraheim.Patches
                 }
             }
 
+            //Log.LogWarning(14);
             //Add Spirit damage to all weapons
             if (character.GetSEMan().HaveStatusEffect("Spirit Damage Bonus"))
             {
@@ -237,14 +254,16 @@ namespace Terraheim.Patches
                 //Log.LogMessage("weapon spirit damage " + weapon.m_shared.m_damages.m_spirit);
             }
 
+            //Log.LogWarning(15);
             //Red Tearstone Ring
             if (character.GetSEMan().HaveStatusEffect("Wolftears"))
             {
                 SE_Wolftears effect = character.GetSEMan().GetStatusEffect("Wolftears") as SE_Wolftears;
                 weapon.m_shared.m_attack.m_damageMultiplier += effect.GetDamageBonus();
-                Log.LogInfo("Damage Bonus " + effect.GetDamageBonus());
+                //Log.LogInfo("Damage Bonus " + effect.GetDamageBonus());
             }
 
+            //Log.LogWarning(16);
             //Damage Bonus on Full HP
             if (character.GetSEMan().HaveStatusEffect("Battle Furor"))
             {
@@ -255,11 +274,22 @@ namespace Terraheim.Patches
                 }
             }
 
-            if(character.GetSEMan().HaveStatusEffect("Chosen") && weapon.m_shared.m_name.Contains("knife_silver") && __instance.m_attackAnimation == weapon.m_shared.m_secondaryAttack.m_attackAnimation)
+            //Log.LogWarning(17);
+            if (character.GetSEMan().HaveStatusEffect("Chosen") && weapon.m_shared.m_name.Contains("knife_silver") && __instance.m_attackAnimation == weapon.m_shared.m_secondaryAttack.m_attackAnimation)
             {
                 (character.GetSEMan().GetStatusEffect("Chosen") as SE_Chosen).OnKnifeUse();
             }
 
+            //Log.LogWarning(18);
+            if (character.GetSEMan().HaveStatusEffect("ShieldFireParryListener"))
+            {
+                if (weapon.m_shared.m_name.Contains("knife_fire"))
+                    weapon.m_shared.m_damages.m_damage += 5f;
+                else if (weapon.m_shared.m_name.Contains("spear_fire"))
+                    weapon.m_shared.m_damages.m_damage += 15f;
+            }
+
+            //Log.LogWarning(19);
             //Wyrdarrow
             if (character.GetSEMan().HaveStatusEffect("WyrdarrowFX"))
             {
@@ -273,7 +303,7 @@ namespace Terraheim.Patches
                     AssetHelper.TestProjectile.GetComponent<Projectile>().m_spawnOnHit.GetComponent<Aoe>().m_damage.m_frost = damageBonus;
                     AssetHelper.TestProjectile.GetComponent<Projectile>().m_spawnOnHit.GetComponent<Aoe>().m_damage.m_spirit = damageBonus;
 
-                    Log.LogInfo("Terraheim | Aoe deals " + damageBonus + " frost and " + damageBonus + " spirit damage.");
+                    //Log.LogInfo("Terraheim | Aoe deals " + damageBonus + " frost and " + damageBonus + " spirit damage.");
 
                     __instance.m_attackProjectile = AssetHelper.TestProjectile;
                     __instance.m_attackType = Attack.AttackType.Projectile;
@@ -286,7 +316,7 @@ namespace Terraheim.Patches
         public static void GetStaminaUsagePrefix(ref Attack __instance)
         {
             //Log.LogMessage("Has Stamina Effect base " + __instance.m_weapon.m_dropPrefab.name);
-            if (__instance.m_character.m_unarmedWeapon && __instance.m_weapon == __instance.m_character.m_unarmedWeapon.m_itemData)
+            if ((__instance.m_character.m_unarmedWeapon && __instance.m_weapon == __instance.m_character.m_unarmedWeapon.m_itemData) || __instance.m_weapon.m_dropPrefab == null )
             {
                 //check for all damage bonus
                 return;

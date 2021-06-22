@@ -1,24 +1,22 @@
-
-
 # Terraheim - Weapons/Tools/Armor
 **Terraheim** is both an overhaul for Valheim's armor system with the goal of making each armor set viable all the way to the end of the game and a weapon expansion that fills the gaps in the games base roster. 
-![Beeg boe](https://media.discordapp.net/attachments/610164117277245482/841774554695204894/unknown.png?width=960&height=540)
+![](https://cdn.discordapp.com/attachments/610164117277245482/857021658161479690/unknown.png)
 ## Weapons and Tools
-23 new weapons and tools have been added with the goal of filling in the gaps in each tier.
-12 of which are new Flametal weapons which have unique and dangerous effects, from hurtling waves of fire across the battlefield with Mistilteinn to teleporting to the struck location with Rhongomiant! 
-![weapons](https://cdn.discordapp.com/attachments/610164117277245482/828743095369334864/Capture.PNG)![Flametal Weapons](https://media.discordapp.net/attachments/610164117277245482/841773595658289182/unknown.png?width=960&height=632)
+39 new weapons and tools have been added with the goal of filling in the gaps in each tier.
+14 of which are new Flametal weapons which have unique and dangerous effects, from hurtling waves of fire across the battlefield with Mistilteinn to teleporting to the struck location with Rhongomiant! 
+![weapons](![](https://cdn.discordapp.com/attachments/610164117277245482/857030554238844968/unknown.png)![Flametal Weapons](https://media.discordapp.net/attachments/610164117277245482/857032073940303902/unknown.png?width=1110&height=676)
 ### Throwing Weapons
 Five new throwing axes have been added as well as Fire, Frost and Lightning bombs!
 ![Throwing Axes](https://cdn.discordapp.com/attachments/610164117277245482/834155655367491684/unknown.png)
 You can view damage values, moveset information, and recipes [here](https://docs.google.com/spreadsheets/d/1DlnnJOvorgCQ1k1e4lO5nF8M-QQpf7FZmO5bRj3mwLI/edit?usp=sharing) in the Weapons tab.
 If you only want the new weapons, you can set the `armorChangesEnabled` field to false in the `balance.json` file to disable the armor changes.
 ## Armor
-Each piece of armor has been given its own unique effect and each armor set its own set bonus while also allowing armor to be 'uptiered,' which increases all of the piece's stats to be usable in the next tier of gameplay. These effects can range from simple damage bonuses all the way to interesting effects like Wyrdarrow﻿!
+Each piece of armor has been given its own unique effect and each armor set its own set bonus while also allowing armor to be 'reforged,' which increases all of the piece's stats to be usable in the next tier of gameplay. These effects can range from simple damage bonuses all the way to interesting effects like Wyrdarrow﻿!
 If you only want the armor changes, you can delete the TerraheimItems.dll file to disable the armor changes.
 ### Classes
 Each armor set has been divided into four classes:
 #### Berserkr
-Berserkr's have a focus on dodging, axe damage, two handed weapon damage and stamina management. 
+Berserkr's have a focus on dodging, one handed damage, two handed weapon damage and stamina management. 
 
 #### Bowman
 Bowmen focus on dealing damage via, well bows, as well as daggers and spears. They focus on ammo consumption, backstab bonus, and sneaking. They have the worst armor rating in game.
@@ -29,18 +27,29 @@ Shieldbrothers are adept at blocking and have increased health. They can effecti
 #### Braggart
 Braggart armor is for those who want a challenge, they provide some minor stat benefits with some large detriments too. Think of these sets as the Calamity ring from Dark Souls.
 
+### Detailed Information
+You can in depth documentation for each set and tier [here!](https://docs.google.com/spreadsheets/d/1DlnnJOvorgCQ1k1e4lO5nF8M-QQpf7FZmO5bRj3mwLI/edit?usp=sharing)
+
+### Reforging
+As you progress through the game, you will be able to reforge armor. Essentially leveling the armor up to utilize the new materials you come across. When you do so, the armor set's armor rating increases, and every one of its bonuses becomes more effective.
+For example, you can reforge the Bronze Helmet to become an Iron-Reinforced Bronze Helmet by combining a Bronze Helmet, some Iron, and some Deer Hide at the **Armorer's Bench**. By doing this, it's armor has increased from 15 to 19, and it's bonus(+5% Melee Damage) increases to +7% Melee Damage.
+Reforging means that you won't have chests full of out-dated equipment as you can continually have the armor set keep pace with your progression!
+
+#### Armorer's Bench
+Terraheim adds in the Armorer's Bench, a new workbench that focuses all armor related crafting to a single location. It is accessible very early, only requiring some leather, wood, and stone to craft. Furthermore, five upgrade pieces are available to let you upgrade your armor all the way to max.
+At the armorer's bench, you can craft, upgrade, reforge all integrated armor and capes.
+
+![enter image description here](https://media.discordapp.net/attachments/610164117277245482/857026047919652864/unknown.png?width=1440&height=656)
+
+## Mod Integration
+Terraheim integrates several popular armor mods into itself, automatically modifying the armor sets to fit within Terraheim's progression. Currently, two armor sets have been integrated.
 ### Barbarian Armor
 If you have the [Barbarian Armor](https://www.nexusmods.com/valheim/mods/640) mod installed, it has been fully incorporated into Terraheim. The barbarian armor set provides several bonuses to throwing weapons as well as some interesting tertiary effects like a stacking move speed buff on kill and increased damage against low health targets.
 
 ![barbarian armor](https://cdn.discordapp.com/attachments/610164117277245482/834156356680286249/unknown.png)
-
-You can view the full values for each set across every tier [here!](https://docs.google.com/spreadsheets/d/1DlnnJOvorgCQ1k1e4lO5nF8M-QQpf7FZmO5bRj3mwLI/edit?usp=sharing)
-
-### Reforging
-As you progress through the game, you will be able to reforge armor. Essentially leveling the armor up to utilize the new materials you come across. When you do so, the armor set's armor rating increases, and every one of its bonuses becomes more effective.
-For example, you can reforge the Bronze Helmet to become an Iron-Reinforced Bronze Helmet by combining a Bronze Helmet, some Iron, and some Deer Hide at the forge. By doing this, it's armor has increased from 15 to 19, and it's bonus(+5% Melee Damage) increases to +7% Melee Damage.
-Reforging means that you won't have chests full of out-dated equipment as you can continually have the armor set keep pace with your progression!
-You can reforge an item by going to the requisite crafting station with new materials and craft it as a new piece of armor.
+### Chosen Armor
+The [Chaos Armor Set](https://www.nexusmods.com/valheim/mods/1215) by AeehyehssReeper has been integrated into Terraheim as the Chosen armor set. This Berserkr armor grants great strength, should those malignent eyes find you worthy...
+![enter image description here](https://media.discordapp.net/attachments/610164117277245482/857022956521259048/unknown.png?width=569&height=676)
 ## Utility Items
 Currently five utility items have been added:
 - Aescfell Belt: Increased damage vs trees
@@ -49,7 +58,7 @@ Currently five utility items have been added:
 - Stulor Belt: Increased sneak speed and less sneak stamina use
 - Casul Belt: Immunity to the wet ailment
 ## Balance
-**Terraheim** is highly customizable as the effectiveness, material costs, and almost every armor stat can be tweaked in the `balance.json` file. Weapons can be adjusted and disabled in the `weaponBalance.json` file. Flametal weapons' special effects can be tweaked and disabled there as well.
+**Terraheim** is highly customizable as the effectiveness, material costs, and almost every armor stat can be tweaked in the `balance.json` file. Weapons can be adjusted and disabled in the `weaponBalance.json` file. Flametal weapons' special effects can be tweaked and disabled there as well. Changes to armor sets can also be disabled.
 
 You can even change out what armor sets have what set effect! If you want the bronze armor set to have ranged damage or Wyrdarrow, you can!
 Just note that set effects are seperate from standard armor effects, so you can't assign Thorns to a helmet, it has to be the set bonus. You can view the effect ids on the balance sheet, there are several unimplemented effects there if you want to experiment a bit.
@@ -79,6 +88,24 @@ These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 [Nexus](https://www.nexusmods.com/valheim/mods/803?tab=description)
 
 ### Patchnotes
+**v2.1.0 - Ashes of Surtr**
+- Added the Armorer's Workbench piece. This workbench now handles crafting, reforging, and upgrading of every Terraheim Integrated armor set and cape. 
+- Added 5 Upgrades for the Armorer's Workbench
+- Armor can now be reforged to Flametal tier! This means that all the usual stuff applies in terms of effect and armor scaling. 
+- Capes can now be reforged! There are only two tiers, the first adds frost resistance to all capes that lack it, and the second adds frost/fire resistance to every cape when reforged.
+- Integrated the [Chaos Armor Set](https://www.nexusmods.com/valheim/mods/1215) by AeehyehssReeper into Terraheim! This is a pretty involved set for you gambling addicts out there.
+- Added the Obsidian Dagger, a Silver Tier dagger. It has some fun interactions with the Chaos Armor set.
+- Added the Greatclub, a Flint Tier "Battleaxe". Return to monke
+- Added Þunorwyrm, a Blackmetal+ tier axe. Secondary attack can summon lightning
+- Added the Chitin Greatsword, a Iron tier greatsword sidegrade
+- Added Svalinn, a Flametal Tower shield. Killing enemies with Svalinn equipped can heal you and your allies!
+- Added Pridwen, a Flametal round sheild. Parrying enemies reduces their damage, it will also boost the damage of Arthur's two other weapons.
+- The Blackmetal spear has recieved a new model
+- The Blackmetal greataxe has recieved a new model
+- The Bronze greataxe has recieved a new model
+- Specific armor sets can now be disabled in the balance.json file
+- Gwynttorwr has recieved a visual upgrade when drawing the bow. No longer will you be blinded while attempting to kill an enemy
+
 **v2.0.6**
 - Fixed RRR NPCs causing errors when using weapons
 - Fixed RRR NPCs being unable to use the troll leather set

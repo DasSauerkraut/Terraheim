@@ -181,6 +181,29 @@ namespace Terraheim.Patches
                 }
             }
 
+            if(__instance.GetHealth() <= hit.GetTotalDamage() && (attacker as Player).GetCurrentBlocker().m_shared.m_name.Contains("_shield_fire_tower"))
+            {
+                SE_ShieldFireListener effect = attacker.GetSEMan().GetStatusEffect("Svalinn") as SE_ShieldFireListener;
+                float hpToHeal = effect.OnKill(__instance.GetMaxHealth());
+                if(hpToHeal != -1f)
+                {
+                    Collider[] hitColliders = Physics.OverlapSphere(attacker.GetCenterPoint(), 4f);
+                    foreach (var obj in hitColliders)
+                    {
+                        //Log.LogInfo(obj.name);
+                        if(obj.gameObject.GetComponent<Player>() != null)
+                        {
+                            Player plr = obj.GetComponent<Player>();
+                            //Log.LogWarning(plr.m_name);
+                            SE_ShieldFireHeal toHeal = ScriptableObject.CreateInstance<SE_ShieldFireHeal>();
+                            toHeal.m_healthOverTime = hpToHeal;
+                            plr.GetSEMan().AddStatusEffect(toHeal);
+                        }
+                    }
+                    Object.Instantiate(AssetHelper.ShieldTowerFireHeal, attacker.GetCenterPoint(), Quaternion.identity);
+                }
+            }
+
             //Chosen
             if (attacker.GetSEMan().HaveStatusEffect("Chosen"))
             {

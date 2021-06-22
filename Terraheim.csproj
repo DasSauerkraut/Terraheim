@@ -107,6 +107,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\UnityEngine.ParticleSystemModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>Libs\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArmorEffects\ChosenEffects\SE_Adrenaline.cs" />
@@ -118,6 +121,8 @@
     <Compile Include="ArmorEffects\ChosenEffects\SE_MaddeningVisions.cs" />
     <Compile Include="ArmorEffects\ChosenEffects\SE_Pestilence.cs" />
     <Compile Include="ArmorEffects\ChosenEffects\SE_Withdrawals.cs" />
+    <Compile Include="ArmorEffects\SE_Afterburn.cs" />
+    <Compile Include="ArmorEffects\SE_AfterburnCooldown.cs" />
     <Compile Include="ArmorEffects\SE_AoECounterExhausted.cs" />
     <Compile Include="ArmorEffects\SE_AoECounterFX.cs" />
     <Compile Include="ArmorEffects\SE_AoECounter.cs" />
@@ -144,6 +149,9 @@
     <Compile Include="ArmorEffects\SE_Pinning.cs" />
     <Compile Include="ArmorEffects\SE_PoisonVulnerable.cs" />
     <Compile Include="ArmorEffects\SE_RangerWeaponBonus.cs" />
+    <Compile Include="ArmorEffects\SE_ShieldFireHeal.cs" />
+    <Compile Include="ArmorEffects\SE_ShieldFireListener.cs" />
+    <Compile Include="ArmorEffects\SE_ShieldFireParryListener.cs" />
     <Compile Include="ArmorEffects\SE_SneakMovement.cs" />
     <Compile Include="ArmorEffects\SE_ThrowingDamageBonus.cs" />
     <Compile Include="ArmorEffects\SE_ThrowingWeaponVelocity.cs" />

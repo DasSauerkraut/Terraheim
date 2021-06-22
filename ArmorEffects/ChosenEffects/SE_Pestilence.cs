@@ -45,7 +45,7 @@ namespace Terraheim.ArmorEffects
                 if (seman.HaveStatusEffect("Chosen"))
                     (seman.GetStatusEffect("Chosen") as SE_Chosen).m_currentBanes.Remove(m_name);
             }
-            Log.LogInfo($"{m_time} against {m_checkClock}");
+            //Log.LogInfo($"{m_time} against {m_checkClock}");
             if(m_time >= m_checkClock)
             {
                 m_checkClock += m_checkInterval;
@@ -53,7 +53,7 @@ namespace Terraheim.ArmorEffects
                 if (roll <= m_percentActivate * 100)
                 {
                     AssetHelper.PestilenceExplosion.GetComponent<Aoe>().m_damage.m_poison = m_character.GetMaxHealth() * m_damagePercent;
-                    Log.LogInfo($"Damage is {m_character.GetMaxHealth() * m_damagePercent}");
+                    //Log.LogInfo($"Damage is {m_character.GetMaxHealth() * m_damagePercent}");
                     Object.Instantiate(AssetHelper.PestilenceExplosion, m_character.GetCenterPoint(), Quaternion.identity);
                 }
             }

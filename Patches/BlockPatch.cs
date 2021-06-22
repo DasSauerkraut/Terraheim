@@ -6,6 +6,7 @@ using Terraheim.ArmorEffects;
 using Terraheim.Utility;
 using Newtonsoft.Json.Linq;
 using Terraheim.ArmorEffects.ChosenEffects;
+using UnityEngine;
 
 namespace Terraheim.Patches
 {
@@ -85,6 +86,17 @@ namespace Terraheim.Patches
 
                 if (___m_blockTimer != -1f && (float)balance["perfectBlockWindow"] >= ___m_blockTimer)
                     effect.OnParry();
+            }
+
+            if (___m_seman.HaveStatusEffect("ShieldFireParryListener"))
+            {
+                Log.LogInfo("Has Effect");
+                if (___m_blockTimer != -1f && (float)balance["perfectBlockWindow"] >= ___m_blockTimer && !(attacker as Humanoid).GetSEMan().HaveStatusEffect("AfterburnFire") && !(attacker as Humanoid).GetSEMan().HaveStatusEffect("Afterburn Cooldown"))
+                {
+                    Log.LogInfo("Adding Afterburn");
+                    SE_Afterburn effect = ScriptableObject.CreateInstance<SE_Afterburn>();
+                    attacker.GetSEMan().AddStatusEffect(effect);
+                }
             }
         }
     }

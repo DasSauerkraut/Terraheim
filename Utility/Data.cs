@@ -33,6 +33,11 @@ namespace Terraheim.Utility
             get; set;
         }
 
+        public static EffectList.EffectData VFXAfterburn
+        {
+            get; set;
+        }
+
         public class ArmorSet
         {
             public string HelmetID { get; set; }
