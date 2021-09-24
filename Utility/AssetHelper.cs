@@ -7,6 +7,7 @@ namespace Terraheim.Utility
     class AssetHelper
     {
         public const string AssetBundleName = "bundle_terraheimeffects";
+        public const string SFXBundleName = "bundle_terraheim_sound";
         public static AssetBundle TerraheimAssetBundle;
 
         public static GameObject FXLifeSteal;
@@ -39,6 +40,8 @@ namespace Terraheim.Utility
         public static GameObject BowFireExplosionPrefab;
         public static GameObject FlamebowWyrdExplosion;
 
+        public static GameObject RetaliationExplosion;
+
         public static AudioClip AoEReady;
         public static AudioClip SFXExecution;
         public static AudioClip SFXMarkedForDeath; 
@@ -46,6 +49,7 @@ namespace Terraheim.Utility
         public static AudioClip SFXBaneGain;
         public static AudioClip SFXBoonLock;
         public static AudioClip SFXBaneLock;
+        public static AudioClip SFXCoin;
 
         public static Sprite SpriteTempStatus;
 
@@ -119,6 +123,11 @@ namespace Terraheim.Utility
             SFXBaneGain = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/Chosen/baingain.wav");
             SFXBoonLock = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/Chosen/boonLock.wav");
             SFXBaneLock = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/Chosen/banelock.wav");
+
+            TerraheimAssetBundle = GetAssetBundleFromResources(SFXBundleName);
+            SFXCoin = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/Pickup_Coins05.wav");
+            RetaliationExplosion = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/retaliation_explosion.prefab");
+            RetaliationExplosion.GetComponent<Aoe>().m_statusEffect = "Retaliation Cooldown";
         }
 
         public static AssetBundle GetAssetBundleFromResources(string filename)

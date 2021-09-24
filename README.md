@@ -4,7 +4,7 @@
 ## Weapons and Tools
 39 new weapons and tools have been added with the goal of filling in the gaps in each tier.
 14 of which are new Flametal weapons which have unique and dangerous effects, from hurtling waves of fire across the battlefield with Mistilteinn to teleporting to the struck location with Rhongomiant! 
-![weapons](![](https://cdn.discordapp.com/attachments/610164117277245482/857030554238844968/unknown.png)![Flametal Weapons](https://media.discordapp.net/attachments/610164117277245482/857032073940303902/unknown.png?width=1110&height=676)
+(![](https://cdn.discordapp.com/attachments/610164117277245482/857030554238844968/unknown.png)![Flametal Weapons](https://media.discordapp.net/attachments/610164117277245482/857032073940303902/unknown.png?width=1110&height=676)
 ### Throwing Weapons
 Five new throwing axes have been added as well as Fire, Frost and Lightning bombs!
 ![Throwing Axes](https://cdn.discordapp.com/attachments/610164117277245482/834155655367491684/unknown.png)
@@ -43,10 +43,12 @@ At the armorer's bench, you can craft, upgrade, reforge all integrated armor and
 
 ## Mod Integration
 Terraheim integrates several popular armor mods into itself, automatically modifying the armor sets to fit within Terraheim's progression. Currently, two armor sets have been integrated.
-### Barbarian Armor
-If you have the [Barbarian Armor](https://www.nexusmods.com/valheim/mods/640) mod installed, it has been fully incorporated into Terraheim. The barbarian armor set provides several bonuses to throwing weapons as well as some interesting tertiary effects like a stacking move speed buff on kill and increased damage against low health targets.
+### Judes_Equipment
+If you have [Judes_Equipment](https://valheim.thunderstore.io/package/GoldenJude/Judes_Equipment/) mod installed, it has been fully incorporated into Terraheim. The barbarian armor set provides several bonuses to throwing weapons as well as some interesting tertiary effects like a stacking move speed buff on kill and increased damage against low health targets.
+The Plate set allows you to store blocked damage, which is released whenever you are staggered! Giving you some much needed breathing room.
+The Nomad set is based around money, enemies struck will occasionally drop coins, which boost your damage. Every time you attack, however, a coin is used.
 
-![barbarian armor](https://cdn.discordapp.com/attachments/610164117277245482/834156356680286249/unknown.png)
+![barbarian armor](https://cdn.discordapp.com/attachments/610164117277245482/889959254683975680/JudesEquipment.png)
 ### Chosen Armor
 The [Chaos Armor Set](https://www.nexusmods.com/valheim/mods/1215) by AeehyehssReeper has been integrated into Terraheim as the Chosen armor set. This Berserkr armor grants great strength, should those malignent eyes find you worthy...
 ![enter image description here](https://media.discordapp.net/attachments/610164117277245482/857022956521259048/unknown.png?width=569&height=676)
@@ -67,12 +69,12 @@ Just note that set effects are seperate from standard armor effects, so you can'
 ## Compatibility
 There seems to be an incompatibility with ValheimLibOpenDatabasePatch.dll. Unfortunately I can't do anything about this issue, sorry.
 TripleBronze also appears to be incompatible.
-EpicLoot is compatible but when you reforge an enchanted piece of armor, it will lose that enchantment until you relog/reload your world. A more graceful fix is coming.
+EpicLoot is compatible but when you reforge an enchanted piece of armor, it will lose that enchantment until you relog/reload your world. A more graceful fix is coming. There are some compatability issues with specific enchantments however. Greatswords with the Attack Speed enchant will not have the terraheim speed changes applied. Throwable Greataxes will impact almost immediately.
 ## Future Plans
 Flametal armor sets for each class
 EpicLoot version with tweaked balance
 ### Known Issues
-none atm
+The blackmetal pickaxe is using the old script for terrain deformation, so a lot of terraforming with it might lag out your game.
 
 ### Recommended Mods
 These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
@@ -88,6 +90,38 @@ These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 [Nexus](https://www.nexusmods.com/valheim/mods/803?tab=description)
 
 ### Patchnotes
+**v2.2.0 - Armor Drop**
+- Integrated Judes Equipment fully! The Nomad set and the Plate set now have their own unique effects and niches!
+- The Hyran(Nomad) Set is a Bowman set focused around money. Hitting enemies will occasionally drop coins, and the more coins you have, the more damage you do. But each time you attack, you spend a coin.
+- The Gesith(Plate) Set is a Shieldbrother set focused around the new stagger mechanics. Blocking attacks stores damage, which is released when you are staggered, hopefully giving you some breathing room.
+**v2.1.8**
+- Fixed download issues hopefully
+- Judes Equipment Compatability, the Barbarian armor mod is now depreciated. Maybe stuff coming in the future ;)
+**v2.1.5**
+- Updated for Hearth & Home
+- Changed Wyrdarrow UI to make it more clear when the next AoE will be available.
+- Clarified the description for the Hyperarmor power
+- Fixed the Chaos Set setting the blockpower of weapons/shields to 0.
+KNOWN ISSUE: The Blackmetal Bow and Gwyntorwr will only fire the Flametal Greatarrow.
+**v2.1.4**
+- Updated the description for Chosen Banes/Boons to explain what they do. 
+- Updated the description for the Chosen set to explain being Blessed and Cursed.
+- Fixed error caused by Svalinn whenever you took damage from a non-humanoid source
+- Fixed issue with the Chosen set where you could not gain additional boons/banes after the blessing/curse cleared
+- POTENTIAL fix for throwing axes being deleted when a non-host hits an enemy with them.
+**v2.1.3**
+- Fixed Burning Wyrdwulf armor not requiring padded Wyrdwulf armor to reforge
+- Fixed Beotes armor not requiring the previous tier of armor to reforge
+- Adjusted Tier 3 min crafting station requirements, you should be able to upgrade an iron tier set to max now.
+**v2.1.2**
+- Fixed thorn calculations. Max thorn % is now 50%.
+- Chaos Armor Set's max quality is now 4
+**v2.1.1**
+- Added the setsAreLockedByTier option in the balance.json. Enabling this will means that each set is distinct for its tier. You won't be able to mix and match differing tiers of armor and get the set bonus.
+- Fixed item descriptions duplicating on relog
+- Potential fix for the freezing bug
+- Fixed Fyrd armor set being disabeld by default. Oops.
+- Fixed style selector showing for flametal shields.
 **v2.1.0 - Ashes of Surtr**
 - Added the Armorer's Workbench piece. This workbench now handles crafting, reforging, and upgrading of every Terraheim Integrated armor set and cape. 
 - Added 5 Upgrades for the Armorer's Workbench

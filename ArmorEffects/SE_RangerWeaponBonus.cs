@@ -12,14 +12,14 @@ namespace Terraheim.ArmorEffects
         {
             m_name = "Ranger Weapon Bonus";
             base.name = "Ranger Weapon Bonus";
-            m_tooltip = "Ranger Weapon Increased by " + m_damageBonus * 10 + "%";
+            m_tooltip = $"\n\nDamage with bows, daggers, and spears is increased by <color=cyan>{GetDamageBonus() * 100}%</color>.";
         }
 
         public void SetDamageBonus(float bonus)
         {
             //Log.LogInfo("Setting Bonus: " + bonus * 10 + "%");
             m_damageBonus = bonus;
-            m_tooltip = "Ranger Weapon Increased by " + bonus * 10 + "%";
+            m_tooltip = $"\n\nDamage with bows, daggers, and spears is increased by <color=cyan>{GetDamageBonus() * 100}%</color>.";
         }
 
         public float GetDamageBonus() { return m_damageBonus; }

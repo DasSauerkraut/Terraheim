@@ -33,7 +33,8 @@ namespace Terraheim.Patches
             var terraheimItems = Array.FindIndex(__instance.m_craftRecipe.m_resources, resource => 
             resource.m_resItem.m_itemData.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Helmet ||
             resource.m_resItem.m_itemData.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Chest ||
-            resource.m_resItem.m_itemData.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Legs);
+            resource.m_resItem.m_itemData.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Legs ||
+            resource.m_resItem.m_itemData.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Shoulder);
             if (terraheimItems != -1) {
                 //Log.LogMessage("Contains item: " + player.GetInventory().ContainsItem(__instance.m_craftRecipe.m_resources[terraheimItems].m_resItem.m_itemData));
                 var inventoryItem = player.GetInventory().GetAllItems().Find(item => item.m_shared.m_name == __instance.m_craftRecipe.m_resources[terraheimItems].m_resItem.m_itemData.m_shared.m_name);

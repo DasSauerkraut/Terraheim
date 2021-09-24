@@ -4,6 +4,8 @@ using Jotunn.Entities;
 using System.Collections.Generic;
 using Jotunn.Managers;
 using Jotunn;
+using System.Collections;
+using UnityEngine;
 
 namespace Terraheim.Utility
 {
@@ -11,13 +13,8 @@ namespace Terraheim.Utility
     {
         public static JObject GetJsonFromFile(string filename)
         {
-            //Logger.LogWarning("AAA");
-            //Logger.LogInfo(1);
-            //Logger.LogInfo(Terraheim.ModPath);
             var filePath = Path.Combine(Terraheim.ModPath, filename);
-            //Logger.LogWarning(filePath);
             string rawText = File.ReadAllText(filePath);
-            //Logger.LogWarning(rawText);
             return JObject.Parse(rawText);
         }
 
@@ -60,6 +57,12 @@ namespace Terraheim.Utility
             return false;
         }
 
+        public static IEnumerator PlayDelayedAudio(AudioClip _clip, AudioSource _source, float _delay)
+        {
+            yield return new WaitForSeconds(_delay);
+            _source.PlayOneShot(_clip);
+        }
+
         public static bool IsBoss(string name)
         {
             switch (name)
@@ -80,13 +83,18 @@ namespace Terraheim.Utility
         
         public static bool CheckBarbarian()
         {
-            if (!File.Exists(Terraheim.ModPath + "/../barbarianArmor.dll"))
+            if (File.Exists(Terraheim.ModPath + "/../barbarianArmor.dll"))
             {
-                Log.LogWarning("Barbarian armor not found!");
-                return false;
+                if (Terraheim.hasJudesEquipment)
+                    Log.LogWarning("Barbarian armor found, but Judes Equipment is also installed. Please disable Barbarian Armor and only use Judes Equipment.");
+                else
+                    Log.LogInfo("Barbarian armor found");
+                return true;
             }
-            Log.LogInfo("Barbarian Armor Found!");
-            return true;
+            else if (Terraheim.hasJudesEquipment)
+                return false;
+            Log.LogWarning("Barbarian armor not found! If you have not installed Barbarian Armor, you can safely ignore this");
+            return false;
         }
 
         public static bool CheckChaos()
@@ -101,7 +109,23 @@ namespace Terraheim.Utility
                 Log.LogInfo("Chaos Armor Found!");
                 return true;
             }
-            Log.LogWarning("Chaos armor not found!");
+            Log.LogWarning("Chaos armor not found! If you have not installed Chaos Armor, you can safely ignore this");
+            return false;
+        }
+
+        public static bool CheckJudes()
+        {
+            if (File.Exists(Terraheim.ModPath + "/../JudesEquipment.dll"))
+            {
+                Log.LogInfo("Judes Equipment Found!");
+                return true;
+            }
+            else if (File.Exists(Terraheim.ModPath + "/../GoldenJude-Judes_Equipment/JudesEquipment.dll"))
+            {
+                Log.LogInfo("Judes Equipment Found!");
+                return true;
+            }
+            Log.LogWarning("Judes Equipment not found! If you have not installed Judes_Equipment, you can safely ignore this.");
             return false;
         }
 
@@ -148,6 +172,17 @@ namespace Terraheim.Utility
                 recipe.m_craftingStation = Mock<CraftingStation>.Create((string)json["station"]);
         }
 
+        public static bool IsArmor(ItemDrop.ItemData item)
+        {
+            ItemDrop.ItemData.ItemType itemType = item.m_shared.m_itemType;
+            if (itemType == ItemDrop.ItemData.ItemType.Helmet ||
+                itemType == ItemDrop.ItemData.ItemType.Shoulder ||
+                itemType == ItemDrop.ItemData.ItemType.Chest ||
+                itemType == ItemDrop.ItemData.ItemType.Legs ||
+                itemType == ItemDrop.ItemData.ItemType.Utility)
+                return true;
+            return false;
+        }
         public static bool CheckIfVulnerable(Character __instance, HitData hit)
         {
             if ((__instance.GetDamageModifier(HitData.DamageType.Blunt) == HitData.DamageModifier.Weak ||

@@ -12,13 +12,13 @@ namespace Terraheim.ArmorEffects
         {
             m_name = "Block Stamina Use";
             base.name = "Block Stamina Use";
-            m_tooltip = "Block Stamina Use decreased by " + m_bonus + "x";
+            m_tooltip = $"Base block stamina cost is reduced by <color=cyan>{getBlockStaminaUse() * 100}%</color>.";
         }
 
         public void setBlockStaminaUse(float bonus)
         {
             m_bonus = bonus;
-            m_tooltip = "Block Stamina Use decreased by " + bonus + "x";
+            m_tooltip = $"Base block stamina cost is reduced by <color=cyan>{getBlockStaminaUse() * 100}%</color>.";
         }
 
         public float getBlockStaminaUse() { return m_bonus; }

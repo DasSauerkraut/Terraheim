@@ -20,7 +20,7 @@ namespace Terraheim.ArmorEffects
         {
             m_name = "Bloodlust";
             base.name = "Bloodlust";
-            m_tooltip = "";
+            m_tooltip = "20% additional damage vs enemies with more than 90% HP";
         }
 
         public override void Setup(Character character)

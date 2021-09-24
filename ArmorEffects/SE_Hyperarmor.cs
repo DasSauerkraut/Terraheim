@@ -20,6 +20,7 @@ namespace Terraheim.ArmorEffects
         public void SetArmor(float bonus)
         {
             m_armor = bonus;
+            m_tooltip = $"\n\nWhen hit during an attack, damage suffered is reduced by <color=cyan>{GetArmor() * 100}%</color>, Chosen Banes will not have their TTL increased and you will suffer no knockback or stagger.";
         }
 
         public float GetArmor() { return m_armor; }

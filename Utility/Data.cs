@@ -158,6 +158,30 @@ namespace Terraheim.Utility
                     HelmetArmor = 1
                 }
             },
+            {"plate", new ArmorSet
+                {
+                    HelmetID = "ArmorPlateIronHelmetJD",
+                    ChestID = "ArmorPlateIronChestJD",
+                    LegsID = "ArmorPlateIronLegsJD",
+                    HelmetName = "$item_helmet_plate_t",
+                    ChestName = "$item_chest_plate_t",
+                    LegsName = "$item_legs_plate_t",
+                    ClassName = "$class_tank",
+                    HelmetArmor = 1
+                }
+            },
+            {"nomad", new ArmorSet
+                {
+                    HelmetID = "ArmorBlackmetalgarbHelmet",
+                    ChestID = "ArmorBlackmetalgarbChest",
+                    LegsID = "ArmorBlackmetalgarbLegs",
+                    HelmetName = "$item_helmet_nomad_t",
+                    ChestName = "$item_chest_nomad_t",
+                    LegsName = "$item_legs_nomad_t",
+                    ClassName = "$class_ranger",
+                    HelmetArmor = 1
+                }
+            },
             {"chaosT0", new ArmorSet
                 {
                     HelmetID = "T1ChaosPlateArmor",

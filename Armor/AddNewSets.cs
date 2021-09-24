@@ -35,8 +35,15 @@ namespace Terraheim.Armor
 
             if ((bool)Terraheim.balance["padded"]["enabled"])
                 ArmorHelper.AddArmorSet("padded");
-            if (Terraheim.hasBarbarianArmor)
+            if (Terraheim.hasJudesEquipment)
+            {
                 ArmorHelper.AddArmorSet("barbarian");
+                ArmorHelper.AddArmorSet("plate");
+                ArmorHelper.AddArmorSet("nomad");
+            }
+            else if (Terraheim.hasBarbarianArmor)
+                ArmorHelper.AddArmorSet("barbarian");
+            
             /*if (Terraheim.hasChaosArmor)
                 ArmorHelper.AddArmorSet("chaos");*/
 
@@ -71,10 +78,19 @@ namespace Terraheim.Armor
                 ArmorHelper.AddTieredRecipes("silver");
             if ((bool)Terraheim.balance["padded"]["enabled"])
                 ArmorHelper.AddTieredRecipes("padded");
-            if (Terraheim.hasBarbarianArmor)
+            if (Terraheim.hasJudesEquipment)
+            {
+                ArmorHelper.AddTieredRecipes("barbarian");
+                ArmorHelper.AddTieredRecipes("plate");
+                ArmorHelper.AddTieredRecipes("nomad");
+            }
+            else if (Terraheim.hasBarbarianArmor)
                 ArmorHelper.AddTieredRecipes("barbarian");
             /*if (Terraheim.hasChaosArmor)
                 ArmorHelper.AddTieredRecipes("chaos");*/
+            if((bool)Terraheim.balance["rags"]["enabled"])
+                ArmorHelper.AddTieredRecipes("rags", false);
+
 
             ArmorHelper.AddTieredCape("CapeDeerHide");
             ArmorHelper.AddTieredCape("CapeTrollHide");

@@ -22,7 +22,7 @@ namespace Terraheim.ArmorEffects
         {
             m_name = "Withdrawals";
             base.name = "Withdrawals";
-            m_tooltip = "beeboo";
+            m_tooltip = "Mead cooldowns last 2x longer, Food and other Meads last half as long";
         }
 
         public override void Setup(Character character)

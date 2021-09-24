@@ -20,7 +20,11 @@ namespace Terraheim.ArmorEffects
             m_icon = null;
         }
 
-        public void SetDodgeBonus(float bonus) { m_bonus = bonus; }
+        public void SetDodgeBonus(float bonus) { 
+            m_bonus = bonus;
+            m_tooltip = $"\n\nStamina cost for dodging is reduced by <color=cyan>{GetDodgeBonus() * 100}%</color>.\n" +
+                $"Food fullness degrades <color=red>2x</color> faster.";
+        }
         public float GetDodgeBonus() { return m_bonus; }
     }
 }

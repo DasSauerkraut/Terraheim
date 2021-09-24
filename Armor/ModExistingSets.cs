@@ -2,12 +2,14 @@
 using Terraheim.Utility;
 using Newtonsoft.Json.Linq;
 using Jotunn.Entities;
+using System.Collections;
 
 namespace Terraheim.Armor
 {
     internal static class ModExistingSets
     {
         static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
+        private static bool itemsInstantiated = false;
         internal static void Init()
         {
             if ((bool)Terraheim.balance["leather"]["enabled"])
@@ -27,10 +29,17 @@ namespace Terraheim.Armor
             if (Terraheim.hasChaosArmor)
                 ItemManager.OnItemsRegistered += ModChaosArmor;
             ItemManager.OnItemsRegistered += ModCapes;
+            ItemManager.OnItemsRegistered += ModWeapons;
+        }
+
+        internal static void RunWeapons()
+        {
+            ItemManager.OnItemsRegistered += ModWeapons;
         }
 
         private static void ModLeatherArmor()
         {
+            itemsInstantiated = true;
             var helmet = PrefabManager.Cache.GetPrefab<ItemDrop>("HelmetLeather");
             var chest = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorLeatherChest");
             var legs = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorLeatherLegs");
@@ -70,6 +79,7 @@ namespace Terraheim.Armor
             legsRecipe.m_craftingStation = Pieces.Reforger;
 
             ArmorHelper.ModArmorSet("trollLeather", ref trollHood.m_itemData, ref trollChest.m_itemData, ref trollLegs.m_itemData, setBalance, false, -1);
+            ItemManager.OnItemsRegistered -= ModTrollArmor;
         }
 
         private static void ModBronzeArmor()
@@ -89,6 +99,7 @@ namespace Terraheim.Armor
             legsRecipe.m_craftingStation = Pieces.Reforger;
 
             ArmorHelper.ModArmorSet("bronze", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
+            ItemManager.OnItemsRegistered -= ModBronzeArmor;
         }
 
         private static void ModIronArmor()
@@ -108,6 +119,7 @@ namespace Terraheim.Armor
             legsRecipe.m_craftingStation = Pieces.Reforger;
 
             ArmorHelper.ModArmorSet("iron", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
+            ItemManager.OnItemsRegistered -= ModIronArmor;
         }
 
         private static void ModSilverArmor()
@@ -127,6 +139,7 @@ namespace Terraheim.Armor
             legsRecipe.m_craftingStation = Pieces.Reforger;
 
             ArmorHelper.ModArmorSet("silver", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
+            ItemManager.OnItemsRegistered -= ModSilverArmor;
         }
 
         private static void ModPaddedArmor()
@@ -147,6 +160,20 @@ namespace Terraheim.Armor
             var setBalance = balance["padded"];
 
             ArmorHelper.ModArmorSet("padded", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
+            ItemManager.OnItemsRegistered -= ModPaddedArmor;
+        }
+
+        
+
+        public static void ModJudes()
+        {
+            if (itemsInstantiated)
+            {
+                ModBarbarianArmor();
+                ModJudesPlateArmor();
+                ModJudesNomadArmor();
+                itemsInstantiated = false;
+            }
         }
 
         private static void ModBarbarianArmor()
@@ -171,6 +198,47 @@ namespace Terraheim.Armor
             ArmorHelper.ModArmorSet("barbarian", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
 
             cape.m_itemData.m_shared.m_equipStatusEffect = ArmorHelper.GetArmorEffect((string)balance["capes"]["barbarian"]["effect"], balance["capes"]["barbarian"], "cape", ref cape.m_itemData.m_shared.m_description);
+            ItemManager.OnItemsRegistered -= ModBarbarianArmor;
+        }
+
+        private static void ModJudesPlateArmor()
+        {
+            var helmet = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorPlateIronHelmetJD");
+            var chest = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorPlateIronChestJD");
+            var legs = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorPlateIronLegsJD");
+
+            var setBalance = balance["plate"];
+
+            var headRecipe = ObjectDB.instance.GetRecipe(helmet.m_itemData);
+            var chestRecipe = ObjectDB.instance.GetRecipe(chest.m_itemData);
+            var legsRecipe = ObjectDB.instance.GetRecipe(legs.m_itemData);
+
+
+            headRecipe.m_craftingStation = Pieces.Reforger;
+            chestRecipe.m_craftingStation = Pieces.Reforger;
+            legsRecipe.m_craftingStation = Pieces.Reforger;
+
+            ArmorHelper.ModArmorSet("plate", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
+        }
+
+        private static void ModJudesNomadArmor()
+        {
+            var helmet = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorBlackmetalgarbHelmet");
+            var chest = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorBlackmetalgarbChest");
+            var legs = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorBlackmetalgarbLegs");
+
+            var setBalance = balance["nomad"];
+
+            var headRecipe = ObjectDB.instance.GetRecipe(helmet.m_itemData);
+            var chestRecipe = ObjectDB.instance.GetRecipe(chest.m_itemData);
+            var legsRecipe = ObjectDB.instance.GetRecipe(legs.m_itemData);
+
+
+            headRecipe.m_craftingStation = Pieces.Reforger;
+            chestRecipe.m_craftingStation = Pieces.Reforger;
+            legsRecipe.m_craftingStation = Pieces.Reforger;
+
+            ArmorHelper.ModArmorSet("nomad", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
         }
 
         private static void ModChaosArmor()
@@ -194,6 +262,10 @@ namespace Terraheim.Armor
                     legs = PrefabManager.Cache.GetPrefab<ItemDrop>($"ChaosPlateLegs");
                 }
 
+                helmet.m_itemData.m_shared.m_maxQuality = 4;
+                chest.m_itemData.m_shared.m_maxQuality = 4;
+                legs.m_itemData.m_shared.m_maxQuality = 4;
+
                 Recipe helmetRecipe = ObjectDB.instance.GetRecipe(helmet.m_itemData);
                 Recipe chestRecipe = ObjectDB.instance.GetRecipe(chest.m_itemData);
                 Recipe legsRecipe = ObjectDB.instance.GetRecipe(legs.m_itemData);
@@ -206,6 +278,7 @@ namespace Terraheim.Armor
 
                 ArmorHelper.ModArmorSet($"chaosT{i}", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
             }
+            ItemManager.OnItemsRegistered -= ModChaosArmor;
         }
 
         private static void ModCapes()
@@ -246,5 +319,24 @@ namespace Terraheim.Armor
             ItemManager.OnItemsRegistered -= ModCapes;
         }
 
+        private static void ModWeapons()
+        {
+            var dagger = PrefabManager.Cache.GetPrefab<ItemDrop>("KnifeSilverTH");
+
+            dagger.m_itemData.m_shared.m_name = "Obsidian Dagger";
+            dagger.m_itemData.m_shared.m_description = "Mountain glass, sharp as could be. It has a certain affinity with the Chosen armor.";
+
+            var bmBow = PrefabManager.Cache.GetPrefab<ItemDrop>("BowBlackmetalTH");
+            var fmBow = PrefabManager.Cache.GetPrefab<ItemDrop>("BowFireTH");
+            var fmArrow = PrefabManager.Cache.GetPrefab<ItemDrop>("ArrowGreatFireTH");
+
+            bmBow.m_itemData.m_shared.m_ammoType = "$ammo_arrows";
+            fmBow.m_itemData.m_shared.m_ammoType = "$ammo_arrows";
+
+            fmArrow.m_itemData.m_shared.m_itemType = ItemDrop.ItemData.ItemType.Ammo;
+            fmArrow.m_itemData.m_shared.m_ammoType = "$ammo_arrows";
+
+            ItemManager.OnItemsRegistered -= ModWeapons;
+        }
     }
 }

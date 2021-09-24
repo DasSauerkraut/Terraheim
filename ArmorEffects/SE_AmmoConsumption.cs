@@ -11,14 +11,14 @@ namespace Terraheim.ArmorEffects
         {
             m_name = "Ammo Consumption";
             base.name = "Ammo Consumption";
-            m_tooltip = "Ammo Consumption Reduced by " + m_reduction * 10 + "%";
+            m_tooltip = $"<color=cyan>{getAmmoConsumption()}%</color> chance to not consume ammo.";
         }
 
         public void setAmmoConsumption(int reduction)
         {
             //Log.LogInfo("Setting Reduction: " + reduction * 10 + "%");
             m_reduction = reduction;
-            m_tooltip = "Ammo Consumption Reduced by " + m_reduction * 10 + "%";
+            m_tooltip = $"<color=cyan>{getAmmoConsumption()}%</color> chance to not consume ammo.";
         }
 
         public float getAmmoConsumption() { return m_reduction; }

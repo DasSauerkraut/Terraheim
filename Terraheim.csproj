@@ -36,14 +36,20 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\assembly_guiutils.dll</HintPath>
     </Reference>
-    <Reference Include="assembly_valheim_publicized">
-      <HintPath>Libs\assembly_valheim_publicized.dll</HintPath>
+    <Reference Include="assembly_valheim_p">
+      <HintPath>Libs\assembly_valheim_p.dll</HintPath>
+    </Reference>
+    <Reference Include="AugaAPI">
+      <HintPath>Libs\AugaAPI.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx">
       <HintPath>Libs\BepInEx.dll</HintPath>
     </Reference>
     <Reference Include="Json.Net, Version=1.0.25.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Json.Net.1.0.25\lib\netstandard2.0\Json.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="JudesEquipment">
+      <HintPath>Libs\JudesEquipment.dll</HintPath>
     </Reference>
     <Reference Include="MMHOOK_assembly_googleanalytics">
       <HintPath>Libs\MMHOOK_assembly_googleanalytics.dll</HintPath>
@@ -110,6 +116,9 @@
     <Reference Include="UnityEngine.PhysicsModule">
       <HintPath>Libs\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Libs\UnityEngine.UI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArmorEffects\ChosenEffects\SE_Adrenaline.cs" />
@@ -131,6 +140,7 @@
     <Compile Include="ArmorEffects\SE_ChallengeDodgeBonus.cs" />
     <Compile Include="ArmorEffects\SE_ChallengeMoveSpeed.cs" />
     <Compile Include="ArmorEffects\SE_ChallengeSprinter.cs" />
+    <Compile Include="ArmorEffects\SE_CoinDrop.cs" />
     <Compile Include="ArmorEffects\SE_DamageVsLowHP.cs" />
     <Compile Include="ArmorEffects\SE_DeathMark.cs" />
     <Compile Include="ArmorEffects\SE_FullHPDamageBonusFX.cs" />
@@ -139,6 +149,7 @@
     <Compile Include="ArmorEffects\SE_IncreaseHarvest.cs" />
     <Compile Include="ArmorEffects\SE_MarkedForDeath.cs" />
     <Compile Include="ArmorEffects\SE_MarkedForDeathFX.cs" />
+    <Compile Include="ArmorEffects\SE_Mercenary.cs" />
     <Compile Include="ArmorEffects\SE_MiningBonus.cs" />
     <Compile Include="ArmorEffects\SE_FullHPDamageBonus.cs" />
     <Compile Include="ArmorEffects\SE_MoveSpeedOnKill.cs" />
@@ -149,10 +160,15 @@
     <Compile Include="ArmorEffects\SE_Pinning.cs" />
     <Compile Include="ArmorEffects\SE_PoisonVulnerable.cs" />
     <Compile Include="ArmorEffects\SE_RangerWeaponBonus.cs" />
+    <Compile Include="ArmorEffects\SE_RestoreResources.cs" />
+    <Compile Include="ArmorEffects\SE_Retaliation.cs" />
+    <Compile Include="ArmorEffects\SE_RetaliationTimer.cs" />
     <Compile Include="ArmorEffects\SE_ShieldFireHeal.cs" />
     <Compile Include="ArmorEffects\SE_ShieldFireListener.cs" />
     <Compile Include="ArmorEffects\SE_ShieldFireParryListener.cs" />
     <Compile Include="ArmorEffects\SE_SneakMovement.cs" />
+    <Compile Include="ArmorEffects\SE_StaggerCapacity.cs" />
+    <Compile Include="ArmorEffects\SE_StaggerDamage.cs" />
     <Compile Include="ArmorEffects\SE_ThrowingDamageBonus.cs" />
     <Compile Include="ArmorEffects\SE_ThrowingWeaponVelocity.cs" />
     <Compile Include="ArmorEffects\SE_TreeDamageBonus.cs" />
@@ -198,9 +214,11 @@
     <Compile Include="Patches\HealthIncreasePatches.cs" />
     <Compile Include="Patches\HitPatch.cs" />
     <Compile Include="Patches\DodgePatch.cs" />
+    <Compile Include="Patches\JudeArmorPatch.cs" />
     <Compile Include="Patches\MiningPatch.cs" />
     <Compile Include="Patches\PickableDropPatch.cs" />
     <Compile Include="Patches\SneakMovementPatch.cs" />
+    <Compile Include="Patches\StaggerThresholdPatch.cs" />
     <Compile Include="Patches\StaminaIncreasePatch.cs" />
     <Compile Include="Patches\StaminaRegenPatch.cs" />
     <Compile Include="Patches\ThornsPatch.cs" />
@@ -221,6 +239,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <EmbeddedResource Include="bundle_terraheimeffects" />
+    <EmbeddedResource Include="bundle_terraheim_sound" />
     <None Include="manifest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

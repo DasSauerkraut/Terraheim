@@ -20,7 +20,8 @@ namespace Terraheim.ArmorEffects
         {
             //Log.LogInfo("Setting Bonus: " + bonus * 10 + "%");
             m_damageBonus = bonus;
-            m_tooltip = "Damage Vs Low HP Increased by " + bonus * 10 + "%";
+            m_tooltip = $"\n\nDamage against enemies with less than <color=cyan>" + (GetHealthThreshold() * 100) +
+                            "%</color> HP is increased by <color=cyan>" + GetDamageBonus() * 100 + "%</color>.";
         }
 
         public float GetDamageBonus() { return m_damageBonus; }

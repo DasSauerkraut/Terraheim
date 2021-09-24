@@ -15,6 +15,7 @@ namespace Terraheim.ArmorEffects
         public void SetParryBonus(float bonus)
         {
             m_bonus = bonus;
+            m_tooltip = $"\n\nParry Bonus is increased by <color=cyan>{GetParryBonus() * 100}%</color>.";
         }
 
         public float GetParryBonus() { return m_bonus; }

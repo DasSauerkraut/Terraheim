@@ -12,14 +12,14 @@ namespace Terraheim.ArmorEffects
         {
             m_name = "Silver Damage Bonus";
             base.name = "Silver Damage Bonus";
-            m_tooltip = "Silver Damage Increased by " + m_damageBonus * 10 + "%";
+            m_tooltip = $"\n\nBows, daggers, and spears gain <color=cyan>{GetDamageBonus() * 100}%</color> damage as spirit and frost damage.";
         }
 
         public void SetDamageBonus(float bonus)
         {
             //Log.LogInfo("Setting Bonus: " + bonus * 10 + "%");
             m_damageBonus = bonus;
-            m_tooltip = "Silver Damage Increased by " + bonus * 10 + "%";
+            m_tooltip = $"\n\nBows, daggers, and spears gain <color=cyan>{GetDamageBonus() * 100}%</color> damage as spirit and frost damage.";
         }
 
         public float GetDamageBonus() { return m_damageBonus; }

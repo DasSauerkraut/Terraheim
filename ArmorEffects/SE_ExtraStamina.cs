@@ -9,13 +9,13 @@ namespace Terraheim.ArmorEffects
         {
             m_name = "Extra Stamina";
             base.name = "Extra Stamina";
-            m_tooltip = "Stamina is increased by " + (m_bonus + 1) + " points.";
+            m_tooltip = $"Stamina is increased by <color=cyan>{GetStaminaBonus()}</color> points.";
         }
 
         public void SetStaminaBonus(float bonus)
         {
             m_bonus = bonus;
-            m_tooltip = "Stamina is increased by " + (m_bonus + 1) + " points.";
+            m_tooltip = $"Stamina is increased by <color=cyan>{GetStaminaBonus()}</color> points.";
         }
 
         public float GetStaminaBonus() { return m_bonus; }

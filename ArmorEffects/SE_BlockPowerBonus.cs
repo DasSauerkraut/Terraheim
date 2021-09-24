@@ -11,13 +11,13 @@ namespace Terraheim.ArmorEffects
         {
             m_name = "Block Power Bonus";
             base.name = "Block Power Bonus";
-            m_tooltip = "Block Power increased by " + m_bonus*100 + "%";
+            m_tooltip = $"\n\nBlock power increased by <color=cyan>{GetBlockPower() * 100}%</color>.";
         }
 
         public void SetBlockPower(float bonus)
         {
             m_bonus = bonus;
-            m_tooltip = "Block Power increased by " + m_bonus * 100 + "%";
+            m_tooltip = $"\n\nBlock power increased by <color=cyan>{GetBlockPower() * 100}%</color>.";
         }
 
         public float GetBlockPower() { return m_bonus; }

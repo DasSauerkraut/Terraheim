@@ -15,7 +15,9 @@ namespace Terraheim
 {
     [BepInDependency(Jotunn.Main.ModGuid, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("GoldenJude_BarbarianArmor", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("GoldenJude-Judes_Equipment", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("AeehyehssReeper-ChaosArmor", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("randyknapp.mods.auga", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin(ModGuid, ModName, ModVer)]
     class Terraheim : BaseUnityPlugin
     {
@@ -23,11 +25,13 @@ namespace Terraheim
         public const string ModGuid = AuthorName + "." + ModName;
         private const string AuthorName = "DasSauerkraut";
         private const string ModName = "Terraheim";
-        private const string ModVer = "2.1.0";
+        private const string ModVer = "2.2.1";
         public static readonly string ModPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public static bool hasBarbarianArmor = false;
+        public static bool hasJudesEquipment = false;
         public static bool hasChaosArmor = false;
+        public static bool hasAuga = false;
         public static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
 
         private readonly Harmony harmony = new Harmony(ModGuid);
@@ -46,8 +50,13 @@ namespace Terraheim
             Pieces.Init();
             AddResources();
 
-            hasBarbarianArmor = UtilityFunctions.CheckBarbarian();
+            hasAuga = Auga.API.IsLoaded();
             hasChaosArmor = UtilityFunctions.CheckChaos();
+            hasJudesEquipment = UtilityFunctions.CheckJudes();
+            hasBarbarianArmor = UtilityFunctions.CheckBarbarian();
+
+            if (hasBarbarianArmor && hasJudesEquipment)
+                Log.LogWarning("Both the Barbarian Armor and Judes Equipment are installed! Consider removing Barbarian Armor as it is included in Judes_Equipment!");
             if ((bool)balance["armorChangesEnabled"])
             {
                 Armor.ModExistingSets.Init();
@@ -55,9 +64,28 @@ namespace Terraheim
             }
             else
             {
+                Armor.ModExistingSets.RunWeapons();
                 Log.LogInfo("Terraheim armor changes disabled!");
             }
+
+            if (hasAuga)
+            {
+                Log.LogInfo("Auga detected, modifying Auga tooltips for Terraheim.");
+                Auga.API.ComplexTooltip_AddItemTooltipCreatedListener(AugaTooltipsForItemEffects);
+            }
             Log.LogInfo("Patching complete");
+        }
+
+        public static void AugaTooltipsForItemEffects(GameObject complexTooltip, ItemDrop.ItemData item)
+        {
+            if(UtilityFunctions.IsArmor(item))
+            {
+                Auga.API.ComplexTooltip_SetTopic(complexTooltip, item.m_shared.m_name);
+                Auga.API.ComplexTooltip_SetSubtitle(complexTooltip, Data.ArmorSets["leather"].ClassName);
+                GameObject textbox = Auga.API.ComplexTooltip_AddTwoColumnTextBox(complexTooltip);
+                Auga.API.TooltipTextBox_AddLine(textbox, "$item_effect_title", "", "$item_effect_equipped");
+                Auga.API.TooltipTextBox_AddLine(textbox, "", item.m_shared.m_equipStatusEffect.m_tooltip);
+            }
         }
 
         private void AddResources()
@@ -132,6 +160,10 @@ namespace Terraheim
             //ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_ShieldFireParryListener>(), fixReference: true));
             //ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Afterburn>(), fixReference: true));
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_AfterburnCooldown>(), fixReference: true));
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_CoinDrop>(), fixReference: true));
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_RestoreResources>(), fixReference: true));
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_StaggerCapacity>(), fixReference: true));
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_StaggerDamage>(), fixReference: true));
 
             //Set Bonuses
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_HPOnHit>(), fixReference: true)); //Leather
@@ -154,6 +186,9 @@ namespace Terraheim
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_DeathMark>(), fixReference: true)); //Barbarian
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_MarkedForDeath>(), fixReference: true)); //Barbarian
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_MarkedForDeathFX>(), fixReference: true)); //Barbarian
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Mercenary>(), fixReference: true)); //Barbarian
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Retaliation>(), fixReference: true)); //Barbarian
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_RetaliationTimer>(), fixReference: true)); //Barbarian
 
             //Chosen
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Chosen>(), fixReference: true));

@@ -64,14 +64,20 @@ namespace Terraheim.Patches
                          SE_FoodUsage effect = __instance.GetSEMan().GetStatusEffect("Food Usage") as SE_FoodUsage;
                          //Log.LogMessage("Dictionary Contains Food " + food.m_name + " base burn " + food.m_item.m_shared.m_foodBurnTime + " Dict Usage " + foodDuration[food.m_name]);
                          food.m_item.m_shared.m_foodBurnTime = foodDuration[food.m_name] * (1 + effect.GetFoodUsage());
-                         //Log.LogMessage("mod burn " + food.m_item.m_shared.m_foodBurnTime);
-                     }
+                         food.m_time = food.m_time * (1 + effect.GetFoodUsage());
+                         if (food.m_time > food.m_item.m_shared.m_foodBurnTime)
+                             food.m_time = food.m_item.m_shared.m_foodBurnTime;
+                        //Log.LogMessage("mod burn " + food.m_item.m_shared.m_foodBurnTime);
+                    }
                     else if (__instance.GetSEMan().HaveStatusEffect("Challenge Dodge Bonus"))
                     {
                         if (food.m_item.m_shared.m_foodBurnTime == foodDuration[food.m_name])
                         {
                             //Log.LogMessage("Dictionary Contains Food " + food.m_name + " base burn " + food.m_item.m_shared.m_foodBurnTime + " Dict Usage " + foodDuration[food.m_name]);
                             food.m_item.m_shared.m_foodBurnTime = foodDuration[food.m_name] * 0.5f;
+                            food.m_time = food.m_time * 0.5f;
+                            if (food.m_time > food.m_item.m_shared.m_foodBurnTime)
+                                food.m_time = food.m_item.m_shared.m_foodBurnTime;
                             //Log.LogMessage("mod burn " + food.m_item.m_shared.m_foodBurnTime);
                         }
                     }

@@ -47,6 +47,8 @@ namespace Terraheim.ArmorEffects
 
         public override void OnDamaged(HitData hit, Character attacker)
         {
+            if (attacker == null || (attacker as Humanoid) == null || (attacker as Humanoid).GetCurrentWeapon() == null)
+                return;
             if(IsRangedAttack((attacker as Humanoid).GetCurrentWeapon()))
             {
                 //Log.LogInfo($"Is Ranged Attack : {hit.GetTotalDamage()}");

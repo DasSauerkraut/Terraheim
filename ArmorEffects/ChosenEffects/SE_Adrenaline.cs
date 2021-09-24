@@ -20,7 +20,7 @@ namespace Terraheim.ArmorEffects
         {
             m_name = "Adrenaline";
             base.name = "Adrenaline";
-            m_tooltip = "";
+            m_tooltip = "Move speed increased by 15%, attack speed increased by 5%";
         }
 
         public override void Setup(Character character)
@@ -57,10 +57,10 @@ namespace Terraheim.ArmorEffects
 
         public float GetAttackSpeed() { return m_attackSpeed; }
 
-        public override void ModifySpeed(ref float speed)
+        public override void ModifySpeed(float baseSpeed, ref float speed)
         {
             speed *= 1 + m_moveSpeed;
-            base.ModifySpeed(ref speed);
+            base.ModifySpeed(baseSpeed, ref speed);
         }
     }
 }

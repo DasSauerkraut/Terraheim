@@ -16,7 +16,7 @@ namespace Terraheim.ArmorEffects
             m_name = "Life Steal";
             base.name = "Life Steal";
             m_icon = null;
-            m_tooltip = "Heal " + (m_amount * 100) + "% of damage dealt as HP on hitting an enemy with a melee weapon.";
+            m_tooltip = $"<color=cyan>Heal " + (getHealAmount() * 100) + "%</color> of damage dealt as HP on hitting an enemy with a melee weapon.";
         }
 
         public void SetIcon()
@@ -31,7 +31,7 @@ namespace Terraheim.ArmorEffects
         {
             //Log.LogInfo("Setting Reduction: " + reduction * 10 + "%");
             m_amount = amount;
-            m_tooltip = "Heal " + (m_amount * 100) + "% of damage dealt as HP on hitting an enemy with a melee weapon.";
+            m_tooltip = $"<color=cyan>Heal " + (getHealAmount() * 100) + "%</color> of damage dealt as HP on hitting an enemy with a melee weapon.";
         }
 
         public float getHealAmount() { return m_amount; }

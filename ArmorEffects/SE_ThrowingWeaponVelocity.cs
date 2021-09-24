@@ -19,7 +19,7 @@ namespace Terraheim.ArmorEffects
         {
             //Log.LogInfo("Setting Bonus: " + bonus * 10 + "%");
             m_damageBonus = bonus;
-            m_tooltip = "Throwing Weapon Velocity Increased by " + bonus * 10 + "%";
+            m_tooltip = $"\n\nThrowing weapons velocity is increased by <color=cyan>{GetVelocityBonus() * 100}%</color>.";
         }
 
         public float GetVelocityBonus() { return m_damageBonus; }

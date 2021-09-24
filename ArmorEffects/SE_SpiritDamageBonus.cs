@@ -19,7 +19,7 @@ namespace Terraheim.ArmorEffects
         {
             //Log.LogInfo("Setting Bonus: " + bonus * 10 + "%");
             m_damageBonus = bonus;
-            m_tooltip = "Spirit Damage Increased by " + m_damageBonus;
+            m_tooltip = $"\n\nAll weapons gain <color=cyan>{GetDamageBonus()}</color> spirit damage.";
         }
 
         public float GetDamageBonus() { return m_damageBonus; }

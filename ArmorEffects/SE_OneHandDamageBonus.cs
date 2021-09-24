@@ -12,14 +12,14 @@ namespace Terraheim.ArmorEffects
         {
             m_name = "One Hand Damage Bonus";
             base.name = "One Hand Damage Bonus";
-            m_tooltip = "Axe Damage Increased by " + m_damageBonus * 10 + "%";
+            m_tooltip = $"Damage with one handed weapons is increased by <color=cyan>{getDamageBonus() * 100}%</color> when there is no item in the off hand.";
         }
 
         public void setDamageBonus(float bonus)
         {
             //Log.LogInfo("Setting Bonus: " + bonus * 10 + "%");
             m_damageBonus = bonus;
-            m_tooltip = "Axe Damage Increased by " + bonus * 10 + "%";
+            m_tooltip = $"Damage with one handed weapons is increased by <color=cyan>{getDamageBonus() * 100}%</color> when there is no item in the off hand.";
         }
 
         public float getDamageBonus() { return m_damageBonus; }

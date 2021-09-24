@@ -17,7 +17,7 @@ namespace Terraheim.ArmorEffects
         public void SetFoodUsage(float bonus)
         {
             m_bonus = bonus;
-            m_tooltip = "Food Usage decreased by " + m_bonus * 100 + "%";
+            m_tooltip = $"\n\nFood fullness degrades <color=cyan>{GetFoodUsage() * 100 }%</color> slower.";
         }
 
         public float GetFoodUsage() { return m_bonus; }

@@ -24,7 +24,7 @@ namespace Terraheim.ArmorEffects
         {
             m_name = "Pestilence";
             base.name = "Pestilence";
-            m_tooltip = "beeboo";
+            m_tooltip = "70% chance to suffer 14% of max hp as poison damage every 15 seconds";
         }
 
         public override void Setup(Character character)

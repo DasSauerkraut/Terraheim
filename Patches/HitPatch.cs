@@ -4,6 +4,7 @@ using Terraheim.Utility;
 using UnityEngine;
 using Newtonsoft.Json.Linq;
 using Terraheim.ArmorEffects.ChosenEffects;
+using System.Collections.Generic;
 
 namespace Terraheim.Patches
 {
@@ -207,7 +208,7 @@ namespace Terraheim.Patches
             //Chosen
             if (attacker.GetSEMan().HaveStatusEffect("Chosen"))
             {
-                Log.LogInfo(__instance.m_name);
+                //Log.LogInfo(__instance.m_name);
                 if (__instance.GetHealth() <= hit.GetTotalDamage())
                 {
                     (attacker.GetSEMan().GetStatusEffect("Chosen") as SE_Chosen).OnKill();
@@ -303,6 +304,99 @@ namespace Terraheim.Patches
                     Log.LogInfo($"Poison damage {hit.GetTotalDamage() * effect.GetDamageBonus()} damage {hit.GetTotalDamage()}");
                 }
             }
+
+            if (attacker.GetSEMan().HaveStatusEffect("Coin Drop") && hit.GetTotalDamage() > 10)
+            {
+                SE_CoinDrop status = attacker.GetSEMan().GetStatusEffect("Coin Drop") as SE_CoinDrop;
+                System.Random rnd = new System.Random();
+                int roll = rnd.Next(1, 100);
+                Log.LogInfo($"coin roll {roll}, target {status.GetChance()}");
+                if (roll < status.GetChance())
+                {
+                    //drop coins
+                    List<KeyValuePair<GameObject, int>> list = new List<KeyValuePair<GameObject, int>>();
+                    ItemDrop coin = Jotunn.Managers.PrefabManager.Cache.GetPrefab<ItemDrop>("Coins");
+                    list.Add(new KeyValuePair<GameObject, int>(coin.gameObject, 1));
+                    list.Add(new KeyValuePair<GameObject, int>(coin.gameObject, 1));
+                    list.Add(new KeyValuePair<GameObject, int>(coin.gameObject, 1));
+                    CharacterDrop.DropItems(list, __instance.GetCenterPoint(), 0.5f);
+                    
+                    var audioSource = __instance.GetComponent<AudioSource>();
+                    if (audioSource == null)
+                    {
+                        audioSource = __instance.gameObject.AddComponent<AudioSource>();
+                        audioSource.playOnAwake = false;
+                    }
+                    audioSource.PlayOneShot(AssetHelper.SFXCoin);
+                }
+            }
+
+            if (attacker.GetSEMan().HaveStatusEffect("Restore Resources"))
+            {
+                SE_RestoreResources status = attacker.GetSEMan().GetStatusEffect("Restore Resources") as SE_RestoreResources;
+                attacker.AddStamina(status.GetStaminaAmount());
+                System.Random rnd = new System.Random();
+                int roll = rnd.Next(1, 100);
+                Log.LogInfo($"ammo refund roll {roll}, target {status.GetChance()}");
+                if (roll < status.GetChance() && (attacker as Player).GetCurrentWeapon().m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow)
+                {
+                    ItemDrop.ItemData weapon = (attacker as Player).GetCurrentWeapon();
+                    Player character = attacker as Player;
+                    if (string.IsNullOrEmpty(weapon.m_shared.m_ammoType))
+                    {
+                        return;
+                    }
+
+                    //First check if bow has ammo available
+                    bool hasAmmo = true;
+                    ItemDrop.ItemData ammoItem = character.GetAmmoItem();
+                    if (ammoItem != null && (!character.GetInventory().ContainsItem(ammoItem) || ammoItem.m_shared.m_ammoType != weapon.m_shared.m_ammoType))
+                    {
+                        ammoItem = null;
+                    }
+                    if (ammoItem == null)
+                    {
+                        ammoItem = character.GetInventory().GetAmmoItem(weapon.m_shared.m_ammoType);
+                    }
+                    if (ammoItem == null)
+                    {
+                        return;
+                    }
+                    if (ammoItem.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Consumable)
+                    {
+                        hasAmmo = character.CanConsumeItem(ammoItem);
+                    }
+                    //Log.LogWarning("Stack " + ammoItem.m_stack);
+
+                    //if so, add 1 of the selected ammo type
+                    if (hasAmmo)
+                    {
+                        //Add 1 Ammo
+                        ammoItem.m_stack += 1;
+                        //Log.LogWarning("Stack " + ammoItem.m_stack);
+
+                        //character.GetInventory().AddItem(ammoItem);
+                    }
+                }
+            }
+            //Log.LogInfo(1);
+            if(attacker.GetSEMan().HaveStatusEffect("Stagger Damage") && __instance.IsStaggering())
+            {
+                var effect = attacker.GetSEMan().GetStatusEffect("Stagger Damage") as SE_StaggerDamage;
+                //Log.LogInfo("Previous Damage " + hit.GetTotalDamage());
+                hit.m_damage.m_blunt += hit.m_damage.m_blunt * effect.GetStaggerBns();
+                hit.m_damage.m_chop += hit.m_damage.m_chop * effect.GetStaggerBns();
+                hit.m_damage.m_damage += hit.m_damage.m_damage * effect.GetStaggerBns();
+                hit.m_damage.m_fire += hit.m_damage.m_fire * effect.GetStaggerBns();
+                hit.m_damage.m_frost += hit.m_damage.m_frost * effect.GetStaggerBns();
+                hit.m_damage.m_lightning += hit.m_damage.m_lightning * effect.GetStaggerBns();
+                hit.m_damage.m_pickaxe += hit.m_damage.m_pickaxe * effect.GetStaggerBns();
+                hit.m_damage.m_pierce += hit.m_damage.m_pierce * effect.GetStaggerBns();
+                hit.m_damage.m_poison += hit.m_damage.m_poison * effect.GetStaggerBns();
+                hit.m_damage.m_slash += hit.m_damage.m_slash * effect.GetStaggerBns();
+                hit.m_damage.m_spirit += hit.m_damage.m_spirit * effect.GetStaggerBns();
+                //Log.LogInfo("New Damage " + hit.GetTotalDamage());
+            }
         }
 
         [HarmonyPostfix]
@@ -338,6 +432,27 @@ namespace Terraheim.Patches
                     float maxArmor = (seman.GetStatusEffect("Brassflesh Listener") as SE_ArmorOnHitListener).GetMaxArmor();
                     seman.AddStatusEffect("Brassflesh");
                     (seman.GetStatusEffect("Brassflesh") as SE_ArmorOnHit).SetMaxArmor(maxArmor);
+                }
+            }
+
+            if(hit.m_statusEffect == "Retaliation Cooldown")
+            {
+                if (__instance.IsPlayer())
+                {
+                    hit.m_damage.m_blunt = 0;
+                    hit.m_damage.m_chop = 0;
+                    hit.m_damage.m_damage = 0;
+                    hit.m_damage.m_fire = 0;
+                    hit.m_damage.m_frost = 0;
+                    hit.m_damage.m_lightning = 0;
+                    hit.m_damage.m_pickaxe = 0;
+                    hit.m_damage.m_pierce = 0;
+                    hit.m_damage.m_poison = 0;
+                    hit.m_damage.m_slash = 0;
+                    hit.m_damage.m_spirit = 0;
+                } else
+                {
+                    hit.m_staggerMultiplier *= 3f;
                 }
             }
 
@@ -401,6 +516,24 @@ namespace Terraheim.Patches
                 hit.m_damage.m_slash *= 1 - damageMod;
                 hit.m_damage.m_spirit *= 1 - damageMod;
                 Log.LogInfo($"ending damage: {hit.GetTotalDamage()}");
+            }
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(Character), "Stagger")]
+        static void OnStaggerPostfix(Character __instance)
+        {
+            if (__instance.IsPlayer() && __instance.m_seman.HaveStatusEffect("Retaliation") && !__instance.m_seman.HaveStatusEffect("Retaliation Cooldown"))
+            {
+                SE_Retaliation effect = __instance.m_seman.GetStatusEffect("Retaliation") as SE_Retaliation;
+                if (effect.GetStored() > 0)
+                {
+                    Log.LogInfo($"Retaliation! Dealing {effect.GetStored()} pierce damage.");
+                    AssetHelper.RetaliationExplosion.GetComponent<Aoe>().m_damage.m_pierce = effect.GetStored();
+                    Object.Instantiate(AssetHelper.RetaliationExplosion, __instance.GetCenterPoint(), Quaternion.identity);
+                    effect.ResetStored();
+                }
+                 __instance.m_seman.AddStatusEffect("Retaliation Cooldown");
             }
         }
     }

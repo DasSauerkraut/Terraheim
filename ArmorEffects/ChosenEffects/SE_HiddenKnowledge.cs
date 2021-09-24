@@ -18,7 +18,7 @@ namespace Terraheim.ArmorEffects
         {
             m_name = "Hidden Knowledge";
             base.name = "Hidden Knowledge";
-            m_tooltip = "";
+            m_tooltip = "Skill gain increased by 50%";
         }
 
         public override void Setup(Character character)

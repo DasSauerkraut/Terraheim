@@ -18,7 +18,7 @@ namespace Terraheim.ArmorEffects
         {
             m_name = "Blinding Rage";
             base.name = "Blinding Rage";
-            m_tooltip = "a";
+            m_tooltip = "Suffer 20% addtional damage from every source";
         }
 
         public override void Setup(Character character)

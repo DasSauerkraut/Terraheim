@@ -17,7 +17,7 @@ namespace Terraheim.ArmorEffects
         public void SetStaminaUse(float bonus)
         {
             m_bonus = bonus;
-            m_tooltip = "Attack Stamina Use decreased by " + bonus + "x";
+            m_tooltip = $"\n\nReduce stamina use for melee weapons by <color=cyan>{GetStaminaUse() * 100}%</color>.";
         }
 
         public float GetStaminaUse() { return m_bonus; }

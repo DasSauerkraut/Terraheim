@@ -275,7 +275,7 @@ namespace Terraheim.Patches
             }
 
             //Log.LogWarning(17);
-            if (character.GetSEMan().HaveStatusEffect("Chosen") && weapon.m_shared.m_name.Contains("knife_silver") && __instance.m_attackAnimation == weapon.m_shared.m_secondaryAttack.m_attackAnimation)
+            if (character.GetSEMan().HaveStatusEffect("Chosen") && weapon.m_shared.m_name.Contains("Obsidian Dagger") && __instance.m_attackAnimation == weapon.m_shared.m_secondaryAttack.m_attackAnimation)
             {
                 (character.GetSEMan().GetStatusEffect("Chosen") as SE_Chosen).OnKnifeUse();
             }
@@ -309,28 +309,46 @@ namespace Terraheim.Patches
                     __instance.m_attackType = Attack.AttackType.Projectile;
                 }
             }
+
+            if (character.GetSEMan().HaveStatusEffect("Mercenary") && (__instance.m_attackAnimation == weapon.m_shared.m_secondaryAttack.m_attackAnimation || __instance.m_attackAnimation == weapon.m_shared.m_attack.m_attackAnimation))
+            {
+                SE_Mercenary effect = character.GetSEMan().GetStatusEffect("Mercenary") as SE_Mercenary;
+                if(effect.GetCurrentDamage() > 0f &&  __instance.m_attackStamina < (character as Player).GetStamina())
+                {
+                    weapon.m_shared.m_attack.m_damageMultiplier += effect.GetCurrentDamage();
+                    character.GetInventory().RemoveItem("$item_coins", 1);
+                    Log.LogWarning(character.GetInventory().CountItems("$item_coins"));
+                }
+            }
+
+            if(character.GetSEMan().HaveStatusEffect("Stagger Damage"))
+            {
+                //Log.LogInfo("Stagger Dmg " + weapon.m_shared.m_attack.m_staggerMultiplier);
+                weapon.m_shared.m_attack.m_staggerMultiplier += (character.GetSEMan().GetStatusEffect("Stagger Damage") as SE_StaggerDamage).GetStaggerDmg();
+                //Log.LogInfo("Stagger Dmg " + weapon.m_shared.m_attack.m_staggerMultiplier);
+            }
         }
 
-        [HarmonyPatch(typeof(Attack), "GetStaminaUsage")]
+        [HarmonyPatch(typeof(Attack), "GetAttackStamina")]
         [HarmonyPrefix]
-        public static void GetStaminaUsagePrefix(ref Attack __instance)
+        public static void GetStaminaUsagePrefix(ref Attack __instance, ref Humanoid ___m_character, ref ItemDrop.ItemData ___m_weapon, ref ItemDrop.ItemData ___m_ammoItem)
         {
             //Log.LogMessage("Has Stamina Effect base " + __instance.m_weapon.m_dropPrefab.name);
-            if ((__instance.m_character.m_unarmedWeapon && __instance.m_weapon == __instance.m_character.m_unarmedWeapon.m_itemData) || __instance.m_weapon.m_dropPrefab == null )
+            if ((___m_character.m_unarmedWeapon && ___m_weapon == ___m_character.m_unarmedWeapon.m_itemData) || ___m_weapon.m_dropPrefab == null )
             {
                 //check for all damage bonus
                 return;
             }
-            var weapon = PrefabManager.Cache.GetPrefab<ItemDrop>(__instance.m_weapon.m_dropPrefab.name);
+            var weapon = PrefabManager.Cache.GetPrefab<ItemDrop>(___m_weapon.m_dropPrefab.name);
             if (weapon == null)
             {
                 Log.LogMessage("Terraheim (AttackPatch GetStaminaUsage) | Weapon is null, grabbing directly");
-                weapon = ObjectDB.instance.GetItemPrefab(__instance.m_weapon.m_dropPrefab.name).GetComponent<ItemDrop>();
+                weapon = ObjectDB.instance.GetItemPrefab(___m_weapon.m_dropPrefab.name).GetComponent<ItemDrop>();
             }
             __instance.m_attackStamina = weapon.m_itemData.m_shared.m_attack.m_attackStamina;
-            if (__instance.m_character.GetSEMan().HaveStatusEffect("Attack Stamina Use"))
+            if (___m_character.GetSEMan().HaveStatusEffect("Attack Stamina Use"))
             {
-                SE_AttackStaminaUse effect = __instance.m_character.GetSEMan().GetStatusEffect("Attack Stamina Use") as SE_AttackStaminaUse;               
+                SE_AttackStaminaUse effect = ___m_character.GetSEMan().GetStatusEffect("Attack Stamina Use") as SE_AttackStaminaUse;               
                 Log.LogMessage("Base Stamina " + weapon.m_itemData.m_shared.m_attack.m_attackStamina + " * " + (1f - effect.GetStaminaUse()));
                 __instance.m_attackStamina = weapon.m_itemData.m_shared.m_attack.m_attackStamina * (1f-effect.GetStaminaUse());
                 Log.LogMessage("modded " + __instance.m_attackStamina);
@@ -341,8 +359,14 @@ namespace Terraheim.Patches
         [HarmonyPrefix]
         public static void FireProjectileBurstPrefix(ref Attack __instance)
         {
-            Log.LogInfo("Firing Proj");
-            
+            //Log.LogInfo("Firing Proj");
+            if (__instance.GetWeapon().m_shared.m_name.Contains("throwingaxe_"))
+            {
+                Log.LogInfo(__instance.GetWeapon().m_shared.m_secondaryAttack.m_attackProjectile.GetComponent<Projectile>().m_stayAfterHitStatic);
+                Log.LogInfo(__instance.GetWeapon().m_shared.m_secondaryAttack.m_attackProjectile.GetComponent<Projectile>().m_hideOnHit);
+                __instance.GetWeapon().m_shared.m_secondaryAttack.m_attackProjectile.GetComponent<Projectile>().m_hideOnHit = __instance.GetWeapon().m_shared.m_secondaryAttack.m_attackProjectile;
+                //__instance.GetWeapon().m_shared.m_secondaryAttack.m_attackProjectile.GetComponent<Projectile>().m_stayAfterHitStatic = true;
+            }
             if (__instance.m_character.GetSEMan().HaveStatusEffect("WyrdarrowFX"))
             {
                 var effect = __instance.m_character.GetSEMan().GetStatusEffect("Wyrdarrow") as SE_AoECounter;

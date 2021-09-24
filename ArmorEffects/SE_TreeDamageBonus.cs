@@ -15,7 +15,7 @@
         {
             //Log.LogInfo("Setting Bonus: " + bonus * 10 + "%");
             m_damageBonus = bonus;
-            m_tooltip = "Tree Damage Increased by " + bonus * 10 + "%";
+            m_tooltip = $"Damage against trees is increased by <color=yellow>{getDamageBonus() * 100}%</color>.";
         }
 
         public float getDamageBonus() { return m_damageBonus; }

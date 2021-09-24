@@ -7,7 +7,7 @@ namespace Terraheim.ArmorEffects
         {
             m_name = "Waterproof";
             base.name = "Waterproof";
-            m_tooltip = "Immune to wet effect";
+            m_tooltip = $"\nYou will not gain the <color=cyan>Wet</color> Ailment.";
         }
 
         public override void UpdateStatusEffect(float dt)

@@ -19,7 +19,7 @@ namespace Terraheim.ArmorEffects
         {
             //Log.LogInfo("Setting Bonus: " + bonus * 10 + "%");
             m_damageBonus = bonus;
-            m_tooltip = "Poison Vulnerable " + bonus * 10 + "%";
+            m_tooltip = $"\n\nStriking an enemy with a damage type it is vulnerable deals <color=cyan>{GetDamageBonus() * 100}%</color> of the damage dealt as poison damage.";
         }
 
         public float GetDamageBonus() { return m_damageBonus; }

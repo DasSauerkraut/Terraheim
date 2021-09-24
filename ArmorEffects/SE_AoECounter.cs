@@ -42,7 +42,7 @@ namespace Terraheim.ArmorEffects
                 }
                 audioSource.PlayOneShot(AssetHelper.AoEReady);
             }
-            m_name = base.name + " " + m_count;
+            m_name = base.name + " " + m_count + " / " + m_activationCount;
         }
 
         public void ClearCounter()
@@ -57,7 +57,7 @@ namespace Terraheim.ArmorEffects
             if(m_count < 1)
                 m_name = base.name;
             else
-                m_name = base.name + " " + m_count;
+                m_name = base.name + " " + m_count + " / " + m_activationCount;
         }
 
         public void SetIcon()

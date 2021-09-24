@@ -15,7 +15,7 @@
         {
             //Log.LogInfo("Setting Bonus: " + bonus * 10 + "%");
             m_damageBonus = bonus;
-            m_tooltip = "Mining Damage Increased by " + bonus * 10 + "%";
+            m_tooltip = $"\nDamage against rocks and ores is increased by <color=yellow>{getDamageBonus() * 100}%</color>.";
         }
 
         public float getDamageBonus() { return m_damageBonus; }

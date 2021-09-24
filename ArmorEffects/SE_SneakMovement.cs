@@ -9,10 +9,13 @@ namespace Terraheim.ArmorEffects
         {
             m_name = "Sneak Movement";
             base.name = "Sneak Movement";
-            m_tooltip = "Move faster and use less stamina while sneaking.";
+            m_tooltip = $"Move <color=cyan>{GetBonus() * 100}%</color> faster while using <color=cyan>{GetBonus() * 100}%</color> less stamina while sneaking.";
         }
 
-        public void SetBonus(float bonus) { m_bonus = bonus; }
+        public void SetBonus(float bonus) { 
+            m_bonus = bonus;
+            m_tooltip = $"Move <color=cyan>{GetBonus() * 100}%</color> faster while using <color=cyan>{GetBonus() * 100}%</color> less stamina while sneaking.";
+        }
         public float GetBonus() { return m_bonus; }
 
     }

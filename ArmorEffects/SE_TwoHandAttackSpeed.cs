@@ -20,6 +20,7 @@ namespace Terraheim.ArmorEffects
         public void SetSpeed(float bonus)
         {
             m_bonus = bonus;
+            m_tooltip = $"\n\nAttack speed for Two-Handed weapons is increased by <color=cyan>{GetSpeed() * 100}%</color>.";
         }
 
         public float GetSpeed() { return m_bonus; }

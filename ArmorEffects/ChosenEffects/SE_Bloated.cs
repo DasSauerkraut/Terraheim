@@ -19,7 +19,7 @@ namespace Terraheim.ArmorEffects
         {
             m_name = "Bloated";
             base.name = "Bloated";
-            m_tooltip = "";
+            m_tooltip = "HP regen increased by 1.5x";
         }
 
         public override void Setup(Character character)

@@ -20,7 +20,7 @@ namespace Terraheim.ArmorEffects
         {
             m_name = "Maddening Visions";
             base.name = "Maddening Visions";
-            m_tooltip = "a";
+            m_tooltip = "-30% ranged weapon damage, -10% melee weapon damage";
         }
 
         public override void Setup(Character character)

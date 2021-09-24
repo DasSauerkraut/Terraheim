@@ -9,13 +9,13 @@ namespace Terraheim.ArmorEffects
         {
             m_name = "Stamina Regen";
             base.name = "Stamina Regen";
-            m_tooltip = "Stamina Regen is increased by " + m_bonus + "%.";
+            m_tooltip = $"Stamina regen is increased by <color=cyan>{GetRegenPercent() * 100}%</color>.";
         }
 
         public void SetRegenPercent(float bonus)
         {
             m_bonus = bonus;
-            m_tooltip = "Stamina Regen is increased by " + m_bonus + "%.";
+            m_tooltip = $"Stamina regen is increased by <color=cyan>{GetRegenPercent() * 100}%</color>.";
         }
 
         public float GetRegenPercent() { return m_bonus; }

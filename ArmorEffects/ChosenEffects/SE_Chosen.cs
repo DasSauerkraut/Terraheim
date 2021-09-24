@@ -32,7 +32,8 @@ namespace Terraheim.ArmorEffects.ChosenEffects
         public void SetTooltip()
         {
             m_tooltip = $"Malignent eyes are upon you. Gain a random Boon or Bane for 2min on kill. Parrying attacks increases Boon time to live by {m_boonTTLIncrease}s. " +
-                $"Getting hit increases Bane TTL for {m_baneTTLIncrease}s. Getting 4 Boons or Banes clears the other type and increases TTL to 5/4 minutes.";
+                $"Getting hit increases Bane TTL for {m_baneTTLIncrease}s. Getting 4 Boons or Banes Blesses/Curses you, which clears the other type and increases TTL to 5/4 minutes." +
+                $"While Blessed or Cursed, you cannot gain new Boons or Banes.";
         }
 
         public void SetBoonTTLIncrease(int bonus)
@@ -53,16 +54,24 @@ namespace Terraheim.ArmorEffects.ChosenEffects
 
         public override void UpdateStatusEffect(float dt)
         {
-            if(m_lockTimer > 0)
+            if (m_lockTimer > 0)
             {
+                //Log.LogInfo(m_lockTimer);
                 m_lockTimer -= dt;
                 if (m_lockTimer <= 0)
                 {
                     m_lockTimer = 0;
                     m_boonLock = false;
                     m_icon = AssetHelper.SpriteChosen;
-                    m_name = base.name;
+                    m_name = "Chosen";
                 }
+            }
+            else if (m_boonLock)
+            {
+                m_boonLock = false;
+                m_lockTimer = 0;
+                m_icon = AssetHelper.SpriteChosen;
+                m_name = "Chosen";
             }
             base.UpdateStatusEffect(dt);
         }
@@ -275,9 +284,9 @@ namespace Terraheim.ArmorEffects.ChosenEffects
                 Log.LogInfo("Boon Set of 4");
 
                 m_boonLock = true;
-                m_lockTimer = m_boonMaxTTL;
+                m_lockTimer = (float)m_boonMaxTTL;
                 m_icon = AssetHelper.SpriteChosenBoon;
-                m_name = base.name += "\nBlessed";
+                m_name = base.name + "\nBlessed";
                 var executionVFX = Instantiate(AssetHelper.FXBoonLock, m_character.GetCenterPoint(), Quaternion.identity);
                 ParticleSystem[] children = executionVFX.GetComponentsInChildren<ParticleSystem>();
                 foreach (ParticleSystem particle in children)
@@ -315,9 +324,9 @@ namespace Terraheim.ArmorEffects.ChosenEffects
                 Log.LogInfo("Bane Set of 4");
 
                 m_boonLock = true;
-                m_lockTimer = m_baneMaxTTL;
+                m_lockTimer = (float)m_baneMaxTTL;
                 m_icon = AssetHelper.SpriteChosenBane;
-                m_name = base.name += "\nCursed";
+                m_name = base.name + "\nCursed";
 
                 var executionVFX = Instantiate(AssetHelper.FXBaneLock, m_character.GetCenterPoint(), Quaternion.identity);
                 ParticleSystem[] children = executionVFX.GetComponentsInChildren<ParticleSystem>();
@@ -407,33 +416,36 @@ namespace Terraheim.ArmorEffects.ChosenEffects
                 m_currentBoons.Clear();
                 m_currentBanes.Clear();
 
-                var executionVFX = Instantiate(AssetHelper.FXBoonLock, m_character.GetCenterPoint(), Quaternion.identity);
-                ParticleSystem[] children = executionVFX.GetComponentsInChildren<ParticleSystem>();
-                foreach (ParticleSystem particle in children)
+                if(hpChange != 0)
                 {
-                    particle.Play();
-                }
-                var audioSource = m_character.GetComponent<AudioSource>();
-                if (audioSource == null)
-                {
-                    audioSource = m_character.gameObject.AddComponent<AudioSource>();
-                    audioSource.playOnAwake = false;
-                }
-                audioSource.PlayOneShot(AssetHelper.SFXBoonLock);
+                    var executionVFX = Instantiate(AssetHelper.FXBoonLock, m_character.GetCenterPoint(), Quaternion.identity);
+                    ParticleSystem[] children = executionVFX.GetComponentsInChildren<ParticleSystem>();
+                    foreach (ParticleSystem particle in children)
+                    {
+                        particle.Play();
+                    }
+                    var audioSource = m_character.GetComponent<AudioSource>();
+                    if (audioSource == null)
+                    {
+                        audioSource = m_character.gameObject.AddComponent<AudioSource>();
+                        audioSource.playOnAwake = false;
+                    }
+                    audioSource.PlayOneShot(AssetHelper.SFXBoonLock);
 
-                var banelock = Instantiate(AssetHelper.FXBaneLock, m_character.GetCenterPoint(), Quaternion.identity);
-                ParticleSystem[] children2 = banelock.GetComponentsInChildren<ParticleSystem>();
-                foreach (ParticleSystem particle in children2)
-                {
-                    particle.Play();
+                    var banelock = Instantiate(AssetHelper.FXBaneLock, m_character.GetCenterPoint(), Quaternion.identity);
+                    ParticleSystem[] children2 = banelock.GetComponentsInChildren<ParticleSystem>();
+                    foreach (ParticleSystem particle in children2)
+                    {
+                        particle.Play();
+                    }
+                    var audioSource2 = m_character.GetComponent<AudioSource>();
+                    if (audioSource2 == null)
+                    {
+                        audioSource2 = m_character.gameObject.AddComponent<AudioSource>();
+                        audioSource2.playOnAwake = false;
+                    }
+                    audioSource.PlayOneShot(AssetHelper.SFXBaneLock);
                 }
-                var audioSource2 = m_character.GetComponent<AudioSource>();
-                if (audioSource2 == null)
-                {
-                    audioSource2 = m_character.gameObject.AddComponent<AudioSource>();
-                    audioSource2.playOnAwake = false;
-                }
-                audioSource.PlayOneShot(AssetHelper.SFXBaneLock);
             }
         }
     }
