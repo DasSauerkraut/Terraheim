@@ -57,6 +57,8 @@ namespace Terraheim.Patches
                 return true;
             else if (name.Contains("honey"))
                 return true;
+            else if (name.Contains("onion"))
+                return true;
             else
                 return false;
         }
