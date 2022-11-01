@@ -13,7 +13,7 @@ namespace Terraheim.Patches
             Log.LogInfo("Block Patching Complete");
         }
 
-        [HarmonyPatch(typeof(TreeBase), "Damage")]
+        [HarmonyPatch(typeof(TreeBase), nameof(TreeBase.Damage))]
         static void Prefix(ref HitData hit)
         {
             if (hit.GetAttacker() == null || !hit.GetAttacker().IsPlayer() || hit.GetAttacker().m_seman == null)
@@ -31,7 +31,7 @@ namespace Terraheim.Patches
             }
         }
 
-        [HarmonyPatch(typeof(TreeLog), "Damage")]
+        [HarmonyPatch(typeof(TreeLog), nameof(TreeBase.Damage))]
         [HarmonyPrefix]
         static void LogHitPrefix(ref HitData hit)
         {

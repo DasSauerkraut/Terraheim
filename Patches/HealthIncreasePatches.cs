@@ -3,7 +3,7 @@ using Terraheim.ArmorEffects;
 
 namespace Terraheim.Patches
 {
-    [HarmonyPatch(typeof(Player), "GetTotalFoodValue")]
+    [HarmonyPatch(typeof(Player), nameof(Player.GetTotalFoodValue))]
     class HealthIncreasePatches
     {
 
@@ -20,7 +20,7 @@ namespace Terraheim.Patches
         }
     }
 
-    [HarmonyPatch(typeof(Player), "GetBaseFoodHP")]
+    [HarmonyPatch(typeof(Player), nameof(Player.GetBaseFoodHP))]
     public class HealthIncreasePatches_BaseFoodHP
     {
 

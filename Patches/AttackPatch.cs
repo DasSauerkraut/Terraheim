@@ -14,7 +14,7 @@ namespace Terraheim.Patches
             Log.LogInfo("Attack Patching Complete");
         }
 
-        [HarmonyPatch(typeof(Attack), "Start")]
+        [HarmonyPatch(typeof(Attack), nameof(Attack.Start))]
         public static void Prefix(ref Attack __instance, Humanoid character, ref ItemDrop.ItemData weapon)
         {
             //Log.LogWarning("Attack Start");
@@ -300,7 +300,7 @@ namespace Terraheim.Patches
             }
         }
 
-        [HarmonyPatch(typeof(Attack), "FireProjectileBurst")]
+        [HarmonyPatch(typeof(Attack), nameof(Attack.FireProjectileBurst))]
         [HarmonyPrefix]
         public static void FireProjectileBurstPrefix(ref Attack __instance)
         {
@@ -379,7 +379,7 @@ namespace Terraheim.Patches
             }
         }
 
-        [HarmonyPatch(typeof(Attack), "FireProjectileBurst")]
+        [HarmonyPatch(typeof(Attack), nameof(Attack.FireProjectileBurst))]
         [HarmonyPostfix]
         public static void FireProjectileBurstPostfix(ref Attack __instance)
         {

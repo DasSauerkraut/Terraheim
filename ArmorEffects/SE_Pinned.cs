@@ -66,10 +66,10 @@ namespace Terraheim.ArmorEffects
             base.Setup(character);
         }
 
-        public override void ModifySpeed(ref float speed)
+        public override void ModifySpeed(float baseSpeed, ref float speed)
         {
             speed *= 0.5f;
-            base.ModifySpeed(ref speed);
+            base.ModifySpeed(baseSpeed, ref speed);
         }
 
         public void SetPinTTL(float bonus)

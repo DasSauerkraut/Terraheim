@@ -18,7 +18,7 @@ namespace Terraheim.Patches
             Log.LogInfo("Dodge Patching Complete");
         }
 
-        [HarmonyPatch(typeof(Player), "Dodge")]
+        [HarmonyPatch(typeof(Player), nameof(Player.Dodge))]
         static void Prefix(ref float ___m_dodgeStaminaUsage, ref SEMan ___m_seman)
         {
             //Log.LogWarning("Dodging!");

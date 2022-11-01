@@ -17,7 +17,7 @@ namespace Terraheim.Patches
 
         static Dictionary<string,float> foodDuration = new Dictionary<string, float>();
 
-        [HarmonyPatch(typeof(Player), "UpdateFood")]
+        [HarmonyPatch(typeof(Player), nameof(Player.UpdateFood))]
         static void Prefix(ref Player __instance)
         {
             foreach (Player.Food food in __instance.m_foods)

@@ -32,50 +32,38 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="assembly_guiutils, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libs\assembly_guiutils.dll</HintPath>
+    <Reference Include="assembly_guiutils_publicized">
+      <HintPath>..\..\jeux\SteamLibrary\steamapps\common\Valheim\valheim_Data\Managed\publicized_assemblies\assembly_guiutils_publicized.dll</HintPath>
     </Reference>
     <Reference Include="assembly_valheim_publicized">
-      <HintPath>Libs\assembly_valheim_publicized.dll</HintPath>
-    </Reference>
-    <Reference Include="BepInEx">
-      <HintPath>Libs\BepInEx.dll</HintPath>
-    </Reference>
-    <Reference Include="Json.Net, Version=1.0.25.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Json.Net.1.0.25\lib\netstandard2.0\Json.Net.dll</HintPath>
+      <HintPath>..\..\jeux\SteamLibrary\steamapps\common\Valheim\valheim_Data\Managed\publicized_assemblies\assembly_valheim_publicized.dll</HintPath>
     </Reference>
     <Reference Include="MMHOOK_assembly_googleanalytics">
-      <HintPath>Libs\MMHOOK_assembly_googleanalytics.dll</HintPath>
+      <HintPath>..\..\jeux\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\MMHOOK\MMHOOK_assembly_googleanalytics.dll</HintPath>
     </Reference>
     <Reference Include="MMHOOK_assembly_guiutils">
-      <HintPath>Libs\MMHOOK_assembly_guiutils.dll</HintPath>
+      <HintPath>..\..\jeux\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\MMHOOK\MMHOOK_assembly_guiutils.dll</HintPath>
     </Reference>
     <Reference Include="MMHOOK_assembly_lux">
-      <HintPath>Libs\MMHOOK_assembly_lux.dll</HintPath>
+      <HintPath>..\..\jeux\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\MMHOOK\MMHOOK_assembly_lux.dll</HintPath>
     </Reference>
     <Reference Include="MMHOOK_assembly_postprocessing">
-      <HintPath>Libs\MMHOOK_assembly_postprocessing.dll</HintPath>
+      <HintPath>..\..\jeux\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\MMHOOK\MMHOOK_assembly_postprocessing.dll</HintPath>
     </Reference>
     <Reference Include="MMHOOK_assembly_simplemeshcombine">
-      <HintPath>Libs\MMHOOK_assembly_simplemeshcombine.dll</HintPath>
+      <HintPath>..\..\jeux\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\MMHOOK\MMHOOK_assembly_simplemeshcombine.dll</HintPath>
     </Reference>
     <Reference Include="MMHOOK_assembly_steamworks">
-      <HintPath>Libs\MMHOOK_assembly_steamworks.dll</HintPath>
+      <HintPath>..\..\jeux\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\MMHOOK\MMHOOK_assembly_steamworks.dll</HintPath>
     </Reference>
     <Reference Include="MMHOOK_assembly_sunshafts">
-      <HintPath>Libs\MMHOOK_assembly_sunshafts.dll</HintPath>
+      <HintPath>..\..\jeux\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\MMHOOK\MMHOOK_assembly_sunshafts.dll</HintPath>
     </Reference>
     <Reference Include="MMHOOK_assembly_utils">
-      <HintPath>Libs\MMHOOK_assembly_utils.dll</HintPath>
+      <HintPath>..\..\jeux\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\MMHOOK\MMHOOK_assembly_utils.dll</HintPath>
     </Reference>
-    <Reference Include="MMHOOK_assembly_valheim, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libs\MMHOOK_assembly_valheim.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libs\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="MMHOOK_assembly_valheim">
+      <HintPath>..\..\jeux\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\MMHOOK\MMHOOK_assembly_valheim.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -211,15 +199,14 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JotunnLib">
-      <Version>2.0.9</Version>
+      <Version>2.8.0</Version>
+    </PackageReference>
+    <PackageReference Include="Json.Net">
+      <Version>1.0.33</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(SolutionDir)bin\debug\$(TargetName).dll" "C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\$(TargetName).dll"
-copy /Y "$(SolutionDir)bin\debug\balance.json" "C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\balance.json"
-copy /Y "$(SolutionDir)bin\debug\mainfest.json" "C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\manifest.json"
-copy /Y "$(SolutionDir)bin\debug\README.md" "C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\README.md"
-</PostBuildEvent>
-  </PropertyGroup>
 </Project>

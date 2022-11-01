@@ -16,7 +16,7 @@ namespace Terraheim.Patches
             Log.LogInfo("Block Patching Complete");
         }
 
-        [HarmonyPatch(typeof(Player), "OnSneaking")]
+        [HarmonyPatch(typeof(Player), nameof(Player.OnSneaking))]
         [HarmonyPrefix]
         static void OnSneakingPrefix(Player __instance)
         {

@@ -16,7 +16,7 @@ namespace Terraheim.ArmorEffects
         public void Awake()
         {
             m_name = "Pinned Cooldown";
-            base.name = "Pinned Cooldown";
+            name = "Pinned Cooldown";
             m_tooltip = "";
             m_icon = null;
         }

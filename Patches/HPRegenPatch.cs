@@ -3,7 +3,7 @@ using Terraheim.ArmorEffects;
 
 namespace Terraheim.Patches
 {
-    [HarmonyPatch(typeof(SEMan), "ModifyHealthRegen")]
+    [HarmonyPatch(typeof(SEMan), nameof(SEMan.ModifyHealthRegen))]
     class HPRegenPatch
     {
         public static void Postfix(SEMan __instance, ref float regenMultiplier)

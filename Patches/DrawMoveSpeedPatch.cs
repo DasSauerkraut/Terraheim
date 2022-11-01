@@ -17,7 +17,7 @@ namespace Terraheim.Patches
             Log.LogInfo("Draw Move Speed Patching Complete");
         }
 
-        [HarmonyPatch(typeof(Player), "GetJogSpeedFactor")]
+        [HarmonyPatch(typeof(Player), nameof(Player.GetJogSpeedFactor))]
 
         public static void Postfix(Player __instance, ref float __result)
         {

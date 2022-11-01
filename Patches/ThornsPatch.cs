@@ -31,7 +31,7 @@ namespace Terraheim.Patches
         }*/
 
         [HarmonyPostfix]
-        [HarmonyPatch(typeof(Character), "ApplyDamage")]
+        [HarmonyPatch(typeof(Character), nameof(Character.ApplyDamage))]
         public static void DamagePostfix(Character __instance, ref HitData hit)
         {
 

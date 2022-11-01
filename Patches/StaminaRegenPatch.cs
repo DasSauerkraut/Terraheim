@@ -3,7 +3,7 @@ using HarmonyLib;
 
 namespace Terraheim.Patches
 {
-    [HarmonyPatch(typeof(SEMan), "ModifyStaminaRegen")]
+    [HarmonyPatch(typeof(SEMan), nameof(SEMan.ModifyStaminaRegen))]
     public static class StaminaRegenPatch
     {
         public static void Postfix(SEMan __instance, ref float staminaMultiplier)

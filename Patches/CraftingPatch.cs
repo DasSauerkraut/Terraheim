@@ -18,7 +18,7 @@ namespace Terraheim.Patches
 
         //public static string GetName() { return m_crafterNameHolder; }
 
-        [HarmonyPatch(typeof(InventoryGui), "DoCrafting")]
+        [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.DoCrafting))]
         public static void Prefix(InventoryGui __instance, Player player)
         {
             //Log.LogWarning("Doin crafting");

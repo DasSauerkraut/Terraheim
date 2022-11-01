@@ -27,7 +27,7 @@ namespace Terraheim.Patches
                 }
         }*/
 
-        [HarmonyPatch(typeof(Character), "Heal")]
+        [HarmonyPatch(typeof(Character), nameof(Character.Heal))]
         static void Postfix(Character __instance, ref SEMan ___m_seman)
         {
             /*if (___m_seman.HaveStatusEffect("Wolftears"))

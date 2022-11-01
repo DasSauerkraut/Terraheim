@@ -17,7 +17,7 @@ namespace Terraheim.Patches
 
         static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
 
-        [HarmonyPatch(typeof(MonsterAI), "OnDamaged")]
+        [HarmonyPatch(typeof(MonsterAI), nameof(MonsterAI.OnDamaged))]
         static void Prefix(MonsterAI __instance, ref float damage, ref Character attacker)
         {
             //Log.LogMessage("Enemy Damaged!");

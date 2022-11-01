@@ -13,7 +13,7 @@ namespace Terraheim.Patches
             Log.LogInfo("Block Patching Complete");
         }
 
-        [HarmonyPatch(typeof(MineRock), "Damage")]
+        [HarmonyPatch(typeof(MineRock), nameof(MineRock.Damage))]
         static void Prefix(ref HitData hit)
         {
             if (hit.GetAttacker() == null || !hit.GetAttacker().IsPlayer() || hit.GetAttacker().m_seman == null)
@@ -26,7 +26,7 @@ namespace Terraheim.Patches
             }
         }
         
-        [HarmonyPatch(typeof(MineRock5), "Damage")]
+        [HarmonyPatch(typeof(MineRock5), nameof(MineRock.Damage))]
         [HarmonyPrefix]
         static void RockHitPrefix(ref HitData hit)
         {

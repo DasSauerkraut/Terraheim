@@ -3,7 +3,7 @@ using Terraheim.ArmorEffects;
 
 namespace Terraheim.Patches
 {
-    [HarmonyPatch(typeof(Player), "GetTotalFoodValue")]
+    [HarmonyPatch(typeof(Player), nameof(Player.GetTotalFoodValue))]
     class StaminaIncreasePatches
     {
         public static void Postfix(Player __instance, ref float stamina)

@@ -6,7 +6,7 @@ using Jotunn.Managers;
 
 namespace Terraheim.Patches
 {
-    [HarmonyPatch(typeof(Humanoid), "BlockAttack")]
+    [HarmonyPatch(typeof(Humanoid), nameof(Humanoid.BlockAttack))]
     public static class BlockPowerPatch
     {
         public static void Prefix(ref Humanoid __instance)

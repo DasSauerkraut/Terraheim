@@ -18,7 +18,7 @@ namespace Terraheim.Patches
             Log.LogInfo("Block Patching Complete");
         }
 
-        [HarmonyPatch(typeof(Humanoid), "BlockAttack")]
+        [HarmonyPatch(typeof(Humanoid), nameof(Humanoid.BlockAttack))]
         static void Prefix(ref float ___m_blockStaminaDrain, ref SEMan ___m_seman)
         {
             //Log.LogWarning("Blocking!");
@@ -40,7 +40,7 @@ namespace Terraheim.Patches
             //Log.LogMessage("3");
         }
 
-        [HarmonyPatch(typeof(Humanoid), "BlockAttack")]
+        [HarmonyPatch(typeof(Humanoid), nameof(Humanoid.BlockAttack))]
         static void Postfix(HitData hit, Character attacker, ref SEMan ___m_seman, float ___m_blockTimer)
         {
 
