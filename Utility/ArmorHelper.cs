@@ -13,7 +13,7 @@ namespace Terraheim.Utility
 {
     class ArmorHelper
     {
-        static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
+        static readonly JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
 
         public static StatusEffect GetSetEffect(string name, JToken values)
         {
@@ -457,11 +457,11 @@ namespace Terraheim.Utility
 
         public static void AddArmorPiece(string setName, string location)
         {
-            var setBalance = balance[setName];
+            JToken setBalance = balance[setName];
             ArmorSet armor = ArmorSets[setName];
             for (int i = (int)setBalance["upgrades"]["startingTier"]; i <= 5; i++)
             {
-                var tierBalance = setBalance["upgrades"][$"t{i}"];
+                // JToken tierBalance = setBalance["upgrades"][$"t{i}"];
                 string id = "";
                 string name = "";
 
@@ -520,9 +520,9 @@ namespace Terraheim.Utility
                     recipeList[0].m_amountPerLevel = 0;
                 }
 
-                var recipeReqs = balance["upgradePath"][$"t{i}"];
+                JToken recipeReqs = balance["upgradePath"][$"t{i}"];
                 int index = 0 + j;
-                foreach (JObject item in recipeReqs[location])
+                foreach (JObject item in recipeReqs[location].Cast<JObject>())
                 {
                     recipeList.Add(MockRequirement.Create((string)item["item"], (int)item["amount"]));
                     recipeList[index].m_amountPerLevel = (int)item["perLevel"];
@@ -587,7 +587,7 @@ namespace Terraheim.Utility
 
             var recipeReqs = setBalance["crafting"];
             int index = 0;
-            foreach (JObject item in recipeReqs["items"])
+            foreach (JObject item in recipeReqs["items"].Cast<JObject>())
             {
                 helmetList.Add(MockRequirement.Create((string)item["item"], (int)item["amount"]));
                 helmetList[index].m_amountPerLevel = (int)item["perLevel"];

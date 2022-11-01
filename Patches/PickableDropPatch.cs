@@ -16,14 +16,14 @@ namespace Terraheim.Patches
                 return;
             if (player.GetSEMan().HaveStatusEffect("Harvest Yield Up"))
             {
-                if (isWild(__instance.m_itemPrefab))
+                if (IsWild(__instance.m_itemPrefab))
                     __instance.m_amount += 2;
-                else if (isCrop(__instance.m_itemPrefab))
+                else if (IsCrop(__instance.m_itemPrefab))
                     __instance.m_amount += 1;
             }
         }
 
-        private static bool isWild(GameObject prefab)
+        private static bool IsWild(GameObject prefab)
         {
             var name = prefab.GetComponent<ItemDrop>().m_itemData.m_shared.m_name;
             Log.LogWarning(name);
@@ -43,7 +43,7 @@ namespace Terraheim.Patches
                 return false;
         }
 
-        private static bool isCrop(GameObject prefab)
+        private static bool IsCrop(GameObject prefab)
         {
             var name = prefab.GetComponent<ItemDrop>().m_itemData.m_shared.m_name;
             Log.LogWarning(name);
