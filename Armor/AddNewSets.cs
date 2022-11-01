@@ -7,7 +7,7 @@ namespace Terraheim.Armor
     {
         internal static void Init()
         {
-            ItemManager.OnVanillaItemsAvailable += AddArmorSets;
+            PrefabManager.OnVanillaPrefabsAvailable += AddArmorSets;
             ItemManager.OnItemsRegistered += ModExistingRecipes;
         }
         private static void AddArmorSets()
