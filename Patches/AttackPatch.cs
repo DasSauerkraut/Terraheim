@@ -274,7 +274,7 @@ namespace Terraheim.Patches
             }
         }
 
-        [HarmonyPatch(typeof(Attack), "GetStaminaUsage")]
+        [HarmonyPatch(typeof(Attack), nameof(Attack.GetAttackStamina))]
         [HarmonyPrefix]
         public static void GetStaminaUsagePrefix(ref Attack __instance)
         {
