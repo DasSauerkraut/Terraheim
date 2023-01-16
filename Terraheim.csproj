@@ -1,225 +1,65 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6CE0C5EB-D5B9-41F7-8EA6-AD6B5A20B5BB}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Terraheim</RootNamespace>
     <AssemblyName>Terraheim</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  <PropertyGroup>
+    <LangVersion>10</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+  <PropertyGroup>
+    <RootNamespace />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="assembly_guiutils, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libs\assembly_guiutils.dll</HintPath>
+    <None Remove="Terraheim.bundle_terraheimeffects" />
+    <None Remove="Terraheim.bundle_terraheim_sound" />
+    <EmbeddedResource Include="Terraheim.bundle_terraheimeffects" />
+    <EmbeddedResource Include="Terraheim.bundle_terraheim_sound" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Valheim\BepInEx\core\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="assembly_valheim_publicized">
-      <HintPath>Libs\assembly_valheim_publicized.dll</HintPath>
+    <Reference Include="assembly_guiutils">
+      <HintPath>..\publicized_assemblies\assembly_guiutils.dll</HintPath>
+    </Reference>
+    <Reference Include="assembly_valheim">
+      <HintPath>..\publicized_assemblies\assembly_valheim.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx">
-      <HintPath>Libs\BepInEx.dll</HintPath>
+      <HintPath>C:\Users\Administrator\Documents\libs\BepInEx.dll</HintPath>
     </Reference>
-    <Reference Include="Json.Net, Version=1.0.25.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Json.Net.1.0.25\lib\netstandard2.0\Json.Net.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>C:\Users\Administrator\Documents\libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="MMHOOK_assembly_googleanalytics">
-      <HintPath>Libs\MMHOOK_assembly_googleanalytics.dll</HintPath>
+    <Reference Include="Jotunn">
+      <HintPath>C:\Users\Administrator\Documents\libs\Jotunn.dll</HintPath>
     </Reference>
-    <Reference Include="MMHOOK_assembly_guiutils">
-      <HintPath>Libs\MMHOOK_assembly_guiutils.dll</HintPath>
+    <Reference Include="TerraheimItems">
+      <HintPath>C:\Games\Valheim\BepInEx\plugins\Terraheim\TerraheimItems.dll</HintPath>
     </Reference>
-    <Reference Include="MMHOOK_assembly_lux">
-      <HintPath>Libs\MMHOOK_assembly_lux.dll</HintPath>
-    </Reference>
-    <Reference Include="MMHOOK_assembly_postprocessing">
-      <HintPath>Libs\MMHOOK_assembly_postprocessing.dll</HintPath>
-    </Reference>
-    <Reference Include="MMHOOK_assembly_simplemeshcombine">
-      <HintPath>Libs\MMHOOK_assembly_simplemeshcombine.dll</HintPath>
-    </Reference>
-    <Reference Include="MMHOOK_assembly_steamworks">
-      <HintPath>Libs\MMHOOK_assembly_steamworks.dll</HintPath>
-    </Reference>
-    <Reference Include="MMHOOK_assembly_sunshafts">
-      <HintPath>Libs\MMHOOK_assembly_sunshafts.dll</HintPath>
-    </Reference>
-    <Reference Include="MMHOOK_assembly_utils">
-      <HintPath>Libs\MMHOOK_assembly_utils.dll</HintPath>
-    </Reference>
-    <Reference Include="MMHOOK_assembly_valheim, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libs\MMHOOK_assembly_valheim.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libs\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
-      <HintPath>Libs\UnityEngine.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Valheim\unstripped_corlib\UnityEngine.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.AssetBundleModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libs\UnityEngine.AssetBundleModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libs\UnityEngine.AudioModule.dll</HintPath>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Valheim\unstripped_corlib\UnityEngine.AudioModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>Libs\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>C:\Users\Administrator\Documents\libs\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.LocalizationModule">
-      <HintPath>Libs\UnityEngine.LocalizationModule.dll</HintPath>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>C:\Users\Administrator\Documents\libs\UnityEngine.AssetBundleModule.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.ParticleSystemModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libs\UnityEngine.ParticleSystemModule.dll</HintPath>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Valheim\unstripped_corlib\UnityEngine.ParticleSystemModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>C:\Users\Administrator\Documents\libs\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArmorEffects\SE_AoECounterExhausted.cs" />
-    <Compile Include="ArmorEffects\SE_AoECounterFX.cs" />
-    <Compile Include="ArmorEffects\SE_AoECounter.cs" />
-    <Compile Include="ArmorEffects\SE_ArmorOnHit.cs" />
-    <Compile Include="ArmorEffects\SE_ArmorOnHitListener.cs" />
-    <Compile Include="ArmorEffects\SE_ChallengeDodgeBonus.cs" />
-    <Compile Include="ArmorEffects\SE_ChallengeMoveSpeed.cs" />
-    <Compile Include="ArmorEffects\SE_ChallengeSprinter.cs" />
-    <Compile Include="ArmorEffects\SE_DamageVsLowHP.cs" />
-    <Compile Include="ArmorEffects\SE_DeathMark.cs" />
-    <Compile Include="ArmorEffects\SE_FullHPDamageBonusFX.cs" />
-    <Compile Include="ArmorEffects\SE_HealOnBlock.cs" />
-    <Compile Include="ArmorEffects\SE_IncreaseHarvest.cs" />
-    <Compile Include="ArmorEffects\SE_MarkedForDeath.cs" />
-    <Compile Include="ArmorEffects\SE_MarkedForDeathFX.cs" />
-    <Compile Include="ArmorEffects\SE_MiningBonus.cs" />
-    <Compile Include="ArmorEffects\SE_FullHPDamageBonus.cs" />
-    <Compile Include="ArmorEffects\SE_MoveSpeedOnKill.cs" />
-    <Compile Include="ArmorEffects\SE_MoveSpeedOnKillListener.cs" />
-    <Compile Include="ArmorEffects\SE_Pinned.cs" />
-    <Compile Include="ArmorEffects\SE_PinnedCooldown.cs" />
-    <Compile Include="ArmorEffects\SE_Pinning.cs" />
-    <Compile Include="ArmorEffects\SE_PoisonVulnerable.cs" />
-    <Compile Include="ArmorEffects\SE_RangerWeaponBonus.cs" />
-    <Compile Include="ArmorEffects\SE_SneakMovement.cs" />
-    <Compile Include="ArmorEffects\SE_ThrowingDamageBonus.cs" />
-    <Compile Include="ArmorEffects\SE_ThrowingWeaponVelocity.cs" />
-    <Compile Include="ArmorEffects\SE_TreeDamageBonus.cs" />
-    <Compile Include="ArmorEffects\SE_FoodUsage.cs" />
-    <Compile Include="ArmorEffects\SE_BlockPowerBonus.cs" />
-    <Compile Include="ArmorEffects\SE_AttackStaminaUse.cs" />
-    <Compile Include="ArmorEffects\SE_DrawMoveSpeed.cs" />
-    <Compile Include="ArmorEffects\SE_Thorns.cs" />
-    <Compile Include="ArmorEffects\SE_WetImmunity.cs" />
-    <Compile Include="ArmorEffects\SE_Wolftears.cs" />
-    <Compile Include="ArmorEffects\SE_SpiritDamageBonus.cs" />
-    <Compile Include="ArmorEffects\SE_SilverDamageBonus.cs" />
-    <Compile Include="ArmorEffects\SE_CritChance.cs" />
-    <Compile Include="ArmorEffects\SE_ExtraStamina.cs" />
-    <Compile Include="ArmorEffects\SE_StaminaRegen.cs" />
-    <Compile Include="ArmorEffects\SE_TwoHandedDmgBonus.cs" />
-    <Compile Include="ArmorEffects\SE_HPRegen.cs" />
-    <Compile Include="ArmorEffects\SE_BlockStamUse.cs" />
-    <Compile Include="ArmorEffects\SE_MeleeDamageBonus.cs" />
-    <Compile Include="ArmorEffects\SE_HPOnHit.cs" />
-    <Compile Include="ArmorEffects\SE_DodgeStamUse.cs" />
-    <Compile Include="ArmorEffects\SE_OneHandDamageBonus.cs" />
-    <Compile Include="ArmorEffects\SE_BackstabBonus.cs" />
-    <Compile Include="ArmorEffects\SE_AmmoConsumption.cs" />
-    <Compile Include="ArmorEffects\SE_HealthIncrease.cs" />
-    <Compile Include="ArmorEffects\SE_DaggerSpearDmgBonus.cs" />
-    <Compile Include="ArmorEffects\SE_RangedDmgBonus.cs" />
-    <Compile Include="ArmorEffects\SE_WolftearsFX.cs" />
-    <Compile Include="ArmorEffects\SE_WolftearsProtectionExhausted.cs" />
-    <Compile Include="Armor\AddNewSets.cs" />
-    <Compile Include="Armor\ModExistingSets.cs" />
-    <Compile Include="Log.cs" />
-    <Compile Include="Patches\AddStatusEffectPatch.cs" />
-    <Compile Include="Patches\AttackPatch.cs" />
-    <Compile Include="Patches\BlockPatch.cs" />
-    <Compile Include="Patches\BlockPowerPatch.cs" />
-    <Compile Include="Patches\CraftingPatch.cs" />
-    <Compile Include="Patches\HealPatch.cs" />
-    <Compile Include="Patches\DrawMoveSpeedPatch.cs" />
-    <Compile Include="Patches\FoodUsagePatch.cs" />
-    <Compile Include="Patches\HPRegenPatch.cs" />
-    <Compile Include="Patches\HealthIncreasePatches.cs" />
-    <Compile Include="Patches\HitPatch.cs" />
-    <Compile Include="Patches\DodgePatch.cs" />
-    <Compile Include="Patches\MiningPatch.cs" />
-    <Compile Include="Patches\PickableDropPatch.cs" />
-    <Compile Include="Patches\SneakMovementPatch.cs" />
-    <Compile Include="Patches\StaminaIncreasePatch.cs" />
-    <Compile Include="Patches\StaminaRegenPatch.cs" />
-    <Compile Include="Patches\ThornsPatch.cs" />
-    <Compile Include="Patches\TooltipPatch.cs" />
-    <Compile Include="Patches\TreeDamagePatch.cs" />
-    <Compile Include="Terraheim.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\ArmorHelper.cs" />
-    <Compile Include="Utility\AssetHelper.cs" />
-    <Compile Include="Utility\Data.cs" />
-    <Compile Include="Utility\TranslationUtils.cs" />
-    <Compile Include="Utility\UtilityFunctions.cs" />
+    <Compile Remove="Terraheim.Patches\AddStatusEffectPatch.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="balance.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <EmbeddedResource Include="bundle_terraheimeffects" />
-    <None Include="manifest.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="README.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Translations\english.lang">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="JotunnLib">
-      <Version>2.0.9</Version>
-    </PackageReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(SolutionDir)bin\debug\$(TargetName).dll" "C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\$(TargetName).dll"
-copy /Y "$(SolutionDir)bin\debug\balance.json" "C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\balance.json"
-copy /Y "$(SolutionDir)bin\debug\mainfest.json" "C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\manifest.json"
-copy /Y "$(SolutionDir)bin\debug\README.md" "C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\README.md"
-</PostBuildEvent>
-  </PropertyGroup>
 </Project>
