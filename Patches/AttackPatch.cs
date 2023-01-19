@@ -353,6 +353,10 @@ namespace Terraheim.Patches
                 __instance.m_attackStamina = weapon.m_itemData.m_shared.m_attack.m_attackStamina * (1f-effect.GetStaminaUse());
                 Log.LogMessage("modded " + __instance.m_attackStamina);
             }
+            if(___m_character.GetSEMan().HaveStatusEffect("KenningFX"))
+            {
+                __instance.m_attackStamina = 0;
+            }
         }
 
         [HarmonyPatch(typeof(Attack), "FireProjectileBurst")]

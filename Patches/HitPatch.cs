@@ -422,6 +422,10 @@ namespace Terraheim.Patches
             {
                 (hit.GetAttacker().GetSEMan().GetStatusEffect("Wyrdarrow") as SE_AoECounter).IncreaseCounter();
             }
+            if (hit.HaveAttacker() && hit.GetAttacker().IsPlayer() && hit.GetAttacker().GetSEMan().HaveStatusEffect("Kenning"))
+            {
+                (hit.GetAttacker().GetSEMan().GetStatusEffect("Kenning") as SE_Kenning).IncreaseCounter();
+            }
             if (hit.HaveAttacker() && hit.GetAttacker().IsPlayer() && hit.GetAttacker().GetSEMan().HaveStatusEffect("Brassflesh Listener"))
             {
                 if (hit.GetAttacker().GetSEMan().HaveStatusEffect("Brassflesh"))
@@ -515,6 +519,53 @@ namespace Terraheim.Patches
                 hit.m_damage.m_poison *= 1 - damageMod;
                 hit.m_damage.m_slash *= 1 - damageMod;
                 hit.m_damage.m_spirit *= 1 - damageMod;
+                Log.LogInfo($"ending damage: {hit.GetTotalDamage()}");
+            }
+
+            if (hit.HaveAttacker() && hit.GetAttacker().IsPlayer() && hit.GetAttacker().GetSEMan().HaveStatusEffect("Counter") && __instance.InAttack())
+            {
+                Log.LogInfo($"starting damage: {hit.GetTotalDamage()}");
+                float damageMod = (hit.GetAttacker().GetSEMan().GetStatusEffect("Counter") as SE_Counter).GetBonus();
+                hit.m_damage.m_blunt *= 1 + damageMod;
+                hit.m_damage.m_chop *= 1 + damageMod;
+                hit.m_damage.m_damage *= 1 + damageMod;
+                hit.m_damage.m_fire *= 1 + damageMod;
+                hit.m_damage.m_frost *= 1 + damageMod;
+                hit.m_damage.m_lightning *= 1 + damageMod;
+                hit.m_damage.m_pickaxe *= 1 + damageMod;
+                hit.m_damage.m_pierce *= 1 + damageMod;
+                hit.m_damage.m_poison *= 1 + damageMod;
+                hit.m_damage.m_slash *= 1 + damageMod;
+                hit.m_damage.m_spirit *= 1 + damageMod;
+                Log.LogInfo($"ending damage: {hit.GetTotalDamage()}");
+            }
+
+            if(hit.HaveAttacker() && hit.GetAttacker().IsPlayer() && hit.GetAttacker().GetSEMan().HaveStatusEffect("KenningFX"))
+            {
+                var attackerEffect = hit.GetAttacker().GetSEMan().GetStatusEffect("KenningFX") as SE_KenningFX;
+                Log.LogInfo($"starting damage: {hit.GetTotalDamage()}");
+                if (__instance.m_seman.HaveStatusEffect("KenningCounter"))
+                {
+                    (__instance.m_seman.GetStatusEffect("KenningCounter") as SE_KenningCounter).AddDamage(hit, attackerEffect.TTL, attackerEffect.m_time);
+                } else
+                {
+                    SE_KenningCounter effect = new SE_KenningCounter();
+                    effect.AddDamage(hit, attackerEffect.TTL, attackerEffect.m_time);
+                    __instance.m_seman.AddStatusEffect(effect);
+                }
+
+                float damageMod = -1;
+                hit.m_damage.m_blunt *= 1 + damageMod;
+                hit.m_damage.m_chop *= 1 + damageMod;
+                hit.m_damage.m_damage *= 1 + damageMod;
+                hit.m_damage.m_fire *= 1 + damageMod;
+                hit.m_damage.m_frost *= 1 + damageMod;
+                hit.m_damage.m_lightning *= 1 + damageMod;
+                hit.m_damage.m_pickaxe *= 1 + damageMod;
+                hit.m_damage.m_pierce *= 1 + damageMod;
+                hit.m_damage.m_poison *= 1 + damageMod;
+                hit.m_damage.m_slash *= 1 + damageMod;
+                hit.m_damage.m_spirit *= 1 + damageMod;
                 Log.LogInfo($"ending damage: {hit.GetTotalDamage()}");
             }
         }

@@ -595,6 +595,39 @@
             }
         }
     },
+    "wanderer": {
+        "enabled": true,
+        "name": "heian",
+        "baseArmor": 24,
+        "armorPerLevel": 2,
+        "globalMoveMod": 0,
+        "setEffect": "kenning",
+        "headEffect": "attackspeed",
+        "chestEffect": "attackstamina",
+        "legsEffect": "counter",
+        "setEffectDur": 5,
+        "setDamageReduction": 0.30,
+        "setActivationCost": 10,
+        "headEffectVal": 0.15,
+        "chestEffectVal": 0.15,
+        "legsEffectVal": 0.20,
+        "legsMoveSpeed": 0.05,
+        "upgrades": {
+            "startingTier": 6,
+            "t6": {
+                "baseArmor": 28,
+                "armorPerLevel": 2,
+                "globalMoveMod": 0,
+                "setEffectDur": 7,
+                "setDamageReduction": 0.35,
+                "setActivationCost": 10,
+                "headEffectVal": 0.20,
+                "chestEffectVal": 0.20,
+                "legsEffectVal": 0.25,
+                "legsMoveSpeed": 0.05
+            }
+        }
+    },
     "chaosT0": {
         "enabled": true,
         "name": "chosen",

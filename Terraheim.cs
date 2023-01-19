@@ -10,6 +10,8 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using Terraheim.ArmorEffects.ChosenEffects;
 using System.Reflection;
+using BepInEx.Configuration;
+using Jotunn.Configs;
 
 namespace Terraheim
 {
@@ -25,7 +27,7 @@ namespace Terraheim
         public const string ModGuid = AuthorName + "." + ModName;
         private const string AuthorName = "DasSauerkraut";
         private const string ModName = "Terraheim";
-        private const string ModVer = "2.2.1";
+        private const string ModVer = "2.3.0";
         public static readonly string ModPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public static bool hasBarbarianArmor = false;
@@ -33,6 +35,9 @@ namespace Terraheim
         public static bool hasChaosArmor = false;
         public static bool hasAuga = false;
         public static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
+
+        private ConfigEntry<KeyCode> KenningConfig;
+        public static ButtonConfig KenningButton;
 
         private readonly Harmony harmony = new Harmony(ModGuid);
 
@@ -49,6 +54,7 @@ namespace Terraheim
             AssetHelper.SetupVFX();
             Pieces.Init();
             AddResources();
+            AddButtonConfig();
 
             hasAuga = Auga.API.IsLoaded();
             hasChaosArmor = UtilityFunctions.CheckChaos();
@@ -78,14 +84,41 @@ namespace Terraheim
 
         public static void AugaTooltipsForItemEffects(GameObject complexTooltip, ItemDrop.ItemData item)
         {
-            if(UtilityFunctions.IsArmor(item))
+            if(UtilityFunctions.IsArmor(item) && item.m_shared.m_equipStatusEffect != null)
             {
                 Auga.API.ComplexTooltip_SetTopic(complexTooltip, item.m_shared.m_name);
-                Auga.API.ComplexTooltip_SetSubtitle(complexTooltip, Data.ArmorSets["leather"].ClassName);
+                string className = "";
+                
+                foreach (KeyValuePair<string, Data.ArmorSet> armor in Data.ArmorSets)
+                {
+                    if (armor.Value.HelmetID == item.m_dropPrefab.name || armor.Value.ChestID == item.m_dropPrefab.name || armor.Value.LegsID == item.m_dropPrefab.name)
+                    {
+                        className = armor.Value.ClassName;
+                        break;
+                    }
+                }
+                if(className != "")
+                    Auga.API.ComplexTooltip_SetSubtitle(complexTooltip, className);
                 GameObject textbox = Auga.API.ComplexTooltip_AddTwoColumnTextBox(complexTooltip);
                 Auga.API.TooltipTextBox_AddLine(textbox, "$item_effect_title", "", "$item_effect_equipped");
                 Auga.API.TooltipTextBox_AddLine(textbox, "", item.m_shared.m_equipStatusEffect.m_tooltip);
             }
+        }
+
+        private void AddButtonConfig()
+        {
+            Config.SaveOnConfigSet = true;
+            KenningConfig = Config.Bind("Client config", "Kenning Keybind", KeyCode.B,
+                new ConfigDescription("Key to activate Ken Mode when using a set with the Kenning effect."));
+
+            KenningButton = new ButtonConfig
+            {
+                Name = "KenningButton",
+                Config = KenningConfig,
+                HintToken = "$kenning_button"
+            };
+
+            InputManager.Instance.AddButton(ModGuid, KenningButton);
         }
 
         private void AddResources()
@@ -164,6 +197,8 @@ namespace Terraheim
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_RestoreResources>(), fixReference: true));
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_StaggerCapacity>(), fixReference: true));
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_StaggerDamage>(), fixReference: true));
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_AttackSpeed>(), fixReference: true));
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Counter>(), fixReference: true));
 
             //Set Bonuses
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_HPOnHit>(), fixReference: true)); //Leather
@@ -189,6 +224,9 @@ namespace Terraheim
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Mercenary>(), fixReference: true)); //Barbarian
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Retaliation>(), fixReference: true)); //Barbarian
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_RetaliationTimer>(), fixReference: true)); //Barbarian
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Kenning>(), fixReference: true)); //Barbarian
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_KenningFX>(), fixReference: true)); //Barbarian
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_KenningCounter>(), fixReference: true)); //Barbarian
 
             //Chosen
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Chosen>(), fixReference: true));

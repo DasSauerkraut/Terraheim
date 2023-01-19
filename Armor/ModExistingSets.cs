@@ -172,6 +172,7 @@ namespace Terraheim.Armor
                 ModBarbarianArmor();
                 ModJudesPlateArmor();
                 ModJudesNomadArmor();
+                ModJudesWandererArmor();
                 itemsInstantiated = false;
             }
         }
@@ -239,6 +240,26 @@ namespace Terraheim.Armor
             legsRecipe.m_craftingStation = Pieces.Reforger;
 
             ArmorHelper.ModArmorSet("nomad", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
+        }
+
+        private static void ModJudesWandererArmor()
+        {
+            var helmet = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorWandererHelmet");
+            var chest = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorWandererChest");
+            var legs = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorWandererLegs");
+
+            var setBalance = balance["wanderer"];
+
+            var headRecipe = ObjectDB.instance.GetRecipe(helmet.m_itemData);
+            var chestRecipe = ObjectDB.instance.GetRecipe(chest.m_itemData);
+            var legsRecipe = ObjectDB.instance.GetRecipe(legs.m_itemData);
+
+
+            headRecipe.m_craftingStation = Pieces.Reforger;
+            chestRecipe.m_craftingStation = Pieces.Reforger;
+            legsRecipe.m_craftingStation = Pieces.Reforger;
+
+            ArmorHelper.ModArmorSet("wanderer", ref helmet.m_itemData, ref chest.m_itemData, ref legs.m_itemData, setBalance, false, -1);
         }
 
         private static void ModChaosArmor()

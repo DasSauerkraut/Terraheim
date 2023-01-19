@@ -41,6 +41,8 @@ namespace Terraheim.Utility
         public static GameObject FlamebowWyrdExplosion;
 
         public static GameObject RetaliationExplosion;
+        public static GameObject FXKenning;
+        public static GameObject KenningActivate;
 
         public static AudioClip AoEReady;
         public static AudioClip SFXExecution;
@@ -127,7 +129,10 @@ namespace Terraheim.Utility
             TerraheimAssetBundle = GetAssetBundleFromResources(SFXBundleName);
             SFXCoin = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/Pickup_Coins05.wav");
             RetaliationExplosion = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/retaliation_explosion.prefab");
-            RetaliationExplosion.GetComponent<Aoe>().m_statusEffect = "Retaliation Cooldown";
+            RetaliationExplosion.GetComponent<Aoe>().m_statusEffect = "Retaliation Cooldown"; 
+            FXKenning = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/vfx_kenning.prefab");
+            KenningActivate = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/kenning_activate.prefab");
+
         }
 
         public static AssetBundle GetAssetBundleFromResources(string filename)
@@ -205,6 +210,17 @@ namespace Terraheim.Utility
                 m_attach = true,
                 m_inheritParentRotation = false,
                 m_inheritParentScale = true,
+                m_randomRotation = false,
+                m_scale = true
+            };
+
+            Data.VFXKenning = new EffectList.EffectData()
+            {
+                m_prefab = Utility.AssetHelper.FXKenning,
+                m_enabled = true,
+                m_attach = true,
+                m_inheritParentRotation = false,
+                m_inheritParentScale = false,
                 m_randomRotation = false,
                 m_scale = true
             };

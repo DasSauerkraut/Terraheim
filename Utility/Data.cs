@@ -38,6 +38,11 @@ namespace Terraheim.Utility
             get; set;
         }
 
+        public static EffectList.EffectData VFXKenning
+        {
+            get; set;
+        }
+
         public class ArmorSet
         {
             public string HelmetID { get; set; }
@@ -180,6 +185,18 @@ namespace Terraheim.Utility
                     LegsName = "$item_legs_nomad_t",
                     ClassName = "$class_ranger",
                     HelmetArmor = 1
+                }
+            },
+            {"wanderer", new ArmorSet
+                {
+                    HelmetID = "ArmorWandererHelmet",
+                    ChestID = "ArmorWandererChest",
+                    LegsID = "ArmorWandererLegs",
+                    HelmetName = "$item_helmet_wanderer_t",
+                    ChestName = "$item_chest_wanderer_t",
+                    LegsName = "$item_legs_wanderer_t",
+                    ClassName = "$class_berserker",
+                    HelmetArmor = -1
                 }
             },
             {"chaosT0", new ArmorSet

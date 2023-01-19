@@ -36,6 +36,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\assembly_guiutils.dll</HintPath>
     </Reference>
+    <Reference Include="assembly_utils">
+      <HintPath>Libs\assembly_utils.dll</HintPath>
+    </Reference>
     <Reference Include="assembly_valheim_p">
       <HintPath>Libs\assembly_valheim_p.dll</HintPath>
     </Reference>
@@ -95,6 +98,9 @@
     <Reference Include="UnityEngine">
       <HintPath>Libs\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>Libs\UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.AssetBundleModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\UnityEngine.AssetBundleModule.dll</HintPath>
@@ -105,6 +111,13 @@
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>Libs\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>Libs\UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.InputModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.LocalizationModule">
       <HintPath>Libs\UnityEngine.LocalizationModule.dll</HintPath>
@@ -130,6 +143,7 @@
     <Compile Include="ArmorEffects\ChosenEffects\SE_MaddeningVisions.cs" />
     <Compile Include="ArmorEffects\ChosenEffects\SE_Pestilence.cs" />
     <Compile Include="ArmorEffects\ChosenEffects\SE_Withdrawals.cs" />
+    <Compile Include="ArmorEffects\SE_AttackSpeed.cs" />
     <Compile Include="ArmorEffects\SE_Afterburn.cs" />
     <Compile Include="ArmorEffects\SE_AfterburnCooldown.cs" />
     <Compile Include="ArmorEffects\SE_AoECounterExhausted.cs" />
@@ -141,12 +155,16 @@
     <Compile Include="ArmorEffects\SE_ChallengeMoveSpeed.cs" />
     <Compile Include="ArmorEffects\SE_ChallengeSprinter.cs" />
     <Compile Include="ArmorEffects\SE_CoinDrop.cs" />
+    <Compile Include="ArmorEffects\SE_Counter.cs" />
     <Compile Include="ArmorEffects\SE_DamageVsLowHP.cs" />
     <Compile Include="ArmorEffects\SE_DeathMark.cs" />
     <Compile Include="ArmorEffects\SE_FullHPDamageBonusFX.cs" />
     <Compile Include="ArmorEffects\SE_HealOnBlock.cs" />
     <Compile Include="ArmorEffects\SE_Hyperarmor.cs" />
     <Compile Include="ArmorEffects\SE_IncreaseHarvest.cs" />
+    <Compile Include="ArmorEffects\SE_Kenning.cs" />
+    <Compile Include="ArmorEffects\SE_KenningCounter.cs" />
+    <Compile Include="ArmorEffects\SE_KenningFX.cs" />
     <Compile Include="ArmorEffects\SE_MarkedForDeath.cs" />
     <Compile Include="ArmorEffects\SE_MarkedForDeathFX.cs" />
     <Compile Include="ArmorEffects\SE_Mercenary.cs" />
@@ -203,6 +221,7 @@
     <Compile Include="Armor\ModExistingSets.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Patches\AddStatusEffectPatch.cs" />
+    <Compile Include="Patches\AnimationSpeedPatches.cs" />
     <Compile Include="Patches\AttackPatch.cs" />
     <Compile Include="Patches\BlockPatch.cs" />
     <Compile Include="Patches\BlockPowerPatch.cs" />
@@ -252,7 +271,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JotunnLib">
-      <Version>2.0.9</Version>
+      <Version>2.3.4</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

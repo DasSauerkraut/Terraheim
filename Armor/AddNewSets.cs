@@ -40,6 +40,7 @@ namespace Terraheim.Armor
                 ArmorHelper.AddArmorSet("barbarian");
                 ArmorHelper.AddArmorSet("plate");
                 ArmorHelper.AddArmorSet("nomad");
+                ArmorHelper.AddArmorSet("wanderer");
             }
             else if (Terraheim.hasBarbarianArmor)
                 ArmorHelper.AddArmorSet("barbarian");
@@ -83,6 +84,7 @@ namespace Terraheim.Armor
                 ArmorHelper.AddTieredRecipes("barbarian");
                 ArmorHelper.AddTieredRecipes("plate");
                 ArmorHelper.AddTieredRecipes("nomad");
+                ArmorHelper.AddTieredRecipes("wanderer");
             }
             else if (Terraheim.hasBarbarianArmor)
                 ArmorHelper.AddTieredRecipes("barbarian");
