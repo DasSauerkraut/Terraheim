@@ -48,11 +48,13 @@ Currently five utility items have been added:
 - Eorðtilia Belt: Harvest additional flora from bushes and crops
 - Stulor Belt: Increased sneak speed and less sneak stamina use
 - Casul Belt: Immunity to the wet ailment
-## Balance
+## Customization and Balance
 **Terraheim** is highly customizable as the effectiveness, material costs, and almost every armor stat can be tweaked in the `balance.json` file. Weapons can be adjusted and disabled in the `weaponBalance.json` file. Flametal weapons' special effects can be tweaked and disabled there as well. Changes to armor sets can also be disabled.
 
 You can even change out what armor sets have what set effect! If you want the bronze armor set to have ranged damage or Wyrdarrow, you can!
 Just note that set effects are seperate from standard armor effects, so you can't assign Thorns to a helmet, it has to be the set bonus. You can view the effect ids on the balance sheet, there are several unimplemented effects there if you want to experiment a bit.
+
+Furthermore, you can implement other mods armor sets in the `balance.json` file. Just copy an existing armor set and fill out the necessary fields. I won't lie, this is a bit finicky, but its mostly self-explanatory.
 
 **Bow Balance** - To prevent bowmen from being the be all end all class, the bow weapon type has been slightly nerfed by halving movement speed while the bow is drawn. This can be mitigated by wearing silver armor, or if you don't like it at all, you can remove it by setting `"baseBowDrawMoveSpeeed"` to 1 in the `balance.json` file.
 ## Mod Integration
@@ -84,7 +86,7 @@ These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 ### Patchnotes
 **v2.3.0 - Mistlands Compatibility**
 - It's been a second, hasn't it.
-- Terraheim has been updated to be compatible with the Mistlands update.
+- Terraheim has been updated to be compatible with the Mistlands update. A massive thanks goes to **blacks7ar** for helping make this happen!
 - As such, T6 Armor is now Mistlands tier equipment, with Flametal armor getting bumped up to T7.
 - The Root, Fenris, and Carapace armor have received proper integration into the mod, and use slightly tweaked versions of the old Judes Equipment effects.
 - The balance.json file has received a pass, and you can now define new armor sets inside it. So if a new armor mod comes out, you can tweak this file and it'll be integrateed into Terraheim automatically!
