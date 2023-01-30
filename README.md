@@ -1,6 +1,7 @@
+
 # Terraheim - Weapons/Tools/Armor
 **Terraheim** is both an overhaul for Valheim's armor system with the goal of making each armor set viable all the way to the end of the game and a weapon expansion that fills the gaps in the games base roster. 
-![](https://cdn.discordapp.com/attachments/610164117277245482/857021658161479690/unknown.png)
+![](https://staticdelivery.nexusmods.com/mods/3667/images/803/803-1675110933-1245800552.png)
 ## Weapons and Tools
 39 new weapons and tools have been added with the goal of filling in the gaps in each tier.
 14 of which are new Flametal weapons which have unique and dangerous effects, from hurtling waves of fire across the battlefield with Mistilteinn to teleporting to the struck location with Rhongomiant! 
@@ -40,18 +41,6 @@ Terraheim adds in the Armorer's Bench, a new workbench that focuses all armor re
 At the armorer's bench, you can craft, upgrade, reforge all integrated armor and capes.
 
 ![enter image description here](https://media.discordapp.net/attachments/610164117277245482/857026047919652864/unknown.png?width=1440&height=656)
-
-## Mod Integration
-Terraheim integrates several popular armor mods into itself, automatically modifying the armor sets to fit within Terraheim's progression. Currently, two armor sets have been integrated.
-### Judes_Equipment
-If you have [Judes_Equipment](https://valheim.thunderstore.io/package/GoldenJude/Judes_Equipment/) mod installed, it has been fully incorporated into Terraheim. The barbarian armor set provides several bonuses to throwing weapons as well as some interesting tertiary effects like a stacking move speed buff on kill and increased damage against low health targets.
-The Plate set allows you to store blocked damage, which is released whenever you are staggered! Giving you some much needed breathing room.
-The Nomad set is based around money, enemies struck will occasionally drop coins, which boost your damage. Every time you attack, however, a coin is used.
-
-![barbarian armor](https://cdn.discordapp.com/attachments/610164117277245482/889959254683975680/JudesEquipment.png)
-### Chosen Armor
-The [Chaos Armor Set](https://www.nexusmods.com/valheim/mods/1215) by AeehyehssReeper has been integrated into Terraheim as the Chosen armor set. This Berserkr armor grants great strength, should those malignent eyes find you worthy...
-![enter image description here](https://media.discordapp.net/attachments/610164117277245482/857022956521259048/unknown.png?width=569&height=676)
 ## Utility Items
 Currently five utility items have been added:
 - Aescfell Belt: Increased damage vs trees
@@ -66,20 +55,23 @@ You can even change out what armor sets have what set effect! If you want the br
 Just note that set effects are seperate from standard armor effects, so you can't assign Thorns to a helmet, it has to be the set bonus. You can view the effect ids on the balance sheet, there are several unimplemented effects there if you want to experiment a bit.
 
 **Bow Balance** - To prevent bowmen from being the be all end all class, the bow weapon type has been slightly nerfed by halving movement speed while the bow is drawn. This can be mitigated by wearing silver armor, or if you don't like it at all, you can remove it by setting `"baseBowDrawMoveSpeeed"` to 1 in the `balance.json` file.
+## Mod Integration
+Terraheim integrates several popular armor mods into itself, automatically modifying the armor sets to fit within Terraheim's progression. Currently, one armor set has been integrated.
+
+### Chosen Armor
+The [Chaos Armor Set](https://www.nexusmods.com/valheim/mods/1215) by AeehyehssReeper has been integrated into Terraheim as the Chosen armor set. This Berserkr armor grants great strength, should those malignent eyes find you worthy...
+![enter image description here](https://media.discordapp.net/attachments/610164117277245482/857022956521259048/unknown.png?width=569&height=676)
 ## Compatibility
 There seems to be an incompatibility with ValheimLibOpenDatabasePatch.dll. Unfortunately I can't do anything about this issue, sorry.
 TripleBronze also appears to be incompatible.
 EpicLoot is compatible but when you reforge an enchanted piece of armor, it will lose that enchantment until you relog/reload your world. A more graceful fix is coming. There are some compatability issues with specific enchantments however. Greatswords with the Attack Speed enchant will not have the terraheim speed changes applied. Throwable Greataxes will impact almost immediately.
-## Future Plans
-Flametal armor sets for each class
-EpicLoot version with tweaked balance
+
 ### Known Issues
 The blackmetal pickaxe is using the old script for terrain deformation, so a lot of terraforming with it might lag out your game.
 
 ### Recommended Mods
 These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 [Unique Weapons](https://www.nexusmods.com/valheim/mods/799) by v801
-[Combat Overhaul](https://www.nexusmods.com/valheim/mods/591) by leseryk (*Terraheim is balanced with CO in mind.*)
 [Better Archery](https://www.nexusmods.com/valheim/mods/348?tab=description) by Elfking23
 [Monsternomicon](https://www.nexusmods.com/valheim/mods/1166?tab=description) by Belasias (*Adds new enemies to make the Ashlands a bit more fun to explore*)
 [Forgotten Biomes](https://www.nexusmods.com/valheim/mods/1128?tab=description) by Alree (*Adds a bunch of new clutter to the Ashlands, Ocean, and Deep North biomes.*)
@@ -90,6 +82,14 @@ These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 [Nexus](https://www.nexusmods.com/valheim/mods/803?tab=description)
 
 ### Patchnotes
+**v2.3.0 - Mistlands Compatibility**
+- It's been a second, hasn't it.
+- Terraheim has been updated to be compatible with the Mistlands update.
+- As such, T6 Armor is now Mistlands tier equipment, with Flametal armor getting bumped up to T7.
+- The Root, Fenris, and Carapace armor have received proper integration into the mod, and use slightly tweaked versions of the old Judes Equipment effects.
+- The balance.json file has received a pass, and you can now define new armor sets inside it. So if a new armor mod comes out, you can tweak this file and it'll be integrateed into Terraheim automatically!
+- Nothing else, unfortunately. Most of the effort was put into getting Terraheim workable again.
+
 **v2.2.0 - Armor Drop**
 - Integrated Judes Equipment fully! The Nomad set and the Plate set now have their own unique effects and niches!
 - The Hyran(Nomad) Set is a Bowman set focused around money. Hitting enemies will occasionally drop coins, and the more coins you have, the more damage you do. But each time you attack, you spend a coin.
