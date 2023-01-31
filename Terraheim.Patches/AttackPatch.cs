@@ -79,8 +79,9 @@ internal class AttackPatch
 			SE_DaggerSpearDmgBonus sE_DaggerSpearDmgBonus = character.GetSEMan().GetStatusEffect("Dagger/Spear Damage Bonus") as SE_DaggerSpearDmgBonus;
 			weapon.m_shared.m_attack.m_damageMultiplier += sE_DaggerSpearDmgBonus.getDamageBonus();
 		}
-		if (weapon.m_shared.m_itemType != ItemDrop.ItemData.ItemType.TwoHandedWeapon && character.GetLeftItem() == null && character.GetSEMan().HaveStatusEffect("One Hand Damage Bonus"))
+		if ((weapon.m_shared.m_itemType != ItemDrop.ItemData.ItemType.TwoHandedWeapon || weapon.m_shared.m_name.Contains("fistweapon")) && (character.GetLeftItem() == null || character.GetLeftItem().m_shared.m_itemType != ItemDrop.ItemData.ItemType.Shield) && character.GetSEMan().HaveStatusEffect("One Hand Damage Bonus"))
 		{
+			Log.LogInfo("Damage is buffed");
 			SE_OneHandDamageBonus sE_OneHandDamageBonus = character.GetSEMan().GetStatusEffect("One Hand Damage Bonus") as SE_OneHandDamageBonus;
 			weapon.m_shared.m_attack.m_damageMultiplier += sE_OneHandDamageBonus.getDamageBonus();
 		}

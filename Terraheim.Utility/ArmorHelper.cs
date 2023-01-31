@@ -129,7 +129,7 @@ internal class ArmorHelper
 		{
 			SE_OneHandDamageBonus sE_OneHandDamageBonus = ScriptableObject.CreateInstance<SE_OneHandDamageBonus>();
 			sE_OneHandDamageBonus.setDamageBonus((float)values[location + "EffectVal"]);
-			description += $"\n\nDamage with one handed weapons is increased by <color=cyan>{sE_OneHandDamageBonus.getDamageBonus() * 100f}%</color> when there is no item in the off hand.";
+			description += $"\n\nDamage with one handed and fist weapons is increased by <color=cyan>{sE_OneHandDamageBonus.getDamageBonus() * 100f}%</color> when you do not have a shield equipped.";
 			return sE_OneHandDamageBonus;
 		}
 		case "dodgestamuse":
@@ -473,7 +473,8 @@ internal class ArmorHelper
 		if (armorEffect != null)
 		{
 			helmet.m_shared.m_equipStatusEffect = armorEffect;
-		}
+			Log.LogWarning(helmet.m_shared.m_equipStatusEffect);
+        }
 		else
 		{
 			Log.LogWarning(setName + " Head - No status effect found for provided effect: " + (string?)values["headEffect"]);

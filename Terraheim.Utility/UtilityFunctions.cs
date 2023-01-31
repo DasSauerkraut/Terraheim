@@ -104,7 +104,7 @@ internal class UtilityFunctions
 		{
 			return false;
 		}
-		Log.LogWarning("Barbarian armor not found! If you have not installed Barbarian Armor, you can safely ignore this");
+		Log.LogInfo("Barbarian armor not found! If you have not installed Barbarian Armor, you can safely ignore this");
 		return false;
 	}
 
@@ -120,7 +120,7 @@ internal class UtilityFunctions
 			Log.LogInfo("Chaos Armor Found!");
 			return true;
 		}
-		Log.LogWarning("Chaos armor not found! If you have not installed Chaos Armor, you can safely ignore this");
+		Log.LogInfo("Chaos armor not found! If you have not installed Chaos Armor, you can safely ignore this");
 		return false;
 	}
 
@@ -136,7 +136,7 @@ internal class UtilityFunctions
 			Log.LogInfo("Judes Equipment Found!");
 			return true;
 		}
-		Log.LogWarning("Judes Equipment not found! If you have not installed Judes_Equipment, you can safely ignore this.");
+		Log.LogInfo("Judes Equipment not found! If you have not installed Judes_Equipment, you can safely ignore this.");
 		return false;
 	}
 

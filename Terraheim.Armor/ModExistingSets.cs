@@ -19,6 +19,7 @@ internal static class ModExistingSets
 		{
 			if ((bool)armorSet["enabled"] && (string)armorSet["name"] != "beotes" )
             {
+                Log.LogInfo("Modifying the " + armorSet["name"].ToString() + " set.");
                 ItemManager.OnItemsRegistered += delegate() { ModArmor(armorSet); };
             }
         }
@@ -39,7 +40,10 @@ internal static class ModExistingSets
 			prefab = PrefabManager.Cache.GetPrefab<ItemDrop>((string)armor["armorSet"]["HelmetID"]);
 			Recipe recipe = ObjectDB.instance.GetRecipe(prefab.m_itemData);
             recipe.m_craftingStation = Pieces.Reforger;
-            recipe.m_minStationLevel = 1;
+			if((int)armor["upgrades"]["startingTier"] < 2)
+			{
+                recipe.m_minStationLevel = 1;
+            }
         }
         ItemDrop prefab2 = PrefabManager.Cache.GetPrefab<ItemDrop>((string)armor["armorSet"]["ChestID"]);
         ItemDrop prefab3 = PrefabManager.Cache.GetPrefab<ItemDrop>((string)armor["armorSet"]["LegsID"]);

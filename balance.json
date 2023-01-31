@@ -140,7 +140,7 @@
           "legsEffectVal": 0.3
         }
       }
-    },
+    }, // Rag Set
     {
       "enabled": true,
       "name": "fyrd",
@@ -239,7 +239,7 @@
           "legsEffectVal": 0.06
         }
       }
-    },
+    }, // Leather Set
     {
       "enabled": true,
       "name": "jotunn",
@@ -328,7 +328,7 @@
           "legsEffectVal": 0.14
         }
       }
-    },
+    }, // Troll Leather
     {
       "enabled": true,
       "name": "eorl",
@@ -401,7 +401,7 @@
           "legsEffectVal": 0.19
         }
       }
-    },
+    }, // Bronze
     {
       "enabled": true,
       "name": "thegn",
@@ -471,7 +471,7 @@
           "legsEffectVal": 0.19
         }
       }
-    },
+    }, // Iron Set
     {
       "enabled": true,
       "name": "root",
@@ -550,7 +550,7 @@
           "legsEffectThreshold": 0.25
         }
       }
-    },
+    }, // Root Set
     {
       "enabled": true,
       "name": "wyrdwulf",
@@ -613,7 +613,7 @@
           "legsEffectVal": 0.31
         }
       }
-    },
+    }, // Silver Set
     {
       "enabled": true,
       "name": "fenris",
@@ -684,7 +684,7 @@
           "legsStamina": 14
         }
       }
-    },
+    }, // Fenring Set
     {
       "enabled": true,
       "name": "huscarl",
@@ -730,7 +730,7 @@
           "legsEffectVal": 0.09
         }
       }
-    },
+    }, // Padded Set
     {
       "enabled": true,
       "name": "gesith",
@@ -769,161 +769,47 @@
           "legsEffectDmg": 0.38
         }
       }
-    },
+    }, // Carapace Set
     {
-      "enabled": false,
-      "name": "barbarian",
-      "baseArmor": 7,
-      "armorPerLevel": 2,
-      "globalMoveMod": 0,
-      "setEffect": "deathmark",
-      "headEffect": "throwdmg",
-      "chestEffect": "throwvel",
-      "legsEffect": "dmgvslowhp",
-      "setBonusVal": 2,
-      "setBonusThreshold": 6,
-      "setBonusDuration": 1,
-      "headEffectVal": 0.11,
-      "chestEffectVal": 0.16,
-      "legsEffectVal": 0.4,
-      "legsEffectThreshold": 0.11,
-      "upgrades": {
-        "startingTier": 3,
-        "t3": {
-          "baseArmor": 13,
-          "armorPerLevel": 2,
-          "globalMoveMod": 0,
-          "setBonusVal": 2.33,
-          "setBonusThreshold": 5,
-          "setBonusDuration": 1,
-          "headEffectVal": 0.14,
-          "chestEffectVal": 0.19,
-          "legsEffectVal": 0.6,
-          "legsEffectThreshold": 0.14
-        },
-        "t4": {
-          "baseArmor": 19,
-          "armorPerLevel": 2,
-          "globalMoveMod": 0,
-          "setBonusVal": 2.66,
-          "setBonusThreshold": 4,
-          "setBonusDuration": 2,
-          "headEffectVal": 0.17,
-          "chestEffectVal": 0.22,
-          "legsEffectVal": 0.8,
-          "legsEffectThreshold": 0.17
-        },
-        "t5": {
-          "baseArmor": 23,
-          "armorPerLevel": 2,
-          "globalMoveMod": 0,
-          "setBonusVal": 3,
-          "setBonusThreshold": 4,
-          "setBonusDuration": 2,
-          "headEffectVal": 0.2,
-          "chestEffectVal": 0.25,
-          "legsEffectVal": 1,
-          "legsEffectThreshold": 0.2
-        },
-        "t6": {
-          "baseArmor": 27,
-          "armorPerLevel": 2,
-          "globalMoveMod": 0,
-          "setBonusVal": 3.5,
-          "setBonusThreshold": 4,
-          "setBonusDuration": 2,
-          "headEffectVal": 0.23,
-          "chestEffectVal": 0.28,
-          "legsEffectVal": 1.2,
-          "legsEffectThreshold": 0.23
-        }
-      }
-    },
-    {
-      "enabled": false,
-      "name": "gesith",
-      "baseArmor": 16,
+      "enabled": true,
+      "name": "noble",
+      "baseArmor": 30,
       "armorPerLevel": 2,
       "globalMoveMod": -0.05,
       "setEffect": "retaliation",
       "headEffect": "meleedmg",
       "chestEffect": "staggercap",
       "legsEffect": "staggerdmg",
-      "setBonusVal": 0.03,
-      "headEffectVal": 0.05,
-      "chestEffectVal": 0.15,
-      "legsEffectVal": 0.05,
+      "setBonusVal": 0.05,
+      "headEffectVal": 0.12,
+      "chestEffectVal": 0.23,
+      "legsEffectVal": 0.10,
       "legsEffectDmg": 0.30,
+      "armorSet": {
+        "HelmetID": "ArmorNobleHelmet",
+        "ChestID": "ArmorNobleChest",
+        "LegsID": "ArmorNobleLegs",
+        "HelmetName": "$item_helmet_carapace_t",
+        "ChestName": "$item_chest_carapace_t",
+        "LegsName": "$item_legs_carapace_t",
+        "ClassName": "$class_tank",
+        "HelmetArmor": 1
+      },
       "upgrades": {
-        "startingTier": 4,
-        "t4": {
-          "baseArmor": 22,
-          "armorPerLevel": 2,
-          "globalMoveMod": -0.05,
-          "setBonusVal": 0.04,
-          "headEffectVal": 0.06,
-          "chestEffectVal": 0.17,
-          "legsEffectVal": 0.07,
-          "legsEffectDmg": 0.32
-        },
-        "t5": {
-          "baseArmor": 26,
-          "armorPerLevel": 2,
-          "globalMoveMod": -0.05,
-          "setBonusVal": 0.05,
-          "headEffectVal": 0.07,
-          "chestEffectVal": 0.20,
-          "legsEffectVal": 0.10,
-          "legsEffectDmg": 0.35
-        },
-        "t6": {
-          "baseArmor": 30,
+        "startingTier": 7,
+        "t7": {
+          "baseArmor": 34,
           "armorPerLevel": 2,
           "globalMoveMod": -0.05,
           "setBonusVal": 0.07,
-          "headEffectVal": 0.10,
+          "headEffectVal": 0.14,
           "chestEffectVal": 0.25,
           "legsEffectVal": 0.13,
           "legsEffectDmg": 0.38
         }
       }
-    },
-    {
-      "enabled": false,
-      "name": "hyran",
-      "baseArmor": 22,
-      "armorPerLevel": 2,
-      "globalMoveMod": 0,
-      "setEffect": "mercenary",
-      "headEffect": "rangerweapondmg",
-      "chestEffect": "coindrop",
-      "legsEffect": "restoreresources",
-      "setMaxDmg": 0.20,
-      "setCoinThreshold": 500,
-      "setCoinUse": 1,
-      "headEffectVal": 0.10,
-      "chestEffectChance": 0.40,
-      "chestEffectAmount": 3,
-      "legsEffectChance": 0.30,
-      "legsStamina": 10,
-      "upgrades": {
-        "startingTier": 6,
-        "t6": {
-          "baseArmor": 26,
-          "armorPerLevel": 2,
-          "globalMoveMod": 0,
-          "setMaxDmg": 0.25,
-          "setCoinThreshold": 500,
-          "setCoinUse": 1,
-          "headEffectVal": 0.12,
-          "chestEffectChance": 0.45,
-          "chestEffectAmount": 3,
-          "legsEffectChance": 0.32,
-          "legsStamina": 12
-        }
-      }
-    }
-  ],
+    } // Noble Set
+  ], 
   "chaosT0": {
     "enabled": true,
     "name": "chosen",
@@ -1147,8 +1033,8 @@
       "capeEffectVal": 2
     },
     "wolf": {
-      "effect": "spiritdmg",
-      "capeEffectVal": 12
+      "effect": "speedonkill",
+      "capeEffectVal": 0.15
     },
     "lox": {
       "effect": "fooduse",
