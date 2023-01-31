@@ -26,7 +26,7 @@ namespace Terraheim
         public const string ModGuid = AuthorName + "." + ModName;
         private const string AuthorName = "DasSauerkraut";
         private const string ModName = "Terraheim";
-        private const string ModVer = "2.3.1";
+        private const string ModVer = "2.3.2";
         public static readonly string ModPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public static bool hasBarbarianArmor = false;
