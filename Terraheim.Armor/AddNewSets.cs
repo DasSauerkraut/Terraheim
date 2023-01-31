@@ -30,7 +30,9 @@ internal static class AddNewSets
 		ArmorHelper.AddBelt("waterproofBelt");
 		ArmorHelper.AddBelt("farmerBelt");
 		ArmorHelper.AddBelt("thiefBelt");
-		ArmorHelper.AddCape("CapeDeerHide", "leather");
+		ArmorHelper.AddBelt("setBelt");
+
+        ArmorHelper.AddCape("CapeDeerHide", "leather");
 		ArmorHelper.AddCape("CapeTrollHide", "trollLeather");
 		ArmorHelper.AddCape("CapeWolf", "wolf");
 		ArmorHelper.AddCape("CapeLox", "lox");

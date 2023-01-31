@@ -26,7 +26,7 @@ namespace Terraheim
         public const string ModGuid = AuthorName + "." + ModName;
         private const string AuthorName = "DasSauerkraut";
         private const string ModName = "Terraheim";
-        private const string ModVer = "2.4.0";
+        private const string ModVer = "2.3.1";
         public static readonly string ModPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public static bool hasBarbarianArmor = false;
@@ -197,6 +197,7 @@ namespace Terraheim
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_RestoreResources>(), fixReference: true));
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_StaggerCapacity>(), fixReference: true));
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_StaggerDamage>(), fixReference: true));
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_SetBonusIncrease>(), fixReference: true));
             //ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_AttackSpeed>(), fixReference: true));
             //ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Counter>(), fixReference: true));
 

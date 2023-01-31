@@ -271,8 +271,18 @@ internal class Data
 				FinalID = "BeltThief_Terraheim_AddCirculets_AddThiefBelt",
 				Name = "$item_belt_thief"
 			}
-		}
-	};
+		},
+        {
+            "setBelt",
+            new UtilityBelt
+            {
+                BaseID = "BeltSet",
+                CloneID = "BeltStrength",
+                FinalID = "BeltSet_Terraheim_AddCirculets_AddSetBelt",
+                Name = "$item_belt_set"
+            }
+        }
+    };
 
 	public static EffectList.EffectData VFXRedTearstone { get; set; }
 

@@ -327,7 +327,13 @@ internal class ArmorHelper
 			description += $"A blessing from Loki.\nMove <color=cyan>{sE_SneakMovement.GetBonus() * 100f}%</color> faster while using <color=cyan>{sE_SneakMovement.GetBonus() * 100f}%</color> less stamina while sneaking.";
 			return sE_SneakMovement;
 		}
-		case "rangerweapondmg":
+        case "setbns":
+        {
+            SE_SetBonusIncrease sE_SetBonusIncrease = ScriptableObject.CreateInstance<SE_SetBonusIncrease>();
+            description += $"A relic of Acca.\nThis belt counts as a piece of an armor set, allowing you to get the set bonus while wearing only two items.";
+            return sE_SetBonusIncrease;
+        }
+        case "rangerweapondmg":
 		{
 			SE_RangerWeaponBonus sE_RangerWeaponBonus = ScriptableObject.CreateInstance<SE_RangerWeaponBonus>();
 			sE_RangerWeaponBonus.SetDamageBonus((float)values[location + "EffectVal"]);
@@ -756,7 +762,6 @@ internal class ArmorHelper
 
 	public static void AddTieredRecipes(string setName, JToken armor)
 	{
-		Log.LogWarning(armor.ToString());
 		JToken armorSet = armor["armorSet"];
 		bool hasHelmet = (string)armorSet["HelmetID"] != "n/a";
 		string arg = char.ToUpper(setName[0]) + setName.Substring(1);
