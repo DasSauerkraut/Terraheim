@@ -7,7 +7,7 @@ public class SE_AttackSpeed : StatusEffect
 	public void Awake()
 	{
 		m_name = "Attack Speed";
-		base.name = "Attack Speed";
+		name = "Attack Speed";
 	}
 
 	public void SetSpeed(float bonus)

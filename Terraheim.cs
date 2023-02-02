@@ -191,6 +191,7 @@ namespace Terraheim
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_Hyperarmor>(), fixReference: true));
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_TwoHandAttackSpeed>(), fixReference: true));
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_AttackSpeed>(), fixReference: true));
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_BowDrawSpeed>(), fixReference: true));
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_ShieldFireHeal>(), fixReference: true));
             //ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_ShieldFireListener>(), fixReference: true));
             //ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(ScriptableObject.CreateInstance<SE_ShieldFireParryListener>(), fixReference: true));

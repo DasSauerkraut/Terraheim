@@ -401,7 +401,7 @@ internal class ArmorHelper
 		{
 			SE_RestoreResources sE_RestoreResources = ScriptableObject.CreateInstance<SE_RestoreResources>();
 			sE_RestoreResources.SetChance((float)values[location + "EffectChance"]);
-			sE_RestoreResources.SetStaminaAmount((int)values[location + "Stamina"]);
+			sE_RestoreResources.SetStaminaAmount((int)values[location + "EffectStamina"]);
 			description += $"\n\nOn hit, restore <color=cyan>{sE_RestoreResources.GetStaminaAmount()}</color> Stamina, {sE_RestoreResources.GetChance()}% chance to <color=cyan>refund ammo</color>.";
 			return sE_RestoreResources;
 		}
@@ -447,6 +447,13 @@ internal class ArmorHelper
 			SE_AttackSpeed sE_AttackSpeed  = ScriptableObject.CreateInstance<SE_AttackSpeed>();
             sE_AttackSpeed.SetSpeed((float)values[location + "EffectVal"]);
 			return sE_AttackSpeed;
+		}
+		case "bowdrawspeed":
+		{
+			description += $"\n\nBow draw speed is increased by <color=cyan>{(float)values[location + "EffectVal"] * 100f}%</color>.\n";
+			SE_BowDrawSpeed sE_BowDrawSpeed  = ScriptableObject.CreateInstance<SE_BowDrawSpeed>();
+            sE_BowDrawSpeed.SetSpeed((float)values[location + "EffectVal"]);
+			return sE_BowDrawSpeed;
 		}
 		default:
 			return null;

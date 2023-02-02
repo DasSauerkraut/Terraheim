@@ -38,6 +38,7 @@ internal class AttackPatch
 		weapon.m_shared.m_attack.m_attackEitr = itemDrop.m_itemData.m_shared.m_attack.m_attackEitr;
 		weapon.m_shared.m_attack.m_attackHealth = itemDrop.m_itemData.m_shared.m_attack.m_attackHealth;
 		weapon.m_shared.m_attack.m_attackHealthPercentage = itemDrop.m_itemData.m_shared.m_attack.m_attackHealthPercentage;
+		weapon.m_shared.m_attack.m_drawDurationMin = itemDrop.m_itemData.m_shared.m_attack.m_drawDurationMin;
 
         SEMan seman = character.GetSEMan();
 
