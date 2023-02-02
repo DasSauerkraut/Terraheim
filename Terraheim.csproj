@@ -13,8 +13,10 @@
     <BaseOutputPath>C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim</BaseOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="bundle_terraheimneweffects" />
     <None Remove="Terraheim.bundle_terraheimeffects" />
     <None Remove="Terraheim.bundle_terraheim_sound" />
+    <EmbeddedResource Include="bundle_terraheimneweffects" />
     <EmbeddedResource Include="Terraheim.bundle_terraheimeffects" />
     <EmbeddedResource Include="Terraheim.bundle_terraheim_sound" />
   </ItemGroup>
@@ -50,6 +52,9 @@
     <Reference Include="UnityEngine">
       <HintPath>Libs\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>Libs\UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
       <HintPath>Libs\UnityEngine.AssetBundleModule.dll</HintPath>
     </Reference>
@@ -74,5 +79,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JotunnLib" Version="2.10.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="balance.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

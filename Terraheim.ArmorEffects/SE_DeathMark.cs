@@ -16,13 +16,13 @@ internal class SE_DeathMark : StatusEffect
 	{
 		m_name = "Death Mark";
 		base.name = "Death Mark";
-		m_tooltip = string.Format("Hit an enemy {0} times with throwing weapons to Mark them for death. The next {1} against a Marked enemy deals {2}x damage.", m_threshold, (m_duration > 1) ? $"{m_duration} hits" : "hit", m_damageBonus);
+		m_tooltip = string.Format("Hit an enemy {0} times with melee weapons to Mark them for death. The next {1} against a Marked enemy deals {2}x damage.", m_threshold, (m_duration > 1) ? $"{m_duration} hits" : "hit", m_damageBonus);
 		m_icon = null;
 	}
 
 	public void SetIcon()
 	{
-		m_icon = PrefabManager.Cache.GetPrefab<ItemDrop>("HelmetRoot").m_itemData.GetIcon();
+		m_icon = PrefabManager.Cache.GetPrefab<ItemDrop>("HelmetFenring").m_itemData.GetIcon();
 	}
 
 	public void SetLastHitThrowing(bool hit)

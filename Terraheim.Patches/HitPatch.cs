@@ -144,13 +144,13 @@ namespace Terraheim.Patches
                 if (!__instance.GetSEMan().HaveStatusEffect("Marked For Death FX"))
                 {
                     //Log.LogInfo(effect.GetLastHitThrowing());
-                    if (__instance.GetSEMan().HaveStatusEffect("Marked For Death") && effect.GetLastHitThrowing())
+                    if (__instance.GetSEMan().HaveStatusEffect("Marked For Death"))
                     {
                         //increase counter
                         (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).IncreaseCounter();
                         //Log.LogMessage($"Death Mark Counter : {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).m_count}");
                     }
-                    else if (effect.GetLastHitThrowing())
+                    else
                     {
                         //Log.LogMessage("Adding Death Mark");
                         //add marked for death counter

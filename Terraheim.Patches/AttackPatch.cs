@@ -35,7 +35,13 @@ internal class AttackPatch
 		weapon.m_shared.m_damages.m_spirit = itemDrop.m_itemData.m_shared.m_damages.m_spirit;
 		weapon.m_shared.m_damages.m_damage = itemDrop.m_itemData.m_shared.m_damages.m_damage;
 		weapon.m_shared.m_attack.m_damageMultiplier = itemDrop.m_itemData.m_shared.m_attack.m_damageMultiplier;
-		if (weapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow)
+		weapon.m_shared.m_attack.m_attackEitr = itemDrop.m_itemData.m_shared.m_attack.m_attackEitr;
+		weapon.m_shared.m_attack.m_attackHealth = itemDrop.m_itemData.m_shared.m_attack.m_attackHealth;
+		weapon.m_shared.m_attack.m_attackHealthPercentage = itemDrop.m_itemData.m_shared.m_attack.m_attackHealthPercentage;
+
+        SEMan seman = character.GetSEMan();
+
+        if (weapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow)
 		{
 			if ((bool)character.GetSEMan().GetStatusEffect("Life Steal"))
 			{
@@ -48,12 +54,12 @@ internal class AttackPatch
 				weapon.m_shared.m_attack.m_damageMultiplier += sE_RangedDmgBonus.getDamageBonus();
 			}
 		}
-		else if ((bool)character.GetSEMan().GetStatusEffect("Life Steal"))
+		else if ((bool)seman.GetStatusEffect("Life Steal"))
 		{
 			SE_HPOnHit sE_HPOnHit2 = character.GetSEMan().GetStatusEffect("Life Steal") as SE_HPOnHit;
 			sE_HPOnHit2.setLastHitMelee(melee: true);
 		}
-		if (weapon.m_shared.m_itemType != ItemDrop.ItemData.ItemType.Bow && character.GetSEMan().HaveStatusEffect("Melee Damage Bonus"))
+		if (weapon.m_shared.m_itemType != ItemDrop.ItemData.ItemType.Bow && seman.HaveStatusEffect("Melee Damage Bonus"))
 		{
 			SE_MeleeDamageBonus sE_MeleeDamageBonus = character.GetSEMan().GetStatusEffect("Melee Damage Bonus") as SE_MeleeDamageBonus;
 			weapon.m_shared.m_attack.m_damageMultiplier += sE_MeleeDamageBonus.getDamageBonus();
@@ -65,31 +71,31 @@ internal class AttackPatch
 				SE_ThrowingDamageBonus sE_ThrowingDamageBonus = character.GetSEMan().GetStatusEffect("Throwing Damage Bonus") as SE_ThrowingDamageBonus;
 				weapon.m_shared.m_attack.m_damageMultiplier += sE_ThrowingDamageBonus.getDamageBonus();
 			}
-			if (character.GetSEMan().HaveStatusEffect("Death Mark"))
+			/*if (character.GetSEMan().HaveStatusEffect("Death Mark"))
 			{
 				(character.GetSEMan().GetStatusEffect("Death Mark") as SE_DeathMark).SetLastHitThrowing(hit: true);
-			}
+			}*/
 		}
-		else if (character.GetSEMan().HaveStatusEffect("Death Mark"))
+		/*else if (seman.HaveStatusEffect("Death Mark"))
 		{
 			(character.GetSEMan().GetStatusEffect("Death Mark") as SE_DeathMark).SetLastHitThrowing(hit: false);
-		}
-		if ((weapon.m_shared.m_name.Contains("spear") || weapon.m_shared.m_name.Contains("knife")) && character.GetSEMan().HaveStatusEffect("Dagger/Spear Damage Bonus"))
+		}*/
+		if ((weapon.m_shared.m_name.Contains("spear") || weapon.m_shared.m_name.Contains("knife")) && seman.HaveStatusEffect("Dagger/Spear Damage Bonus"))
 		{
 			SE_DaggerSpearDmgBonus sE_DaggerSpearDmgBonus = character.GetSEMan().GetStatusEffect("Dagger/Spear Damage Bonus") as SE_DaggerSpearDmgBonus;
 			weapon.m_shared.m_attack.m_damageMultiplier += sE_DaggerSpearDmgBonus.getDamageBonus();
 		}
-		if ((weapon.m_shared.m_itemType != ItemDrop.ItemData.ItemType.TwoHandedWeapon || weapon.m_shared.m_name.Contains("fistweapon")) && (character.GetLeftItem() == null || character.GetLeftItem().m_shared.m_itemType != ItemDrop.ItemData.ItemType.Shield) && character.GetSEMan().HaveStatusEffect("One Hand Damage Bonus"))
+		if ((weapon.m_shared.m_itemType != ItemDrop.ItemData.ItemType.TwoHandedWeapon || weapon.m_shared.m_name.Contains("fistweapon")) && (character.GetLeftItem() == null || character.GetLeftItem().m_shared.m_itemType != ItemDrop.ItemData.ItemType.Shield) && seman.HaveStatusEffect("One Hand Damage Bonus"))
 		{
 			SE_OneHandDamageBonus sE_OneHandDamageBonus = character.GetSEMan().GetStatusEffect("One Hand Damage Bonus") as SE_OneHandDamageBonus;
 			weapon.m_shared.m_attack.m_damageMultiplier += sE_OneHandDamageBonus.getDamageBonus();
 		}
-		if (weapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.TwoHandedWeapon && character.GetSEMan().HaveStatusEffect("Two Handed Damage Bonus"))
+		if (weapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.TwoHandedWeapon && seman.HaveStatusEffect("Two Handed Damage Bonus"))
 		{
 			SE_TwoHandedDmgBonus sE_TwoHandedDmgBonus = character.GetSEMan().GetStatusEffect("Two Handed Damage Bonus") as SE_TwoHandedDmgBonus;
 			weapon.m_shared.m_attack.m_damageMultiplier += sE_TwoHandedDmgBonus.getDamageBonus();
 		}
-		if (weapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.TwoHandedWeapon && character.GetSEMan().HaveStatusEffect("Crit Chance"))
+		if (weapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.TwoHandedWeapon && seman.HaveStatusEffect("Crit Chance"))
 		{
 			SE_CritChance sE_CritChance = character.GetSEMan().GetStatusEffect("Crit Chance") as SE_CritChance;
 			System.Random random = new System.Random();
@@ -100,7 +106,7 @@ internal class AttackPatch
 				weapon.m_shared.m_attack.m_damageMultiplier *= sE_CritChance.GetCritBonus();
 			}
 		}
-		if (weapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow && character.GetSEMan().HaveStatusEffect("Ammo Consumption"))
+		if (weapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow && seman.HaveStatusEffect("Ammo Consumption"))
 		{
 			System.Random random2 = new System.Random();
 			SE_AmmoConsumption sE_AmmoConsumption = character.GetSEMan().GetStatusEffect("Ammo Consumption") as SE_AmmoConsumption;
@@ -135,13 +141,13 @@ internal class AttackPatch
 				}
 			}
 		}
-		if (character.GetSEMan().HaveStatusEffect("Backstab Bonus"))
+		if (seman.HaveStatusEffect("Backstab Bonus"))
 		{
 			SE_BackstabBonus sE_BackstabBonus = character.GetSEMan().GetStatusEffect("Backstab Bonus") as SE_BackstabBonus;
 			weapon.m_shared.m_backstabBonus = itemDrop.m_itemData.m_shared.m_backstabBonus + sE_BackstabBonus.getBackstabBonus();
 		}
 		weapon.m_shared.m_damages.m_spirit = itemDrop.m_itemData.m_shared.m_damages.m_spirit;
-		if ((weapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow || weapon.m_shared.m_name.Contains("spear") || weapon.m_shared.m_name.Contains("knife")) && character.GetSEMan().HaveStatusEffect("Silver Damage Bonus"))
+		if ((weapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow || weapon.m_shared.m_name.Contains("spear") || weapon.m_shared.m_name.Contains("knife")) && seman.HaveStatusEffect("Silver Damage Bonus"))
 		{
 			SE_SilverDamageBonus sE_SilverDamageBonus = character.GetSEMan().GetStatusEffect("Silver Damage Bonus") as SE_SilverDamageBonus;
 			float totalDamage = weapon.GetDamage().GetTotalDamage();
@@ -149,21 +155,21 @@ internal class AttackPatch
 			weapon.m_shared.m_damages.m_frost += num3;
 			weapon.m_shared.m_damages.m_spirit += num3;
 		}
-		if ((weapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow || weapon.m_shared.m_name.Contains("spear") || weapon.m_shared.m_name.Contains("knife")) && character.GetSEMan().HaveStatusEffect("Ranger Weapon Bonus"))
+		if ((weapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow || weapon.m_shared.m_name.Contains("spear") || weapon.m_shared.m_name.Contains("knife")) && seman.HaveStatusEffect("Ranger Weapon Bonus"))
 		{
 			weapon.m_shared.m_attack.m_damageMultiplier += (character.GetSEMan().GetStatusEffect("Ranger Weapon Bonus") as SE_RangerWeaponBonus).GetDamageBonus();
 		}
-		if (character.GetSEMan().HaveStatusEffect("Spirit Damage Bonus"))
+		if (seman.HaveStatusEffect("Spirit Damage Bonus"))
 		{
 			SE_SpiritDamageBonus sE_SpiritDamageBonus = character.GetSEMan().GetStatusEffect("Spirit Damage Bonus") as SE_SpiritDamageBonus;
 			weapon.m_shared.m_damages.m_spirit += sE_SpiritDamageBonus.GetDamageBonus();
 		}
-		if (character.GetSEMan().HaveStatusEffect("Wolftears"))
+		if (seman.HaveStatusEffect("Wolftears"))
 		{
 			SE_Wolftears sE_Wolftears = character.GetSEMan().GetStatusEffect("Wolftears") as SE_Wolftears;
 			weapon.m_shared.m_attack.m_damageMultiplier += sE_Wolftears.GetDamageBonus();
 		}
-		if (character.GetSEMan().HaveStatusEffect("Battle Furor"))
+		if (seman.HaveStatusEffect("Battle Furor"))
 		{
 			SE_FullHPDamageBonus sE_FullHPDamageBonus = character.GetSEMan().GetStatusEffect("Battle Furor") as SE_FullHPDamageBonus;
 			if (character.GetHealthPercentage() >= sE_FullHPDamageBonus.GetActivationHP())
@@ -171,11 +177,11 @@ internal class AttackPatch
 				weapon.m_shared.m_attack.m_damageMultiplier += sE_FullHPDamageBonus.GetDamageBonus();
 			}
 		}
-		if (character.GetSEMan().HaveStatusEffect("Chosen") && weapon.m_shared.m_name.Contains("Obsidian Dagger") && __instance.m_attackAnimation == weapon.m_shared.m_secondaryAttack.m_attackAnimation)
+		if (seman.HaveStatusEffect("Chosen") && weapon.m_shared.m_name.Contains("Obsidian Dagger") && __instance.m_attackAnimation == weapon.m_shared.m_secondaryAttack.m_attackAnimation)
 		{
 			(character.GetSEMan().GetStatusEffect("Chosen") as SE_Chosen).OnKnifeUse();
 		}
-		if (character.GetSEMan().HaveStatusEffect("ShieldFireParryListener"))
+		if (seman.HaveStatusEffect("ShieldFireParryListener"))
 		{
 			if (weapon.m_shared.m_name.Contains("knife_fire"))
 			{
@@ -186,7 +192,7 @@ internal class AttackPatch
 				weapon.m_shared.m_damages.m_damage += 15f;
 			}
 		}
-		if (character.GetSEMan().HaveStatusEffect("WyrdarrowFX"))
+		if (seman.HaveStatusEffect("WyrdarrowFX"))
 		{
 			Log.LogInfo("Wyrd Active");
 			if (weapon.m_shared.m_name.Contains("_knife") && __instance.m_attackAnimation == weapon.m_shared.m_secondaryAttack.m_attackAnimation)
@@ -200,7 +206,7 @@ internal class AttackPatch
 				__instance.m_attackType = Attack.AttackType.Projectile;
 			}
 		}
-		if (character.GetSEMan().HaveStatusEffect("Mercenary") && (__instance.m_attackAnimation == weapon.m_shared.m_secondaryAttack.m_attackAnimation || __instance.m_attackAnimation == weapon.m_shared.m_attack.m_attackAnimation))
+		if (seman.HaveStatusEffect("Mercenary") && (__instance.m_attackAnimation == weapon.m_shared.m_secondaryAttack.m_attackAnimation || __instance.m_attackAnimation == weapon.m_shared.m_attack.m_attackAnimation))
 		{
 			SE_Mercenary sE_Mercenary = character.GetSEMan().GetStatusEffect("Mercenary") as SE_Mercenary;
 			if (sE_Mercenary.GetCurrentDamage() > 0f && __instance.m_attackStamina < (character as Player).GetStamina())
@@ -210,10 +216,43 @@ internal class AttackPatch
 				Log.LogWarning(character.GetInventory().CountItems("$item_coins"));
 			}
 		}
-		if (character.GetSEMan().HaveStatusEffect("Stagger Damage"))
+		if (seman.HaveStatusEffect("Stagger Damage"))
 		{
 			weapon.m_shared.m_attack.m_staggerMultiplier += (character.GetSEMan().GetStatusEffect("Stagger Damage") as SE_StaggerDamage).GetStaggerDmg();
 		}
+		if (__instance.m_attackEitr > 0)
+		{
+            if (seman.HaveStatusEffect("Wyrd Damage"))
+			{
+                SE_MageDamage sE_MageDamage = character.GetSEMan().GetStatusEffect("Wyrd Damage") as SE_MageDamage;
+                weapon.m_shared.m_attack.m_damageMultiplier += sE_MageDamage.GetMageDmg();
+            }
+            if(seman.HaveStatusEffect("Wyrd Cost"))
+			{
+                SE_MageCost sE_MageCost = character.GetSEMan().GetStatusEffect("Wyrd Cost") as SE_MageCost;
+                weapon.m_shared.m_attack.m_attackEitr = weapon.m_shared.m_attack.m_attackEitr * (1f - sE_MageCost.GetMageCst());
+                weapon.m_shared.m_attack.m_attackHealthPercentage = weapon.m_shared.m_attack.m_attackHealthPercentage * (1f - sE_MageCost.GetMageCst());
+                weapon.m_shared.m_attack.m_attackHealth = weapon.m_shared.m_attack.m_attackHealth * (1f - sE_MageCost.GetMageCst());
+            }
+			if(seman.HaveStatusEffect("Blood Pact") && weapon.m_shared.m_attack.m_attackEitr > (character as Player).m_eitr)
+			{
+				SE_BloodPact sE_BloodPact = character.GetSEMan().GetStatusEffect("Blood Pact") as SE_BloodPact;
+				int ratio = sE_BloodPact.GetRatio();
+				float eitrMissing = weapon.m_shared.m_attack.m_attackEitr - (character as Player).m_eitr;
+				float healthRequired = eitrMissing / ratio < 1f ? 1f : eitrMissing / ratio;
+				weapon.m_shared.m_attack.m_attackHealthPercentage += healthRequired;
+                weapon.m_shared.m_attack.m_attackEitr = 0f;
+				(character as Player).m_eitr = 0f;
+                weapon.m_shared.m_attack.m_damageMultiplier += sE_BloodPact.GetDamageBonus();
+
+                var bloodPactVFX = UnityEngine.Object.Instantiate(AssetHelper.FXBloodPact, character.GetCenterPoint(), Quaternion.identity);
+                ParticleSystem[] children = bloodPactVFX.GetComponentsInChildren<ParticleSystem>();
+                foreach (ParticleSystem particle in children)
+                {
+                    particle.Play();
+                }
+            }
+        }
 	}
 
 	[HarmonyPatch(typeof(Attack), nameof(Attack.GetAttackStamina))]

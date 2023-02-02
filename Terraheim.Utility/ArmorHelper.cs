@@ -116,6 +116,14 @@ internal class ArmorHelper
             sE_Retaliation.SetIcon();
 			return sE_Retaliation;
 		}
+		case "bloodpact": 
+		{ 
+			SE_BloodPact sE_BloodPact = ScriptableObject.CreateInstance<SE_BloodPact>();
+            sE_BloodPact.SetDamageBonus((float)values["setBonusVal"]);
+            sE_BloodPact.SetRatio((int)values["setBonusRatio"]);
+            sE_BloodPact.SetIcon();
+			return sE_BloodPact;
+		}
 		default:
 			return null;
 		}
@@ -412,6 +420,34 @@ internal class ArmorHelper
 			description = description + $"\n\nDeal an addtional <color=cyan>{sE_StaggerDamage.GetStaggerDmg() * 100f}%</color> Stagger Damage.\n" + $"Deal an additional <color=cyan>{sE_StaggerDamage.GetStaggerBns() * 100f}%</color> damage to Staggered enemies.";
 			return sE_StaggerDamage;
 		}
+		case "magedmg":
+		{
+			SE_MageDamage sE_MageDamage = ScriptableObject.CreateInstance<SE_MageDamage>();
+            sE_MageDamage.SetMageBns((float)values[location + "EffectVal"]);
+            sE_MageDamage.SetMageDmg((float)values[location + "EffectDmg"]);
+			description = description + $"\n\nEitr Regen is increased by <color=cyan>{sE_MageDamage.GetMageBns() * 100f}%</color>.\n" + $"Magic damage is increased by <color=cyan>{sE_MageDamage.GetMageDmg() * 100f}%</color>.";
+			return sE_MageDamage;
+		}
+		case "magecost":
+		{
+			SE_MageCost sE_MageCost = ScriptableObject.CreateInstance<SE_MageCost>();
+            sE_MageCost.SetMageBns((float)values[location + "EffectVal"]);
+            sE_MageCost.SetMageCst((float)values[location + "EffectCost"]);
+			description = description + $"\n\nEitr Regen is increased by <color=cyan>{sE_MageCost.GetMageBns() * 100f}%</color>.\n" + $"<color=cyan>{sE_MageCost.GetMageCst() * 100f}%</color> less HP/Eitr consumed when using Magic.";
+			return sE_MageCost;
+		}
+		case "mageregen":
+		{
+			description += $"\n\nEitr Regen is increased by <color=cyan>{(float)values[location + "EffectVal"] * 100f}%</color>.\n";
+			return null;
+		}
+		case "attackspeed":
+		{
+			description += $"\n\nMelee attack speed is increased by <color=cyan>{(float)values[location + "EffectVal"] * 100f}%</color>.\n";
+			SE_AttackSpeed sE_AttackSpeed  = ScriptableObject.CreateInstance<SE_AttackSpeed>();
+            sE_AttackSpeed.SetSpeed((float)values[location + "EffectVal"]);
+			return sE_AttackSpeed;
+		}
 		default:
 			return null;
 		}
@@ -452,7 +488,8 @@ internal class ArmorHelper
 			{
 				item.m_shared.m_movementModifier = (float)jToken["globalMoveMod"];
 			}
-			item.m_shared.m_description = "<i>" + armorSet["ClassName"] + "</i>\n" + item.m_shared.m_description;
+            item.m_shared.m_eitrRegenModifier = 0f;
+            item.m_shared.m_description = "<i>" + armorSet["ClassName"] + "</i>\n" + item.m_shared.m_description;
 		}
 		helmet.m_shared.m_armor += (float)armorSet["HelmetArmor"];
 		StatusEffect armorEffect = GetArmorEffect((string?)values["headEffect"], jToken, "head", ref helmet.m_shared.m_description);
@@ -470,12 +507,23 @@ internal class ArmorHelper
 		{
 			legs.m_shared.m_movementModifier += (float)values["legsEffectVal"];
 		}
-		if (armorEffect != null)
+        if ((string?)values["headEffect"] == "magedmg" || (string?)values["legsEffect"] == "magecost" || (string?)values["legsEffect"] == "mageregen")
+        {
+            helmet.m_shared.m_eitrRegenModifier += (float)values["headEffectVal"];
+        }
+        if ((string?)values["chestEffect"] == "magedmg" || (string?)values["legsEffect"] == "magecost" || (string?)values["legsEffect"] == "mageregen")
+        {
+            chest.m_shared.m_eitrRegenModifier += (float)values["chestEffectVal"];
+        }
+        if ((string?)values["legsEffect"] == "magedmg" || (string?)values["legsEffect"] == "magecost" || (string?)values["legsEffect"] == "mageregen")
+        {
+            legs.m_shared.m_eitrRegenModifier += (float)values["legsEffectVal"];
+        }
+        if (armorEffect != null)
 		{
 			helmet.m_shared.m_equipStatusEffect = armorEffect;
-			Log.LogWarning(helmet.m_shared.m_equipStatusEffect);
         }
-		else
+		else if ((string?)values["headEffect"] != "mageregen" && (string?)values["headEffect"] != "mageregen")
 		{
 			Log.LogWarning(setName + " Head - No status effect found for provided effect: " + (string?)values["headEffect"]);
 		}
@@ -483,16 +531,16 @@ internal class ArmorHelper
 		{
 			chest.m_shared.m_equipStatusEffect = armorEffect2;
 		}
-		else
-		{
+		else if ((string?)values["chestEffect"] != "mageregen" && (string?)values["chestEffect"] != "mageregen")
+        {
 			Log.LogWarning(setName + " Chest - No status effect found for provided effect: " + (string?)values["chestEffect"]);
 		}
 		if (armorEffect3 != null)
 		{
 			legs.m_shared.m_equipStatusEffect = armorEffect3;
 		}
-		else
-		{
+		else if ((string?)values["headEffect"] != "legsEffect" && (string?)values["legsEffect"] != "mageregen")
+        {
 			Log.LogWarning(setName + " Legs - No status effect found for provided effect: " + (string?)values["legsEffect"]);
 		}
 	}
@@ -547,12 +595,17 @@ internal class ArmorHelper
 		{
 			piece.m_shared.m_movementModifier += (float)values[location + "EffectVal"];
 		}
-		if (armorEffect != null)
+        if ((string?)values[location + "Effect"] == "magedmg" || (string?)values[location + "Effect"] == "magecost" || (string?)values[location + "Effect"] == "mageregen")
+        {
+            piece.m_shared.m_eitrRegenModifier += (float)values[location + "EffectVal"];
+        }
+        if (armorEffect != null)
 		{
 			piece.m_shared.m_equipStatusEffect = armorEffect;
 			return;
 		}
-		Log.LogWarning(setName + " " + location + " - No status effect found for provided effect: " + (string?)values[location + "Effect"]);
+		if((string?)values[location + "Effect"] != "mageregen")
+			Log.LogWarning(setName + " " + location + " - No status effect found for provided effect: " + (string?)values[location + "Effect"]);
 	}
 
 	public static void AddArmorPiece(string setName, string location, JToken armor)

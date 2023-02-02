@@ -9,11 +9,13 @@ internal class AssetHelper
 {
 	public const string AssetBundleName = "bundle_terraheimeffects";
 
+	public const string NewAssetBundleName = "bundle_terraheimneweffects";
+
 	public const string SFXBundleName = "bundle_terraheim_sound";
 
 	public static AssetBundle TerraheimAssetBundle;
 
-	public static GameObject FXLifeSteal;
+    public static GameObject FXLifeSteal;
 
 	public static GameObject FXRedTearstone;
 
@@ -41,7 +43,9 @@ internal class AssetHelper
 
 	public static GameObject FXBaneLock;
 
-	public static GameObject ItemSalamanderFurPrefab;
+    public static GameObject FXBloodPact;
+
+    public static GameObject ItemSalamanderFurPrefab;
 
 	public static GameObject PieceReforgerPrefab;
 
@@ -69,7 +73,7 @@ internal class AssetHelper
 
 	public static GameObject RetaliationExplosion;
 
-	public static AudioClip AoEReady;
+    public static AudioClip AoEReady;
 
 	public static AudioClip SFXExecution;
 
@@ -162,7 +166,10 @@ internal class AssetHelper
 		SFXCoin = TerraheimAssetBundle.LoadAsset<AudioClip>("Assets/CustomItems/Effects/Pickup_Coins05.wav");
 		RetaliationExplosion = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/CustomItems/Effects/retaliation_explosion.prefab");
 		RetaliationExplosion.GetComponent<Aoe>().m_statusEffect = "Retaliation Cooldown";
-	}
+
+		TerraheimAssetBundle = GetAssetBundleFromResources("bundle_terraheimneweffects");
+		FXBloodPact = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/customAssets/vfx_bloodpact.prefab");
+    }
 
 	public static AssetBundle GetAssetBundleFromResources(string filename)
 	{

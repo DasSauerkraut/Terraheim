@@ -50,6 +50,10 @@ internal class UtilityFunctions
 				return true;
 			case "ShieldFireParryListener":
 				return true;
+			case "Wyrd Damage":
+				return true;
+			case "Wyrd Cost":
+				return true;
 			}
 		}
 		return false;
@@ -81,8 +85,9 @@ internal class UtilityFunctions
 			"$enemy_gdking" => true, 
 			"$enemy_bonemass" => true, 
 			"$enemy_dragon" => true, 
-			"$enemy_goblinking" => true, 
-			_ => false, 
+			"$enemy_goblinking" => true,
+            "$enemy_seekerqueen" => true,
+            _ => false, 
 		};
 	}
 

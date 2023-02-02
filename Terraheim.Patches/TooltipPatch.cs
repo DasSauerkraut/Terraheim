@@ -24,10 +24,12 @@ namespace Terraheim.Patches
         )]
         public static void GetTooltipPostfix(ref string __result, ItemDrop.ItemData item, int qualityLevel, bool crafting)
         {
-            //Log.LogInfo(__result);
-
             if (item != null && Player.m_localPlayer != null && UtilityFunctions.HasTooltipEffect(Player.m_localPlayer.GetSEMan()))
             {
+                if (item.m_shared.m_name.Contains("staff")){
+                    UpdateMagicDamageTooltip(ref __result, item);
+                    UpdateMagicCostToolTip(ref __result, item);
+                }
                 if (item.IsWeapon())
                 {
                     UpdateBlockPowerTooltip(ref __result, item);
@@ -39,8 +41,122 @@ namespace Terraheim.Patches
                     UpdateBlockPowerTooltip(ref __result, item);
                     UpdateHealOnBlockTooltip(ref __result, item);
                 }
+                
             }
         }
+        public static void UpdateMagicDamageTooltip(ref string tooltip, ItemDrop.ItemData item)
+        {
+            Player localplayer = Player.m_localPlayer;
+            SEMan seman = localplayer.GetSEMan();
+            float totalMultiplier = 0f;
+            if(seman.HaveStatusEffect("Wyrd Damage"))
+            {
+                SE_MageDamage effect = localplayer.GetSEMan().GetStatusEffect("Wyrd Damage") as SE_MageDamage;
+                totalMultiplier += effect.GetMageDmg();
+            }
+
+            if (totalMultiplier > 0f)
+            {
+                var damages = item.m_shared.m_damages;
+                if (damages.m_fire != 0f)
+                {
+                    localplayer.GetSkills().GetRandomSkillRange(out var min, out var max, item.m_shared.m_skillType);
+                    int minRange = Mathf.RoundToInt(item.GetDamage().m_fire * min);
+                    int maxRange = Mathf.RoundToInt(item.GetDamage().m_fire * max);
+                    string toolString = $"$inventory_fire: <color=orange>{item.GetDamage().m_fire}</color> <color=yellow>({minRange}-{maxRange}) </color>";
+                    var index = tooltip.IndexOf(toolString);
+                    if (index > -1)
+                    {
+                        var dmgBonusMin = (item.GetDamage().m_fire + item.GetDamage().m_fire * totalMultiplier) * min;
+                        var dmgBonusMax = (item.GetDamage().m_fire + item.GetDamage().m_fire * totalMultiplier) * max;
+                        tooltip = tooltip.Insert(index + toolString.Length, $"<color=orange>|</color> <color=cyan>({dmgBonusMin:#.#}-{dmgBonusMax:#.#})</color>");
+                    }
+                }
+                if (damages.m_lightning != 0f)
+                {
+                    localplayer.GetSkills().GetRandomSkillRange(out var min, out var max, item.m_shared.m_skillType);
+                    int minRange = Mathf.RoundToInt(item.GetDamage().m_lightning * min);
+                    int maxRange = Mathf.RoundToInt(item.GetDamage().m_lightning * max);
+                    string toolString = $"$inventory_lightning: <color=orange>{item.GetDamage().m_lightning}</color> <color=yellow>({minRange}-{maxRange}) </color>";
+                    var index = tooltip.IndexOf(toolString);
+                    if (index > -1)
+                    {
+                        var dmgBonusMin = (item.GetDamage().m_lightning + item.GetDamage().m_lightning * totalMultiplier) * min;
+                        var dmgBonusMax = (item.GetDamage().m_lightning + item.GetDamage().m_lightning * totalMultiplier) * max;
+                        tooltip = tooltip.Insert(index + toolString.Length, $"<color=orange>|</color> <color=cyan>({dmgBonusMin:#.#}-{dmgBonusMax:#.#})</color>");
+                    }
+                }
+                if (damages.m_poison != 0f)
+                {
+                    localplayer.GetSkills().GetRandomSkillRange(out var min, out var max, item.m_shared.m_skillType);
+                    int minRange = Mathf.RoundToInt(item.GetDamage().m_poison * min);
+                    int maxRange = Mathf.RoundToInt(item.GetDamage().m_poison * max);
+                    string toolString = $"$inventory_poison: <color=orange>{item.GetDamage().m_poison}</color> <color=yellow>({minRange}-{maxRange}) </color>";
+                    var index = tooltip.IndexOf(toolString);
+                    if (index > -1)
+                    {
+                        var dmgBonusMin = (item.GetDamage().m_poison + item.GetDamage().m_poison * totalMultiplier) * min;
+                        var dmgBonusMax = (item.GetDamage().m_poison + item.GetDamage().m_poison * totalMultiplier) * max;
+                        tooltip = tooltip.Insert(index + toolString.Length, $"<color=orange>|</color> <color=cyan>({dmgBonusMin:#.#}-{dmgBonusMax:#.#})</color>");
+                    }
+                }
+                if (damages.m_frost != 0f)
+                {
+                    localplayer.GetSkills().GetRandomSkillRange(out var min, out var max, item.m_shared.m_skillType);
+                    int minRange = Mathf.RoundToInt(item.GetDamage().m_frost * min);
+                    int maxRange = Mathf.RoundToInt(item.GetDamage().m_frost * max);
+                    string toolString = $"$inventory_frost: <color=orange>{item.GetDamage().m_frost}</color> <color=yellow>({minRange}-{maxRange}) </color>";
+                    var index = tooltip.IndexOf(toolString);
+                    if (index > -1)
+                    {
+                        var dmgBonusMin = (item.GetDamage().m_frost + item.GetDamage().m_frost * totalMultiplier) * min;
+                        var dmgBonusMax = (item.GetDamage().m_frost + item.GetDamage().m_frost * totalMultiplier) * max;
+                        tooltip = tooltip.Insert(index + toolString.Length, $"<color=orange>|</color> <color=cyan>({dmgBonusMin:#.#}-{dmgBonusMax:#.#})</color>");
+                    }
+                }
+                if (damages.m_spirit != 0f)
+                {
+                    localplayer.GetSkills().GetRandomSkillRange(out var min, out var max, item.m_shared.m_skillType);
+                    int minRange = Mathf.RoundToInt(item.GetDamage().m_spirit * min);
+                    int maxRange = Mathf.RoundToInt(item.GetDamage().m_spirit * max);
+                    string toolString = $"$inventory_spirit: <color=orange>{item.GetDamage().m_spirit}</color> <color=yellow>({minRange}-{maxRange}) </color>";
+                    var index = tooltip.IndexOf(toolString);
+                    if (index > -1)
+                    {
+                        var dmgBonusMin = (item.GetDamage().m_spirit + item.GetDamage().m_spirit * totalMultiplier) * min;
+                        var dmgBonusMax = (item.GetDamage().m_spirit + item.GetDamage().m_spirit * totalMultiplier) * max;
+                        tooltip = tooltip.Insert(index + toolString.Length, $"<color=orange>|</color> <color=cyan>({dmgBonusMin:#.#}-{dmgBonusMax:#.#})</color>");
+                    }
+                }
+            }
+        }
+
+        public static void UpdateMagicCostToolTip(ref string tooltip, ItemDrop.ItemData item)
+        {
+            Player localplayer = Player.m_localPlayer;
+            if (localplayer == null)
+                return;
+            if (localplayer.GetSEMan().HaveStatusEffect("Wyrd Cost"))
+            {
+                SE_MageCost effect = localplayer.GetSEMan().GetStatusEffect("Wyrd Cost") as SE_MageCost;
+                string hpString = $"$item_healthuse: <color=orange>{item.m_shared.m_attack.m_attackHealthPercentage:#.0}%</color>";
+                var index = tooltip.IndexOf(hpString);
+                if (index > -1)
+                {
+                    var hpUse = item.m_shared.m_attack.m_attackHealthPercentage * (1f - effect.GetMageCst());
+                    tooltip = tooltip.Insert(index + hpString.Length, $" <color=orange>|</color> <color=cyan>({hpUse:#.0}%)</color>");
+                }
+
+                string eitrString = $"$item_eitruse: <color=orange>{item.m_shared.m_attack.m_attackEitr}</color>";
+                var index2 = tooltip.IndexOf(eitrString);
+                if (index2 > -1)
+                {
+                    var eitrUse = item.m_shared.m_attack.m_attackEitr * (1f - effect.GetMageCst());
+                    tooltip = tooltip.Insert(index2 + eitrString.Length, $" <color=orange>|</color> <color=cyan>({eitrUse:#.#})</color>");
+                }
+            }
+        }
+
         public static void UpdateBlockPowerTooltip(ref string tooltip, ItemDrop.ItemData item)
         {
             Player localplayer = Player.m_localPlayer;
