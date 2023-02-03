@@ -8,6 +8,7 @@
   "baseBowDrawMoveSpeeed": 0.5,
   "perfectBlockWindow": 0.15,
   "wyrdExhaustedTTL": 7,
+  "rootingExhaustedTTL": 15,
   "wolftearOneHitTTL": 260,
   "thornsKillThreshold": 0.5,
   "bloodrushTTL": 10,
@@ -485,7 +486,6 @@
       "setBonusCount": 4,
       "setBonusDuration": 5,
       "setBonusDmg": 5,
-      "setBonusCooldown": 20,
       "headEffectVal": 0.06,
       "chestEffectChance": 0.07,
       "chestEffectStamina": 5,
@@ -509,7 +509,6 @@
           "setBonusCount": 4,
           "setBonusDuration": 9,
           "setBonusDmg": 10,
-          "setBonusCooldown": 20,
           "headEffectVal": 0.08,
           "chestEffectChance": 0.10,
           "chestEffectStamina": 7,
@@ -522,7 +521,6 @@
           "setBonusCount": 4,
           "setBonusDuration": 10,
           "setBonusDmg": 15,
-          "setBonusCooldown": 20,
           "headEffectVal": 0.10,
           "chestEffectChance": 0.13,
           "chestEffectStamina": 9,
@@ -535,7 +533,6 @@
           "setBonusCount": 4,
           "setBonusDuration": 12,
           "setBonusDmg": 20,
-          "setBonusCooldown": 20,
           "headEffectVal": 0.12,
           "chestEffectChance": 0.16,
           "chestEffectStamina": 12,
@@ -548,7 +545,6 @@
           "setBonusCount": 4,
           "setBonusDuration": 14,
           "setBonusDmg": 25,
-          "setBonusCooldown": 20,
           "headEffectVal": 0.14,
           "chestEffectChance": 0.19,
           "chestEffectStamina": 15,
@@ -814,7 +810,7 @@
         }
       }
     } // Eitr-Weave Set
-  ], 
+  ],
   "chaosT0": {
     "enabled": true,
     "name": "chosen",

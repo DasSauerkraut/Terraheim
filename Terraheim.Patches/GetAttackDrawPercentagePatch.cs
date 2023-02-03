@@ -15,7 +15,7 @@ namespace Terraheim.Patches
         {
             ItemDrop.ItemData currentWeapon = __instance.GetCurrentWeapon();
 
-            if (__instance.GetSEMan().HaveStatusEffect("Bow Draw Speed"))
+            if (__instance.GetSEMan().HaveStatusEffect("Bow Draw Speed") && currentWeapon != null && currentWeapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow)
             {
                 SE_BowDrawSpeed sE_BowDrawSpeed = __instance.GetSEMan().GetStatusEffect("Bow Draw Speed") as SE_BowDrawSpeed;
                 float baseDrawSpeed = 0f;
@@ -36,13 +36,11 @@ namespace Terraheim.Patches
                     baseDrawSpeeds.Add(currentWeapon.m_shared.m_name, itemDrop.m_itemData.m_shared.m_attack.m_drawDurationMin);
                 }
 
-                Log.LogInfo(currentWeapon.m_shared.m_attack.m_drawDurationMin);
                 currentWeapon.m_shared.m_attack.m_drawDurationMin = baseDrawSpeed * (1 - sE_BowDrawSpeed.GetSpeed());
-                Log.LogInfo(currentWeapon.m_shared.m_attack.m_drawDurationMin);
             }
-            else if (baseDrawSpeeds.ContainsKey(currentWeapon.m_shared.m_name) && currentWeapon.m_shared.m_attack.m_drawDurationMin != baseDrawSpeeds.GetValueSafe(currentWeapon.m_shared.m_name))
+            else if (currentWeapon != null && currentWeapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow && currentWeapon.m_shared?.m_attack?.m_drawDurationMin != null && baseDrawSpeeds.ContainsKey(currentWeapon.m_shared.m_name) && currentWeapon.m_shared.m_attack.m_drawDurationMin != baseDrawSpeeds.GetValueSafe(currentWeapon.m_shared.m_name))
             {
-                currentWeapon.m_shared.m_attack.m_drawDurationMin = baseDrawSpeeds.GetValueSafe(currentWeapon.m_shared.m_name;
+                currentWeapon.m_shared.m_attack.m_drawDurationMin = baseDrawSpeeds.GetValueSafe(currentWeapon.m_shared.m_name);
             }
         }
     }

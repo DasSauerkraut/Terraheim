@@ -207,7 +207,17 @@ internal class AttackPatch
 				__instance.m_attackType = Attack.AttackType.Projectile;
 			}
 		}
-		if (seman.HaveStatusEffect("Mercenary") && (__instance.m_attackAnimation == weapon.m_shared.m_secondaryAttack.m_attackAnimation || __instance.m_attackAnimation == weapon.m_shared.m_attack.m_attackAnimation))
+        if (seman.HaveStatusEffect("RootingFX"))
+        {
+            if (weapon.m_shared.m_name.Contains("_knife") && __instance.m_attackAnimation == weapon.m_shared.m_secondaryAttack.m_attackAnimation)
+            {
+                SE_Rooting sE_Rooting = character.GetSEMan().GetStatusEffect("Rooting") as SE_Rooting;
+                AssetHelper.RootingProjectile.GetComponent<Projectile>().m_spawnOnHit.GetComponent<Aoe>().m_damage.m_poison = sE_Rooting.GetDamageBonus();
+                __instance.m_attackProjectile = AssetHelper.RootingProjectile;
+                __instance.m_attackType = Attack.AttackType.Projectile;
+            }
+        }
+        if (seman.HaveStatusEffect("Mercenary") && (__instance.m_attackAnimation == weapon.m_shared.m_secondaryAttack.m_attackAnimation || __instance.m_attackAnimation == weapon.m_shared.m_attack.m_attackAnimation))
 		{
 			SE_Mercenary sE_Mercenary = character.GetSEMan().GetStatusEffect("Mercenary") as SE_Mercenary;
 			if (sE_Mercenary.GetCurrentDamage() > 0f && __instance.m_attackStamina < (character as Player).GetStamina())
@@ -323,6 +333,23 @@ internal class AttackPatch
 				__instance.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 1f;
 			}
 		}
+		else if (__instance.m_character.GetSEMan().HaveStatusEffect("RootingFX"))
+		{
+			SE_Rooting sE_Rooting = __instance.m_character.GetSEMan().GetStatusEffect("Rooting") as SE_Rooting;
+            AssetHelper.RootingProjectile.GetComponent<Projectile>().m_spawnOnHit.GetComponent<Aoe>().m_damage.m_poison = sE_Rooting.GetDamageBonus();
+            if (__instance.GetWeapon().m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow)
+			{
+				AssetHelper.RootingExplosion.GetComponent<Aoe>().m_damage.m_poison = sE_Rooting.GetDamageBonus();
+                __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit = AssetHelper.RootingExplosion;
+				__instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 1f;
+			}
+			else if (__instance.GetWeapon().m_shared.m_name.Contains("spear"))
+			{
+                AssetHelper.RootingExplosion.GetComponent<Aoe>().m_damage.m_poison = sE_Rooting.GetDamageBonus();
+				__instance.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit = AssetHelper.RootingExplosion;
+				__instance.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 1f;
+			}
+		}
 		else if (__instance.m_character.IsPlayer() && __instance.GetWeapon().m_shared.m_name.Contains("bow_fireTH"))
 		{
 			JObject jsonFromFile = UtilityFunctions.GetJsonFromFile("weaponBalance.json");
@@ -366,6 +393,24 @@ internal class AttackPatch
 				SE_AoECounter sE_AoECounter = __instance.m_character.GetSEMan().GetStatusEffect("Wyrdarrow") as SE_AoECounter;
 				sE_AoECounter.ClearCounter();
 			}
-		}
-	}
+        }
+        if (__instance.m_character.GetSEMan().HaveStatusEffect("Rooting"))
+        {
+            if (__instance.GetWeapon().m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow && __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit == AssetHelper.RootingExplosion)
+            {
+                __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit = null;
+                __instance.m_ammoItem.m_shared.m_attack.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 0f;
+            }
+            else if (__instance.GetWeapon().m_shared.m_name.Contains("spear") && __instance.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit == AssetHelper.RootingExplosion)
+            {
+                __instance.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHit = null;
+                __instance.m_attackProjectile.GetComponent<Projectile>().m_spawnOnHitChance = 0f;
+            }
+            if (__instance.m_character.GetSEMan().HaveStatusEffect("RootingFX"))
+			{
+                SE_Rooting sE_Rooting = __instance.m_character.GetSEMan().GetStatusEffect("Rooting") as SE_Rooting;
+                sE_Rooting.ClearCounter();
+            }
+        }
+    }
 }

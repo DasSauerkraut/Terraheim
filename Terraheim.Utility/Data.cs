@@ -295,4 +295,9 @@ internal class Data
 	public static EffectList.EffectData VFXPinned { get; set; }
 
 	public static EffectList.EffectData VFXAfterburn { get; set; }
+
+    public static EffectList.EffectData VFXRooting { get; set; }
+
+    public static EffectList.EffectData VFXRooted { get; set; }
+
 }

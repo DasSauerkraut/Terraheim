@@ -45,6 +45,14 @@ internal class AssetHelper
 
     public static GameObject FXBloodPact;
 
+    public static GameObject FXRooted;
+
+    public static GameObject FXRooting;
+
+	public static GameObject RootingExplosion;
+
+    public static GameObject RootingProjectile;
+
     public static GameObject ItemSalamanderFurPrefab;
 
 	public static GameObject PieceReforgerPrefab;
@@ -169,9 +177,15 @@ internal class AssetHelper
 
 		TerraheimAssetBundle = GetAssetBundleFromResources("bundle_terraheimneweffects");
 		FXBloodPact = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/customAssets/vfx_bloodpact.prefab");
+		FXRooting = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/customAssets/fx_rootingFx.prefab");
+		FXRooted = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/customAssets/fx_rooted.prefab");
+		RootingProjectile = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/customAssets/rooting_projectile.prefab");
+		RootingExplosion = TerraheimAssetBundle.LoadAsset<GameObject>("Assets/customAssets/rooting_explosion.prefab");
+        RootingExplosion.GetComponent<Aoe>().m_statusEffect = "Rooted Listener";
+
     }
 
-	public static AssetBundle GetAssetBundleFromResources(string filename)
+    public static AssetBundle GetAssetBundleFromResources(string filename)
 	{
 		Assembly executingAssembly = Assembly.GetExecutingAssembly();
 		string name = executingAssembly.GetManifestResourceNames().Single((string str) => str.EndsWith(filename));
@@ -241,5 +255,27 @@ internal class AssetHelper
 			m_randomRotation = false,
 			m_scale = true
 		};
-	}
+
+        Data.VFXRooting = new EffectList.EffectData
+        {
+            m_prefab = FXRooting,
+            m_enabled = true,
+            m_attach = true,
+            m_inheritParentRotation = true,
+            m_inheritParentScale = false,
+            m_randomRotation = false,
+            m_scale = true
+        };
+        
+		Data.VFXRooted = new EffectList.EffectData
+        {
+            m_prefab = FXRooted,
+            m_enabled = true,
+            m_attach = true,
+            m_inheritParentRotation = true,
+            m_inheritParentScale = true,
+            m_randomRotation = false,
+            m_scale = true
+        };
+    }
 }

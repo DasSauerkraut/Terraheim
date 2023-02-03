@@ -3,7 +3,6 @@ using Terraheim.ArmorEffects;
 using Terraheim.Utility;
 using UnityEngine;
 using Newtonsoft.Json.Linq;
-using Terraheim.ArmorEffects;
 using System.Collections.Generic;
 
 namespace Terraheim.Patches
@@ -300,7 +299,6 @@ namespace Terraheim.Patches
                 {
                     var effect = attacker.GetSEMan().GetStatusEffect("Poison Vulnerable") as SE_PoisonVulnerable;
                     __instance.AddPoisonDamage(hit.GetTotalDamage() * effect.GetDamageBonus());
-                    //hit.m_damage.m_poison += hit.GetTotalDamage() * effect.GetDamageBonus();
                     Log.LogInfo($"Poison damage {hit.GetTotalDamage() * effect.GetDamageBonus()} damage {hit.GetTotalDamage()}");
                 }
             }
@@ -421,6 +419,25 @@ namespace Terraheim.Patches
             if (hit.HaveAttacker() && hit.GetAttacker().IsPlayer() && hit.GetAttacker().GetSEMan().HaveStatusEffect("Wyrdarrow"))
             {
                 (hit.GetAttacker().GetSEMan().GetStatusEffect("Wyrdarrow") as SE_AoECounter).IncreaseCounter();
+            }
+            if (hit.HaveAttacker() && hit.GetAttacker().IsPlayer() && hit.GetAttacker().GetSEMan().HaveStatusEffect("Rooting"))
+            {
+                (hit.GetAttacker().GetSEMan().GetStatusEffect("Rooting") as SE_Rooting).IncreaseCounter();
+            }
+            if(hit.m_statusEffect == "Rooted Listener" && __instance.IsPlayer())
+            {
+                hit.m_damage.m_poison = 0f;
+            }
+            if(hit.m_statusEffect == "Rooted Listener" && !__instance.GetSEMan().HaveStatusEffect("Rooted") && !__instance.GetSEMan().HaveStatusEffect("Rooted Listener") && !__instance.IsPlayer())
+            {
+                float duration = 8f;
+                if(hit.HaveAttacker() && hit.GetAttacker().GetSEMan().HaveStatusEffect("Rooting"))
+                {
+                    SE_Rooting sE_Rooted = hit.GetAttacker().GetSEMan().GetStatusEffect("Rooting") as SE_Rooting;
+                    duration = sE_Rooted.GetRootedDuration();
+                }
+                __instance.GetSEMan().AddStatusEffect("Rooted");
+                (__instance.GetSEMan().GetStatusEffect("Rooted") as SE_Rooted).SetRootedTTL(duration);
             }
             if (hit.HaveAttacker() && hit.GetAttacker().IsPlayer() && hit.GetAttacker().GetSEMan().HaveStatusEffect("Brassflesh Listener"))
             {

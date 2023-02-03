@@ -124,6 +124,15 @@ internal class ArmorHelper
             sE_BloodPact.SetIcon();
 			return sE_BloodPact;
 		}
+		case "rooting": 
+		{
+			SE_Rooting sE_Rooting = ScriptableObject.CreateInstance<SE_Rooting>();
+            sE_Rooting.SetDamageBonus((float)values["setBonusDmg"]);
+			sE_Rooting.SetRootedDuration((int)values["setBonusDuration"]);
+			sE_Rooting.SetActivationCount((int)values["setBonusCount"]);
+			sE_Rooting.SetIcon();
+			return sE_Rooting;
+		}
 		default:
 			return null;
 		}
