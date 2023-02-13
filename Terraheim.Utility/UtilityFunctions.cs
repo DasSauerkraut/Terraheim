@@ -13,10 +13,27 @@ internal class UtilityFunctions
 {
 	public static JObject GetJsonFromFile(string filename)
 	{
-		string path = Path.Combine(Terraheim.ModPath, filename);
-		string json = File.ReadAllText(path);
-		return JObject.Parse(json);
+        string path = Path.Combine(Terraheim.ModPath, filename);
+        try
+        {
+            string json = File.ReadAllText(path);
+            return JObject.Parse(json);
+        }
+		catch (System.IO.FileNotFoundException)
+		{
+			File.WriteAllText(path, "{}");
+            string json = File.ReadAllText(path);
+            return JObject.Parse(json);
+		}
 	}
+
+	public static JObject GetBalanceFile()
+	{
+		JObject baseBalance = GetJsonFromFile("balance.json");
+		JObject userBalance = GetJsonFromFile("userBalance.json");
+		baseBalance.Merge(userBalance);
+		return baseBalance;
+    }
 
 	public static bool HasTooltipEffect(SEMan seman)
 	{

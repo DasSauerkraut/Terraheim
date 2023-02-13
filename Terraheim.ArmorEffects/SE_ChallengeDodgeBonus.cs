@@ -5,7 +5,7 @@ namespace Terraheim.ArmorEffects;
 
 internal class SE_ChallengeDodgeBonus : StatusEffect
 {
-	private static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
+	private static JObject balance = Terraheim.balance;
 
 	public float m_bonus = 0f;
 

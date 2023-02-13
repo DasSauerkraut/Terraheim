@@ -8,7 +8,7 @@ namespace Terraheim.Patches;
 [HarmonyPatch]
 internal class DodgePatch
 {
-	private static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
+	private static JObject balance = Terraheim.balance;
 
 	private static float baseStaminaUse = (float)balance["baseDodgeStaminaUse"];
 

@@ -8,7 +8,7 @@ namespace Terraheim.Patches
     [HarmonyPatch]
     class SneakMovementPatch
     {
-        static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
+        static JObject balance = Terraheim.balance;
         static float baseStaminaUse = (float)balance["baseSneakStaminaUse"];
         static float baseSpeed = (float)balance["baseSneakSpeed"];
         public void Awake()

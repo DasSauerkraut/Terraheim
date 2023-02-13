@@ -6,7 +6,7 @@ namespace Terraheim.ArmorEffects;
 
 internal class SE_RootingExhausted : StatusEffect
 {
-	private static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
+	private static JObject balance = Terraheim.balance;
 
 	public float TTL
 	{

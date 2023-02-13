@@ -10,7 +10,7 @@ namespace Terraheim.Utility;
 
 internal class ArmorHelper
 {
-	private readonly static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
+	private readonly static JObject balance = Terraheim.balance;
 
 	public static StatusEffect GetSetEffect(string name, JToken values)
 	{
@@ -381,7 +381,7 @@ internal class ArmorHelper
 		{
 			SE_Hyperarmor sE_Hyperarmor = ScriptableObject.CreateInstance<SE_Hyperarmor>();
 			sE_Hyperarmor.SetArmor((float)values[location + "EffectVal"]);
-			description += $"\n\nWhen hit during an attack, damage suffered is reduced by <color=cyan>{sE_Hyperarmor.GetArmor() * 100f}%</color>, Chosen Banes will not have their TTL increased and you will suffer no knockback or stagger.";
+			description += $"\n\nWhen hit during an attack, damage suffered is reduced by <color=cyan>{sE_Hyperarmor.GetArmor() * 100f}%</color> and you will suffer no knockback or stagger.";
 			return sE_Hyperarmor;
 		}
 		case "2hattackspeed":
@@ -745,16 +745,17 @@ internal class ArmorHelper
 					customItem.ItemDrop.m_itemData.m_shared.m_damageModifiers.Add(item3);
 				}
 			}
+
 			Recipe recipe = ScriptableObject.CreateInstance<Recipe>();
 			recipe.name = $"Recipe_{setName}T{i}";
 			List<Piece.Requirement> list = new List<Piece.Requirement>();
 			int num = 0;
-			if (i == 0 || setName.Contains("Wolf") || setName.Contains("Lox"))
-			{
-				list.Add(MockRequirement.Create(setName, 1, recover: false));
-				num++;
-				list[0].m_amountPerLevel = 0;
-			}
+				
+			string prevItem = i == 0 || setName.Contains("Wolf") || setName.Contains("Lox") ? setName : $"{setName}T{i - 1}TH";
+            list.Add(MockRequirement.Create(prevItem, 1, recover: false));
+			num++;
+			list[0].m_amountPerLevel = 0;
+			
 			JToken jToken2 = jToken["upgrades"]![$"t{i}"];
 			int num2 = num;
 			foreach (JObject item5 in (IEnumerable<JToken>)(jToken2["resources"]!))

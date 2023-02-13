@@ -26,7 +26,7 @@ namespace Terraheim
         public const string ModGuid = AuthorName + "." + ModName;
         private const string AuthorName = "DasSauerkraut";
         private const string ModName = "Terraheim";
-        private const string ModVer = "2.3.2";
+        private const string ModVer = "2.3.6";
         public static readonly string ModPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public static bool hasBarbarianArmor = false;
@@ -34,7 +34,7 @@ namespace Terraheim
         public static bool hasChaosArmor = false;
         public static bool hasAuga = false;
         public static bool hasBowPlugin = false;
-        public static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
+        public static JObject balance = UtilityFunctions.GetBalanceFile();
 
         private ConfigEntry<KeyCode> KenningConfig;
         public static ButtonConfig KenningButton;
@@ -124,7 +124,7 @@ namespace Terraheim
         private void AddResources()
         {
             var salRecipe = ScriptableObject.CreateInstance<Recipe>();
-            JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
+            JObject balance = Terraheim.balance;
             salRecipe.m_item = AssetHelper.ItemSalamanderFurPrefab.GetComponent<ItemDrop>();
             var itemReqs = new List<Piece.Requirement>();
             int index = 0;

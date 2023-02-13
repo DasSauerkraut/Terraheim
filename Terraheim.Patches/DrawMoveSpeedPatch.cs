@@ -8,7 +8,7 @@ namespace Terraheim.Patches;
 [HarmonyPatch]
 internal class DrawMoveSpeedPatch
 {
-	private static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
+	private static JObject balance = Terraheim.balance;
 
 	public void Awake()
 	{

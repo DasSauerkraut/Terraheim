@@ -16,7 +16,7 @@ namespace Terraheim.Patches
             Log.LogInfo("Hit Patching Complete");
         }
 
-        static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
+        static JObject balance = Terraheim.balance;
 
         [HarmonyPatch(typeof(MonsterAI), nameof(MonsterAI.OnDamaged))]
         static void Prefix(MonsterAI __instance, ref float damage, ref Character attacker)

@@ -10,7 +10,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <RootNamespace />
-    <BaseOutputPath>C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim</BaseOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="bundle_terraheimneweffects" />
@@ -84,5 +83,14 @@
     <None Update="balance.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="manifest.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="README.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy /Y &quot;$(SolutionDir)bin\Debug\net472\Terraheim.dll&quot; &quot;C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\Terraheim.dll&quot;&#xD;&#xA;copy /Y &quot;$(SolutionDir)bin\Debug\net472\balance.json&quot; &quot;C:\Users\The Administrator\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\Dev\BepInEx\plugins\DasSauerkraut-Terraheim\balance.json&quot;" />
+  </Target>
 </Project>

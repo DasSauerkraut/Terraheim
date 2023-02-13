@@ -13,7 +13,7 @@ internal class SE_Wolftears : StatusEffect
 
 	public float m_damageIncrement = 0f;
 
-	private static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
+	private static JObject balance = Terraheim.balance;
 
 	public void Awake()
 	{

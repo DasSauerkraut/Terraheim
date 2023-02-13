@@ -14,7 +14,7 @@ namespace Terraheim.Patches
         {
             Log.LogInfo("Thorns Patching Complete");
         }
-        static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
+        static JObject balance = Terraheim.balance;
 
         [HarmonyPostfix]
         [HarmonyPatch(typeof(Character), nameof(Character.ApplyDamage))]

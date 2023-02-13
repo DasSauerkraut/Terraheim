@@ -9,7 +9,7 @@ namespace Terraheim.Armor;
 
 internal static class ModExistingSets
 {
-	private static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
+	private static JObject balance = Terraheim.balance;
 
 	private static bool itemsInstantiated = false;
 

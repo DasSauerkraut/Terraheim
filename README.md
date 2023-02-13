@@ -68,9 +68,6 @@ There seems to be an incompatibility with ValheimLibOpenDatabasePatch.dll. Unfor
 TripleBronze also appears to be incompatible.
 EpicLoot is compatible but when you reforge an enchanted piece of armor, it will lose that enchantment until you relog/reload your world. A more graceful fix is coming. There are some compatability issues with specific enchantments however. Greatswords with the Attack Speed enchant will not have the terraheim speed changes applied. Throwable Greataxes will impact almost immediately.
 
-### Known Issues
-The blackmetal pickaxe is using the old script for terrain deformation, so a lot of terraforming with it might lag out your game.
-
 ### Recommended Mods
 These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 [Unique Weapons](https://www.nexusmods.com/valheim/mods/799) by v801
@@ -84,6 +81,12 @@ These mods compliment Terraheim by adding new weapons and rebalancing mechanics.
 [Nexus](https://www.nexusmods.com/valheim/mods/803?tab=description)
 
 ### Patchnotes
+**v2.3.3**
+- Revamped the Hyran and Wyrttrum armor sets to better match their flavor.
+- The Hyran set is now focused around attack speed and constant aggression, and gains the Marked For Death set effect. As such it is now a Berserker armor set.
+- The Wyrttrym set has been changed to be a ranger set, and gains the incredibly cool (in my opinion) Rooting set effect, which causes tangles of roots to immobilize and trap your enemies.
+- The Eitr-Weave armor set has been integrated into Terraheim as the Alne Set. The Alne set provides various buffs to magic, and it's set effect is Blood Pact, which allows you to use magic even when you lack Eitr, consuming HP instead.
+- Removed the CraftingPatch.cs which was causing compatibility issues with Jewelcrafting.
 **v2.3.0 - Mistlands Compatibility**
 - It's been a second, hasn't it.
 - Terraheim has been updated to be compatible with the Mistlands update. A massive thanks goes to **blacks7ar** for helping make this happen!

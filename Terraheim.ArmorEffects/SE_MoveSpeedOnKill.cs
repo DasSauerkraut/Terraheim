@@ -6,9 +6,9 @@ namespace Terraheim.ArmorEffects;
 
 internal class SE_MoveSpeedOnKill : StatusEffect
 {
-	private static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
+	private static JObject balance = Terraheim.balance;
 
-	public float m_speedBonusAmount = 0.1f;
+	public float m_speedBonusAmount = 0.15f;
 
 	public float m_currentSpeedBonus = 0f;
 
@@ -58,7 +58,7 @@ internal class SE_MoveSpeedOnKill : StatusEffect
 
 	public void SetIcon()
 	{
-		m_icon = PrefabManager.Cache.GetPrefab<ItemDrop>("ArmorBarbarianCapeJD").m_itemData.GetIcon();
+		m_icon = PrefabManager.Cache.GetPrefab<ItemDrop>("CapeWolf").m_itemData.GetIcon();
 	}
 
 	public void SetSpeedBonus(float bonus)

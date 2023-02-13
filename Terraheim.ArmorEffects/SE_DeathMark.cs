@@ -38,10 +38,10 @@ internal class SE_DeathMark : StatusEffect
 	public void SetDamageBonus(float bonus)
 	{
 		m_damageBonus = bonus;
-		m_tooltip = string.Format("Hit an enemy {0} times with throwing weapons to Mark them for death. The next {1} against a Marked enemy deals {2}x damage.", m_threshold, (m_duration > 1) ? $"{m_duration} hits" : "hit", m_damageBonus);
-	}
+        m_tooltip = string.Format("Hit an enemy {0} times with melee weapons to Mark them for death. The next {1} against a Marked enemy deals {2}x damage.", m_threshold, (m_duration > 1) ? $"{m_duration} hits" : "hit", m_damageBonus);
+    }
 
-	public float GetDamageBonus()
+    public float GetDamageBonus()
 	{
 		return m_damageBonus;
 	}
@@ -49,10 +49,10 @@ internal class SE_DeathMark : StatusEffect
 	public void SetHitDuration(int dur)
 	{
 		m_duration = dur;
-		m_tooltip = string.Format("Hit an enemy {0} times with throwing weapons to Mark them for death. The next {1} against a Marked enemy deals {2}x damage.", m_threshold, (m_duration > 1) ? $"{m_duration} hits" : "hit", m_damageBonus);
-	}
+        m_tooltip = string.Format("Hit an enemy {0} times with melee weapons to Mark them for death. The next {1} against a Marked enemy deals {2}x damage.", m_threshold, (m_duration > 1) ? $"{m_duration} hits" : "hit", m_damageBonus);
+    }
 
-	public int GetHitDuration()
+    public int GetHitDuration()
 	{
 		return m_duration;
 	}
@@ -60,10 +60,10 @@ internal class SE_DeathMark : StatusEffect
 	public void SetThreshold(int threshold)
 	{
 		m_threshold = threshold;
-		m_tooltip = string.Format("Hit an enemy {0} times with throwing weapons to Mark them for death. The next {1} against a Marked enemy deals {2}x damage.", m_threshold, (m_duration > 1) ? $"{m_duration} hits" : "hit", m_damageBonus);
-	}
+        m_tooltip = string.Format("Hit an enemy {0} times with melee weapons to Mark them for death. The next {1} against a Marked enemy deals {2}x damage.", m_threshold, (m_duration > 1) ? $"{m_duration} hits" : "hit", m_damageBonus);
+    }
 
-	public int GetThreshold()
+    public int GetThreshold()
 	{
 		return m_threshold;
 	}

@@ -5,7 +5,7 @@ namespace Terraheim.ArmorEffects;
 
 internal class SE_MarkedForDeathFX : StatusEffect
 {
-	private static JObject balance = UtilityFunctions.GetJsonFromFile("balance.json");
+	private static JObject balance = Terraheim.balance;
 
 	public void Awake()
 	{
