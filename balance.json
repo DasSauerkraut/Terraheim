@@ -476,7 +476,7 @@
     {
       "enabled": true,
       "name": "root",
-      "baseArmor": 12,
+      "baseArmor": 10,
       "armorPerLevel": 2,
       "globalMoveMod": 0,
       "setEffect": "rooting",
@@ -503,7 +503,7 @@
       "upgrades": {
         "startingTier": 4,
         "t4": {
-          "baseArmor": 18,
+          "baseArmor": 16,
           "armorPerLevel": 2,
           "globalMoveMod": 0,
           "setBonusCount": 6,
@@ -515,7 +515,7 @@
           "legsEffectVal": 0.18
         },
         "t5": {
-          "baseArmor": 22,
+          "baseArmor": 20,
           "armorPerLevel": 2,
           "globalMoveMod": 0,
           "setBonusCount": 6,
@@ -527,7 +527,7 @@
           "legsEffectVal": 0.22
         },
         "t6": {
-          "baseArmor": 26,
+          "baseArmor": 24,
           "armorPerLevel": 2,
           "globalMoveMod": 0,
           "setBonusCount": 5,
@@ -539,7 +539,7 @@
           "legsEffectVal": 0.26
         },
         "t7": {
-          "baseArmor": 30,
+          "baseArmor": 28,
           "armorPerLevel": 2,
           "globalMoveMod": 0,
           "setBonusCount": 4,
