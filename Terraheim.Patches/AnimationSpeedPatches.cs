@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraheim;
 using Terraheim.ArmorEffects;
+using Terraheim.Utility;
 using TerraheimItems;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace TerraheimItems.Patches
     {
         //public static Dictionary<long, string> lastAnimations = new Dictionary<long, string>();
         public static Dictionary<string, float> baseAnimationSpeeds = new Dictionary<string, float>();
+        static JObject balance = UtilityFunctions.GetJsonFromFile("weaponBalance.json");
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(CharacterAnimEvent), "FixedUpdate")]
@@ -51,7 +53,7 @@ namespace TerraheimItems.Patches
             if (statusAttackSpeedBonus != 0f)
             {
                 ___m_animator.speed = ChangeSpeed(___m_character, ___m_animator, 0, statusAttackSpeedBonus);
-                Log.LogInfo($"TH Animation Name {___m_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name}. Speed {___m_animator.speed}");
+                //Log.LogInfo($"TH Animation Name {___m_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name}. Speed {___m_animator.speed}");
             }
 
 

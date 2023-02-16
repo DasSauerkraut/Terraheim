@@ -12,6 +12,8 @@ internal class SE_DeathMark : StatusEffect
 
 	public bool m_lastHitThrowing = false;
 
+	private bool m_setup = false;
+
 	public void Awake()
 	{
 		m_name = "Death Mark";
@@ -20,7 +22,36 @@ internal class SE_DeathMark : StatusEffect
 		m_icon = null;
 	}
 
-	public void SetIcon()
+    public override void UpdateStatusEffect(float dt)
+    {
+        if (!m_setup)
+        {
+            try
+            {
+                if (m_threshold != 0)
+                {
+                    m_character.m_nview.GetZDO().Set("hasDeathMark", true);
+                    m_character.m_nview.GetZDO().Set("deathMarkThreshold", m_threshold);
+                    m_character.m_nview.GetZDO().Set("deathMarkDamageBonus", m_damageBonus);
+                    m_character.m_nview.GetZDO().Set("deathMarkTTL", m_duration);
+                    Log.LogInfo("Added ZDO");
+                    m_setup = true;
+                }
+            }
+            catch
+            {
+                Log.LogInfo("Not ready yet?");
+            }
+        }
+        base.UpdateStatusEffect(dt);
+    }
+    public override void Stop()
+    {
+        m_character.m_nview.GetZDO().Set("hasDeathMark", false);
+        base.Stop();
+    }
+
+    public void SetIcon()
 	{
 		m_icon = PrefabManager.Cache.GetPrefab<ItemDrop>("HelmetFenring").m_itemData.GetIcon();
 	}

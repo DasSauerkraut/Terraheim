@@ -628,7 +628,7 @@
       "setBonusVal": 2.5,
       "setBonusThreshold": 4,
       "setBonusDuration": 1,
-      "headEffectVal": 0.17,
+      "headEffectVal": 0.20,
       "chestEffectVal": 0.20,
       "legsEffectVal": 0.90,
       "legsEffectThreshold": 0.10,
@@ -651,7 +651,7 @@
           "setBonusVal": 3,
           "setBonusThreshold": 4,
           "setBonusDuration": 1,
-          "headEffectVal": 0.20,
+          "headEffectVal": 0.30,
           "chestEffectVal": 0.25,
           "legsEffectVal": 1.00,
           "legsEffectThreshold": 0.15
@@ -663,7 +663,7 @@
           "setBonusVal": 3.5,
           "setBonusThreshold": 4,
           "setBonusDuration": 1,
-          "headEffectVal": 0.23,
+          "headEffectVal": 0.40,
           "chestEffectVal": 0.30,
           "legsEffectVal": 1.10,
           "legsEffectThreshold": 0.20
@@ -675,7 +675,7 @@
           "setBonusVal": 3.5,
           "setBonusThreshold": 4,
           "setBonusDuration": 2,
-          "headEffectVal": 1.26,
+          "headEffectVal": 0.50,
           "chestEffectVal": 0.35,
           "legsEffectVal": 1.20,
           "legsEffectThreshold": 0.25

@@ -10,11 +10,13 @@ namespace Terraheim.Patches
         public static void Prefix(Pickable __instance, long sender)
         {
             var player = Player.GetPlayer(sender);
+            Log.LogMessage(player?.m_name);
             if (player == null)
                 player = Player.m_localPlayer;
             if (player == null)
                 return;
-            if (player.GetSEMan().HaveStatusEffect("Harvest Yield Up"))
+            if (player.m_nview.GetZDO().GetBool("hasHarvestYieldUp"))
+            //if (player.GetSEMan().HaveStatusEffect("Harvest Yield Up"))
             {
                 if (isWild(__instance.m_itemPrefab))
                     __instance.m_amount += 2;

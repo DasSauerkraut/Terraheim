@@ -4,18 +4,49 @@ namespace Terraheim.ArmorEffects;
 
 public class SE_Pinning : StatusEffect
 {
-	public float m_pinTTL = 0f;
+	public float m_pinTTL = -1f;
 
-	public float m_pinCooldownTTL = 0f;
+	public float m_pinCooldownTTL = -1f;
+
+	private bool m_setup = false;
 
 	public void Awake()
 	{
 		m_name = "Pinning";
-		base.name = "Pinning";
+		name = "Pinning";
 		UpdateTooltip();
 	}
 
-	public void SetIcon()
+    public override void UpdateStatusEffect(float dt)
+    {
+		if (!m_setup)
+		{
+            try
+            {
+				if(m_pinTTL != -1f || m_pinCooldownTTL != -1f)
+				{
+                    m_character.m_nview.GetZDO().Set("hasPinning", true);
+                    m_character.m_nview.GetZDO().Set("pinTTL", m_pinTTL);
+                    m_character.m_nview.GetZDO().Set("pinCooldownTTL", m_pinCooldownTTL);
+                    Log.LogInfo("Added ZDO");
+                    m_setup = true;
+                }
+            }
+            catch
+            {
+                Log.LogInfo("Not ready yet?");
+            }
+        }
+        base.UpdateStatusEffect(dt);
+    }
+
+    public override void Stop()
+    {
+        m_character.m_nview.GetZDO().Set("hasPinning", false);
+        base.Stop();
+    }
+
+    public void SetIcon()
 	{
 		m_icon = PrefabManager.Cache.GetPrefab<ItemDrop>("HelmetTrollLeather").m_itemData.GetIcon();
 	}
@@ -28,7 +59,7 @@ public class SE_Pinning : StatusEffect
 	public void SetPinTTL(float bonus)
 	{
 		m_pinTTL = bonus;
-		UpdateTooltip();
+        UpdateTooltip();
 	}
 
 	public float GetPinTTL()
@@ -39,7 +70,7 @@ public class SE_Pinning : StatusEffect
 	public void SetPinCooldownTTL(float bonus)
 	{
 		m_pinCooldownTTL = bonus;
-		UpdateTooltip();
+        UpdateTooltip();
 	}
 
 	public float GetPinCooldownTTL()

@@ -52,32 +52,32 @@ namespace Terraheim.Patches
         }
 
         [HarmonyPrefix]
-        [HarmonyPatch(typeof(Character), nameof(Character.ApplyDamage))]
-        public static void DamagePrefix(Character __instance, ref HitData hit)
+        [HarmonyPatch(typeof(Character), nameof(Character.RPC_Damage))]
+        public static void DamagePrefix(Character __instance, ref long sender, ref HitData hit)
         {
             if (!hit.HaveAttacker() || hit.GetAttacker() == null || !hit.GetAttacker().IsPlayer() || hit == null)
                 return;
 
             Character attacker = hit.GetAttacker();
 
-            //Damage vs Low HP | Execurtion
-            if (attacker.GetSEMan().HaveStatusEffect("Damage Vs Low HP"))
+            //Damage vs Low HP | Execution
+            if (attacker.m_nview.GetZDO().GetBool("hasDamageVsLowHp"))
             {
-                SE_DamageVSLowHP effect = hit.GetAttacker().GetSEMan().GetStatusEffect("Damage Vs Low HP") as SE_DamageVSLowHP;
-                if (__instance.GetHealthPercentage() <= effect.GetHealthThreshold())
+                if (__instance.GetHealthPercentage() <= attacker.m_nview.GetZDO().GetFloat("damageVsLowHpThreshold"))
                 {
                     //Log.LogWarning("Haha get fucked");
-                    hit.m_damage.m_blunt += hit.m_damage.m_blunt * effect.GetDamageBonus();
-                    hit.m_damage.m_chop += hit.m_damage.m_chop * effect.GetDamageBonus();
-                    hit.m_damage.m_damage += hit.m_damage.m_damage * effect.GetDamageBonus();
-                    hit.m_damage.m_fire += hit.m_damage.m_fire * effect.GetDamageBonus();
-                    hit.m_damage.m_frost += hit.m_damage.m_frost * effect.GetDamageBonus();
-                    hit.m_damage.m_lightning += hit.m_damage.m_lightning * effect.GetDamageBonus();
-                    hit.m_damage.m_pickaxe += hit.m_damage.m_pickaxe * effect.GetDamageBonus();
-                    hit.m_damage.m_pierce += hit.m_damage.m_pierce * effect.GetDamageBonus();
-                    hit.m_damage.m_poison += hit.m_damage.m_poison * effect.GetDamageBonus();
-                    hit.m_damage.m_slash += hit.m_damage.m_slash * effect.GetDamageBonus();
-                    hit.m_damage.m_spirit += hit.m_damage.m_spirit * effect.GetDamageBonus();
+                    float damageBonus = attacker.m_nview.GetZDO().GetFloat("damageVsLowHpDamage");
+                    hit.m_damage.m_blunt += hit.m_damage.m_blunt * damageBonus;
+                    hit.m_damage.m_chop += hit.m_damage.m_chop * damageBonus;
+                    hit.m_damage.m_damage += hit.m_damage.m_damage * damageBonus;
+                    hit.m_damage.m_fire += hit.m_damage.m_fire * damageBonus;
+                    hit.m_damage.m_frost += hit.m_damage.m_frost * damageBonus;
+                    hit.m_damage.m_lightning += hit.m_damage.m_lightning * damageBonus;
+                    hit.m_damage.m_pickaxe += hit.m_damage.m_pickaxe * damageBonus;
+                    hit.m_damage.m_pierce += hit.m_damage.m_pierce * damageBonus;
+                    hit.m_damage.m_poison += hit.m_damage.m_poison * damageBonus;
+                    hit.m_damage.m_slash += hit.m_damage.m_slash * damageBonus;
+                    hit.m_damage.m_spirit += hit.m_damage.m_spirit * damageBonus;
 
                     var executionVFX = Object.Instantiate(AssetHelper.FXExecution, __instance.GetCenterPoint(), Quaternion.identity);
                     ParticleSystem[] children = executionVFX.GetComponentsInChildren<ParticleSystem>();
@@ -136,32 +136,22 @@ namespace Terraheim.Patches
             {
                 __instance.GetSEMan().AddStatusEffect("Marked For Death FX");
             }
-            if (attacker.GetSEMan().HaveStatusEffect("Death Mark"))
+            if (attacker.m_nview.GetZDO().GetBool("hasDeathMark"))
             {
-                var effect = hit.GetAttacker().GetSEMan().GetStatusEffect("Death Mark") as SE_DeathMark;
-
                 if (!__instance.GetSEMan().HaveStatusEffect("Marked For Death FX"))
                 {
-                    //Log.LogInfo(effect.GetLastHitThrowing());
                     if (__instance.GetSEMan().HaveStatusEffect("Marked For Death"))
                     {
                         //increase counter
                         (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).IncreaseCounter();
-                        //Log.LogMessage($"Death Mark Counter : {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).m_count}");
                     }
                     else
                     {
-                        //Log.LogMessage("Adding Death Mark");
                         //add marked for death counter
                         __instance.GetSEMan().AddStatusEffect("Marked For Death");
-                        //(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).IncreaseCounter();
-                        (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).SetActivationCount(effect.GetThreshold());
-                        (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).SetDamageBonus(effect.GetDamageBonus());
-                        (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).SetHitDuration(effect.GetHitDuration());
-                        //Log.LogInfo($"Death Mark Counter : {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).m_count}, " +
-                        //$"Activation: {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).GetActivationCount()} " +
-                        //$"Damage Bonus: {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).GetDamageBonus()} " +
-                        //$"Hit Amount: {(__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).GetHitDuration()}");
+                        (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).SetActivationCount(attacker.m_nview.GetZDO().GetInt("deathMarkThreshold"));
+                        (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).SetDamageBonus(attacker.m_nview.GetZDO().GetInt("deathMarkDamageBonus"));
+                        (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).SetHitDuration(attacker.m_nview.GetZDO().GetInt("deathMarkTTL"));
                     }
                 }
 
@@ -282,41 +272,39 @@ namespace Terraheim.Patches
                 hit.m_damage.m_spirit -= hit.m_damage.m_spirit * modifier;
             }
             //Pinning
-            if (attacker.GetSEMan().HaveStatusEffect("Pinning") && !__instance.GetSEMan().HaveStatusEffect("Pinned") && !__instance.GetSEMan().HaveStatusEffect("Pinned Cooldown"))
+            if (attacker.m_nview.GetZDO().GetBool("hasPinning") && !__instance.GetSEMan().HaveStatusEffect("Pinned") && !__instance.GetSEMan().HaveStatusEffect("Pinned Cooldown"))
             {
                 if (UtilityFunctions.CheckIfVulnerable(__instance, hit) || (attacker as Player).GetCurrentWeapon().m_shared.m_name.Contains("mace_fire"))
                 {
-                    var effect = attacker.GetSEMan().GetStatusEffect("Pinning") as SE_Pinning;
-                    __instance.GetSEMan().AddStatusEffect("Pinned");
-                    (__instance.GetSEMan().GetStatusEffect("Pinned") as SE_Pinned).SetPinTTL(effect.GetPinTTL());
-                    (__instance.GetSEMan().GetStatusEffect("Pinned") as SE_Pinned).SetPinCooldownTTL(effect.GetPinCooldownTTL());
+                    __instance.m_nview.InvokeRPC("RPC_AddStatusEffect", "Pinned", false, 0, 0f);
+                    (__instance.GetSEMan().GetStatusEffect("Pinned") as SE_Pinned).SetPinTTL(attacker.m_nview.GetZDO().GetFloat("pinTTL"));
+                    (__instance.GetSEMan().GetStatusEffect("Pinned") as SE_Pinned).SetPinCooldownTTL(attacker.m_nview.GetZDO().GetFloat("pinCooldownTTL"));
                 }
             }
 
-            if (attacker.GetSEMan().HaveStatusEffect("Poison Vulnerable"))
+            if (attacker.m_nview.GetZDO().GetBool("hasPoisonVulnerable"))
             {
                 if (UtilityFunctions.CheckIfVulnerable(__instance, hit))
                 {
-                    var effect = attacker.GetSEMan().GetStatusEffect("Poison Vulnerable") as SE_PoisonVulnerable;
-                    __instance.AddPoisonDamage(hit.GetTotalDamage() * effect.GetDamageBonus());
-                    Log.LogInfo($"Poison damage {hit.GetTotalDamage() * effect.GetDamageBonus()} damage {hit.GetTotalDamage()}");
+                    __instance.AddPoisonDamage(hit.GetTotalDamage() * attacker.m_nview.GetZDO().GetFloat("poisonVulnerableDamageBonus"));
+                    Log.LogInfo($"Poison damage {hit.GetTotalDamage() * attacker.m_nview.GetZDO().GetFloat("poisonVulnerableDamageBonus")} damage {hit.GetTotalDamage()}");
                 }
             }
 
-            if (attacker.GetSEMan().HaveStatusEffect("Coin Drop") && hit.GetTotalDamage() > 10)
+            if (attacker.m_nview.GetZDO().GetBool("hasCoinDrop") && hit.GetTotalDamage() > 10)
             {
-                SE_CoinDrop status = attacker.GetSEMan().GetStatusEffect("Coin Drop") as SE_CoinDrop;
                 System.Random rnd = new System.Random();
                 int roll = rnd.Next(1, 100);
-                Log.LogInfo($"coin roll {roll}, target {status.GetChance()}");
-                if (roll < status.GetChance())
+                Log.LogInfo($"coin roll {roll}, target {attacker.m_nview.GetZDO().GetFloat("coinDropChance")}");
+                if (roll < attacker.m_nview.GetZDO().GetFloat("coinDropChance"))
                 {
                     //drop coins
                     List<KeyValuePair<GameObject, int>> list = new List<KeyValuePair<GameObject, int>>();
                     ItemDrop coin = Jotunn.Managers.PrefabManager.Cache.GetPrefab<ItemDrop>("Coins");
-                    list.Add(new KeyValuePair<GameObject, int>(coin.gameObject, 1));
-                    list.Add(new KeyValuePair<GameObject, int>(coin.gameObject, 1));
-                    list.Add(new KeyValuePair<GameObject, int>(coin.gameObject, 1));
+                    for (int i = 0; i < attacker.m_nview.GetZDO().GetFloat("coinDropBonus"); i++)
+                    {
+                        list.Add(new KeyValuePair<GameObject, int>(coin.gameObject, 1));
+                    }
                     CharacterDrop.DropItems(list, __instance.GetCenterPoint(), 0.5f);
                     
                     var audioSource = __instance.GetComponent<AudioSource>();
@@ -329,14 +317,13 @@ namespace Terraheim.Patches
                 }
             }
 
-            if (attacker.GetSEMan().HaveStatusEffect("Restore Resources"))
+            if (attacker.m_nview.GetZDO().GetBool("hasRestoreResources"))
             {
-                SE_RestoreResources status = attacker.GetSEMan().GetStatusEffect("Restore Resources") as SE_RestoreResources;
-                attacker.AddStamina(status.GetStaminaAmount());
+                attacker.AddStamina(attacker.m_nview.GetZDO().GetFloat("restoreResourcesStamina"));
                 System.Random rnd = new System.Random();
                 int roll = rnd.Next(1, 100);
-                Log.LogInfo($"ammo refund roll {roll}, target {status.GetChance()}");
-                if (roll < status.GetChance() && (attacker as Player).GetCurrentWeapon().m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow)
+                Log.LogInfo($"ammo refund roll {roll}, target {attacker.m_nview.GetZDO().GetFloat("restoreResourcesChance")}");
+                if (roll < attacker.m_nview.GetZDO().GetFloat("restoreResourcesChance") && (attacker as Player).GetCurrentWeapon().m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow)
                 {
                     ItemDrop.ItemData weapon = (attacker as Player).GetCurrentWeapon();
                     Player character = attacker as Player;
@@ -378,21 +365,21 @@ namespace Terraheim.Patches
                 }
             }
             //Log.LogInfo(1);
-            if(attacker.GetSEMan().HaveStatusEffect("Stagger Damage") && __instance.IsStaggering())
+            if(attacker.m_nview.GetZDO().GetBool("hasStaggerDamage") && __instance.IsStaggering())
             {
-                var effect = attacker.GetSEMan().GetStatusEffect("Stagger Damage") as SE_StaggerDamage;
+                var effect = attacker.m_nview.GetZDO().GetFloat("staggerDamageBonus");
                 //Log.LogInfo("Previous Damage " + hit.GetTotalDamage());
-                hit.m_damage.m_blunt += hit.m_damage.m_blunt * effect.GetStaggerBns();
-                hit.m_damage.m_chop += hit.m_damage.m_chop * effect.GetStaggerBns();
-                hit.m_damage.m_damage += hit.m_damage.m_damage * effect.GetStaggerBns();
-                hit.m_damage.m_fire += hit.m_damage.m_fire * effect.GetStaggerBns();
-                hit.m_damage.m_frost += hit.m_damage.m_frost * effect.GetStaggerBns();
-                hit.m_damage.m_lightning += hit.m_damage.m_lightning * effect.GetStaggerBns();
-                hit.m_damage.m_pickaxe += hit.m_damage.m_pickaxe * effect.GetStaggerBns();
-                hit.m_damage.m_pierce += hit.m_damage.m_pierce * effect.GetStaggerBns();
-                hit.m_damage.m_poison += hit.m_damage.m_poison * effect.GetStaggerBns();
-                hit.m_damage.m_slash += hit.m_damage.m_slash * effect.GetStaggerBns();
-                hit.m_damage.m_spirit += hit.m_damage.m_spirit * effect.GetStaggerBns();
+                hit.m_damage.m_blunt += hit.m_damage.m_blunt * effect;
+                hit.m_damage.m_chop += hit.m_damage.m_chop * effect;
+                hit.m_damage.m_damage += hit.m_damage.m_damage * effect;
+                hit.m_damage.m_fire += hit.m_damage.m_fire * effect;
+                hit.m_damage.m_frost += hit.m_damage.m_frost * effect;
+                hit.m_damage.m_lightning += hit.m_damage.m_lightning * effect;
+                hit.m_damage.m_pickaxe += hit.m_damage.m_pickaxe * effect;
+                hit.m_damage.m_pierce += hit.m_damage.m_pierce * effect;
+                hit.m_damage.m_poison += hit.m_damage.m_poison * effect;
+                hit.m_damage.m_slash += hit.m_damage.m_slash * effect;
+                hit.m_damage.m_spirit += hit.m_damage.m_spirit * effect;
                 //Log.LogInfo("New Damage " + hit.GetTotalDamage());
             }
         }
@@ -422,7 +409,7 @@ namespace Terraheim.Patches
             }
             if (hit.HaveAttacker() && hit.GetAttacker().IsPlayer() && hit.GetAttacker().GetSEMan().HaveStatusEffect("Rooting"))
             {
-                (hit.GetAttacker().GetSEMan().GetStatusEffect("Rooting") as SE_Rooting).IncreaseCounter();
+                    (hit.GetAttacker().GetSEMan().GetStatusEffect("Rooting") as SE_Rooting).IncreaseCounter();
             }
             if(hit.m_statusEffect == "Rooted Listener" && __instance.IsPlayer())
             {
