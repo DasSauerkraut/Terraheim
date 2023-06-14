@@ -2,6 +2,7 @@
 using Jotunn.Managers;
 using System.Collections.Generic;
 using Terraheim.ArmorEffects;
+using Terraheim.Utility;
 
 namespace Terraheim.Patches
 {
@@ -17,7 +18,7 @@ namespace Terraheim.Patches
 
             if (__instance.GetSEMan().HaveStatusEffect("Bow Draw Speed") && currentWeapon != null && currentWeapon.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow)
             {
-                SE_BowDrawSpeed sE_BowDrawSpeed = __instance.GetSEMan().GetStatusEffect("Bow Draw Speed") as SE_BowDrawSpeed;
+                SE_BowDrawSpeed sE_BowDrawSpeed = UtilityFunctions.GetStatusEffectFromName("Bow Draw Speed", __instance.GetSEMan()) as SE_BowDrawSpeed;
                 float baseDrawSpeed = 0f;
 
                 if(baseDrawSpeeds.ContainsKey(currentWeapon.m_shared.m_name))

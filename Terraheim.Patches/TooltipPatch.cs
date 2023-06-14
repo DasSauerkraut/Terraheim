@@ -51,7 +51,7 @@ namespace Terraheim.Patches
             float totalMultiplier = 0f;
             if(seman.HaveStatusEffect("Wyrd Damage"))
             {
-                SE_MageDamage effect = localplayer.GetSEMan().GetStatusEffect("Wyrd Damage") as SE_MageDamage;
+                SE_MageDamage effect = UtilityFunctions.GetStatusEffectFromName("Wyrd Damage", localplayer.GetSEMan()) as SE_MageDamage;
                 totalMultiplier += effect.GetMageDmg();
             }
 
@@ -138,7 +138,7 @@ namespace Terraheim.Patches
                 return;
             if (localplayer.GetSEMan().HaveStatusEffect("Wyrd Cost"))
             {
-                SE_MageCost effect = localplayer.GetSEMan().GetStatusEffect("Wyrd Cost") as SE_MageCost;
+                SE_MageCost effect = UtilityFunctions.GetStatusEffectFromName("Wyrd Cost", localplayer.GetSEMan()) as SE_MageCost;
                 string hpString = $"$item_healthuse: <color=orange>{item.m_shared.m_attack.m_attackHealthPercentage:#.0}%</color>";
                 var index = tooltip.IndexOf(hpString);
                 if (index > -1)
@@ -162,7 +162,7 @@ namespace Terraheim.Patches
             Player localplayer = Player.m_localPlayer;
             if(localplayer.GetSEMan().HaveStatusEffect("Block Power Bonus"))
             {
-                SE_BlockPowerBonus effect = localplayer.GetSEMan().GetStatusEffect("Block Power Bonus") as SE_BlockPowerBonus;
+                SE_BlockPowerBonus effect = UtilityFunctions.GetStatusEffectFromName("Block Power Bonus", localplayer.GetSEMan()) as SE_BlockPowerBonus;
                 string blockPowerString = $"$item_blockpower: <color=orange>{item.m_shared.m_blockPower}</color> <color=yellow>({item.m_shared.m_blockPower})</color>";
                 var index = tooltip.IndexOf(blockPowerString);
                 if( index > -1)
@@ -183,7 +183,7 @@ namespace Terraheim.Patches
             if(localplayer.GetSEMan().HaveStatusEffect("Parry Bonus Increase"))
             {
                 //Log.LogInfo(item.m_shared.m_timedBlockBonus);
-                SE_ParryBonus effect = localplayer.GetSEMan().GetStatusEffect("Parry Bonus Increase") as SE_ParryBonus;
+                SE_ParryBonus effect = UtilityFunctions.GetStatusEffectFromName("Parry Bonus Increase", localplayer.GetSEMan()) as SE_ParryBonus;
                 string blockPowerString = $"$item_parrybonus: <color=orange>{item.m_shared.m_timedBlockBonus}x</color>";
                 var index = tooltip.IndexOf(blockPowerString);
                 if (index > -1)
@@ -208,37 +208,37 @@ namespace Terraheim.Patches
 
             if (seman.HaveStatusEffect("One Hand Damage Bonus") && (item.m_shared.m_name.Contains("axe") || item.m_shared.m_name.Contains("battleaxe")))
             {
-                var effect = localplayer.GetSEMan().GetStatusEffect("One Hand Damage Bonus") as SE_OneHandDamageBonus;
+                var effect = UtilityFunctions.GetStatusEffectFromName("One Hand Damage Bonus", localplayer.GetSEMan()) as SE_OneHandDamageBonus;
                 totalMultiplier += effect.getDamageBonus();
             }
 
             if (seman.HaveStatusEffect("Dagger/Spear Damage Bonus") && (item.m_shared.m_name.Contains("spear") || item.m_shared.m_name.Contains("knife")))
             {
-                var effect = localplayer.GetSEMan().GetStatusEffect("Dagger/Spear Damage Bonus") as SE_DaggerSpearDmgBonus;
+                var effect = UtilityFunctions.GetStatusEffectFromName("Dagger/Spear Damage Bonus", localplayer.GetSEMan()) as SE_DaggerSpearDmgBonus;
                 totalMultiplier += effect.getDamageBonus();
             }
 
             if (seman.HaveStatusEffect("Melee Damage Bonus") && item.m_shared.m_itemType != ItemDrop.ItemData.ItemType.Bow)
             {
-                var effect = localplayer.GetSEMan().GetStatusEffect("Melee Damage Bonus") as SE_MeleeDamageBonus;
+                var effect = UtilityFunctions.GetStatusEffectFromName("Melee Damage Bonus", localplayer.GetSEMan()) as SE_MeleeDamageBonus;
                 totalMultiplier += effect.getDamageBonus();
             }
 
             if (seman.HaveStatusEffect("Ranged Damage Bonus") && item.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow)
             {
-                var effect = localplayer.GetSEMan().GetStatusEffect("Ranged Damage Bonus") as SE_RangedDmgBonus;
+                var effect = UtilityFunctions.GetStatusEffectFromName("Ranged Damage Bonus", localplayer.GetSEMan()) as SE_RangedDmgBonus;
                 totalMultiplier += effect.getDamageBonus();
             }
 
             if (seman.HaveStatusEffect("Two Handed Damage Bonus") && item.m_shared.m_itemType == ItemDrop.ItemData.ItemType.TwoHandedWeapon)
             {
-                var effect = localplayer.GetSEMan().GetStatusEffect("Two Handed Damage Bonus") as SE_TwoHandedDmgBonus;
+                var effect = UtilityFunctions.GetStatusEffectFromName("Two Handed Damage Bonus", localplayer.GetSEMan()) as SE_TwoHandedDmgBonus;
                 totalMultiplier += effect.getDamageBonus();
             }
 
             if (seman.HaveStatusEffect("Ranger Weapon Bonus") && (item.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow || item.m_shared.m_name.Contains("spear") || item.m_shared.m_name.Contains("knife")))
             {
-                var effect = localplayer.GetSEMan().GetStatusEffect("Ranger Weapon Bonus") as SE_RangerWeaponBonus;
+                var effect = UtilityFunctions.GetStatusEffectFromName("Ranger Weapon Bonus", localplayer.GetSEMan()) as SE_RangerWeaponBonus;
                 totalMultiplier += effect.GetDamageBonus();
             }
 
@@ -246,18 +246,18 @@ namespace Terraheim.Patches
                 item.m_shared.m_name.Contains("_spear") ||
                 item.m_shared.m_name.Contains("bomb"))
             {
-                var effect = seman.GetStatusEffect("Throwing Damage Bonus") as SE_ThrowingDamageBonus;
+                var effect = UtilityFunctions.GetStatusEffectFromName("Throwing Damage Bonus", seman) as SE_ThrowingDamageBonus;
                 if(effect != null)
                     totalMultiplier += effect.getDamageBonus();
             }
             if (seman.HaveStatusEffect("Wolftears"))
             {
-                SE_Wolftears effect = seman.GetStatusEffect("Wolftears") as SE_Wolftears;
+                SE_Wolftears effect = UtilityFunctions.GetStatusEffectFromName("Wolftears", seman) as SE_Wolftears;
                 totalMultiplier += effect.GetDamageBonus();
             }
             if (seman.HaveStatusEffect("Battle Furor"))
             {
-                SE_FullHPDamageBonus effect = seman.GetStatusEffect("Battle Furor") as SE_FullHPDamageBonus;
+                SE_FullHPDamageBonus effect = UtilityFunctions.GetStatusEffectFromName("Battle Furor", seman) as SE_FullHPDamageBonus;
                 if (localplayer.GetHealthPercentage() >= effect.GetActivationHP())
                 {
                     totalMultiplier += effect.GetDamageBonus();
@@ -265,13 +265,13 @@ namespace Terraheim.Patches
             }
             if (seman.HaveStatusEffect("Silver Damage Bonus") && (item.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow || item.m_shared.m_name.Contains("spear") || item.m_shared.m_name.Contains("knife")))
             {
-                var effect = localplayer.GetSEMan().GetStatusEffect("Silver Damage Bonus") as SE_SilverDamageBonus;
+                var effect = UtilityFunctions.GetStatusEffectFromName("Silver Damage Bonus", localplayer.GetSEMan()) as SE_SilverDamageBonus;
                 spiritDamage += (item.GetDamage().GetTotalDamage() * effect.GetDamageBonus()) / 2;
                 frostDamage += (item.GetDamage().GetTotalDamage() * effect.GetDamageBonus()) / 2;
             }
             if (seman.HaveStatusEffect("Spirit Damage Bonus"))
             {
-                var effect = localplayer.GetSEMan().GetStatusEffect("Spirit Damage Bonus") as SE_SpiritDamageBonus;
+                var effect = UtilityFunctions.GetStatusEffectFromName("Spirit Damage Bonus", localplayer.GetSEMan()) as SE_SpiritDamageBonus;
                 spiritDamage += effect.GetDamageBonus();
             }
             if (seman.HaveStatusEffect("ShieldFireParryListener"))
@@ -457,7 +457,7 @@ namespace Terraheim.Patches
                 return;
             if (localplayer.GetSEMan().HaveStatusEffect("Backstab Bonus"))
             {
-                SE_BackstabBonus effect = localplayer.GetSEMan().GetStatusEffect("Backstab Bonus") as SE_BackstabBonus;
+                SE_BackstabBonus effect = UtilityFunctions.GetStatusEffectFromName("Backstab Bonus", localplayer.GetSEMan()) as SE_BackstabBonus;
                 string backstabString = $"$item_backstab: <color=orange>{item.m_shared.m_backstabBonus}x</color>";
                 var index = tooltip.IndexOf(backstabString);
                 if (index > -1)
@@ -475,7 +475,7 @@ namespace Terraheim.Patches
                 return;
             if (localplayer.GetSEMan().HaveStatusEffect("Heal On Block"))
             {
-                SE_HealOnBlock effect = localplayer.GetSEMan().GetStatusEffect("Heal On Block") as SE_HealOnBlock;
+                SE_HealOnBlock effect = UtilityFunctions.GetStatusEffectFromName("Heal On Block", localplayer.GetSEMan()) as SE_HealOnBlock;
 
                 if ((item.m_shared.m_name.Contains("tower") || item.m_shared.m_name.Contains("shield_serpentscale")) && !item.m_shared.m_description.Contains("Heal"))
                     item.m_shared.m_description += $"\n<color=cyan>Heal {item.GetBaseBlockPower() * effect.GetBlockHeal()} HP on a successful block.</color>";

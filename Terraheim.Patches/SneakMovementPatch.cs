@@ -22,7 +22,7 @@ namespace Terraheim.Patches
         {
             if (__instance.GetSEMan().HaveStatusEffect("Sneak Movement"))
             {
-                var effectMod = (__instance.GetSEMan().GetStatusEffect("Sneak Movement") as SE_SneakMovement).GetBonus();
+                var effectMod = (UtilityFunctions.GetStatusEffectFromName("Sneak Movement", __instance.GetSEMan()) as SE_SneakMovement).GetBonus();
                 //Log.LogMessage("Stamina Usage: " + __instance.m_sneakStaminaDrain);
                 __instance.m_sneakStaminaDrain = baseStaminaUse * effectMod;
                 (__instance as Character).m_crouchSpeed = baseSpeed * (1 + effectMod);

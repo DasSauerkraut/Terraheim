@@ -4,6 +4,7 @@ using Terraheim.ArmorEffects;
 using Jotunn;
 using Jotunn.Entities;
 using Jotunn.Managers;
+using Terraheim.Utility;
 
 namespace Terraheim.Patches
 {
@@ -28,7 +29,7 @@ namespace Terraheim.Patches
                     {
                         if(food.m_item.m_shared.m_foodBurnTime == foodDuration[food.m_name])
                         {
-                            SE_FoodUsage effect = __instance.GetSEMan().GetStatusEffect("Food Usage") as SE_FoodUsage;
+                            SE_FoodUsage effect = UtilityFunctions.GetStatusEffectFromName("Food Usage", __instance.GetSEMan()) as SE_FoodUsage;
                             //Log.LogMessage("Dictionary Contains Food " + food.m_name + " base burn " + food.m_item.m_shared.m_foodBurnTime + " Dict Usage " + foodDuration[food.m_name]);
                             food.m_item.m_shared.m_foodBurnTime = foodDuration[food.m_name] * (1 + effect.GetFoodUsage());
                             //Log.LogMessage("mod burn " + food.m_item.m_shared.m_foodBurnTime);
@@ -49,7 +50,7 @@ namespace Terraheim.Patches
                         {
                             
                             //Log.LogMessage("Dictionary Contains Food " + food.m_name + " base burn " + food.m_item.m_shared.m_foodBurnTime + " Dict Usage " + foodDuration[food.m_name]);
-                            food.m_item.m_shared.m_foodBurnTime = foodDuration[food.m_name] * (__instance.GetSEMan().GetStatusEffect("Withdrawals") as SE_Withdrawals).GetFoodEffect();
+                            food.m_item.m_shared.m_foodBurnTime = foodDuration[food.m_name] * (UtilityFunctions.GetStatusEffectFromName("Withdrawals", __instance.GetSEMan()) as SE_Withdrawals).GetFoodEffect();
                             //Log.LogMessage("mod burn " + food.m_item.m_shared.m_foodBurnTime);
                         }
                     }
@@ -61,7 +62,7 @@ namespace Terraheim.Patches
                      foodDuration.Add(food.m_name, food.m_item.m_shared.m_foodBurnTime);
                      if (__instance.GetSEMan().HaveStatusEffect("Food Usage"))
                      {
-                         SE_FoodUsage effect = __instance.GetSEMan().GetStatusEffect("Food Usage") as SE_FoodUsage;
+                         SE_FoodUsage effect = UtilityFunctions.GetStatusEffectFromName("Food Usage", __instance.GetSEMan()) as SE_FoodUsage;
                          //Log.LogMessage("Dictionary Contains Food " + food.m_name + " base burn " + food.m_item.m_shared.m_foodBurnTime + " Dict Usage " + foodDuration[food.m_name]);
                          food.m_item.m_shared.m_foodBurnTime = foodDuration[food.m_name] * (1 + effect.GetFoodUsage());
                          food.m_time = food.m_time * (1 + effect.GetFoodUsage());

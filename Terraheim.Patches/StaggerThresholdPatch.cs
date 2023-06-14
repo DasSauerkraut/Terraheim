@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using Terraheim.ArmorEffects;
+using Terraheim.Utility;
 
 namespace Terraheim.Patches
 {
@@ -12,7 +13,7 @@ namespace Terraheim.Patches
             if(__instance.GetSEMan().HaveStatusEffect("Stagger Capacity"))
             {
                 //Log.LogInfo($"Has Stagger Cap, initial cap {__result}");
-                __result += __result * (__instance.GetSEMan().GetStatusEffect("Stagger Capacity") as SE_StaggerCapacity).GetStaggerCap();
+                __result += __result * (UtilityFunctions.GetStatusEffectFromName("Stagger Capacity", __instance.GetSEMan()) as SE_StaggerCapacity).GetStaggerCap();
                 //Log.LogInfo($"Post {__result}");
             }
         }

@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using Terraheim.ArmorEffects;
+using Terraheim.Utility;
 
 namespace Terraheim.Patches
 {
@@ -22,7 +23,7 @@ namespace Terraheim.Patches
             //Log.LogWarning("Hit Tree!");
             if (hit.GetAttacker().GetSEMan().HaveStatusEffect("Tree Damage Bonus"))
             {
-                SE_TreeDamageBonus effect = hit.GetAttacker().GetSEMan().GetStatusEffect("Tree Damage Bonus") as SE_TreeDamageBonus;
+                SE_TreeDamageBonus effect = UtilityFunctions.GetStatusEffectFromName("Tree Damage Bonus", hit.GetAttacker().GetSEMan()) as SE_TreeDamageBonus;
                 //Log.LogMessage("Has Effect");
                 //Log.LogMessage(hit.m_damage.GetTotalDamage());
                 hit.m_damage.Modify(1 + effect.getDamageBonus());
@@ -41,7 +42,7 @@ namespace Terraheim.Patches
             //Log.LogWarning("Hit Tree!");
             if (hit.GetAttacker().GetSEMan().HaveStatusEffect("Tree Damage Bonus"))
             {
-                SE_TreeDamageBonus effect = hit.GetAttacker().GetSEMan().GetStatusEffect("Tree Damage Bonus") as SE_TreeDamageBonus;
+                SE_TreeDamageBonus effect = UtilityFunctions.GetStatusEffectFromName("Tree Damage Bonus", hit.GetAttacker().GetSEMan()) as SE_TreeDamageBonus;
                 //Log.LogMessage("Has Effect");
                 //Log.LogMessage(hit.m_damage.GetTotalDamage());
                 hit.m_damage.Modify(1 + effect.getDamageBonus());

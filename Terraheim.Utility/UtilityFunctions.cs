@@ -252,4 +252,16 @@ internal class UtilityFunctions
 		}
 		return false;
 	}
+
+    public static StatusEffect GetStatusEffectFromName(string name, SEMan seman)
+    {
+        foreach (StatusEffect statusEffect in seman.GetStatusEffects())
+        {
+            if (statusEffect.name == name)
+            {
+                return statusEffect;
+            }
+        }
+        return null;
+    }
 }

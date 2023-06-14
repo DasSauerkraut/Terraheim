@@ -42,7 +42,7 @@ internal class SE_Bloated : StatusEffect
 			SEMan sEMan = m_character.GetSEMan();
 			if (sEMan.HaveStatusEffect("Chosen"))
 			{
-				(sEMan.GetStatusEffect("Chosen") as SE_Chosen).m_currentBoons.Remove(m_name);
+				(UtilityFunctions.GetStatusEffectFromName("Chosen", sEMan) as SE_Chosen).m_currentBoons.Remove(m_name);
 			}
 		}
 		base.UpdateStatusEffect(dt);

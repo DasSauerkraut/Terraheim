@@ -43,7 +43,7 @@ public class SE_Pinned : StatusEffect
 		if (m_time >= TTL - 0.05f && !hasTriggered)
 		{
 			m_character.GetSEMan().AddStatusEffect("Pinned Cooldown", false);
-			SE_PinnedCooldown sE_PinnedCooldown = m_character.GetSEMan().GetStatusEffect("Pinned Cooldown") as SE_PinnedCooldown;
+			SE_PinnedCooldown sE_PinnedCooldown = UtilityFunctions.GetStatusEffectFromName("Pinned Cooldown", m_character.GetSEMan()) as SE_PinnedCooldown;
 			sE_PinnedCooldown.SetPinCooldownTTL(m_cooldownTTL);
 			sE_PinnedCooldown.SetBaseMods(m_baseMods);
 			hasTriggered = true;

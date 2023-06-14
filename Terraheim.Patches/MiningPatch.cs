@@ -21,7 +21,7 @@ namespace Terraheim.Patches
 
             if (hit.GetAttacker().GetSEMan().HaveStatusEffect("Mining Bonus"))
             {
-                SE_MiningBonus effect = hit.GetAttacker().GetSEMan().GetStatusEffect("Mining Bonus") as SE_MiningBonus;
+                SE_MiningBonus effect = UtilityFunctions.GetStatusEffectFromName("Mining Bonus", hit.GetAttacker().GetSEMan()) as SE_MiningBonus;
                 hit.m_damage.Modify(1 + effect.getDamageBonus());
             }
         }
@@ -35,7 +35,7 @@ namespace Terraheim.Patches
 
             if (hit.GetAttacker().GetSEMan().HaveStatusEffect("Mining Bonus"))
             {
-                SE_MiningBonus effect = hit.GetAttacker().GetSEMan().GetStatusEffect("Mining Bonus") as SE_MiningBonus;
+                SE_MiningBonus effect = UtilityFunctions.GetStatusEffectFromName("Mining Bonus", hit.GetAttacker().GetSEMan()) as SE_MiningBonus;
                 hit.m_damage.Modify(1 + effect.getDamageBonus());
             }
         }

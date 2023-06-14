@@ -31,7 +31,7 @@ namespace Terraheim.Patches
 
             if (__instance.GetSEMan().HaveStatusEffect("Wolftears"))
             {
-                var effect = __instance.GetSEMan().GetStatusEffect("Wolftears") as SE_Wolftears;
+                var effect = UtilityFunctions.GetStatusEffectFromName("Wolftears", __instance.GetSEMan()) as SE_Wolftears;
                 effect.SetIcon();
                 if (seman.m_character.GetHealth() <= hit.m_damage.GetTotalDamage() && !seman.HaveStatusEffect("Tear Protection Exhausted"))
                 {
@@ -44,7 +44,7 @@ namespace Terraheim.Patches
             }
             if (__instance.GetSEMan().HaveStatusEffect("Battle Furor"))
             {
-                var effect = __instance.GetSEMan().GetStatusEffect("Battle Furor") as SE_FullHPDamageBonus;
+                var effect = UtilityFunctions.GetStatusEffectFromName("Battle Furor", __instance.GetSEMan()) as SE_FullHPDamageBonus;
                 //Log.LogWarning("HP Percentage " + __instance.m_character.GetHealthPercentage() + " Activation Threshold " + effect.GetActivationHP());
                 if (__instance.GetHealthPercentage() < effect.GetActivationHP())
                 {

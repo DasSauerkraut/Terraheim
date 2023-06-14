@@ -21,7 +21,7 @@ internal class DrawMoveSpeedPatch
 		if (__instance.GetAttackDrawPercentage() > 0f)
 		{
 			float num = (float)balance["baseBowDrawMoveSpeeed"];
-			SE_DrawMoveSpeed sE_DrawMoveSpeed = __instance.GetSEMan().GetStatusEffect("Draw Move Speed") as SE_DrawMoveSpeed;
+			SE_DrawMoveSpeed sE_DrawMoveSpeed = UtilityFunctions.GetStatusEffectFromName("Draw Move Speed", __instance.GetSEMan()) as SE_DrawMoveSpeed;
 			if (__instance.GetCurrentWeapon().m_shared.m_name.Contains("bow_fireTH"))
 			{
 				num = 0f;
@@ -34,7 +34,7 @@ internal class DrawMoveSpeedPatch
 		}
 		else if (__instance.GetSEMan().HaveStatusEffect("Bloodrush"))
 		{
-			SE_MoveSpeedOnKill sE_MoveSpeedOnKill = __instance.GetSEMan().GetStatusEffect("Bloodrush") as SE_MoveSpeedOnKill;
+			SE_MoveSpeedOnKill sE_MoveSpeedOnKill = UtilityFunctions.GetStatusEffectFromName("Bloodrush", __instance.GetSEMan()) as SE_MoveSpeedOnKill;
 			__result *= 1f + sE_MoveSpeedOnKill.GetCurrentSpeedBonus();
 		}
 	}
@@ -45,7 +45,7 @@ internal class DrawMoveSpeedPatch
 	{
 		if (__instance.GetSEMan().HaveStatusEffect("Bloodrush"))
 		{
-			SE_MoveSpeedOnKill sE_MoveSpeedOnKill = __instance.GetSEMan().GetStatusEffect("Bloodrush") as SE_MoveSpeedOnKill;
+			SE_MoveSpeedOnKill sE_MoveSpeedOnKill = UtilityFunctions.GetStatusEffectFromName("Bloodrush", __instance.GetSEMan()) as SE_MoveSpeedOnKill;
 			__result *= 1f + sE_MoveSpeedOnKill.GetCurrentSpeedBonus();
 		}
 	}

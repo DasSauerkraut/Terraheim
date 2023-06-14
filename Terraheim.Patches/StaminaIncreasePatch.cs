@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using Terraheim.ArmorEffects;
+using Terraheim.Utility;
 
 namespace Terraheim.Patches
 {
@@ -10,7 +11,7 @@ namespace Terraheim.Patches
         {
             if (__instance.GetSEMan().HaveStatusEffect("Extra Stamina"))
             {
-                SE_ExtraStamina effect = __instance.GetSEMan().GetStatusEffect("Extra Stamina") as SE_ExtraStamina;
+                SE_ExtraStamina effect = UtilityFunctions.GetStatusEffectFromName("Extra Stamina", __instance.GetSEMan()) as SE_ExtraStamina;
                 //Log.LogInfo($"Total Val Has Effect Stamina ${stamina}");
 
                 stamina += effect.GetStaminaBonus();
@@ -19,7 +20,7 @@ namespace Terraheim.Patches
 
             if (__instance.GetSEMan().HaveStatusEffect("Sprinter"))
             {
-                SE_ChallengeSprinter effect = __instance.GetSEMan().GetStatusEffect("Sprinter") as SE_ChallengeSprinter;
+                SE_ChallengeSprinter effect = UtilityFunctions.GetStatusEffectFromName("Sprinter", __instance.GetSEMan()) as SE_ChallengeSprinter;
                 Log.LogInfo($"Total Val Has Effect Stamina ${stamina}");
 
                 stamina *= effect.GetTotalStamina();

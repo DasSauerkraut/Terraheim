@@ -31,7 +31,7 @@ namespace Terraheim.Patches
                 //Log.LogMessage("Trying FOr Life Steal!");
                 if (attacker.GetSEMan().HaveStatusEffect("Life Steal"))
                 {
-                    SE_HPOnHit effect = attacker.GetSEMan().GetStatusEffect("Life Steal") as SE_HPOnHit;
+                    SE_HPOnHit effect = UtilityFunctions.GetStatusEffectFromName("Life Steal", attacker.GetSEMan()) as SE_HPOnHit;
                     if (effect.getLastHitMelee())
                     {
                         attacker.Heal(damage * effect.getHealAmount());
@@ -99,7 +99,7 @@ namespace Terraheim.Patches
             //Marked for Death
             if (__instance.GetSEMan().HaveStatusEffect("Marked For Death FX"))
             {
-                var effect = __instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath;
+                var effect = UtilityFunctions.GetStatusEffectFromName("Marked For Death", __instance.GetSEMan()) as SE_MarkedForDeath;
                 hit.m_damage.m_blunt += hit.m_damage.m_blunt * effect.GetDamageBonus();
                 hit.m_damage.m_chop += hit.m_damage.m_chop * effect.GetDamageBonus();
                 hit.m_damage.m_damage += hit.m_damage.m_damage * effect.GetDamageBonus();
@@ -143,15 +143,15 @@ namespace Terraheim.Patches
                     if (__instance.GetSEMan().HaveStatusEffect("Marked For Death"))
                     {
                         //increase counter
-                        (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).IncreaseCounter();
+                        (UtilityFunctions.GetStatusEffectFromName("Marked For Death", __instance.GetSEMan()) as SE_MarkedForDeath).IncreaseCounter();
                     }
                     else
                     {
                         //add marked for death counter
                         __instance.GetSEMan().AddStatusEffect("Marked For Death");
-                        (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).SetActivationCount(attacker.m_nview.GetZDO().GetInt("deathMarkThreshold"));
-                        (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).SetDamageBonus(attacker.m_nview.GetZDO().GetInt("deathMarkDamageBonus"));
-                        (__instance.GetSEMan().GetStatusEffect("Marked For Death") as SE_MarkedForDeath).SetHitDuration(attacker.m_nview.GetZDO().GetInt("deathMarkTTL"));
+                        (UtilityFunctions.GetStatusEffectFromName("Marked For Death", __instance.GetSEMan()) as SE_MarkedForDeath).SetActivationCount(attacker.m_nview.GetZDO().GetInt("deathMarkThreshold"));
+                        (UtilityFunctions.GetStatusEffectFromName("Marked For Death", __instance.GetSEMan()) as SE_MarkedForDeath).SetDamageBonus(attacker.m_nview.GetZDO().GetInt("deathMarkDamageBonus"));
+                        (UtilityFunctions.GetStatusEffectFromName("Marked For Death", __instance.GetSEMan()) as SE_MarkedForDeath).SetHitDuration(attacker.m_nview.GetZDO().GetInt("deathMarkTTL"));
                     }
                 }
 
@@ -162,18 +162,18 @@ namespace Terraheim.Patches
             {
                 if (attacker.GetSEMan().HaveStatusEffect("Bloodrush"))
                 {
-                    (attacker.GetSEMan().GetStatusEffect("Bloodrush") as SE_MoveSpeedOnKill).OnKill();
+                    (UtilityFunctions.GetStatusEffectFromName("Bloodrush", attacker.GetSEMan()) as SE_MoveSpeedOnKill).OnKill();
                 }
                 else
                 {
                     attacker.GetSEMan().AddStatusEffect("Bloodrush");
-                    (attacker.GetSEMan().GetStatusEffect("Bloodrush") as SE_MoveSpeedOnKill).SetSpeedBonus((attacker.GetSEMan().GetStatusEffect("Bloodrush Listener") as SE_MoveSpeedOnKillListener).GetSpeedBonus());
+                    (UtilityFunctions.GetStatusEffectFromName("Bloodrush", attacker.GetSEMan()) as SE_MoveSpeedOnKill).SetSpeedBonus((UtilityFunctions.GetStatusEffectFromName("Bloodrush Listener", attacker.GetSEMan()) as SE_MoveSpeedOnKillListener).GetSpeedBonus());
                 }
             }
 
             if(__instance.GetHealth() <= hit.GetTotalDamage() && (attacker as Player).GetCurrentBlocker().m_shared.m_name.Contains("_shield_fire_tower"))
             {
-                SE_ShieldFireListener effect = attacker.GetSEMan().GetStatusEffect("Svalinn") as SE_ShieldFireListener;
+                SE_ShieldFireListener effect = UtilityFunctions.GetStatusEffectFromName("Svalinn", attacker.GetSEMan()) as SE_ShieldFireListener;
                 float hpToHeal = effect.OnKill(__instance.GetMaxHealth());
                 if(hpToHeal != -1f)
                 {
@@ -200,19 +200,19 @@ namespace Terraheim.Patches
                 //Log.LogInfo(__instance.m_name);
                 if (__instance.GetHealth() <= hit.GetTotalDamage())
                 {
-                    (attacker.GetSEMan().GetStatusEffect("Chosen") as SE_Chosen).OnKill();
+                    (UtilityFunctions.GetStatusEffectFromName("Chosen", attacker.GetSEMan()) as SE_Chosen).OnKill();
                 }
                 else if (UtilityFunctions.IsBoss(__instance.m_name))
                 {
                     System.Random dice = new System.Random();
                     if(dice.Next(1, 8 + 1) >= 8)
-                        (attacker.GetSEMan().GetStatusEffect("Chosen") as SE_Chosen).OnKill();
+                        (UtilityFunctions.GetStatusEffectFromName("Chosen", attacker.GetSEMan()) as SE_Chosen).OnKill();
                 }
             }
 
             if (attacker.GetSEMan().HaveStatusEffect("Bloodlust"))
             {
-                SE_Bloodlust effect = attacker.GetSEMan().GetStatusEffect("Bloodlust") as SE_Bloodlust;
+                SE_Bloodlust effect = UtilityFunctions.GetStatusEffectFromName("Bloodlust", attacker.GetSEMan()) as SE_Bloodlust;
                 //Log.LogInfo($"Has Bloodlust, Enemy Health {__instance.GetHealthPercentage() * 100}%, Threshold {effect.GetThreshold() * 100}%");
                 if(__instance.GetHealthPercentage() >= effect.GetThreshold())
                 {
@@ -246,17 +246,17 @@ namespace Terraheim.Patches
                 }
             }
 
-            if(attacker.GetSEMan().HaveStatusEffect("Maddening Visions") && (attacker.GetSEMan().GetStatusEffect("Maddening Visions") as SE_MaddeningVisions).IsActive())
+            if(attacker.GetSEMan().HaveStatusEffect("Maddening Visions") && (UtilityFunctions.GetStatusEffectFromName("Maddening Visions", attacker.GetSEMan()) as SE_MaddeningVisions).IsActive())
             {
                 float modifier;
                 if((attacker as Player).GetCurrentWeapon().m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow)
                 {
-                    modifier = (attacker.GetSEMan().GetStatusEffect("Maddening Visions") as SE_MaddeningVisions).GetRangedMalus();
+                    modifier = (UtilityFunctions.GetStatusEffectFromName("Maddening Visions", attacker.GetSEMan()) as SE_MaddeningVisions).GetRangedMalus();
 
                 }
                 else
                 {
-                    modifier = (attacker.GetSEMan().GetStatusEffect("Maddening Visions") as SE_MaddeningVisions).GetMeleeMalus();
+                    modifier = (UtilityFunctions.GetStatusEffectFromName("Maddening Visions", attacker.GetSEMan()) as SE_MaddeningVisions).GetMeleeMalus();
 
                 }
                 hit.m_damage.m_blunt -= hit.m_damage.m_blunt * modifier;
@@ -277,8 +277,8 @@ namespace Terraheim.Patches
                 if (UtilityFunctions.CheckIfVulnerable(__instance, hit) || (attacker as Player).GetCurrentWeapon().m_shared.m_name.Contains("mace_fire"))
                 {
                     __instance.m_nview.InvokeRPC("RPC_AddStatusEffect", "Pinned", false, 0, 0f);
-                    (__instance.GetSEMan().GetStatusEffect("Pinned") as SE_Pinned).SetPinTTL(attacker.m_nview.GetZDO().GetFloat("pinTTL"));
-                    (__instance.GetSEMan().GetStatusEffect("Pinned") as SE_Pinned).SetPinCooldownTTL(attacker.m_nview.GetZDO().GetFloat("pinCooldownTTL"));
+                    (UtilityFunctions.GetStatusEffectFromName("Pinned", __instance.GetSEMan()) as SE_Pinned).SetPinTTL(attacker.m_nview.GetZDO().GetFloat("pinTTL"));
+                    (UtilityFunctions.GetStatusEffectFromName("Pinned", __instance.GetSEMan()) as SE_Pinned).SetPinCooldownTTL(attacker.m_nview.GetZDO().GetFloat("pinCooldownTTL"));
                 }
             }
 
@@ -405,11 +405,11 @@ namespace Terraheim.Patches
         {
             if (hit.HaveAttacker() && hit.GetAttacker().IsPlayer() && hit.GetAttacker().GetSEMan().HaveStatusEffect("Wyrdarrow"))
             {
-                (hit.GetAttacker().GetSEMan().GetStatusEffect("Wyrdarrow") as SE_AoECounter).IncreaseCounter();
+                (UtilityFunctions.GetStatusEffectFromName("Wyrdarrow", hit.GetAttacker().GetSEMan()) as SE_AoECounter).IncreaseCounter();
             }
             if (hit.HaveAttacker() && hit.GetAttacker().IsPlayer() && hit.GetAttacker().GetSEMan().HaveStatusEffect("Rooting"))
             {
-                    (hit.GetAttacker().GetSEMan().GetStatusEffect("Rooting") as SE_Rooting).IncreaseCounter();
+                    (UtilityFunctions.GetStatusEffectFromName("Rooting", hit.GetAttacker().GetSEMan()) as SE_Rooting).IncreaseCounter();
             }
             if(hit.m_statusEffect == "Rooted Listener" && __instance.IsPlayer())
             {
@@ -420,22 +420,22 @@ namespace Terraheim.Patches
                 float duration = 8f;
                 if(hit.HaveAttacker() && hit.GetAttacker().GetSEMan().HaveStatusEffect("Rooting"))
                 {
-                    SE_Rooting sE_Rooted = hit.GetAttacker().GetSEMan().GetStatusEffect("Rooting") as SE_Rooting;
+                    SE_Rooting sE_Rooted = UtilityFunctions.GetStatusEffectFromName("Rooting", hit.GetAttacker().GetSEMan()) as SE_Rooting;
                     duration = sE_Rooted.GetRootedDuration();
                 }
                 __instance.GetSEMan().AddStatusEffect("Rooted");
-                (__instance.GetSEMan().GetStatusEffect("Rooted") as SE_Rooted).SetRootedTTL(duration);
+                (UtilityFunctions.GetStatusEffectFromName("Rooted", __instance.GetSEMan()) as SE_Rooted).SetRootedTTL(duration);
             }
             if (hit.HaveAttacker() && hit.GetAttacker().IsPlayer() && hit.GetAttacker().GetSEMan().HaveStatusEffect("Brassflesh Listener"))
             {
                 if (hit.GetAttacker().GetSEMan().HaveStatusEffect("Brassflesh"))
-                    (hit.GetAttacker().GetSEMan().GetStatusEffect("Brassflesh") as SE_ArmorOnHit).OnHit();
+                    (UtilityFunctions.GetStatusEffectFromName("Brassflesh", hit.GetAttacker().GetSEMan()) as SE_ArmorOnHit).OnHit();
                 else
                 {
                     SEMan seman = hit.GetAttacker().GetSEMan();
-                    float maxArmor = (seman.GetStatusEffect("Brassflesh Listener") as SE_ArmorOnHitListener).GetMaxArmor();
+                    float maxArmor = (UtilityFunctions.GetStatusEffectFromName("Brassflesh Listener", seman) as SE_ArmorOnHitListener).GetMaxArmor();
                     seman.AddStatusEffect("Brassflesh");
-                    (seman.GetStatusEffect("Brassflesh") as SE_ArmorOnHit).SetMaxArmor(maxArmor);
+                    (UtilityFunctions.GetStatusEffectFromName("Brassflesh", seman) as SE_ArmorOnHit).SetMaxArmor(maxArmor);
                 }
             }
 
@@ -480,14 +480,14 @@ namespace Terraheim.Patches
 
             if(__instance.IsPlayer() && __instance.GetSEMan().HaveStatusEffect("Chosen") && !__instance.IsBlocking() && !__instance.InAttack())
             {
-                (__instance.GetSEMan().GetStatusEffect("Chosen") as SE_Chosen).OnTakeDamage();
+                (UtilityFunctions.GetStatusEffectFromName("Chosen", __instance.GetSEMan()) as SE_Chosen).OnTakeDamage();
             }
 
             //Brassflesh
             if (__instance.IsPlayer() && __instance.GetSEMan().HaveStatusEffect("Brassflesh"))
             {
                 //Log.LogInfo($"starting damage: {hit.GetTotalDamage()}");
-                float damageMod = (__instance.GetSEMan().GetStatusEffect("Brassflesh") as SE_ArmorOnHit).GetCurrentDamageReduction();
+                float damageMod = (UtilityFunctions.GetStatusEffectFromName("Brassflesh", __instance.GetSEMan()) as SE_ArmorOnHit).GetCurrentDamageReduction();
                 hit.m_damage.m_blunt *= 1 - damageMod;
                 hit.m_damage.m_chop *= 1 - damageMod;
                 hit.m_damage.m_damage *= 1 - damageMod;
@@ -507,7 +507,7 @@ namespace Terraheim.Patches
                 hit.m_staggerMultiplier = 0;
                 hit.m_pushForce = 0;
                 Log.LogInfo($"starting damage: {hit.GetTotalDamage()}");
-                float damageMod = (__instance.GetSEMan().GetStatusEffect("Hyperarmor") as SE_Hyperarmor).GetArmor();
+                float damageMod = (UtilityFunctions.GetStatusEffectFromName("Hyperarmor", __instance.GetSEMan()) as SE_Hyperarmor).GetArmor();
                 hit.m_damage.m_blunt *= 1 - damageMod;
                 hit.m_damage.m_chop *= 1 - damageMod;
                 hit.m_damage.m_damage *= 1 - damageMod;
@@ -529,7 +529,7 @@ namespace Terraheim.Patches
         {
             if (__instance.IsPlayer() && __instance.m_seman.HaveStatusEffect("Retaliation") && !__instance.m_seman.HaveStatusEffect("Retaliation Cooldown"))
             {
-                SE_Retaliation effect = __instance.m_seman.GetStatusEffect("Retaliation") as SE_Retaliation;
+                SE_Retaliation effect = UtilityFunctions.GetStatusEffectFromName("Retaliation", __instance.m_seman) as SE_Retaliation;
                 if (effect.GetStored() > 0)
                 {
                     Log.LogInfo($"Retaliation! Dealing {effect.GetStored()} pierce damage.");

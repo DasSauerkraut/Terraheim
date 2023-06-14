@@ -69,7 +69,7 @@ internal class SE_Withdrawals : StatusEffect
 		}
 		if ((sEMan.HaveStatusEffect("$item_mead_stamina_medium") || sEMan.HaveStatusEffect("$item_mead_stamina_minor") || sEMan.HaveStatusEffect("$item_mead_hp_minor") || sEMan.HaveStatusEffect("$item_mead_hp_medium")) && m_time >= TTL - 0.1f && !m_hasTriggered && sEMan.HaveStatusEffect("Chosen"))
 		{
-			(sEMan.GetStatusEffect("Chosen") as SE_Chosen).m_currentBanes.Remove(m_name);
+			(UtilityFunctions.GetStatusEffectFromName("Chosen", sEMan) as SE_Chosen).m_currentBanes.Remove(m_name);
 		}
 		base.UpdateStatusEffect(dt);
 	}

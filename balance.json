@@ -1039,7 +1039,7 @@
     },
     "lox": {
       "effect": "fooduse",
-      "capeEffectVal": 0.5
+      "capeEffectVal": 0.25
     },
     "linen": {
       "effect": "attackstamina",

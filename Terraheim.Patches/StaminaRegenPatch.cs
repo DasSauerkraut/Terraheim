@@ -1,5 +1,6 @@
 ﻿using Terraheim.ArmorEffects;
 using HarmonyLib;
+using Terraheim.Utility;
 
 namespace Terraheim.Patches
 {
@@ -10,12 +11,12 @@ namespace Terraheim.Patches
         {
             if (__instance.HaveStatusEffect("Stamina Regen"))
             {
-                SE_StaminaRegen effect = __instance.GetStatusEffect("Stamina Regen") as SE_StaminaRegen;
+                SE_StaminaRegen effect = UtilityFunctions.GetStatusEffectFromName("Stamina Regen", __instance) as SE_StaminaRegen;
                 staminaMultiplier += effect.GetRegenPercent();
             }
             if (__instance.HaveStatusEffect("Sprinter"))
             {
-                SE_ChallengeSprinter effect = __instance.GetStatusEffect("Sprinter") as SE_ChallengeSprinter;
+                SE_ChallengeSprinter effect = UtilityFunctions.GetStatusEffectFromName("Sprinter", __instance) as SE_ChallengeSprinter;
                 staminaMultiplier += effect.GetRegen();
             }
         }

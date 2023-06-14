@@ -54,7 +54,7 @@ internal class SE_Pestilence : StatusEffect
 			SEMan sEMan = m_character.GetSEMan();
 			if (sEMan.HaveStatusEffect("Chosen"))
 			{
-				(sEMan.GetStatusEffect("Chosen") as SE_Chosen).m_currentBanes.Remove(m_name);
+				(UtilityFunctions.GetStatusEffectFromName("Chosen", sEMan) as SE_Chosen).m_currentBanes.Remove(m_name);
 			}
 		}
 		if (m_time >= m_checkClock)

@@ -18,7 +18,7 @@ namespace TerraheimItems.Patches
         static JObject balance = UtilityFunctions.GetJsonFromFile("weaponBalance.json");
 
         [HarmonyPrefix]
-        [HarmonyPatch(typeof(CharacterAnimEvent), "FixedUpdate")]
+        [HarmonyPatch(typeof(CharacterAnimEvent), "CustomFixedUpdate")]
         static void CharacterAnimFixedUpdatePrefix(ref Animator ___m_animator, Character ___m_character)
         {
             //Make sure this is being applied to the right things
@@ -48,7 +48,7 @@ namespace TerraheimItems.Patches
             //Log.LogMessage(2);
             float statusAttackSpeedBonus = 0f;
             if (___m_character.GetSEMan().HaveStatusEffect("Attack Speed"))
-                statusAttackSpeedBonus += (___m_character.GetSEMan().GetStatusEffect("Attack Speed") as SE_AttackSpeed).GetSpeed();
+                statusAttackSpeedBonus += (UtilityFunctions.GetStatusEffectFromName("Attack Speed", ___m_character.GetSEMan()) as SE_AttackSpeed).GetSpeed();
 
             if (statusAttackSpeedBonus != 0f)
             {

@@ -13,7 +13,7 @@ namespace Terraheim.Patches
         {
             if (___m_seman.HaveStatusEffect("Battle Furor"))
             {
-                SE_FullHPDamageBonus effect = ___m_seman.GetStatusEffect("Battle Furor") as SE_FullHPDamageBonus;
+                SE_FullHPDamageBonus effect = UtilityFunctions.GetStatusEffectFromName("Battle Furor", ___m_seman) as SE_FullHPDamageBonus;
                 if (__instance.GetHealthPercentage() < effect.GetActivationHP() && effect.m_icon != null)
                 {
                     effect.ClearIcon();

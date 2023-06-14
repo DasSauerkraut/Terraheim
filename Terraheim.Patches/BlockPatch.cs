@@ -23,7 +23,7 @@ internal class BlockPatch
 	{
 		if (___m_seman.HaveStatusEffect("Block Stamina Use") && (___m_seman.m_character as Humanoid).GetCurrentWeapon() != (___m_seman.m_character as Humanoid).m_unarmedWeapon.m_itemData)
 		{
-			SE_BlockStamUse sE_BlockStamUse = ___m_seman.GetStatusEffect("Block Stamina Use") as SE_BlockStamUse;
+			SE_BlockStamUse sE_BlockStamUse = UtilityFunctions.GetStatusEffectFromName("Block Stamina Use", ___m_seman) as SE_BlockStamUse;
 			___m_blockStaminaDrain = baseStaminaUse * (1f - sE_BlockStamUse.getBlockStaminaUse());
 		}
 		else if (___m_blockStaminaDrain != baseStaminaUse)
@@ -37,7 +37,7 @@ internal class BlockPatch
 	{
 		if (___m_seman.HaveStatusEffect("Heal On Block") && (bool)(___m_seman.m_character as Humanoid) && (___m_seman.m_character as Humanoid).m_leftItem != (___m_seman.m_character as Humanoid).m_unarmedWeapon.m_itemData && (___m_seman.m_character as Humanoid).m_leftItem != null)
 		{
-			SE_HealOnBlock sE_HealOnBlock = ___m_seman.GetStatusEffect("Heal On Block") as SE_HealOnBlock;
+			SE_HealOnBlock sE_HealOnBlock = UtilityFunctions.GetStatusEffectFromName("Heal On Block", ___m_seman) as SE_HealOnBlock;
 			ItemDrop.ItemData leftItem = (___m_seman.m_character as Humanoid).m_leftItem;
 			bool flag = ___m_blockTimer != -1f && (float)balance["perfectBlockWindow"] >= ___m_blockTimer;
 			if (leftItem.m_shared.m_name.Contains("tower") || leftItem.m_shared.m_name.Contains("shield_serpentscale"))
@@ -58,7 +58,7 @@ internal class BlockPatch
 		}
 		if (___m_seman.HaveStatusEffect("Chosen"))
 		{
-			SE_Chosen sE_Chosen = ___m_seman.GetStatusEffect("Chosen") as SE_Chosen;
+			SE_Chosen sE_Chosen = UtilityFunctions.GetStatusEffectFromName("Chosen", ___m_seman) as SE_Chosen;
 			if (___m_blockTimer != -1f && (float)balance["perfectBlockWindow"] >= ___m_blockTimer)
 			{
 				sE_Chosen.OnParry();
