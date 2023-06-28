@@ -28,7 +28,7 @@ public class SE_MarkedForDeath : StatusEffect
 		m_count++;
 		if (m_count >= m_activationCount && !m_character.GetSEMan().HaveStatusEffect("Marked For Death FX"))
 		{
-			m_character.GetSEMan().AddStatusEffect("Marked For Death FX", false);
+			m_character.GetSEMan().AddStatusEffect("Marked For Death FX".GetStableHashCode(), false);
 			AudioSource audioSource = m_character.GetComponent<AudioSource>();
 			if (audioSource == null)
 			{
@@ -48,7 +48,7 @@ public class SE_MarkedForDeath : StatusEffect
 			ClearCounter();
 			if (m_character.GetSEMan().HaveStatusEffect("Marked For Death FX"))
 			{
-				m_character.GetSEMan().RemoveStatusEffect("Marked For Death FX");
+				m_character.GetSEMan().RemoveStatusEffect("Marked For Death FX".GetStableHashCode());
 			}
 		}
 	}

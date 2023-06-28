@@ -47,7 +47,7 @@ internal class SE_Afterburn : StatusEffect
 	{
 		if (m_character.GetSEMan().HaveStatusEffect("Afterburn Cooldown"))
 		{
-			m_character.GetSEMan().RemoveStatusEffect("AfterburnFire", quiet: true);
+			m_character.GetSEMan().RemoveStatusEffect("AfterburnFire".GetStableHashCode(), quiet: true);
 		}
 		if (m_time >= TTL - 0.05f && !m_hasTriggered)
 		{

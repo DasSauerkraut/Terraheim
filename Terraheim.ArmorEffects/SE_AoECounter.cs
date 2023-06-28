@@ -39,7 +39,7 @@ internal class SE_AoECounter : StatusEffect
 		if (m_count >= m_activationCount && !m_character.GetSEMan().HaveStatusEffect("WyrdarrowFX"))
 		{
 			Log.LogInfo("Adding status");
-			m_character.GetSEMan().AddStatusEffect("WyrdarrowFX", false);
+			m_character.GetSEMan().AddStatusEffect("WyrdarrowFX".GetStableHashCode(), false);
 			AudioSource audioSource = m_character.GetComponent<AudioSource>();
 			if (audioSource == null)
 			{
@@ -57,8 +57,8 @@ internal class SE_AoECounter : StatusEffect
 		m_count -= m_activationCount;
 		if (m_count < m_activationCount && m_character.GetSEMan().HaveStatusEffect("WyrdarrowFX"))
 		{
-			m_character.GetSEMan().RemoveStatusEffect("WyrdarrowFX");
-			m_character.GetSEMan().AddStatusEffect("Wyrd Exhausted", false);
+			m_character.GetSEMan().RemoveStatusEffect("WyrdarrowFX".GetStableHashCode());
+			m_character.GetSEMan().AddStatusEffect("Wyrd Exhausted".GetStableHashCode(), false);
 		}
 		if (m_count < 1)
 		{

@@ -45,12 +45,12 @@ internal class SE_Wolftears : StatusEffect
 		if (num > 4 && !m_character.GetSEMan().HaveStatusEffect("WolftearsFX"))
 		{
 			Log.LogInfo("Adding status");
-			m_character.GetSEMan().AddStatusEffect("WolftearsFX", false);
+			m_character.GetSEMan().AddStatusEffect("WolftearsFX".GetStableHashCode(), false);
 		}
 		else if (num <= 4 && m_character.GetSEMan().HaveStatusEffect("WolftearsFX"))
 		{
 			Log.LogInfo("Remove status");
-			m_character.GetSEMan().RemoveStatusEffect("WolftearsFX");
+			m_character.GetSEMan().RemoveStatusEffect("WolftearsFX".GetStableHashCode());
 		}
 	}
 

@@ -21,7 +21,7 @@ namespace Terraheim.Patches
 
         public static void RPC_AddStatusEffectForAll(long sender, string name, bool resetTime, int itemLevel, float skillLevel)
         {
-            m_seman.Internal_AddStatusEffect(name, resetTime, itemLevel, skillLevel);
+            m_seman.Internal_AddStatusEffect(name.GetStableHashCode(), resetTime, itemLevel, skillLevel);
         }
     }
 }

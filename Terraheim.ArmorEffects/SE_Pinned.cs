@@ -38,11 +38,11 @@ public class SE_Pinned : StatusEffect
 	{
 		if (m_character.GetSEMan().HaveStatusEffect("Pinned Cooldown"))
 		{
-			m_character.GetSEMan().RemoveStatusEffect("Pinned");
+			m_character.GetSEMan().RemoveStatusEffect("Pinned".GetStableHashCode());
 		}
 		if (m_time >= TTL - 0.05f && !hasTriggered)
 		{
-			m_character.GetSEMan().AddStatusEffect("Pinned Cooldown", false);
+			m_character.GetSEMan().AddStatusEffect("Pinned Cooldown".GetStableHashCode(), false);
 			SE_PinnedCooldown sE_PinnedCooldown = UtilityFunctions.GetStatusEffectFromName("Pinned Cooldown", m_character.GetSEMan()) as SE_PinnedCooldown;
 			sE_PinnedCooldown.SetPinCooldownTTL(m_cooldownTTL);
 			sE_PinnedCooldown.SetBaseMods(m_baseMods);

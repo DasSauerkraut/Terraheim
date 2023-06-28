@@ -23,7 +23,7 @@ internal class SE_AoECounterFX : StatusEffect
 		base.UpdateStatusEffect(dt);
 		if (!m_character.GetSEMan().HaveStatusEffect("Wyrdarrow"))
 		{
-			m_character.GetSEMan().RemoveStatusEffect("WyrdarrowFX");
+			m_character.GetSEMan().RemoveStatusEffect("WyrdarrowFX".GetStableHashCode());
 		}
 	}
 }

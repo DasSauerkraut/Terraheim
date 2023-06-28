@@ -35,7 +35,7 @@ public class SE_Rooted : StatusEffect
     {
         if (m_character.GetSEMan().HaveStatusEffect("Rooted Cooldown"))
         {
-            m_character.GetSEMan().RemoveStatusEffect("Rooted");
+            m_character.GetSEMan().RemoveStatusEffect("Rooted".GetStableHashCode());
         }
         if (m_time >= 3f && !hasTriggered)
         {

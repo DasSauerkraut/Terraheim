@@ -38,7 +38,7 @@ namespace Terraheim.Patches
                     Log.LogInfo($"Would Kill defender! Damage: {hit.m_damage.GetTotalDamage()}, attacker health: {__instance.GetHealth()}");
 
                     hit.m_damage.Modify(0);
-                    seman.AddStatusEffect("Tear Protection Exhausted");
+                    seman.AddStatusEffect("Tear Protection Exhausted".GetStableHashCode());
                     __instance.SetHealth(1f);
                 }
             }

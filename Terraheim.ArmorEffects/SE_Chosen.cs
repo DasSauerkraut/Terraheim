@@ -94,7 +94,7 @@ namespace Terraheim.ArmorEffects
                     case 1:
                         if (!seman.HaveStatusEffect("Bloated"))
                         {
-                            seman.AddStatusEffect("Bloated");
+                            seman.AddStatusEffect("Bloated".GetStableHashCode());
                             (UtilityFunctions.GetStatusEffectFromName("Bloated", seman) as SE_Bloated).TTL = m_boonBaseTTL;
                             m_currentBoons.Add("Bloated");
                             added = true;
@@ -117,7 +117,7 @@ namespace Terraheim.ArmorEffects
                     case 2:
                         if (!seman.HaveStatusEffect("Bloodlust"))
                         {
-                            seman.AddStatusEffect("Bloodlust");
+                            seman.AddStatusEffect("Bloodlust".GetStableHashCode());
                             (UtilityFunctions.GetStatusEffectFromName("Bloodlust", seman) as SE_Bloodlust).TTL = m_boonBaseTTL;
                             m_currentBoons.Add("Bloodlust");
                             added = true;
@@ -140,7 +140,7 @@ namespace Terraheim.ArmorEffects
                     case 3:
                         if (!seman.HaveStatusEffect("Hidden Knowledge"))
                         {
-                            seman.AddStatusEffect("Hidden Knowledge");
+                            seman.AddStatusEffect("Hidden Knowledge".GetStableHashCode());
                             (UtilityFunctions.GetStatusEffectFromName("Hidden Knowledge", seman) as SE_HiddenKnowledge).TTL = m_boonBaseTTL;
                             m_currentBoons.Add("Hidden Knowledge");
                             added = true;
@@ -163,7 +163,7 @@ namespace Terraheim.ArmorEffects
                     case 4:
                         if (!seman.HaveStatusEffect("Adrenaline"))
                         {
-                            seman.AddStatusEffect("Adrenaline");
+                            seman.AddStatusEffect("Adrenaline".GetStableHashCode());
                             (UtilityFunctions.GetStatusEffectFromName("Adrenaline", seman) as SE_Adrenaline).TTL = m_boonBaseTTL;
                             m_currentBoons.Add("Adrenaline");
                             added = true;
@@ -186,7 +186,7 @@ namespace Terraheim.ArmorEffects
                     case 5:
                         if (!seman.HaveStatusEffect("Blinding Rage"))
                         {
-                            seman.AddStatusEffect("Blinding Rage");
+                            seman.AddStatusEffect("Blinding Rage".GetStableHashCode());
                             (UtilityFunctions.GetStatusEffectFromName("Blinding Rage", seman) as SE_BlindingRage).TTL = m_baneBaseTTL;
                             m_currentBanes.Add("Blinding Rage");
                             added = true;
@@ -209,7 +209,7 @@ namespace Terraheim.ArmorEffects
                     case 6:
                         if (!seman.HaveStatusEffect("Pestilence"))
                         {
-                            seman.AddStatusEffect("Pestilence");
+                            seman.AddStatusEffect("Pestilence".GetStableHashCode());
                             (UtilityFunctions.GetStatusEffectFromName("Pestilence", seman) as SE_Pestilence).TTL = m_baneBaseTTL;
                             m_currentBanes.Add("Pestilence");
                             added = true;
@@ -232,7 +232,7 @@ namespace Terraheim.ArmorEffects
                     case 7:
                         if (!seman.HaveStatusEffect("Maddening Visions"))
                         {
-                            seman.AddStatusEffect("Maddening Visions");
+                            seman.AddStatusEffect("Maddening Visions".GetStableHashCode());
                             (UtilityFunctions.GetStatusEffectFromName("Maddening Visions", seman) as SE_MaddeningVisions).TTL = m_baneBaseTTL;
                             m_currentBanes.Add("Maddening Visions");
                             added = true;
@@ -255,7 +255,7 @@ namespace Terraheim.ArmorEffects
                     case 8:
                         if (!seman.HaveStatusEffect("Withdrawals"))
                         {
-                            seman.AddStatusEffect("Withdrawals");
+                            seman.AddStatusEffect("Withdrawals".GetStableHashCode());
                             (UtilityFunctions.GetStatusEffectFromName("Withdrawals", seman) as SE_Withdrawals).TTL = m_baneBaseTTL;
                             m_currentBanes.Add("Withdrawals");
                             added = true;
@@ -311,13 +311,13 @@ namespace Terraheim.ArmorEffects
                 boon4.SetTTL(m_boonMaxTTL);
 
                 if (seman.HaveStatusEffect("Blinding Rage"))
-                    seman.RemoveStatusEffect("Blinding Rage");
+                    seman.RemoveStatusEffect("Blinding Rage".GetStableHashCode());
                 if (seman.HaveStatusEffect("Pestilence"))
-                    seman.RemoveStatusEffect("Pestilence");
+                    seman.RemoveStatusEffect("Pestilence".GetStableHashCode());
                 if (seman.HaveStatusEffect("Maddening Visions"))
-                    seman.RemoveStatusEffect("Maddening Visions");
+                    seman.RemoveStatusEffect("Maddening Visions".GetStableHashCode());
                 if (seman.HaveStatusEffect("Withdrawals"))
-                    seman.RemoveStatusEffect("Withdrawals");
+                    seman.RemoveStatusEffect("Withdrawals".GetStableHashCode());
             }
             else if(m_currentBanes.Count == 4)
             {
@@ -352,13 +352,13 @@ namespace Terraheim.ArmorEffects
                 bane4.SetTTL(m_baneMaxTTL);
 
                 if (seman.HaveStatusEffect("Bloated"))
-                    seman.RemoveStatusEffect("Bloated");
+                    seman.RemoveStatusEffect("Bloated".GetStableHashCode());
                 if (seman.HaveStatusEffect("Bloodlust"))
-                    seman.RemoveStatusEffect("Bloodlust");
+                    seman.RemoveStatusEffect("Bloodlust".GetStableHashCode());
                 if (seman.HaveStatusEffect("Hidden Knowledge"))
-                    seman.RemoveStatusEffect("Hidden Knowledge");
+                    seman.RemoveStatusEffect("Hidden Knowledge".GetStableHashCode());
                 if (seman.HaveStatusEffect("Adrenaline"))
-                    seman.RemoveStatusEffect("Adrenaline");
+                    seman.RemoveStatusEffect("Adrenaline".GetStableHashCode());
             }
         }
 
@@ -410,9 +410,9 @@ namespace Terraheim.ArmorEffects
                 }
                 SEMan seman = m_character.GetSEMan();
                 foreach(var boon in m_currentBoons)
-                    seman.RemoveStatusEffect(boon);
+                    seman.RemoveStatusEffect(boon.GetStableHashCode());
                 foreach (var bane in m_currentBanes)
-                    seman.RemoveStatusEffect(bane);
+                    seman.RemoveStatusEffect(bane.GetStableHashCode());
                 m_currentBoons.Clear();
                 m_currentBanes.Clear();
 

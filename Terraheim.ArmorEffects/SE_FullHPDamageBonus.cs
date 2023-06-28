@@ -30,7 +30,7 @@ internal class SE_FullHPDamageBonus : StatusEffect
 		if (m_character.GetHealthPercentage() >= m_activationHealth && !m_character.GetSEMan().HaveStatusEffect("Battle FurorFX"))
 		{
 			Log.LogInfo("Adding status");
-			m_character.GetSEMan().AddStatusEffect("Battle FurorFX", false);
+			m_character.GetSEMan().AddStatusEffect("Battle FurorFX".GetStableHashCode(), false);
 			SetIcon();
 		}
 	}
@@ -44,7 +44,7 @@ internal class SE_FullHPDamageBonus : StatusEffect
 		if (m_character.GetHealthPercentage() < m_activationHealth && m_character.GetSEMan().HaveStatusEffect("Battle FurorFX"))
 		{
 			Log.LogInfo("Remove status");
-			m_character.GetSEMan().RemoveStatusEffect("Battle FurorFX");
+			m_character.GetSEMan().RemoveStatusEffect("Battle FurorFX".GetStableHashCode());
 			ClearIcon();
 		}
 	}

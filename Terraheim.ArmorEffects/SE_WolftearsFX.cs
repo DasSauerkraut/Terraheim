@@ -28,7 +28,7 @@ internal class SE_WolftearsFX : StatusEffect
 		base.UpdateStatusEffect(dt);
 		if (!m_character.GetSEMan().HaveStatusEffect("Wolftears"))
 		{
-			m_character.GetSEMan().RemoveStatusEffect("WolftearsFX");
+			m_character.GetSEMan().RemoveStatusEffect("WolftearsFX".GetStableHashCode());
 		}
 	}
 }

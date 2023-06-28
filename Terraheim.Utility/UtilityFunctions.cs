@@ -255,13 +255,6 @@ internal class UtilityFunctions
 
     public static StatusEffect GetStatusEffectFromName(string name, SEMan seman)
     {
-        foreach (StatusEffect statusEffect in seman.GetStatusEffects())
-        {
-            if (statusEffect.name == name)
-            {
-                return statusEffect;
-            }
-        }
-        return null;
+		return seman.GetStatusEffect(name.GetStableHashCode());
     }
 }

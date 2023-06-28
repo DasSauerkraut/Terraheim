@@ -23,7 +23,7 @@ internal class SE_RootingFX : StatusEffect
 		base.UpdateStatusEffect(dt);
 		if (!m_character.GetSEMan().HaveStatusEffect("Rooting"))
 		{
-			m_character.GetSEMan().RemoveStatusEffect("RootingFX");
+			m_character.GetSEMan().RemoveStatusEffect("RootingFX".GetStableHashCode());
 		}
 	}
 }

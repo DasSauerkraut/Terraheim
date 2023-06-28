@@ -300,4 +300,6 @@ internal class Data
 
     public static EffectList.EffectData VFXRooted { get; set; }
 
+	public static Dictionary<int, StatusEffect> StatusEffectHashes { get; set; }
+
 }

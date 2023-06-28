@@ -14,7 +14,7 @@ internal class SE_WetImmunity : StatusEffect
 		base.UpdateStatusEffect(dt);
 		if (m_character.GetSEMan().HaveStatusEffect("Wet"))
 		{
-			m_character.GetSEMan().RemoveStatusEffect("Wet");
+			m_character.GetSEMan().RemoveStatusEffect("Wet".GetStableHashCode());
 		}
 	}
 }

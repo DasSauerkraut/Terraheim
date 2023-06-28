@@ -48,7 +48,7 @@ internal class SE_Rooting : StatusEffect
 		if (m_count >= m_activationCount && !m_character.GetSEMan().HaveStatusEffect("RootingFX"))
 		{
 			Log.LogInfo("Adding status");
-			m_character.GetSEMan().AddStatusEffect("RootingFX", false);
+			m_character.GetSEMan().AddStatusEffect("RootingFX".GetStableHashCode(), false);
 		}
 		m_name = base.name + " " + m_count + " / " + m_activationCount;
 	}
@@ -59,8 +59,8 @@ internal class SE_Rooting : StatusEffect
 		m_count -= m_activationCount;
 		if (m_count < m_activationCount && m_character.GetSEMan().HaveStatusEffect("RootingFX"))
 		{
-			m_character.GetSEMan().RemoveStatusEffect("RootingFX");
-			m_character.GetSEMan().AddStatusEffect("Roots Tapped", false);
+			m_character.GetSEMan().RemoveStatusEffect("RootingFX".GetStableHashCode());
+			m_character.GetSEMan().AddStatusEffect("Roots Tapped".GetStableHashCode(), false);
 		}
 		if (m_count < 1)
 		{

@@ -21,7 +21,7 @@ internal class SE_FullHPDamageBonusFX : StatusEffect
 		base.UpdateStatusEffect(dt);
 		if (!m_character.GetSEMan().HaveStatusEffect("Battle Furor"))
 		{
-			m_character.GetSEMan().RemoveStatusEffect("Battle FurorFX");
+			m_character.GetSEMan().RemoveStatusEffect("Battle FurorFX".GetStableHashCode());
 		}
 	}
 
